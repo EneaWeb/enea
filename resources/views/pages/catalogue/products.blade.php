@@ -13,19 +13,9 @@
 
 <div class="content-frame">   
 
-    <div class="">
+    <div class="panel">
     
-        @if( Request::input('page') != 'all')
-            <div class="row">
-                <div class="col-md-12 pagination">
-                    <ul class="pagination">
-                        {!! $products->render() !!}
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        @endif
-    
-        <div class="gallery" id="links">
+        <div class="panel-body gallery" id="links">
 
         @foreach($products as $product)
             <a class="gallery-item" href="/catalogue/product/{!!$product->id!!}" title="{!!$product->name!!}" data-gallery="">

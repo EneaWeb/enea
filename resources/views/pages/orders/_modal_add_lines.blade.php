@@ -18,8 +18,9 @@
                     <h2>{!!$product->model->name!!} - 
                     {!!$product->name!!}</h2>
                     <h5>Code: {!!$product->slug!!} / #{!!$product->id!!}</h5>
-                    <h5></h5>
-                
+                    <a href="/catalogue/product/{!!$product->id!!}" target="_blank">
+                        Guarda la scheda prodotto in un'altra pagina
+                    </a>
                 </div>
 
             </div>

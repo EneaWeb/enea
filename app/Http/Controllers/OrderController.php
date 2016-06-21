@@ -72,10 +72,32 @@ class OrderController extends Controller
 		if (!Input::has('id'))
 			return redirect()->back();
 		
+			
+			$autocomplete = new Autocomplete();
+
+			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
+			$autocomplete->setInputId('place_input');
+
+			$autocomplete->setInputAttributes(array('class' => 'my-class'));
+			$autocomplete->setInputAttribute('name', 'address');
+			$autocomplete->setInputAttribute('class', 'form-control');
+
+			//$autocomplete->setValue('aaa');
+
+			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
+			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+			$autocomplete->setBound(45, 9, 45, 9, true, true);
+
+			$autocomplete->setAsync(false);
+			$autocomplete->setLanguage(Localization::getCurrentLocale());
+			
+			// render
+			$autocompleteHelper = new AutocompleteHelper();
+		
 		$customer_id = Input::get('id');
 		$customer = \App\Customer::find($customer_id);
 		
-		return view('pages.orders.step2', compact('customer'));
+		return view('pages.orders.step2', compact('customer','autocomplete', 'autocompleteHelper'));
 		
 	}
 	
