@@ -160,6 +160,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         // collective (html, form)
         Collective\Html\HtmlServiceProvider::class,
+        // dompdf
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -208,7 +210,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
-        'Cart' => \Gloudemans\Shoppingcart\Facades\Cart::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
