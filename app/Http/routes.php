@@ -22,6 +22,11 @@ Route::get('profile', function(){
 });
 */
 
+// DOMPDF
+// $pdf = App::make('dompdf.wrapper');
+// $data = []; // you can push your data in this to the pdf.
+// $pdf = PDF::loadView('PATHOFTHEVIEW', $data); return $pdf->download('KEEPTHENAMEYOUWANT.pdf');
+
 Route::get('/createuser', function(){
 	$user = new \App\User;
 	$user->username = '88showroom';
