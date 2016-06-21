@@ -1,0 +1,72 @@
+C'è un MODEL che serve solo a raggruppare gli articoli.
+ATTRIBUTES sono attributi creabili/modificabili (es colore, pelo)
+ATTRIBUTE_VALUES definiscono gli attributi della singola variation (es colore=>nero, bianco, rosa, ecc);
+
+PRODUCT è il singolo articolo, che può avere delle varianti.
+PRODUCT_VARIATIONS sono le varianti disponibili dell'ITEM.
+
+Esempio:
+
+attribute PELO
+attribute_values CON PELO, SENZA PELO
+product GIACCA RF3532
+product_variation RF3532 SENZA PELO
+
+variation_attribute
+
+
+
+
+
+
+
+//////////////////////////////////
+VALIDATION
+//////////////////////////////////
+Nel MODEL:
+
+	public static function validate( $input ) {
+
+	  $rules = array(
+	      'name' => 'required',
+	  );
+
+	  $messages = array(
+	      'name.required' => trans('validation.required-attribute-name'),
+	  );
+
+	  return Validator::make($input, $rules, $messages);
+	}
+
+Nel CONTROLLER:
+
+	public function create()
+	{
+		// try to validate the Input
+		$v = Attribute::validate(Input::all());
+		
+		// if everything ok...
+		if ( $v->passes() ) {
+			
+			// create a new instance
+			$stuff = new Stuff();
+			// populate 
+			$stuff->name = Input::get('name');
+			// setConnection -required- for BRAND DB
+			$stuff->setConnection(Auth::user()->options->brand_in_use->slug);
+			// save the line(s)
+			$stuff->save();
+
+			// success message
+			Alert::success(trans('messages.Success Message'));
+		
+		// if not ok...
+		} else {
+			
+			// prepare error message composed by validation messages
+			$messages = ''; foreach($v->messages()->messages() as $error) { $messages .= $error[0].'<br>'; } Alert::error($messages);
+		}
+		
+		// redirect back
+		return redirect()->back();
+	}

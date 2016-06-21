@@ -1,0 +1,39 @@
+/**
+
+ENEAWEB
+
+**/
+
+.brand-avatar-mini {
+	width:30px; height:30px;
+	background-size:cover;
+	margin-right:12px;
+}
+
+.brands-list .list-group-item {
+	height:58px;
+}
+
+.no-margin-bottom {
+	margin-bottom:0px;
+}
+
+.panel .panel-body2 {
+	padding: 15px;
+	position: relative;
+}
+
+.pac-container,
+.colorpicker.dropdown-menu {
+	z-index:9999;
+}
+
+span.little-delete-icon {
+	float:right;
+	font-size:17px;
+	color:#7C0000;
+}
+
+.maxw500 {
+	max-width:500px;
+}
