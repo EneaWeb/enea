@@ -4,5 +4,3 @@ Homestead.yaml
 Homestead.json
 .env
 /database/*
-/public/phpliteadmin.php
-/public/phpliteadmin.config.php
