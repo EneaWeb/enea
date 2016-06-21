@@ -160,8 +160,6 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         // collective (html, form)
         Collective\Html\HtmlServiceProvider::class,
-        // shopping cart
-        \Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
     ],
 
     /*

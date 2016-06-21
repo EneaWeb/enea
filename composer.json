@@ -14,7 +14,7 @@
         "willdurand/geocoder": "2.8.2",
         "geocoder-php/geocoder-extra": "1.4.0",
         "intervention/image": "^2.3",
-        "gloudemans/shoppingcart": "^2.0"
+        "barryvdh/laravel-dompdf": "0.6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
