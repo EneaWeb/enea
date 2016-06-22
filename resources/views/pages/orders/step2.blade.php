@@ -119,7 +119,7 @@
                                     <div class="clearfix"></div><br>
                                 </div>
                             </div>
- 
+                            {!!Form::close()!!}
                         </div>
                     </div>
                 </div>
@@ -127,6 +127,6 @@
         </div>
     </div>
 
-@include('pages.customers._modal_add_customer')
+@include('pages.customers._modal_add_delivery')
 
 @stop

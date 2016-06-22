@@ -85,7 +85,8 @@
                                     <tr>
                                         <th>{!!trans('auth.Id')!!}</th>
                                         <th>{!!trans('auth.Customer')!!}</th>
-                                        <th>{!!trans('auth.Qty')!!}</th>
+                                        <th>Articoli</th>
+                                        <th>Pezzi</th>
                                         <th>{!!trans('auth.Total')!!}</th>
                                         <th>{!!trans('auth.Options')!!}</th>
                                     </tr>
@@ -94,8 +95,17 @@
                                     @if ($orders != NULL)
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{!!$order->id!!}</td>
-                                            <td>{!!\App\Customer::find($order->customer_id)->companyname!!}</td>
+                                            <td>
+                                                <a href="/order/details/{!!$order->id!!}">
+                                                    {!!$order->id!!}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="/order/details/{!!$order->id!!}">
+                                                    {!!\App\Customer::find($order->customer_id)->companyname!!}
+                                                </a>
+                                            </td>
+                                            <td>{!!$order->items_color_grouped!!}</td>
                                             <td>{!!$order->qty!!}</td>
                                             <td>€ {!!number_format($order->total, 2)!!}</td>
                                             <td>

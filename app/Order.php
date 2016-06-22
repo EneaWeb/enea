@@ -29,7 +29,7 @@ class Order extends Model
         'note',
         'season_delivery_id',
         'active',
-        'items',
+        'items_color_grouped',
         'qty',
         'discount',
         'price',
@@ -66,10 +66,30 @@ class Order extends Model
 	{
 		return $this->belongsTo('\App\User');
 	}
+    
+    public function customer()
+    {
+        return $this->belongsTo('\App\Customer');
+    }
+    
+    public function image()
+    {
+        return $this->belongsTo('\App\OrderImage');
+    }
 	
-	public function oreder_details()
+	public function order_details()
 	{
 		return $this->hasMany('\App\OrderDetail');
 	}
+    
+    public function order_items()
+    {
+        return $this->hasMany('\App\OrderDetail');
+    }
+    
+    public function payment()
+    {
+        return $this->belongsTo('\App\Payment');
+    }
 
 }

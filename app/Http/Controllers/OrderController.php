@@ -208,15 +208,20 @@ class OrderController extends Controller
 		
 		foreach ($items as $k => $v) {
 			$item = \App\Item::find($k);
-			$product_id = $item->product->id;			
-			$products_array[] = ['product_id' => $product_id , 'color_id' => $item->color_id];
+			$product_id = $item->product->id;
+			$products_array[$product_id][] = $item->color_id;
+			$products_array[$product_id] = array_map("unserialize", array_unique(array_map("serialize", $products_array[$product_id])));
 			// get quantity
 			$qty += $v;
 			// get prices
 			$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()->price;
 			$subtotal += $price * $v;
 		}
-		
+		// numero di product+color
+		$items_color_grouped = 0;
+		foreach ($products_array as $a) {
+		    $items_color_grouped+= count($a);
+		}
 		// payment variation => discount
 		if (\App\Payment::find($payment_id)->action == 'discount') {
 			$total = $subtotal * ((100-\App\Payment::find($payment_id)->amount) / 100);
@@ -229,9 +234,12 @@ class OrderController extends Controller
 		
 		Session::put('order.subtotal',$subtotal);
 		Session::put('order.total', $total);
+		Session::put('order.items_color_grouped', $items_color_grouped);
+		Session::put('order.products_array', $products_array);
 		
 		return view('pages.orders.step4', compact(
-               'fullOrder', 
+               'fullOrder',
+               'unique_products_array',
                'products_array', 
                'subtotal', 
                'qty', 
@@ -245,10 +253,14 @@ class OrderController extends Controller
 		$order = new \App\Order;
 		$order->user_id = Auth::user()->id;
 		$order->customer_id = Session::get('order.customer_id');
+		$order->payment_id = Session::get('order.payment_id');
 		$order->season_id = \App\Option::where('name', 'active_season')->first()->value;
 		$order->season_list_id = Session::get('order.season_list_id');
+		$order->customer_delivery_id = Session::get('order.customer_delivery_id');
+		$order->items_color_grouped = Session::get('order.items_color_grouped');
 		$order->note = Input::get('note');
 		$order->season_delivery_id = Session::get('order.season_delivery_id');
+		$order->products_array = serialize(Session::get('order.products_array'));
 		$order->active = 1;
 		
 		$count = 0;
@@ -262,7 +274,11 @@ class OrderController extends Controller
 		$order->setConnection(Auth::user()->options->brand_in_use->slug);
 		$order->save();
 		
+		$colors_temp = array();
+		
 		foreach (Session::get('order.items') as $key => $val) {
+			$colors_temp[] = \App\Item::find($key)->color_id; // arrey con colori
+			
 			$order_detail = new \App\OrderDetail;
 			$order_detail->order_id = $order->id;
 			$order_detail->item_id = $key;
@@ -273,10 +289,32 @@ class OrderController extends Controller
 			$order_detail->save();
 		}
 		
-		// pulisci la variabile di sessione
+		Session::put('order.order_id', $order->id);
+		// salvo la variabile di sessione
+		$order_image = new \App\OrderImage;
+		$order_image->order_id = $order->id;
+		$order_image->image = serialize(Session::get('order'));
+		$order_image->setConnection(Auth::user()->options->brand_in_use->slug);
+		$order_image->save();
+		// pulisco la variabile di sessione
 		Session::forget('order');
 		Alert::success('Ordine salvato correttamente');
 		return redirect('/');
+	}
+	
+	public function details($id)
+	{
+		$order = \App\Order::find($id);
+		if ($order->customer_delivery_id == 0)
+			$customer_delivery = $order->customer;
+		else
+			$customer_delivery = \App\CustomerDelivery::find($order->customer_delivery_id);
+		$order_details = \App\OrderDetail::where('order_id', $order->id)->get();
+		return view('pages.orders.details', compact(
+		            'order', 
+		            'order_details', 
+		            'customer_delivery'
+		      ));
 	}
 	
 }

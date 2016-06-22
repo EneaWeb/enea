@@ -55,8 +55,7 @@ return [
 	'Sizes' => 'Taglie',
 	'Manage Orders' => 'Gestisci gli Ordini',
 	'New Order' => 'Nuovo Ordine',
-	'Continue' => 'Continua',
-	
+	'Continue' => 'Continua',	
 	
 	
 ];

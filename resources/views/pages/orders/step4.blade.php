@@ -149,14 +149,15 @@
                                                     <th style="text-align:center">{!!$size->name!!}</th>
                                                     @endforeach
                                             </tr>
-                                            @foreach ($products_array as $key => $val)
+                                            @foreach ($products_array as $product_id => $colors)
+                                            @foreach ($colors as $key => $color_id)
                                                 <tr>
-                                                    <th style="border-left:5px solid {!!\App\Color::find($val['color_id'])->hex!!}">
-                                                        {!!\App\Product::find($val['product_id'])->model->name!!}
-                                                        {!!\App\Product::find($val['product_id'])->name!!} - 
-                                                        {!!\App\Color::find($val['color_id'])->name!!}
+                                                    <th style="border-left:5px solid {!!\App\Color::find($color_id)->hex!!}">
+                                                        {!!\App\Product::find($product_id)->model->name!!}
+                                                        {!!\App\Product::find($product_id)->name!!} - 
+                                                        {!!\App\Color::find($color_id)->name!!}
                                                     </th>
-                                                    @foreach (\App\Item::where('product_id', $val['product_id'])->where('color_id', $val['color_id'])->get() as $item)
+                                                    @foreach (\App\Item::where('product_id', $product_id)->where('color_id', $color_id)->get() as $item)
                                                     <td style="text-align:center">
                                                         @if (array_key_exists($item->id, Session::get('order.items')))
                                                             {!! Session::get('order.items.'.$item->id) !!}
@@ -164,6 +165,7 @@
                                                     </td>
                                                     @endforeach
                                                 </tr>
+                                            @endforeach
                                             @endforeach
                                         </table>
                                     </h6>
@@ -214,7 +216,7 @@
                                         Clicca per confermare:
                                     </h6>
                                     <div class="col-md-6 col-xs-12">
-                                        <button onclick="location.href='{{ URL::to('/order/new/step3') }}';" class="btn btn-warning">Aggiungi/modifica gli articoli</button>
+                                        <button type="button" onclick="location.href='{{ URL::to('/order/new/step3') }}';" class="btn btn-warning">Aggiungi/modifica gli articoli</button>
                                         {!!Form::submit('Conferma', ['class'=>'btn btn-danger'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>

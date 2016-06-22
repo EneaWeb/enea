@@ -22,11 +22,6 @@ Route::get('profile', function(){
 });
 */
 
-// DOMPDF
-// $pdf = App::make('dompdf.wrapper');
-// $data = []; // you can push your data in this to the pdf.
-// $pdf = PDF::loadView('PATHOFTHEVIEW', $data); return $pdf->download('KEEPTHENAMEYOUWANT.pdf');
-
 Route::get('/createuser', function(){
 	$user = new \App\User;
 	$user->username = '88showroom';
@@ -80,6 +75,9 @@ Route::get('/create-roles', function(){
 /*
 *	AUTH // 
 */
+
+Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
+Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
 
 Route::group([
 	'prefix'     => Localization::setLocale(),
@@ -147,6 +145,7 @@ Route::group([
 	Route::get('/order/new/step3', 'OrderController@step3');
 	Route::get('/order/new/save-order', 'OrderController@step4');
 	Route::get('/order/new/confirm', 'OrderController@confirm');
+	Route::get('/order/details/{id}', 'OrderController@details');
 
 	Route::get('/test-customizer', 'CustomizerController@index');
 	

@@ -17,12 +17,12 @@
     
     {{ HTML::style('/assets/css/style.css') }}
     
-    
     {{-- EOF CSS INCLUDE --}}
     {{-- START PLUGINS --}}
     {{ HTML::script('/assets/js/plugins/jquery/jquery.min.js') }}
     {{ HTML::script('/assets/js/plugins/jquery/jquery-ui.min.js') }}
     {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap.min.js') }}
+    {{ HTML::script('/assets/js/pdfobject.min.js') }} 
     {{ HTML::script('/assets/js/alertify.min.js') }} 
     
       

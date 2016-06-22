@@ -57,8 +57,7 @@ return [
     'Add more gallery images' => 'Add more gallery images',
     'Vat' => 'Vat',
     'Delivery Addresses' => 'Delivery Addresses',
-    'Receiver' => 'Destinatario',
-    
+    'Receiver' => 'Receiver',
     
     
 ];
