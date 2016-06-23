@@ -44,17 +44,21 @@
                             </th>
                             @foreach (\App\Item::where('product_id', $product->id)->where('color_id', $color_id)->get() as $item)
                             <td style="padding:2px">
-                                <input name="{!!$item->id!!}" class="form-control tip" type="number" min="0" style="height: 26px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
+                                <input name="{!!$item->id!!}" data-price="{!!\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', \App\Option::where('name', 'active_season')->first()['value'])->first()['price']!!}" class="form-control tip" type="number" min="0" style="height: 26px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
                             </td>
                             @endforeach
                         </tr>
                     {{-- */ $i2++ /* --}}
                     @endforeach
                 </table>
-                
-                <div style="margin-right:40px">
-                    <h5 style="text-align:right">N. pezzi: <span id="tot-qty-{!!$product->id!!}">0</span>{{--N pezzi. --}}</h6> 
-                    <h6 style="text-align:right">Tot: € <span id="tot-val-{!!$product->id!!}">0</span></h6>
+                <br><br>
+                <div style="margin-right:50px; margin-left:50px">
+                    <h5 style="text-align:right; padding:10px; background-color: #DDDDDD;">
+                        N. pezzi: <span id="tot-qty-{!!$product->id!!}">0</span>{{--N pezzi. --}}
+                    </h6> 
+                    <h5 style="text-align:right; padding:10px; background-color: #DDDDDD;">
+                        Tot: € <span id="tot-price-{!!$product->id!!}">0</span>{{--N pezzi. --}}
+                    </h6> 
                 </div>
                 <br><br><br>
             </div>
@@ -68,14 +72,18 @@
                     $(document).ready(function(){
                         $('form#lines-form-{!!$product->id!!} :input').change(function() {
                           var tot = 0;
+                          var price = 0;
                           $("form#lines-form-{!!$product->id!!} :input").each(function() {
                             if(!isNaN($(this).val())) { 
                             //Your code 
                                 tot += +this.value;
                             }
+                            if(!isNaN($(this).data('price'))) { 
+                                price += Number($(this).attr('data-price')*this.value);
+                            }
                           });
-                          console.log(Number(tot));
                           $('#tot-qty-{!!$product->id!!}').text(tot);
+                          $('#tot-price-{!!$product->id!!}').text(price);
                         });
                     });
                 </script>
