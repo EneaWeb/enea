@@ -77,15 +77,15 @@ class Item extends Model
 	
 	public function price_for_list($list_id)
 	{
-		return \App\ItemPrice::where('item_id', $this->id)->where('season_list_id', $list_id)->first()->price;
+		return \App\ItemPrice::where('item_id', $this->id)->where('season_list_id', $list_id)->first()['price'];
 	}
 	
 	public static function price_from_parameters($season_list_id, $product_id, $size_id, $color_id)
 	{
-		$item_id = \App\Item::where('product_id', $product_id)->where('color_id', $color_id)->where('size_id', $size_id)->first()->id;
+		$item_id = \App\Item::where('product_id', $product_id)->where('color_id', $color_id)->where('size_id', $size_id)->first()['id'];
 		if ( ! \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->get()->isEmpty() ) 
 		{
-			$result = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()->price;
+			$result = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()['price'];
 			$result = number_format($result);
 		} else {
 			$result = '';

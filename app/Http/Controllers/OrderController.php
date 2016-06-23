@@ -126,7 +126,7 @@ class OrderController extends Controller
 				// get quantity
 				$qty += $v;
 				// get prices
-				$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()->price;
+				$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()['price'];
 				$subtotal += $price * $v;
 			}
 		
@@ -242,7 +242,7 @@ class OrderController extends Controller
 			// get quantity
 			$qty += $v;
 			// get prices
-			$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()->price;
+			$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()['price'];
 			$subtotal += $price * $v;
 		}
 		// numero di product+color
@@ -311,8 +311,8 @@ class OrderController extends Controller
 			$order_detail->order_id = $order->id;
 			$order_detail->item_id = $key;
 			$order_detail->qty = $val;
-			$order_detail->price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()->price;
-			$order_detail->total_price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()->price * $val;
+			$order_detail->price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'];
+			$order_detail->total_price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'] * $val;
 			$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
 			$order_detail->save();
 		}

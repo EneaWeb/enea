@@ -121,7 +121,7 @@
                 </div>
             </td>
             <td>
-                <div style="float:left; display:inline-block; padding:16px; background-color:#591055; color:white">
+                <div style="float:left; display:inline-block; width:100px; padding:16px; background-color:#591055; color:white">
                     <h3>€ {!!number_format($order->subtotal, 2, ',','.')!!}</h3>
                 </div>
             </td>
@@ -131,7 +131,7 @@
                 </div>
             </td>
             <td>
-                <div style="float:left; display:inline-block; padding:16px; background-color:#591055; color:white">
+                <div style="float:left; display:inline-block; width:100px; padding:16px; background-color:#591055; color:white">
                     <h3>{!!($order->payment->amount != NULL) ? '-'.$order->payment->amount.'%' : '/' !!}</h3>
                 </div>
             </td>

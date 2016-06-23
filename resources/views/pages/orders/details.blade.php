@@ -23,7 +23,7 @@
                 <script>
                     PDFObject.embed("/order/pdf/{!!$order->id!!}", "#pdfview");
                 </script>
-            </div>      
+            </div>
             {{--
             <div class="col-md-12">
                 <div class="panel panel-default">
