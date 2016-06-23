@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Auth;
 use Input;
 use App\Http\Requests;
+use Session;
+use Localization;
 
 class CustomizerController extends Controller
 {
-	public function index()
+	public function cinziaaraia_index()
 	{
 		/*
 		1) TOMAIA UP
@@ -29,85 +31,14 @@ class CustomizerController extends Controller
 			2 COLORI - Black, White
 		*/
 			
-		$varianti = [
-			'tomaia_up' => [
-				'materiale' => [
-					'pitone' => [
-						'colore' => [
-							'ghost',
-							'alloy',
-							'deset',
-							'black'
-						]
-					],
-					'crosta' => [
-						'colore' => [
-							'nome_1',
-							'nome_2',
-							'nome_3',
-							'nome_4',
-							'nome_5'
-						]
-					],
-					'pelle' => [
-						'colore' => [
-							'black',
-							'plaster',
-							'white',
-							'avion',
-							'sand'
-						]
-					]
-				]
-			],
-			
-			'tomaia_down' => [
-				'materiale' => [
-					'tessuto' => [
-						'colore' => [
-							'light_grey',
-							'sand',
-							'black',
-							'white',
-							'military'
-						]
-					]
-				]
-			],			
-			
-			'tacco' => [
-				'materiale' => [
-					'crosta'  => [
-						'colore' => [
-							'nome_1',
-							'nome_2',
-							'nome_3',
-							'nome_4',
-							'nome_5'
-						]
-					]
-				]
-			],
-			
-			'suola' => [
-				'colore' => [
-					'gesso',
-					'military'
-				]
-			],
-			
-			'scritta' => [
-				'si',
-				'no'
-			],
-			
-			'logo' => [
-				'black',
-				'white'
-			]
-		];
-		
+		Session::set('customizer-position', 'front');
 		$page_title = 'Cinzia Araia Customizer';
 		return view('customizer.cinziaaraia', compact('varianti', 'page_title'));
+	}
+	
+	public function cinziaaraia_rotate()
+	{
+		Session::get('customizer-position', 'back');
+		return true;
 	}
 }

@@ -150,3 +150,34 @@ a:active {
 		/* -- */
 	top:0;
 }
+
+.square {
+  width:70px; 
+  height:70px; 
+  background-size:cover!important;
+  float:left;
+  display:inline-block;
+  margin:6px;
+  cursor:pointer;
+}
+
+.mytoggle {
+  background-color:#7C7C7C;
+}
+
+.mytoggle.active{
+  background-color:#B00000;
+}
+
+#panel-headings {
+  position:absolute; 
+  margin-left:-56px
+}
+
+#rotation {
+  position:absolute;
+  left:20px;
+  top:20px;
+  background-color:transparent;
+  cursor:pointer;
+}

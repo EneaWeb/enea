@@ -149,7 +149,7 @@ Route::group([
 	Route::get('/order/new/confirm', 'OrderController@confirm');
 	Route::get('/order/details/{id}', 'OrderController@details');
 
-	Route::get('/test-customizer', 'CustomizerController@index');
+	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	
 	// end localization middleware
 });
@@ -190,6 +190,8 @@ Route::group([
 	Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
 	Route::post('/order/new/save-line', 'OrderController@save_line');
+	
+	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	
 	Route::get('/customers/api-companyname', function(){
 		return \App\Customer::lists('companyname')->toJson();
