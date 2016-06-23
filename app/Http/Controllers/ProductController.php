@@ -168,7 +168,7 @@ class ProductController extends Controller
 		{
 			foreach (\App\Item::where('product_id', $product_id)->get() as $item) {
 				
-				if (\App\Itemprice::where('item_id', $item->id)->where('season_list_id', $seasonlist_id)->get()->isEmpty()) {
+				if (\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', $seasonlist_id)->get()->isEmpty()) {
 					$itemprice = new \App\ItemPrice;
 					$itemprice->item_id = $item->id;
 					$itemprice->season_list_id = $seasonlist_id;
