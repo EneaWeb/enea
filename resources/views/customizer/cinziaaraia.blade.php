@@ -29,44 +29,108 @@
 			
 				<div id="panel-headings" style="position:absolute; margin-left:-54px">
 				
+					{{-- TOMAIA UP --}}
 					<div class="pannello-heading" role="tab">
 						<h4 class="pannello-title">
-							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-tomaiaup" aria-expanded="true" aria-controls="toggle-tomaiaup" style="background-color:#8d0000" id="headingOne">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-tomaiaup" aria-expanded="true" aria-controls="toggle-tomaiaup" style="background-color:#8d0000" id="headingTomaiaup">
 								{{-- Titolo del pannello --}}
 								<br>
 							</a>
 						</h4>
 					</div>
+					{{-- TOMAIA DOWN --}}
 					<div class="pannello-heading" role="tab">
 						<h4 class="pannello-title">
-							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-tomaiadown" aria-expanded="true" aria-controls="toggle-tomaiadown" style="background-color:#8d0000" id="headingTwo">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-tomaiadown" aria-expanded="true" aria-controls="toggle-tomaiadown" style="background-color:#8d0000" id="headingTomaiadown">
 								{{-- Titolo del pannello --}}
 								<br>
 							</a>
 						</h4>
 					</div>
+					{{-- TACCO --}}
+					<div class="pannello-heading" role="tab">
+						<h4 class="pannello-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-tacco" aria-expanded="true" aria-controls="toggle-tacco" style="background-color:#8d0000" id="headingTacco">
+								{{-- Titolo del pannello --}}
+								<br>
+							</a>
+						</h4>
+					</div>
+					{{-- SUOLA --}}
+					<div class="pannello-heading" role="tab">
+						<h4 class="pannello-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-suola" aria-expanded="true" aria-controls="toggle-suola" style="background-color:#8d0000" id="headingSuola">
+								{{-- Titolo del pannello --}}
+								<br>
+							</a>
+						</h4>
+					</div>
+					{{-- SCRITTA --}}
+					<div class="pannello-heading" role="tab">
+						<h4 class="pannello-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-scritta" aria-expanded="true" aria-controls="toggle-scritta" style="background-color:#8d0000" id="headingScritta">
+								{{-- Titolo del pannello --}}
+								<br>
+							</a>
+						</h4>
+					</div>
+					{{-- LOGO --}}
+					<div class="pannello-heading" role="tab">
+						<h4 class="pannello-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#toggle-logo" aria-expanded="true" aria-controls="toggle-logo" style="background-color:#8d0000" id="headingLogo">
+								{{-- Titolo del pannello --}}
+								<br>
+							</a>
+						</h4>
+					</div>
+					
 				</div>
 				
 				<div class="pannello">
 				
-					<div id="toggle-tomaiaup" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingOne">
+					{{-- TOMAIA UP --}}
+					<div id="toggle-tomaiaup" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingTomaiaup">
 						<div class="pannello-body" style="padding:10px">
 							{{-- Corpo del pannello --}}
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p>tomaiaup</p>
+						</div>
+					</div>
+					{{-- TOMAIA DOWN --}}
+					<div id="toggle-tomaiadown" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingTomaiadown">
+						<div class="pannello-body" style="padding:10px">
+							{{-- Corpo del pannello --}}
+							<p>tomaiadown</p>
+						</div>
+					</div>
+					{{-- TACCO --}}
+					<div id="toggle-tacco" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingTacco">
+						<div class="pannello-body" style="padding:10px">
+							{{-- Corpo del pannello --}}
+							<p>tacco</p>
+						</div>
+					</div>
+					{{-- SUOLA --}}
+					<div id="toggle-suola" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingSuola">
+						<div class="pannello-body" style="padding:10px">
+							{{-- Corpo del pannello --}}
+							<p>suola</p>
+						</div>
+					</div>
+					{{-- SCRITTA --}}
+					<div id="toggle-scritta" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingScritta">
+						<div class="pannello-body" style="padding:10px">
+							{{-- Corpo del pannello --}}
+							<p>scritta</p>
+						</div>
+					</div>
+					{{-- LOGO --}}
+					<div id="toggle-logo" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingLogo">
+						<div class="pannello-body" style="padding:10px">
+							{{-- Corpo del pannello --}}
+							<p>logo</p>
 						</div>
 					</div>
 					
-					<div id="toggle-tomaiadown" class="pannello-collapse collapse" role="tabpannello" aria-labelledby="headingOne">
-						<div class="pannello-body" style="padding:10px">
-							{{-- Corpo del pannello --}}
-							<p>asfasfasfasf</p>
-						</div>
-					</div>
 				</div>
 			{{-- end of pannello --}}
 			{{-- end of #accordion --}}
