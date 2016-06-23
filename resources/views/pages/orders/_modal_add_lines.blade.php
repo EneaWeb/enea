@@ -84,7 +84,7 @@
                           });
                           $('#tot-qty-{!!$product->id!!}').text(tot);
                           $('#tot-price-{!!$product->id!!}').text(price);
-                        });
+                        }).change();
                     });
                 </script>
         </div>
