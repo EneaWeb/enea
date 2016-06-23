@@ -7,6 +7,7 @@ use Input;
 use Auth;
 use Config;
 use \App\Customer as Customer;
+use \App\CustomerDelivery as CustomerDelivery;
 use \App\Alert as Alert;
 use App\Http\Requests;
 use App\Gestionale\Maps as Maps;
@@ -157,6 +158,18 @@ class CustomerController extends Controller
 		$customer->delete();
 		// success message
 		Alert::success(trans('messages.Customer deleted'));
+		// redirect back
+		return redirect()->back();
+	}
+	
+	public function delete_delivery($id)
+	{
+		// get the delivery from ID
+		$customer_delivery = CustomerDelivery::find($id);
+		// delete it
+		$customer_delivery->delete();
+		// success message
+		Alert::success(trans('messages.Option deleted'));
 		// redirect back
 		return redirect()->back();
 	}

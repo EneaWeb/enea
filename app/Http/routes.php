@@ -111,6 +111,7 @@ Route::group([
 	});
 	Route::get('/customers', 'CustomerController@index');
 	Route::get('/customer/show/{id}', 'CustomerController@show');
+	Route::get('/customer/delete-delivery/{id}', 'CustomerController@delete_delivery');
 	Route::get('/set-current-brand/{brand_id}', 'ProfileController@set_current_brand');
 	Route::get('/admin/unlink-user-from-brand/{user_id}', 'ManageUsersController@unlink_user_from_brand');
 	Route::get('/admin/payments', 'PaymentController@index');

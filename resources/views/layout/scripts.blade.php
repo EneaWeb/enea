@@ -106,6 +106,18 @@
             }
         );
     };
+        
+    function confirm_delete_customer_delivery(id){
+        alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this option?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/customer/delete-delivery/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
 
     $( window ).load(function() {
         $.getJSON('/customers/api-companyname', function(data) {

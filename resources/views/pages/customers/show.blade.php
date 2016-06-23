@@ -110,6 +110,7 @@
                                         <th>{!!trans('auth.Address')!!}</th>
                                         <th>{!!trans('auth.City')!!}</th>
                                         <th>{!!trans('auth.Country')!!}</th>
+                                        <th>{!!trans('auth.Actions')!!}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,12 +118,21 @@
                                         <td>{!!$customer->address!!}</td>
                                         <td>{!!$customer->city!!} ({!!$customer->province!!})</td>
                                         <td>{!!$customer->country!!}</td>
+                                        <td>
+                                        </td>
                                     </tr>
                                     @foreach ($customer->deliveries as $delivery)
                                     <tr>
                                         <td>{!!$delivery->address!!}</td>
                                         <td>{!!$delivery->city!!} ({!!$delivery->province!!})</td>
                                         <td>{!!$delivery->country!!}</td>
+                                        <td>
+                                            <span class="badge badge-danger">
+                                                <a href="#" onclick="confirm_delete_customer_delivery({!!$delivery->id!!})" style="color:inherit; padding:6px">
+                                                    <span class="fa fa-ban"></span>
+                                                </a>
+                                            </span>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
