@@ -58,6 +58,7 @@ return [
     'Vat' => 'CF/P.Iva',
     'Delivery Addresses' => 'Indirizzi di spedizione',
     'Receiver' => 'Destinatario',
-    
+    'Total' => 'Totale',
+    'Customer' => 'Cliente',
     
 ];

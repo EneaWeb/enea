@@ -58,6 +58,8 @@ return [
     'Vat' => 'Vat',
     'Delivery Addresses' => 'Delivery Addresses',
     'Receiver' => 'Receiver',
+    'Total' => 'Total',
+    'Customer' => 'Customer',
     
     
 ];

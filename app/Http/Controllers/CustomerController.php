@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Input;
 use Auth;
+use Config;
 use \App\Customer as Customer;
 use \App\Alert as Alert;
 use App\Http\Requests;
@@ -100,6 +101,7 @@ class CustomerController extends Controller
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
 			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
+			$geocoder->apiKey = Config::get('general.google_api_key');
 			// get address from input
 			$address = Input::get('address');
 			// get geocoding result ..
@@ -123,6 +125,7 @@ class CustomerController extends Controller
 			$customer->sign = Input::get('sign');
 			$customer->name = Input::get('name');
 			$customer->surname = Input::get('surname');
+			$customer->vat = Input::get('vat');
 			$customer->telephone = Input::get('telephone');
 			$customer->mobile = Input::get('mobile');
 			$customer->email = Input::get('email');
