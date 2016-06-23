@@ -84,6 +84,7 @@ Route::group([
 	'middleware' => [
 		'web',
 		'auth',
+		'cors',
 	  	'localization-session-redirect',
 	  	'localization-redirect',
 	],
@@ -158,6 +159,7 @@ Route::group([
 	'prefix'     => Localization::setLocale(),
 	'middleware' => [
 		'web',
+		'cors',
 	  	'localization-session-redirect',
 	  	'localization-redirect',
 	],
