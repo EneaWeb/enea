@@ -17,6 +17,8 @@
                 
                     <h2>{!!$product->model->name!!} - 
                     {!!$product->name!!}</h2>
+                    <h3>
+                       € {!!number_format(\App\ItemPrice::where('season_list_id', \App\Option::where('name', 'active_season')->first()->value)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price'], 2, ',','.')!!}</h3>
                     <h5>Code: {!!$product->slug!!} / #{!!$product->id!!}</h5>
                     <a href="/catalogue/product/{!!$product->id!!}" target="_blank">
                         Guarda la scheda prodotto in un'altra pagina
@@ -24,7 +26,7 @@
                 </div>
 
             </div>
-            {!!Form::open(array('url' => '/order/new/save-line', 'method'=>'POST', 'id'=>'customer-form'))!!}
+            {!!Form::open(array('url' => '/order/new/save-line', 'method'=>'POST', 'id'=>'lines-form-'.$product->id))!!}
             
             <div class="panel-body tab-content">
                 {{-- */ $i2 = 1 /* --}}
@@ -48,12 +50,13 @@
                         </tr>
                     {{-- */ $i2++ /* --}}
                     @endforeach
-                </table><br><br><br>
+                </table>
                 
-                <div>
-                    <h5>{{--N pezzi. --}}</h6> 
-                    <h6>{{-- Costo: --}}</h6>
+                <div style="margin-right:40px">
+                    <h5 style="text-align:right">N. pezzi: <span id="tot-qty-{!!$product->id!!}">0</span>{{--N pezzi. --}}</h6> 
+                    <h6 style="text-align:right">Tot: € <span id="tot-val-{!!$product->id!!}">0</span></h6>
                 </div>
+                <br><br><br>
             </div>
             
             <div class="modal-footer">
@@ -61,6 +64,21 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('menu.Close')!!}</button>
             </div>
             {!!Form::close()!!}
+                <script>
+                    $(document).ready(function(){
+                        $('form#lines-form-{!!$product->id!!} :input').change(function() {
+                          var tot = 0;
+                          $("form#lines-form-{!!$product->id!!} :input").each(function() {
+                            if(!isNaN($(this).val())) { 
+                            //Your code 
+                                tot += +this.value;
+                            }
+                          });
+                          console.log(Number(tot));
+                          $('#tot-qty-{!!$product->id!!}').text(tot);
+                        });
+                    });
+                </script>
         </div>
     </div>
 </div>
