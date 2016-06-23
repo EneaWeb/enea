@@ -104,15 +104,43 @@ class OrderController extends Controller
 	public function step3()
 	{
 		
+		$products_array = array();
+		$qty = 0;
+		$subtotal = 0;
+		$items_color_grouped = array();
+		
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
 		// query all products for active season
 		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name')->paginate(28);
 		
+		if (Session::has('order.items')){
+			$items = Session::get('order.items');
+			$season_list_id = Session::get('order.season_list_id');
+
+			foreach ($items as $k => $v) {
+				$item = \App\Item::find($k);
+				$product_id = $item->product->id;
+				$products_array[$product_id][] = $item->color_id;
+				$products_array[$product_id] = array_map("unserialize", array_unique(array_map("serialize", $products_array[$product_id])));
+				// get quantity
+				$qty += $v;
+				// get prices
+				$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()->price;
+				$subtotal += $price * $v;
+			}
+		
+			// numero di product+color
+			$items_color_grouped = 0;
+			foreach ($products_array as $a) {
+			    $items_color_grouped+= count($a);
+			}
+		}
+		
 		// se questo passaggio è stato fatto, 
 		// apro direttamente la view
 		if (Session::has('order'))
-			return view('pages.orders.step3', compact('products'));
+			return view('pages.orders.step3', compact('products', 'qty', 'products_array', 'items_color_grouped', 'subtotal'));
 		
 		// check if everything was selected
 		$message = '';
@@ -134,7 +162,7 @@ class OrderController extends Controller
 		// store data in a session variable 'order'
 		Session::put('order', Input::all());
 		
-		return view('pages.orders.step3', compact('products'));
+		return view('pages.orders.step3', compact('products', 'products_array', 'qty', 'items_color_grouped', 'subtotal'));
 	}
 	
 	public function save_line()

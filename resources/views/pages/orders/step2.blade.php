@@ -90,9 +90,6 @@
                                     <div class="col-md-6 col-xs-12">   
                                         {!!Form::select('season_delivery_id', \App\SeasonDelivery::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
                                     </div>
-                                        <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
-                                            <button class="btn btn-main" style="margin-top:12px; color:white"><span class="fa fa-plus"></span></button>
-                                        </a>
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
@@ -105,6 +102,9 @@
                                             @endforeach
                                         </select>   
                                     </div>
+                                    <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
+                                        <button class="btn btn-main" style="margin-top:12px; color:white"><span class="fa fa-plus"></span></button>
+                                    </a>
                                     <div class="clearfix"></div><br>
                                 </div>
                             </div>

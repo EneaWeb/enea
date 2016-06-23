@@ -62,7 +62,10 @@
                         <h3 class="panel-title">
                             {!!trans('messages.Select Products')!!}
                              &nbsp; <a href="/order/new/save-order"><button class="btn btn-danger">CONCLUDI L'ORDINE</button></a>
-                        </h3>                        
+                        </h3>  
+                        <button class="btn btn-main" style="float:right; margin-right:20px; cursor:default"><strong>
+                            Articoli: {!!$items_color_grouped!!} / Pezzi:  {!!$qty!!} / Tot € {!!$subtotal!!}
+                        </strong></button>                      
                     </div>
                     <div class="panel-body">
                     
