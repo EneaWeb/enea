@@ -56,6 +56,7 @@ return [
 	'Manage Orders' => 'Gestisci gli Ordini',
 	'New Order' => 'Nuovo Ordine',
 	'Continue' => 'Continua',	
+	'Orders' => 'Ordini',
 	
 	
 ];

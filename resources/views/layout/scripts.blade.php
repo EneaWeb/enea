@@ -118,6 +118,18 @@
             }
         );
     };
+    
+    function confirm_delete_order(id){
+        alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this order?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/order/delete-order/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
 
     $( window ).load(function() {
         $.getJSON('/customers/api-companyname', function(data) {

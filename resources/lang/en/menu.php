@@ -56,6 +56,6 @@ return [
 	'Manage Orders' => 'Manage Orders',
 	'New Order' => 'New Order',
 	'Continue' => 'Continue',
-	
+	'Orders' => 'Orders',
 	
 ];

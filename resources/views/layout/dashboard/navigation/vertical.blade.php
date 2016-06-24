@@ -22,7 +22,7 @@
         </div>                                                                        
     </li>
     <!-- <li class="xn-title">Navigation</li> -->
-    <li><a href="/"><span class="fa fa-home"></span> <span class="xn-text">Dashboard</span></a></li>
+    <li><a href="/"><span class="fa fa-home"></span> <span class="xn-text">{!!trans('menu.Orders')!!}</span></a></li>
     <li><a href="/catalogue/products"><span class="fa fa-tags"></span> <span class="xn-text">{!!trans('menu.Products')!!}</span></a></li>
     <li><a href="/customers"><span class="fa fa-user"></span><span class="xn-text">{!!trans('menu.Customers')!!}</span></a></li>
     <li class="xn-openable">

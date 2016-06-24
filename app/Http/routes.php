@@ -148,6 +148,7 @@ Route::group([
 	Route::get('/order/new/save-order', 'OrderController@step4');
 	Route::get('/order/new/confirm', 'OrderController@confirm');
 	Route::get('/order/details/{id}', 'OrderController@details');
+	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	

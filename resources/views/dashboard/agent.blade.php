@@ -109,9 +109,9 @@
                                             <td>{!!$order->qty!!}</td>
                                             <td>€ {!!number_format($order->total, 2)!!}</td>
                                             <td>
-                                        		{{-- <a href="/catalogue/product/edit/{!!$product->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a>
-                                            		<button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_product(  );"><span class="fa fa-times"></span></button>
-                                                --}}
+                                        		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->
+                                                <a href="/order/details/{!!$order->id!!}"><button class="btn btn-warning btn-rounded btn-condensed btn-sm"><span class="fa fa-search-plus"></span></button></a>
+                                            	<button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_order({!!$order->id!!});"><span class="fa fa-times"></span></button>
                                     		</td>
                                         </tr>
                                     @endforeach
