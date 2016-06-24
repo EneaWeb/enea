@@ -181,3 +181,26 @@ a:active {
   background-color:transparent;
   cursor:pointer;
 }
+
+.page-container .page-content .content-frame .content-frame-left, .page-container .page-content .content-frame .content-frame-right {
+  width:300px!important;
+}
+
+@media all and (max-width:1200px)
+{
+  .content-frame-body-left {
+    display: inline-block;
+    float: left;
+    width: 70%;
+    margin-right:0px!important;
+  }
+}
+@media all and (max-width:1000px)
+{
+  .content-frame-body-left {
+    display: inline-block;
+    float: left;
+    width: 60%;
+    margin-right:0px!important;
+  }
+}

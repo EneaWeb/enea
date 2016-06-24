@@ -95,7 +95,7 @@
 						<br>
 						<h3 style="text-align:center">TOMAIA UP</h3>
 						<br>
-						<select name="type" class="form-control" id="material-select" style="font-size:18px;">
+						<select name="type" class="form-control" id="material-select>
 							<option value="sub-material-crosta">CROSTA</option>
 							<option value="sub-material-pelle">PELLE</option>
 							<option value="sub-material-pitone">PITONE STAMPATO</option>
