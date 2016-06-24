@@ -6173,7 +6173,7 @@ td.dataTables_empty {
   margin: 0px;
   list-style: none;
   text-decoration: none;
-  font-size: 38px;
+  font-size: 30px;
   font-weight: 300;
   color: #FFF;
   -moz-border-radius: 5px;
@@ -6239,7 +6239,7 @@ td.dataTables_empty {
   color: #656d78;
 }
 .tile .fa {
-  font-size: 52px;
+  font-size: 40px;
   line-height: 74px;
 }
 .tile p {
