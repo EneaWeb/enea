@@ -345,4 +345,23 @@ class OrderController extends Controller
 		      ));
 	}
 	
+	public function delete($id)
+	{
+		$order = \App\Order::find($id);
+
+		// delete all order details
+		foreach (\App\OrderDetail::where('order_id', $order->id)->get() as $order_detail) {
+			$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
+			$order_detail->delete();
+		}
+			
+		// delete order
+		$order->setConnection(Auth::user()->options->brand_in_use->slug);
+		$order->delete();
+		
+		Alert::success('Ordine eliminato correttamente');
+		return redirect()->back();
+
+	}
+	
 }
