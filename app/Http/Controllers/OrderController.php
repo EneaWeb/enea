@@ -160,6 +160,13 @@ class OrderController extends Controller
 	{
 		$input = Input::all();
 		unset($input['_token']);
+		
+		// from customizer
+		if (Input::has('custom')) {
+			unset($input['custom']);
+			Session::put('order.custom', Input::get('custom'));
+		}
+		
 		$sum = 0;
 		$items = array();
 		if (Session::has('order.items')) {
@@ -201,7 +208,11 @@ class OrderController extends Controller
 		// update order.items
 		Session::put('order.items', $full_items);
 		
-		return redirect()->back();
+		// custom == redirect to products
+		if(Input::has('custom'))
+			return redirect('/order/new/step3');
+		else
+			return redirect()->back();
 	}
 	
 	public function step4()

@@ -18,7 +18,7 @@
                     <h2>{!!$product->prodmodel->name!!} - 
                     {!!$product->name!!}</h2>
                     <h3>
-                       € {!!number_format(\App\ItemPrice::where('season_list_id', \App\Option::where('name', 'active_season')->first()->value)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price'], 2, ',','.')!!}</h3>
+                       € {!!number_format(\App\ItemPrice::where('season_list_id', Session::get('order.season_list_id'))->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price'], 2, ',','.')!!}</h3>
                     <h5>Code: {!!$product->slug!!} / #{!!$product->id!!}</h5>
                     <a href="/catalogue/product/{!!$product->id!!}" target="_blank">
                         Guarda la scheda prodotto in un'altra pagina

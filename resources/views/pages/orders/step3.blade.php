@@ -64,7 +64,7 @@
                              &nbsp; <a href="/order/new/save-order"><button class="btn btn-danger">CONCLUDI L'ORDINE</button></a>
                         </h3>  
                         <button class="btn btn-main" style="float:right; margin-right:20px; cursor:default"><strong>
-                            {{--Articoli:--}}  / Pezzi:  {!!$qty!!} / Tot € {!!$subtotal!!}
+                            {{--Articoli:--}}  N. Pezzi:  {!!$qty!!} / Tot € {!!$subtotal!!}
                         </strong></button>                      
                     </div>
                     <div class="panel-body">

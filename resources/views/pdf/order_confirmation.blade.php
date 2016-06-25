@@ -182,8 +182,8 @@
                 <td style="text-align:center" id="{!!$item->id!!}">
                     @if (\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first() != NULL)
                         {!!\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty!!}
-                        {{--*/ $price = \App\ItemPrice::where('item_id',$item->id)->first()->price /*--}}
-                        {{--*/ $totprice += ( \App\ItemPrice::where('item_id',$item->id)->first()->price * \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty ) /*--}}
+                        {{--*/ $price = \App\ItemPrice::where('item_id',$item->id)->where('season_list_id', $order->season_list_id)->first()->price /*--}}
+                        {{--*/ $totprice += ( \App\ItemPrice::where('item_id',$item->id)->where('season_list_id', $order->season_list_id)->first()->price * \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty ) /*--}}
                         {{--*/ $qty += \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty /*--}}
                     @endif
                 </td>
@@ -200,9 +200,17 @@
 
     @include('pdf.header')
 
+    <h3>NOTE :</h3>
+
+    <br>
+    <p>
+        {!!$order->note!!}
+    </p>
+    <br><br><br>
+
     <h3>{!!strtoupper(trans('messages.Conditions'))!!}:</h3>
 
-    <br><br>
+    <br>
     <p>
         Quest'ordine è regolato dalle condizioni di vendita da voi sottoscritte che qui si intendono integralmente riportate.
         <br>Vale come conferma d'ordine salvo eventuali annullamenti che saranno comunicati tempestivamente.

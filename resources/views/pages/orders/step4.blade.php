@@ -214,7 +214,7 @@
                                         Inserisci note:
                                     </h3>
                                     <h3 class="col-md-8 col-xs-12 control-label" style="text-align:left">
-                                        {!!Form::textarea('note', '', ['class'=>'form-control'])!!}
+                                        {!!Form::textarea('note', (Session::has('order.custom')) ? 'CUSTOM : '.Session::get('order.custom') : '', ['class'=>'form-control'])!!}
                                     </h3>
                                 </div>
                             </div>

@@ -30,10 +30,12 @@ class CustomizerController extends Controller
 		6) LOGO
 			2 COLORI - Black, White
 		*/
-			
+		
+		$product = \App\Product::where('slug', '_custom')->first();
+		
 		Session::set('customizer-position', 'front');
 		$page_title = 'Cinzia Araia Customizer';
-		return view('customizer.cinziaaraia', compact('varianti', 'page_title'));
+		return view('customizer.cinziaaraia', compact('product', 'page_title'));
 	}
 	
 	public function cinziaaraia_rotate()
