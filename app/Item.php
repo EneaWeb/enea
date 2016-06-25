@@ -22,10 +22,10 @@ class Item extends Model
 	protected $table = 'items';
 
 	protected $fillable = [
-		'barcode',
 		'product_id',
+		'product_variation_id',
 		'size_id',
-		'color_id'
+		'active'
 	];
 
 	protected $hidden = [
@@ -40,17 +40,14 @@ class Item extends Model
 
 	  	$rules = array(
 	      'product_id' => 'required',
-	      'type' => 'required',
 	      'size_id' => 'required',
-	      'color_id' => 'required',
-	      
+	      'active' => 'required',
 	  );
 
 	  	$messages = array(
 	      'product_id.required' => trans('validation.required-item-product_id'),
-	      'type.required' => trans('validation.required-item-type'),
 	      'size_id.required' => trans('validation.required-item-size_id'),
-	      'color_id.required' => trans('validation.required-item-color_id'),
+	      'active.required' => trans('validation.required-item-active'),
 	  );
 
 	  	return Validator::make($input, $rules, $messages);
@@ -62,12 +59,12 @@ class Item extends Model
     
 	public function product()
 	{
-	  return $this->belongsTo('\App\Product', 'product_id', 'id');
+	  return $this->belongsTo('\App\Product');
 	}
 	
-	public function attribute_values()
+	public function product_variation()
 	{
-	  return $this->belongsToMany('\App\AttributeValue');
+		return $this->belongsTo('\App\ProducVariation');
 	}
 	
 	public function price()
@@ -78,20 +75,6 @@ class Item extends Model
 	public function price_for_list($list_id)
 	{
 		return \App\ItemPrice::where('item_id', $this->id)->where('season_list_id', $list_id)->first()['price'];
-	}
-	
-	public static function price_from_parameters($season_list_id, $product_id, $size_id, $color_id)
-	{
-		$item_id = \App\Item::where('product_id', $product_id)->where('color_id', $color_id)->where('size_id', $size_id)->first()['id'];
-		if ( ! \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->get()->isEmpty() ) 
-		{
-			$result = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()['price'];
-			$result = number_format($result);
-		} else {
-			$result = '';
-		}
-		
-		return $result;
 	}
 
 }

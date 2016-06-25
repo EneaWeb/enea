@@ -22,13 +22,14 @@ class Product extends Model
     protected $table = 'products';
     
     protected $fillable = [
-    	'slug',
-    	'name',
-    	'description',
-    	'picture',
-        'season_id',
+        'slug',
+        'name',
+        'description',
+        'picture',
         'prodmodel_id',
-        'variation_id',
+        'season_id',
+        'type_id',
+        'has_variations',
         'active'
     ];
 
@@ -47,6 +48,7 @@ class Product extends Model
             'slug' => 'required',
             'season_id' => 'required',
             'prodmodel_id' => 'required',
+            'type_id' => 'required',
         );
 
         $messages = array(
@@ -54,6 +56,7 @@ class Product extends Model
             'slug.required' => trans('validation.required-product-slug'),
             'season_id.required' => trans('validation.required-product-season'),
             'prodmodel_id.required' => trans('validation.required-product-prodmodel'),
+            'type_id.required' => trans('validation.required-product-type_id'),
         );
 
         return Validator::make($input, $rules, $messages);
@@ -65,12 +68,17 @@ class Product extends Model
     
     public function season()
     {
-        return $this->belongsTo('\App\Season', 'season_id', 'id');
+        return $this->belongsTo('\App\Season');
     }
     
     public function model()
     {
-        return $this->belongsTo('\App\ProdModel', 'prodmodel_id', 'id');
+        return $this->belongsTo('\App\ProdModel');
+    }
+    
+    public function type()
+    {
+        return $this->belongsTo('\App\Types');
     }
     
     public function items()
@@ -81,11 +89,6 @@ class Product extends Model
     public function pictures()
     {
         return $this->hasMany('\App\ProductPicture');
-    }
-    
-    public function variation()
-    {
-        return $this->belongsTo('\App\Variation');
     }
     
     public static function product_colors($product_id)

@@ -12,18 +12,21 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
 
-class ProductPicture extends Model
+class ProductVariation extends Model
 {
     
     public function __construct()
     {
         $this->connection = Auth::user()->options->brand_in_use->slug;
     }
-    protected $table = 'product_pictures';
+    protected $table = 'products';
     
     protected $fillable = [
-    	'product_id',
-    	'image',
+		'product_id',
+		'picture',
+		'color_id',
+		'attributes',
+		'active'
     ];
 
     protected $hidden = [
@@ -38,13 +41,12 @@ class ProductPicture extends Model
 
         $rules = array(
             'product_id' => 'required',
-            'image' => 'required',
-            
+            'active' => 'required',
         );
 
         $messages = array(
-            'product_id.required' => trans('validation.required-product_pictures-product_id'),
-            'image.required' => trans('validation.required-product_pictures-image'),
+            'product_id.required' => trans('validation.required-product_variation-product_id'),
+            'active.required' => trans('validation.required-product_variation-active'),
         );
 
         return Validator::make($input, $rules, $messages);
@@ -54,11 +56,19 @@ class ProductPicture extends Model
      * Relations
      */
     
-    public function product()
-    {
-        return $this->belongsTo('\App\Product');
-    }
+	public function product()
+	{
+	  return $this->belongsTo('\App\Product');
+	}
     
+	public function items()
+	{
+	  	return $this->hasMany('\App\Item');
+	}
+    
+	public function pictures()
+	{
+	  return $this->hasMany('\App\ProductVariationPicture');
+	}
 
-    
 }

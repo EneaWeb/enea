@@ -46,6 +46,12 @@ return [
 
     'connections' => [
 
+        'test' => [
+            'driver' => 'sqlite',
+            'database' => database_path('test.sqlite'),
+            'prefix' => '',
+        ],
+
         'fakebychiodo' => [
             'driver' => 'sqlite',
             'database' => database_path('fakebychiodo.sqlite'),

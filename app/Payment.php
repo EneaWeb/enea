@@ -25,10 +25,10 @@ class Payment extends Model
 		'slug',
 		'name',
 		'description',
-		'active',
 		'action', //   none, increase, discount
 					// => nessuno, maggiorazione, sconto
-		'amount'
+		'amount',
+		'active'
 	];
 
 	protected $hidden = [

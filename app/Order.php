@@ -26,15 +26,14 @@ class Order extends Model
         'customer_id',
         'season_id',
         'season_list_id',
-        'note',
         'season_delivery_id',
-        'active',
-        'items_color_grouped',
-        'qty',
-        'discount',
-        'price',
+        'customer_delivery_id',
+        'products_qty',
+        'items_qty',
         'subtotal',
-        'total'
+        'payment_action',
+        'payment_amount',
+        'total',
     ];
 
     protected $hidden = [
@@ -48,11 +47,11 @@ class Order extends Model
     public static function validate( $input ) {
 
         $rules = array(
-            'name' => 'required',
+            
         );
 
         $messages = array(
-            'name.required' => trans('validation.required-season-name'),
+            
         );
 
         return Validator::make($input, $rules, $messages);

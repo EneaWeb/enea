@@ -12,17 +12,17 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
 
-class ProductPicture extends Model
+class ProductVariationPicture extends Model
 {
     
     public function __construct()
     {
         $this->connection = Auth::user()->options->brand_in_use->slug;
     }
-    protected $table = 'product_pictures';
+    protected $table = 'product_variation_pictures';
     
     protected $fillable = [
-    	'product_id',
+    	'product_variation_id',
     	'image',
     ];
 
@@ -37,13 +37,13 @@ class ProductPicture extends Model
     public static function validate( $input ) {
 
         $rules = array(
-            'product_id' => 'required',
+            'product_variation_id' => 'required',
             'image' => 'required',
             
         );
 
         $messages = array(
-            'product_id.required' => trans('validation.required-product_pictures-product_id'),
+            'product_variation_id.required' => trans('validation.required-product_pictures-product_variation_id'),
             'image.required' => trans('validation.required-product_pictures-image'),
         );
 
@@ -54,11 +54,10 @@ class ProductPicture extends Model
      * Relations
      */
     
-    public function product()
-    {
-        return $this->belongsTo('\App\Product');
-    }
-    
+	public function product_variation()
+	{
+	  return $this->belongsTo('\App\ProductVariation');
+	}
 
     
 }

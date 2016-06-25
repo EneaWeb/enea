@@ -2,7 +2,7 @@
 
 /*
 ==================
-    BRAND DB
+    GENERAL DB
 ==================
 */
 
@@ -12,19 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
 
- // adult / kid / man / woman / male_kid / female_kid / unisex /
+// / all / adult / kid / man / woman / male_kid / female_kid 
 
 class Type extends Model
 {
-    
-	public function __construct()
-	{
-	  	$this->connection = Auth::user()->options->brand_in_use->slug;
-	}
+
 	protected $table = 'types';
 
 	protected $fillable = [
-		'name',
+		'slug',
+		'description',
 	];
 
 	protected $hidden = [
@@ -38,11 +35,11 @@ class Type extends Model
 	public static function validate( $input ) {
 
 	  	$rules = array(
-	      'name' => 'required',
+	      'slug' => 'required',
 	  	);
 
 	  	$messages = array(
-	      	'name.required' => trans('validation.required-type-name'),
+	      	'slug.required' => trans('validation.required-type-slug'),
 	  	);
 
 	  	return Validator::make($input, $rules, $messages);

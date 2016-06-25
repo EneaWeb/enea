@@ -22,11 +22,13 @@ class ProdModel extends Model
     protected $table = 'prodmodels';
     
     protected $fillable = [
-    	'slug',
-    	'name',
-    	'description',
-    	'picture',
-        'type', // adult / kid / man / woman / male_kid / female_kid / unisex /
+        'slug',
+        'name',
+        'description',
+        'picture',
+        'season_id',
+        'type_id', // all / adult / kid / man / woman / male_kid / female_kid 
+        'active'
     ];
 
     protected $hidden = [
