@@ -78,5 +78,7 @@ return [
 	'The delivery of goods will be done at the following address:' => 'The delivery of goods will be done at the following address:',
 	'Conditions' => 'Conditions',
 	'Payment conditions' => 'Payment Conditions',
+	'Yes' => 'Yes',
+	'No' => 'No',
 	
 ];

@@ -26,44 +26,35 @@ class OrderController extends Controller
 	public function create()
 	{
 		
-		
 		$user = Auth::user();
 		$orders = Order::all();
 
-		if ($user->can('manage brands')) {
-			$mapHelper = new MapHelper;
-			$map = Maps::orders_map();
-			return view('dashboard.admin', compact('map', 'mapHelper', 'orders'));
-			
-		} else {
-			
-			// retrieve all customers
-			$customers = Customer::all();
-			
-			$autocomplete = new Autocomplete();
+		// retrieve all customers
+		$customers = Customer::all();
+		
+		$autocomplete = new Autocomplete();
 
-			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-			$autocomplete->setInputId('place_input');
+		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete->setInputId('place_input');
 
-			$autocomplete->setInputAttributes(array('class' => 'my-class'));
-			$autocomplete->setInputAttribute('name', 'address');
-			$autocomplete->setInputAttribute('class', 'form-control');
+		$autocomplete->setInputAttributes(array('class' => 'my-class'));
+		$autocomplete->setInputAttribute('name', 'address');
+		$autocomplete->setInputAttribute('class', 'form-control');
 
-			//$autocomplete->setValue('aaa');
+		//$autocomplete->setValue('aaa');
 
-			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
-			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-			$autocomplete->setBound(45, 9, 45, 9, true, true);
+		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
+		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+		$autocomplete->setBound(45, 9, 45, 9, true, true);
 
-			$autocomplete->setAsync(false);
-			$autocomplete->setLanguage(Localization::getCurrentLocale());
-			
-			// render
-			$autocompleteHelper = new AutocompleteHelper();
-			
-			
-			return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
-		}
+		$autocomplete->setAsync(false);
+		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		
+		// render
+		$autocompleteHelper = new AutocompleteHelper();
+		
+		
+		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
 	}
 	
 	public function step2()
@@ -178,17 +169,17 @@ class OrderController extends Controller
 				if (array_key_exists($key, Session::get('order.items'))) {
 					// aggiorno la quantità se non è vuota
 					if ($val != '' && $val != 0)
-						Session::set('order.items.'.$key, $val);
+						Session::set('order.items.'.$key, ltrim($val, '0'));
 					// la cancello se è vuota
 					else 
 						Session::forget('order.items.'.$key);
 				// se l'item id non è presente in session ..
 				} else {
 					if ($val != '' && $val != 0)
-						$items[$key] = $val;
+						$items[$key] = ltrim($val, '0');
 				}
 				if ($val != '' && $val != 0)
-					$items[$key] = $val;
+					$items[$key] = ltrim($val, '0');
 				// aggiorno la var full_items
 				$full_items = Session::get('order.items') + $items;
 			}
@@ -196,7 +187,7 @@ class OrderController extends Controller
 			
 			foreach ($input as $key => $val) {
 				if ($val != '' && $val != 0)
-					$items[$key] = $val;
+					$items[$key] = ltrim($val, '0');
 			}
 			// get items
 			if (Session::has('order.items')) {
@@ -228,33 +219,35 @@ class OrderController extends Controller
 		$season_list_id = Session::get('order.season_list_id');
 		$customer_id = Session::get('order.customer_id');
 		
-		$products_array = array();
 		$qty = 0;
 		$subtotal = 0;
-		$variation = 0;
 		$total = 0;
 		
-		foreach ($items as $k => $v) {
-			$item = \App\Item::find($k);
-			$product_id = $item->product->id;
-			$products_array[$product_id][] = $item->color_id;
-			$products_array[$product_id] = array_map("unserialize", array_unique(array_map("serialize", $products_array[$product_id])));
-			// get quantity
-			$qty += $v;
+		$products_array = array();
+		$temp_variations = array();
+		// calcolo: PEZZI TOTALI (qty) E PREZZO SUBTOTALE (subtotal)
+		foreach ($items as $item_id => $quantity) {
+			$item = \App\Item::find($item_id);
+			// get total pieces
+			$qty += $quantity;
 			// get prices
-			$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()['price'];
-			$subtotal += $price * $v;
+			$price = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()['price'];
+			$subtotal += $price * $quantity;
+
+			// products_arr = PRODUCT_ID=>[ VARIATION_ID .. VARIATION_ID .. ]			
+			if (!in_array(\App\Item::find($item_id)->product_variation_id, $temp_variations))
+				$products_array[\App\Item::find($item_id)->product_id][] = \App\Item::find($item_id)->product_variation_id;
+			
+			// array temporaneo 
+			$temp_variations[] = \App\Item::find($item_id)->product_variation_id;
 		}
-		// numero di product+color
-		$items_color_grouped = 0;
-		foreach ($products_array as $a) {
-		    $items_color_grouped+= count($a);
-		}
+				
+		// calcolo: TOTAL sulla base delle variazioni di prezzo
 		// payment variation => discount
-		if (\App\Payment::find($payment_id)->action == 'discount') {
+		if (\App\Payment::find($payment_id)->action == '-') {
 			$total = $subtotal * ((100-\App\Payment::find($payment_id)->amount) / 100);
 		// payment variation => increase
-		} else if (\App\Payment::find($payment_id)->action == 'increase') {
+		} else if (\App\Payment::find($payment_id)->action == '+') {
 			$total = $subtotal * ((100+\App\Payment::find($payment_id)->amount) / 100);
 		} else {
 			$total = $subtotal;
@@ -262,13 +255,11 @@ class OrderController extends Controller
 		
 		Session::put('order.subtotal',$subtotal);
 		Session::put('order.total', $total);
-		Session::put('order.items_color_grouped', $items_color_grouped);
+		Session::put('order.qty', $qty);
 		Session::put('order.products_array', $products_array);
-		
+					
 		return view('pages.orders.step4', compact(
-               'fullOrder',
-               'unique_products_array',
-               'products_array', 
+		         'fullOrder',
                'subtotal', 
                'qty', 
                'total'
@@ -278,25 +269,30 @@ class OrderController extends Controller
 	public function confirm()
 	{
 		
+		$products_count = 0;
+		foreach (Session::get('order.products_array') as $key => $product) {
+		    $products_count += count($product);
+		}
+		
 		$order = new \App\Order;
 		$order->user_id = Auth::user()->id;
 		$order->customer_id = Session::get('order.customer_id');
 		$order->payment_id = Session::get('order.payment_id');
+		$order->payment_amount = \App\Payment::find(Session::get('order.payment_id'))->variation.
+											\App\Payment::find(Session::get('order.payment_id'))->amount;
 		$order->season_id = \App\Option::where('name', 'active_season')->first()->value;
 		$order->season_list_id = Session::get('order.season_list_id');
 		$order->customer_delivery_id = Session::get('order.customer_delivery_id');
-		$order->items_color_grouped = Session::get('order.items_color_grouped');
+		$order->products_qty = $products_count;
+		$order->items_qty = Session::get('order.qty');
 		$order->note = Input::get('note');
 		$order->season_delivery_id = Session::get('order.season_delivery_id');
 		$order->products_array = serialize(Session::get('order.products_array'));
-		$order->active = 1;
 		
 		$count = 0;
 		foreach (Session::get('order.items') as $key => $value) {
 			$count += $value;
 		}
-		$order->qty = $count;
-		$order->discount = \App\Payment::find(Session::get('order.payment_id'))->amount;
 		$order->subtotal = Session::get('order.subtotal');
 		$order->total = Session::get('order.total');
 		$order->setConnection(Auth::user()->options->brand_in_use->slug);
@@ -309,6 +305,8 @@ class OrderController extends Controller
 			
 			$order_detail = new \App\OrderDetail;
 			$order_detail->order_id = $order->id;
+			$order_detail->product_id = \App\Item::find($key)->product_id;
+			$order_detail->variation_id = \App\Item::find($key)->product_variation_id;
 			$order_detail->item_id = $key;
 			$order_detail->qty = $val;
 			$order_detail->price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'];

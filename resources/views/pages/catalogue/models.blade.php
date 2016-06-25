@@ -41,6 +41,7 @@
                                 //
                         </h3>       
                     </div>
+                    
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table id="models" class="table datatable table-condensed">
@@ -103,7 +104,7 @@
                     <div class="form-group">
                         {!!Form::label('type_id', trans('menu.Type'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::select('type_id', \App\Type::where('active', 1)->lists('name', 'id'),  '', ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
+                            {!!Form::select('type_id', \App\Type::where('active', 1)->lists('slug', 'id'),  '', ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
                         </div>
                     </div>
                 </div>
@@ -147,7 +148,7 @@
                         <div class="form-group">
                             {!!Form::label('type_id', trans('menu.Type'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('type_id', \App\Type::where('active', 1)->lists('name', 'id'), $model->type_id, ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
+                                {!!Form::select('type_id', \App\Type::where('active', 1)->lists('slug', 'id'), $model->type_id, ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
                             </div>
                         </div>
                     </div>

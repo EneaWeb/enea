@@ -48,8 +48,7 @@
                                     <tr>
                                         <th>{!!trans('auth.Name')!!}</th>
                                         <th>{!!trans('auth.Slug')!!}</th>
-                                        <th>{!!trans('auth.Action')!!}</th>
-                                        <th>{!!trans('auth.Amount')!!}</th>
+                                        <th>Variazione</th>
                                         <th>{!!trans('menu.Options')!!}</th>
                                     </tr>
                                 </thead>
@@ -58,8 +57,7 @@
                                     <tr>
                                         <td>{!!$payment->name!!}</td>
                                         <td>{!!$payment->slug!!}</td>
-                                        <td>{!!trans('menu.'.ucfirst($payment->action))!!}</td>
-                                        <td>{!!$payment->amount!!} %</td>
+                                        <td>{!!($payment->action != '') ? $payment->action.$payment->amount.'%' : '' !!} </td>
                                         <td>
                                             <button href="#" data-toggle="modal" data-target="#modal_edit_payment{!!$payment->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></button>
                                             <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onClick="confirm_delete_payment({!!$payment->id!!});"><span class="fa fa-times"></span></button>
@@ -107,7 +105,7 @@
                     <div class="form-group">
                         {!!Form::label('slug', trans('auth.Action'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::select('action', ['none'=>trans('menu.None'), 'increase'=>trans('menu.Increase'), 'discount'=>trans('menu.Discount')], '', ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
+                            {!!Form::select('action', [''=>trans('menu.None'), '+'=>trans('menu.Increase'), '-'=>trans('menu.Discount')], '', ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
                         </div>
                     </div>
                     <div class="form-group">

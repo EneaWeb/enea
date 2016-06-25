@@ -34,6 +34,7 @@ class Order extends Model
         'payment_action',
         'payment_amount',
         'total',
+        'products_array'
     ];
 
     protected $hidden = [

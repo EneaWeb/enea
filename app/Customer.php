@@ -24,7 +24,6 @@ class Customer extends Model
 	protected $fillable = [
 		'companyname',
 		'name',
-		'surname',
 		'address',
 		'sign',
 		'telephone',
@@ -52,7 +51,6 @@ class Customer extends Model
 		$rules = array(
 		   'companyname' => 'required',
 		   'name' => 'required',
-		   'surname' => 'required',
 		   'address' => 'required',
 		   'telephone' => 'required',
 		   'email' => 'required',
@@ -61,7 +59,6 @@ class Customer extends Model
 		$messages = array(
 		   'companyname.required' => trans('validation.required-customer-companyname'),
 		   'name.required' => trans('validation.required-customer-name'),
-		   'surname.required' => trans('validation.required-customer-surname'),
 		   'address.required' => trans('validation.required-customer-address'),
 		   'telephone.required' => trans('validation.required-customer-telephone'),
 		   'email.required' => trans('validation.required-customer-email'),

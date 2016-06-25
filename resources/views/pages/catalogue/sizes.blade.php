@@ -24,7 +24,7 @@
                     <div class="widget-subtitle">{!! trans('messages.Sizes') !!}</div>
                     <div class="widget-big-int"><span class="num-count">{!!$sizes->count()!!}</span></div>            
                 </div>
-                <a href="#" data-toggle="modal" data-target="#modal_add_model" class="tile tile-success tile-valign">
+                <a href="#" data-toggle="modal" data-target="#modal_add_size" class="tile tile-success tile-valign">
                     <span class="fa fa-plus"></span>
                 </a>
 
@@ -85,7 +85,7 @@
                 <div class="modal-body">
                     
                 </div>
-                {!!Form::open(array('url' => '/catalogue/sizes/new', 'method'=>'POST'))!!}
+                {!!Form::open(array('url' => '/catalogue/size/new', 'method'=>'POST'))!!}
                 
                 <div class="modal-body form-horizontal form-group-separated">                        
                     <div class="form-group">

@@ -38,7 +38,7 @@ class CustomerDeliveryController extends Controller
 			
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
-			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
+			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl, null, null, false, Config::get('general.google_api_key'));
 			// get address from input
 			$address = Input::get('address');
 			// get geocoding result ..
@@ -59,6 +59,7 @@ class CustomerDeliveryController extends Controller
 
 			// populate more
 			$customer_delivery->customer_id = Input::get('customer_id');
+			$customer_delivery->receiver = Input::get('receiver');
 			
 			// setConnection
 			$customer_delivery->setConnection('mysql');

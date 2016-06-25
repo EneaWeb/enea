@@ -87,6 +87,7 @@
                                         <th>{!!trans('auth.Customer')!!}</th>
                                         <th>Articoli</th>
                                         <th>Pezzi</th>
+                                        <th>Variazione</th>
                                         <th>{!!trans('auth.Total')!!}</th>
                                         <th>{!!trans('auth.Options')!!}</th>
                                     </tr>
@@ -105,8 +106,9 @@
                                                     {!!\App\Customer::find($order->customer_id)->companyname!!}
                                                 </a>
                                             </td>
-                                            <td>{!!$order->items_color_grouped!!}</td>
-                                            <td>{!!$order->qty!!}</td>
+                                            <td>{!!$order->products_qty!!}</td>
+                                            <td>{!!$order->items_qty!!}</td>
+                                            <td>{!!$order->payment_amount!!}%</td>
                                             <td>€ {!!number_format($order->total, 2)!!}</td>
                                             <td>
                                         		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->

@@ -34,12 +34,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('surname', trans('auth.Surname').'*', ['class' => 'col-md-3 control-label'])!!}
-                    <div class="col-md-8">   
-                        {!!Form::input('text', 'surname', '', ['class'=>'form-control'])!!}
-                    </div>
-                </div>
-                <div class="form-group">
                     {!!Form::label('vat', trans('auth.Vat').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">   
                         {!!Form::input('text', 'vat', '', ['class'=>'form-control'])!!}

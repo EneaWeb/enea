@@ -145,26 +145,36 @@
                                         <table class="table-condensed table-bordered" style="margin-left:auto; margin-right:auto; border-collapse: collapse; width:100%;">
                                             <tr>
                                                 <th></th>
-                                                    @foreach (\App\Size::all() as $size)
-                                                    <th style="text-align:center">{!!$size->name!!}</th>
-                                                    @endforeach
-                                            </tr>
-                                            @foreach ($products_array as $product_id => $colors)
-                                            @foreach ($colors as $key => $color_id)
-                                                <tr>
-                                                    <th style="border-left:5px solid {!!\App\Color::find($color_id)->hex!!}">
-                                                        {!!\App\Product::find($product_id)->model->name!!}
-                                                        {!!\App\Product::find($product_id)->name!!} - 
-                                                        {!!\App\Color::find($color_id)->name!!}
+                                                @foreach (\App\Size::all() as $size)
+                                                    <th style="text-align:center">
+                                                        {!!$size->name!!}
                                                     </th>
-                                                    @foreach (\App\Item::where('product_id', $product_id)->where('color_id', $color_id)->get() as $item)
-                                                    <td style="text-align:center">
+                                                @endforeach
+                                            </tr>
+                                            
+                                            @foreach (Session::get('order.products_array') as $product_id => $product_variations)
+                                            @foreach ($product_variations as $key => $product_variation_id)
+
+                                                <tr>
+                                                    <th style="border-left:5px solid {!!\App\Color::find(
+                                                                    \App\ProductVariation::find($product_variation_id)
+                                                                        ->color_id)->hex!!}">
+                                                                    
+                                                        {!!\App\Product::find($product_id)->prodmodel->name!!} / 
+                                                        {!!\App\Product::find($product_id)->name!!} - 
+                                                        {!!\App\Color::find(
+                                                                    \App\ProductVariation::find($product_variation_id)
+                                                                        ->color_id)->name!!}
+                                                    </th>
+                                                    @foreach (\App\Item::where('product_variation_id', $product_variation_id)->get() as $item)
+                                                    <td style="text-align:center" id="{!!$item->id!!}">
                                                         @if (array_key_exists($item->id, Session::get('order.items')))
                                                             {!! Session::get('order.items.'.$item->id) !!}
                                                         @endif
                                                     </td>
                                                     @endforeach
                                                 </tr>
+                                            
                                             @endforeach
                                             @endforeach
                                         </table>

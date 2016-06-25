@@ -100,7 +100,7 @@
             </td>
             <td>
                 <div style="float:left; display:inline-block; padding:16px; background-color:#591055; color:white">
-                    <h3>{!!$order->items_color_grouped!!}</h3>
+                    <h3>{!!$order->products_qty!!}</h3>
                 </div>
             </td>
             <td>
@@ -110,7 +110,7 @@
             </td>
             <td>
                 <div style="float:left; display:inline-block; padding:16px; background-color:#591055; color:white">
-                    <h3>{!!$order->qty!!}</h3>
+                    <h3>{!!$order->items_qty!!}</h3>
                 </div>
             </td>
         </tr>
@@ -168,17 +168,17 @@
             <th><span>{!!trans('messages.Total')!!}</span></th>
         </tr>
         {{--*/ $i=0 /*--}}
-        @foreach (unserialize($order->products_array) as $product_id => $colors)
-        @foreach ($colors as $key => $color_id)
+        @foreach (unserialize($order->products_array) as $product_id => $product_variations)
+        @foreach ($product_variations as $key => $product_variation_id)
             <tr>
-                <td style="border-left:5px solid {!!\App\Color::find($color_id)->hex!!}; width:200px">
-                    {!!\App\Product::find($product_id)->model->name!!}
-                    {!!\App\Product::find($product_id)->name!!} - 
-                    {!!\App\Color::find($color_id)->name!!}
+                <td style="border-left:5px solid {!!\App\Color::find(\App\ProductVariation::find($product_variation_id)->color_id)->hex!!}; width:200px">
+                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->prodmodel->name!!}
+                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->name!!} - 
+                    {!!\App\Color::find(\App\ProductVariation::find($product_variation_id)->color_id)->name!!}
                 </td>
                 {{--*/ $totprice = 0 /* --}}
                 {{--*/ $qty = 0 /* --}}
-                @foreach (\App\Item::where('product_id', $product_id)->where('color_id', $color_id)->get() as $item)
+                @foreach (\App\Item::where('product_variation_id', $product_variation_id)->get() as $item)
                 <td style="text-align:center" id="{!!$item->id!!}">
                     @if (\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first() != NULL)
                         {!!\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty!!}
@@ -204,7 +204,7 @@
 
     <br><br>
     <p>
-        Quest'ordine regolato dalle condizioni di vendita da voi sottoscritte che qui si intendono integralmente riportate
+        Quest'ordine è regolato dalle condizioni di vendita da voi sottoscritte che qui si intendono integralmente riportate.
         <br>Vale come conferma d'ordine salvo eventuali annullamenti che saranno comunicati tempestivamente.
         <br>Tutte le vendite online dovranno essere preventivamente approvate dall'azienda.
         <br><br>IL CLIENTE _____________________

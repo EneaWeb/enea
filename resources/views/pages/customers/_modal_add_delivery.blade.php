@@ -25,9 +25,9 @@
                 <div class="form-group">
                         {!!Form::label('address', trans('menu.Address').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
+                        {!! $autocompleteHelper->renderHtmlContainer($autocomplete2) !!}
                         {{-- Google Autocomplete Script --}}
-                        {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
+                        {{-- {!! $autocompleteHelper->renderJavascripts($autocomplete2) !!} --}}
                         {{-- END Google Autocomplete Script --}}
                     </div>
                 </div>

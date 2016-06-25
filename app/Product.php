@@ -71,7 +71,7 @@ class Product extends Model
         return $this->belongsTo('\App\Season');
     }
     
-    public function model()
+    public function prodmodel()
     {
         return $this->belongsTo('\App\ProdModel');
     }
@@ -89,6 +89,11 @@ class Product extends Model
     public function pictures()
     {
         return $this->hasMany('\App\ProductPicture');
+    }
+    
+    public function variations()
+    {
+        return $this->hasMany('\App\ProductVariation');
     }
     
     public static function product_colors($product_id)

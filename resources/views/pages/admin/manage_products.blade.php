@@ -96,7 +96,6 @@
                                         <th>{!!trans('auth.Name')!!}</th>
                                         <th>{!!trans('auth.Slug')!!}</th>
                                         <th>{!!trans('auth.Model')!!}</th>
-                                        <th>{!!trans('auth.Variation')!!}</th>
                                         <th>{!!trans('auth.Options')!!}</th>
                                     </tr>
                                 </thead>
@@ -107,8 +106,7 @@
                                             <td><a href="/catalogue/product/edit/{!!$product->id!!}">{!!$product->id!!}</a></td>
                                             <td><a href="/catalogue/product/edit/{!!$product->id!!}">{!!$product->name!!}</a></td>
                                             <td>{!!$product->slug!!}</td>
-                                            <td>{!!$product->model->name!!}</td>
-                                            <td>{!!(NULL!=$product->variation) ? $product->variation->name : ''!!}</td>
+                                            <td>{!!$product->prodmodel->name!!}</td>
                                             <td>
                                             <a href="/catalogue/product/edit/{!!$product->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a>
                                             <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_product({!!$product->id!!});"><span class="fa fa-times"></span></button>
@@ -154,6 +152,12 @@ $(document).ready(function() {
                     </div>
                 </div> 
                 <div class="form-group">
+                    {!!Form::label('type_id', trans('auth.Type'), ['class' => 'col-md-3 control-label'])!!}
+                    <div class="col-md-8">
+                        {!!Form::select('type_id', \App\Type::where('active',1)->lists('slug', 'id'), '', ['class' => 'form-control', 'placeholder'=>trans('messages.Select')])!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!!Form::label('prodmodel_id', trans('auth.Model'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
                         {!!Form::select('prodmodel_id', \App\ProdModel::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('messages.Select Model')])!!}
@@ -172,9 +176,9 @@ $(document).ready(function() {
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('variation_id', trans('auth.Variation'), ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('has_variations', trans('auth.With Variations'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::select('variation_id', \App\Variation::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder'=>trans('messages.None')])!!}
+                        {!!Form::select('has_variations', ['1'=>trans('messages.Yes'), '0'=>trans('messages.No')], '', ['class' => 'form-control', 'placeholder' => trans('auth.Select')])!!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -185,7 +189,7 @@ $(document).ready(function() {
                 </div>
             </div>
             <div class="modal-footer">
-                {!!Form::submit(trans('menu.Invite now'), ['class' => 'btn btn-danger'])!!}
+                {!!Form::submit(trans('menu.Create'), ['class' => 'btn btn-danger'])!!}
                 <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('menu.Close')!!}</button>
             </div>
             {!!Form::close()!!}

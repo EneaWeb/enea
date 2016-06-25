@@ -108,7 +108,7 @@
                                             @foreach ($colors as $key => $color_id)
                                                 <tr>
                                                     <th style="border-left:5px solid {!!\App\Color::find($color_id)->hex!!}">
-                                                        {!!\App\Product::find($product_id)->model->name!!}
+                                                        {!!\App\Product::find($product_id)->prodmodel->name!!}
                                                         {!!\App\Product::find($product_id)->name!!} - 
                                                         {!!\App\Color::find($color_id)->name!!}
                                                     </th>

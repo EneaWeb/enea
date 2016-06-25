@@ -27,12 +27,14 @@ class DashboardController extends Controller
 		$user = Auth::user();
 		$orders = Order::all();
 
+		/*
 		if ($user->can('manage brands')) {
 			$mapHelper = new MapHelper;
 			$map = Maps::orders_map();
 			return view('dashboard.admin', compact('map', 'mapHelper', 'orders'));
 			
 		} else {
+		*/
 			
 			// retrieve all customers
 			$customers = Customer::all();
@@ -60,7 +62,7 @@ class DashboardController extends Controller
 			
 			
 			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper'));
-		}
+		// }
 		
 	}
 	

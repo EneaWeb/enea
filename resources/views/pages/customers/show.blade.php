@@ -25,7 +25,9 @@
             </div>
             <div class="col-md-7 col-sm-8 col-xs-12">
                 
-                <form action="#" class="form-horizontal">
+                {!!Form::open(['url'=>'/customer/edit-customer', 'method'=>'POST', 'class'=>'form-horizontal'])!!}
+                {!!Form::hidden('id', $customer->id)!!}
+                
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3><span class="fa fa-user"></span> {!!trans('auth.Profile')!!}</h3>
@@ -39,15 +41,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.First Name')!!}</label>
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.First Name')!!}*</label>
                             <div class="col-md-9 col-xs-7">
                                 {!!Form::input('text', 'name', $customer->name, ['class'=>'form-control'])!!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Surname')!!}</label>
-                            <div class="col-md-9 col-xs-7">
-                                {!!Form::input('text', 'surname', $customer->surname, ['class'=>'form-control'])!!}
                             </div>
                         </div>
                         <div class="form-group">
@@ -65,7 +61,8 @@
                         <div class="form-group">
                             <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Address')!!}</label>
                             <div class="col-md-9 col-xs-7">
-                                {!!Form::input('text', 'address', $customer->address.' - '.$customer->postcode.' '.$customer->city.' '.$customer->province, ['class'=>'form-control'])!!}
+                                {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
+                                {{-- Google Autocomplete Script --}}
                             </div>
                         </div>  
                         <div class="form-group">
@@ -88,7 +85,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 col-xs-5">
-                                {!!Form::submit(trans('menu.Save'), ['class'=>'btn btn-primary btn-rounded pull-right'])!!}                                
+                                {!!Form::submit(trans('auth.Save'), ['class'=>'btn btn-primary btn-rounded pull-right'])!!}                                
                             </div>
                         </div>
                     </div>
@@ -148,6 +145,7 @@
 
 {!! $mapHelper->renderJavascripts($map) !!}
 {!! $mapHelper->renderStylesheets($map) !!}
+{!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
 @include('pages.customers._modal_add_delivery')
 
 @stop

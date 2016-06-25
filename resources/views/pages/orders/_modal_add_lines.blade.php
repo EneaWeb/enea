@@ -15,7 +15,7 @@
                 
                 <div class="col-md-8">
                 
-                    <h2>{!!$product->model->name!!} - 
+                    <h2>{!!$product->prodmodel->name!!} - 
                     {!!$product->name!!}</h2>
                     <h3>
                        € {!!number_format(\App\ItemPrice::where('season_list_id', \App\Option::where('name', 'active_season')->first()->value)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price'], 2, ',','.')!!}</h3>
@@ -33,18 +33,23 @@
                 <table class="table-condensed table-bordered" style="margin-left:auto; margin-right:auto; border-collapse: collapse;">
                     <tr>
                         <th></th>
+                        <th></th>
                             @foreach (\App\Size::all() as $size)
                             <th>{!!$size->name!!}</th>
                             @endforeach
                     </tr>
-                    @foreach(\App\Product::product_colors($product->id) as $color_id)
+                    @foreach(\App\ProductVariation::where('product_id', $product->id)
+                                                    ->where('active', 1)->get() as $product_variation)
                         <tr>
-                            <th style="border-left:5px solid {!!\App\Color::find($color_id)->hex!!}">
-                                {!!\App\Color::find($color_id)->name!!}
+                            <th style="padding:1px">
+                                <img style="max-width:40px" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product_variation->picture!!}"/>
                             </th>
-                            @foreach (\App\Item::where('product_id', $product->id)->where('color_id', $color_id)->get() as $item)
+                            <th style="border-left:5px solid {!!\App\Color::find($product_variation->color_id)->hex!!}">
+                                {!!\App\Color::find($product_variation->color_id)->name!!}
+                            </th>
+                            @foreach (\App\Item::where('product_variation_id', $product_variation->id)->get() as $item)
                             <td style="padding:2px">
-                                <input name="{!!$item->id!!}" data-price="{!!\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', \App\Option::where('name', 'active_season')->first()['value'])->first()['price']!!}" class="form-control tip" type="number" min="0" style="height: 26px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
+                                <input name="{!!$item->id!!}" data-price="{!!\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', \App\Option::where('name', 'active_season')->first()['value'])->first()['price']!!}" class="form-control tip" type="number" min="0" style="height: 30px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
                             </td>
                             @endforeach
                         </tr>

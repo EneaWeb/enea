@@ -25,7 +25,7 @@ class Payment extends Model
 		'slug',
 		'name',
 		'description',
-		'action', //   none, increase, discount
+		'action', //   '', '+', '-''
 					// => nessuno, maggiorazione, sconto
 		'amount',
 		'active'

@@ -22,6 +22,7 @@ class Type extends Model
 	protected $fillable = [
 		'slug',
 		'description',
+		'active'
 	];
 
 	protected $hidden = [

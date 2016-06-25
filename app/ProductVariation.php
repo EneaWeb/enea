@@ -19,7 +19,7 @@ class ProductVariation extends Model
     {
         $this->connection = Auth::user()->options->brand_in_use->slug;
     }
-    protected $table = 'products';
+    protected $table = 'product_variations';
     
     protected $fillable = [
 		'product_id',

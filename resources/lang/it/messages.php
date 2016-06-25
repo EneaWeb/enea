@@ -78,5 +78,6 @@ return [
 	'The delivery of goods will be done at the following address:' => 'La spedizione della merce sarà effettuata al seguente indirizzo:',
 	'Conditions' => 'Condizioni',
 	'Payment conditions' => 'Condizioni di pagamento',
+	'Yes' => 'Si',
 	
 ];

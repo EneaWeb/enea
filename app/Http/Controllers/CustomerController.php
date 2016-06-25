@@ -61,22 +61,29 @@ class CustomerController extends Controller
 		$customer = Customer::find($id);
 		
 		$autocomplete = new Autocomplete();
-
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 		$autocomplete->setInputId('place_input');
-
 		$autocomplete->setInputAttributes(array('class' => 'my-class'));
 		$autocomplete->setInputAttribute('name', 'address');
 		$autocomplete->setInputAttribute('class', 'form-control');
-
-		//$autocomplete->setValue('aaa');
-
+		$autocomplete->setValue($customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country);
 		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
-
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		
+		$autocomplete2 = new Autocomplete();
+		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete2->setInputId('place_input');
+		$autocomplete2->setInputAttributes(array('class' => 'my-class'));
+		$autocomplete2->setInputAttribute('name', 'address');
+		$autocomplete2->setInputAttribute('class', 'form-control');
+		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
+		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+		$autocomplete2->setBound(45, 9, 45, 9, true, true);
+		$autocomplete2->setAsync(false);
+		$autocomplete2->setLanguage(Localization::getCurrentLocale());
 		
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
@@ -84,7 +91,7 @@ class CustomerController extends Controller
 		$mapHelper = new MapHelper;
 		$map = Maps::customer_position_map($customer->address.' - '.$customer->postcode.' '.$customer->city.' '.$customer->province);
 
-		return view('pages.customers.show', compact('customer', 'map', 'mapHelper', 'autocomplete', 'autocompleteHelper'));
+		return view('pages.customers.show', compact('customer', 'map', 'mapHelper', 'autocomplete', 'autocomplete2', 'autocompleteHelper'));
 	}
 	
 	public function create()
@@ -182,11 +189,38 @@ class CustomerController extends Controller
 		// if everything ok...
 		if ( $v->passes() ) {
 				
-			// get the delivery from ID
+			// get the customer from ID
 			$customer = Customer::find(Input::get('id'));
 			// edit the informations
 			$customer->name = Input::get('name');
-			$customer->slug = trim(Input::get('slug'));
+			$customer->sign = Input::get('sign');
+			$customer->vat = Input::get('vat');
+			
+			// prepare geocoding
+			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
+			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
+			// get address from input
+			$address = Input::get('address');
+			// get geocoding result ..
+			$geocoded = $geocoder->getGeocodedData($address);
+			
+			// can't geocoding the address
+			if ($geocoded == '')
+			{
+				$customer->address = Input::get('address');
+				// can geocoding the address .. so take values from response
+			} else {
+				// populate infos
+				$customer->address = $geocoded[0]['streetName'].' , '. $geocoded[0]['streetNumber'];
+				$customer->city = $geocoded[0]['city'];
+				$customer->postcode = $geocoded[0]['zipcode'];
+				$customer->province = $geocoded[0]['countyCode'];
+				$customer->country = $geocoded[0]['countryCode'];
+			}
+			
+			$customer->telephone = Input::get('telephone');
+			$customer->mobile = Input::get('mobile');
+			$customer->email = Input::get('email');
 			// setConnection -required- for BRAND DB
 			$customer->setConnection('mysql');
 			// save the line(s)

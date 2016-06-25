@@ -15,11 +15,13 @@
         <div class="content-frame-left">
 
             <div class="col-md-12" style="padding:0">
-
+                
+            @if (\App\Option::active_season() != NULL)
                 <div class="widget widget-warning widget-no-subtitle">
                     <div class="widget-subtitle">{!! trans('messages.Current Season') !!}</div>
                     <div class="widget-big-int"><span class="num-count">{!!\App\Option::active_season()->name!!}</span></div>            
                 </div>
+            @endif
                 <a href="#" data-toggle="modal" data-target="#modal_add_season" class="tile tile-success tile-valign">
                     <span class="fa fa-plus"></span>
                 </a>
@@ -57,7 +59,7 @@
         <div class="content-frame-body content-frame-body-right" style="padding-top:0">
         
             <div class="content-frame-top">
-                
+            
                 <h1>{!!trans('menu.Season')!!} <span class="btn btn-success btn-lg">{!!$season->name!!}</span></h1>
                 
             </div>

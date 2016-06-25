@@ -191,6 +191,7 @@ Route::group([
 	Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
 	Route::post('/order/new/save-line', 'OrderController@save_line');
+	Route::post('/customer/edit-customer', 'CustomerController@edit');
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	

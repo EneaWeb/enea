@@ -72,6 +72,11 @@ class Item extends Model
 		return $this->hasMany('\App\Price');
 	}
 	
+	public function size()
+	{
+		return $this->belongsTo('\App\Size');
+	}
+	
 	public function price_for_list($list_id)
 	{
 		return \App\ItemPrice::where('item_id', $this->id)->where('season_list_id', $list_id)->first()['price'];
