@@ -72,17 +72,26 @@
                         <div class="panel-content">
 
                             <div class="gallery" id="links">
-
+                            
                             @foreach($products as $product)
-                                <a class="gallery-item" href="#" data-toggle="modal" data-target="#modal_add_lines_{!!$product->id!!}" class="tile tile-primary">
+                            
+                                {{-- CUSTOMIZER --}}
+                                @if ((Auth::user()->options->brand_in_use->slug == 'cinziaaraia') && $product->slug == '_custom')
+                                    {{-- CUSTOMIZER --}}
+                                    <a class="gallery-item" href="/customizer/{!!Auth::user()->options->brand_in_use->slug!!}" class="tile tile-primary">
+                                @else
+                                    <a class="gallery-item" href="#" data-toggle="modal" data-target="#modal_add_lines_{!!$product->id!!}" class="tile tile-primary">
+                                @endif
+                                
                                     <div class="image">
-                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
+                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
                                     </div>
                                     <div class="meta">
                                         <strong>{!!$product->name!!}</strong>
                                         <span>[ {!!$product->slug!!} ]</span>
                                     </div>
                                 </a>
+
                             @endforeach
                                  
                             </div>

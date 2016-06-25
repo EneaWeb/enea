@@ -27,7 +27,9 @@
                     <div class="col-md-8">
                         {!! $autocompleteHelper->renderHtmlContainer($autocomplete2) !!}
                         {{-- Google Autocomplete Script --}}
-                        {{-- {!! $autocompleteHelper->renderJavascripts($autocomplete2) !!} --}}
+                        @if( strpos(Request::url(), 'customer') == false)
+                            {!! $autocompleteHelper->renderJavascripts($autocomplete2) !!}
+                        @endif
                         {{-- END Google Autocomplete Script --}}
                     </div>
                 </div>

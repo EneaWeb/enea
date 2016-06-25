@@ -19,9 +19,9 @@ class ProductController extends Controller
 		// query all products for active season
 		
 		if (Input::has('active'))
-			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name')->paginate(28);
+			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(28);
 		else 
-			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name')->paginate(28);
+			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(28);
 		
 		// return view
 		return view('pages.catalogue.products', compact('products'));
@@ -157,6 +157,7 @@ class ProductController extends Controller
 				$item->product_id = Input::get('id');
 				$item->product_variation_id = $product_variation->id;
 				$item->size_id = $size->id;
+				$item->active = 1;
 				// setConnection -required- for BRAND DB
 				$product->setConnection(Auth::user()->options->brand_in_use->slug);
 				// save

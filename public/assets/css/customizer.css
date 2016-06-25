@@ -204,3 +204,11 @@ a:active {
     margin-right:0px!important;
   }
 }
+
+.square-selected {
+  border: 4px solid #b00000;
+}
+
+.material-pannello {
+  padding-left:32px;
+}

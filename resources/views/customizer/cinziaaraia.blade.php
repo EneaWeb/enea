@@ -104,90 +104,90 @@
 						<br>
 						<h3 style="text-align:center">TOMAIA UP</h3>
 						<br>
-						<select name="type" class="form-control" id="material-select>
+						<select name="type" class="form-control" id="material-select">
 							<option value="sub-material-crosta">CROSTA</option>
 							<option value="sub-material-pelle">PELLE</option>
 							<option value="sub-material-pitone">PITONE STAMPATO</option>
 						</select>
 						<br><br>
-						<div class="sub-material sub-material-crosta">
+						<div class="sub-material sub-material-crosta material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/crosta_black.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_crosta_black"
-									data-tool="tooltip" title="CROSTA BLACK" data-placement="top" >
+									data-tool="tooltip" title="CROSTA BLACK" data-title="CROSTA BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/crosta_alma.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_crosta_alma"
-									data-tool="tooltip" title="CROSTA ALMA" data-placement="top" >
+									data-tool="tooltip" title="CROSTA ALMA" data-title="CROSTA ALMA" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/crosta_angel.jpg');" 
-									class="square change_tomaiaup" 
+									class="square change_tomaiaup square-selected" 
 									id="tomaiaup_crosta_angel"
-									data-tool="tooltip" title="CROSTA ANGEL" data-placement="top" >
+									data-tool="tooltip" title="CROSTA ANGEL" data-title="CROSTA ANGEL" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/crosta_marmo.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_crosta_marmo"
-									data-tool="tooltip" title="CROSTA MARMO" data-placement="top" >
+									data-tool="tooltip" title="CROSTA MARMO" data-title="CROSTA MARMO" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/crosta_pearl.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_crosta_pearl"
-									data-tool="tooltip" title="CROSTA PEARL" data-placement="top" >
+									data-tool="tooltip" title="CROSTA PEARL" data-title="CROSTA PEARL" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
 						
-						<div class="sub-material sub-material-pelle" style="display:none">
+						<div class="sub-material sub-material-pelle material-pannello" style="display:none">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_black.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pelle_black"
-									data-tool="tooltip" title="PELLE BLACK" data-placement="top" >
+									data-tool="tooltip" title="PELLE BLACK" data-title="PELLE BLACK" PELLE BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_white.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pelle_white"
-									data-tool="tooltip" title="PELLE WHITE" data-placement="top" >
+									data-tool="tooltip" title="PELLE WHITE" data-title="PELLE WHITE" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_avion.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pelle_avion"
-									data-tool="tooltip" title="PELLE AVION" data-placement="top" >
+									data-tool="tooltip" title="PELLE AVION" data-title="PELLE AVION" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_sand.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pelle_sand"
-									data-tool="tooltip" title="PELLE SAND" data-placement="top" >
+									data-tool="tooltip" title="PELLE SAND" data-title="PELLE SAND" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_gesso.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pelle_gesso"
-									data-tool="tooltip" title="PELLE GESSO" data-placement="top" >
+									data-tool="tooltip" title="PELLE GESSO" data-title="PELLE GESSO" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
 						
-						<div class="sub-material sub-material-pitone" style="display:none">
+						<div class="sub-material sub-material-pitone material-pannello" style="display:none">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pitone_black.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pitone_black"
-									data-tool="tooltip" title="PITONE BLACK" data-placement="top" >
+									data-tool="tooltip" title="PITONE BLACK" data-title="PITONE BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pitone_ghost.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pitone_ghost"
-									data-tool="tooltip" title="PITONE GHOST" data-placement="top" >
+									data-tool="tooltip" title="PITONE GHOST" data-title="PITONE GHOST" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pitone_alloy.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pitone_alloy"
-									data-tool="tooltip" title="PITONE ALLOY" data-placement="top" >
+									data-tool="tooltip" title="PITONE ALLOY" data-title="PITONE ALLOY" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pitone_sand.jpg');" 
 									class="square change_tomaiaup" 
 									id="tomaiaup_pitone_sand"
-									data-tool="tooltip" title="PITONE SAND" data-placement="top" >
+									data-tool="tooltip" title="PITONE SAND" data-title="PITONE SAND" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -201,31 +201,31 @@
 						<br>
 						<h3 style="text-align:center">TOMAIA DOWN</h3>
 						<br>
-						<div>
+						<div class="material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/tessuto_black.jpg');" 
-									class="square change_tomaiadown" 
+									class="square change_tomaiadown square-selected" 
 									id="tomaiadown_tessuto_black"
-									data-tool="tooltip" title="TESSUTO BLACK" data-placement="top" >
+									data-tool="tooltip" title="TESSUTO BLACK" data-title="TESSUTO BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/tessuto_white.jpg');" 
 									class="square change_tomaiadown" 
 									id="tomaiadown_tessuto_white"
-									data-tool="tooltip" title="TESSUTO WHITE" data-placement="top" >
+									data-tool="tooltip" title="TESSUTO WHITE" data-title="TESSUTO WHITE" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/tessuto_military.jpg');" 
 									class="square change_tomaiadown" 
 									id="tomaiadown_tessuto_military"
-									data-tool="tooltip" title="TESSUTO MILITARY" data-placement="top" >
+									data-tool="tooltip" title="TESSUTO MILITARY" data-title="TESSUTO MILITARY" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/tessuto_sand.jpg');" 
 									class="square change_tomaiadown" 
 									id="tomaiadown_tessuto_sand"
-									data-tool="tooltip" title="TESSUTO SAND" data-placement="top" >
+									data-tool="tooltip" title="TESSUTO SAND" data-title="TESSUTO SAND" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/tessuto_grey.jpg');" 
 									class="square change_tomaiadown" 
 									id="tomaiadown_tessuto_grey"
-									data-tool="tooltip" title="TESSUTO GREY" data-placement="top" >
+									data-tool="tooltip" title="TESSUTO GREY" data-title="TESSUTO GREY" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -239,30 +239,31 @@
 						<br>
 						<h3 style="text-align:center">TACCO</h3>
 						<br>
-						<div>
+						<div class="material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_black.jpg');" 
-									class="square change_tacco" 
-									id="tacco_pelle_black">
+									class="square change_tacco square-selected" 
+									id="tacco_pelle_black" 
+									data-tool="tooltip" title="PELLE BLACK" data-title="PELLE BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_white.jpg');" 
 									class="square change_tacco" 
 									id="tacco_pelle_white"
-									data-tool="tooltip" title="PELLE WHITE" data-placement="top" >
+									data-tool="tooltip" title="PELLE WHITE" data-title="PELLE WHITE"data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_avion.jpg');" 
 									class="square change_tacco" 
 									id="tacco_pelle_avion"
-									data-tool="tooltip" title="PELLE AVION" data-placement="top" >
+									data-tool="tooltip" title="PELLE AVION" data-title="PELLE AVION" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_sand.jpg');" 
 									class="square change_tacco" 
 									id="tacco_pelle_sand"
-									data-tool="tooltip" title="PELLE SAND" data-placement="top" >
+									data-tool="tooltip" title="PELLE SAND" data-title="PELLE SAND" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/pelle_gesso.jpg');" 
 									class="square change_tacco" 
 									id="tacco_pelle_gesso"
-									data-tool="tooltip" title="PELLE GESSO" data-placement="top" >
+									data-tool="tooltip" title="PELLE GESSO" data-title="PELLE GESSO" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -276,16 +277,16 @@
 						<br>
 						<h3 style="text-align:center">SUOLA</h3>
 						<br>
-						<div>
+						<div class="material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/suola_gesso.jpg');" 
-									class="square change_suola" 
+									class="square change_suola square-selected" 
 									id="suola_gesso"
-									data-tool="tooltip" title="SUOLA GESSO" data-placement="top" >
+									data-tool="tooltip" title="SUOLA GESSO" data-title="GESSO" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/suola_military.jpg');" 
 									class="square change_suola" 
 									id="suola_military"
-									data-tool="tooltip" title="SUOLA MILITARY" data-placement="top" >
+									data-tool="tooltip" title="SUOLA MILITARY" data-title="MILITARY" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -300,21 +301,21 @@
 						<br>
 						<h3 style="text-align:center">DON'T FORGET..</h3>
 						<br>
-						<div>
+						<div class="material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/scritta_white.jpg');" 
-									class="square change_scritta" 
+									class="square change_scritta square-selected" 
 									id="scritta_white"
-									data-tool="tooltip" title="SCRITTA WHITE" data-placement="top" >
+									data-tool="tooltip" title="SCRITTA WHITE" data-title="WHITE" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/scritta_black.jpg');" 
 									class="square change_scritta" 
 									id="scritta_black"
-									data-tool="tooltip" title="SCRITTA BLACK" data-placement="top" >
+									data-tool="tooltip" title="SCRITTA BLACK" data-title="BLACK" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/scritta_none.jpg');" 
 									class="square change_scritta" 
 									id="scritta_none"
-									data-tool="tooltip" title="NESSUNA SCRITTA" data-placement="top" >
+									data-tool="tooltip" title="NESSUNA SCRITTA" data-title="NESSUNA" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -328,22 +329,41 @@
 						<h3 style="text-align:center">LOGO</h3>
 						<br>
 						{{-- Corpo del pannello --}}
-						<div>
+						<div class="material-pannello">
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/logo_white.jpg');" 
 									class="square change_logo" 
 									id="logo_white"
-									data-tool="tooltip" title="LOGO WHITE" data-placement="top" >
+									data-tool="tooltip" title="LOGO WHITE" data-title="WHITE" data-placement="top" >
 							</div>
 							<div style="background:url('/assets/images/cinziaaraia_customizer/squares/logo_black.jpg');" 
-									class="square change_logo" 
+									class="square change_logo square-selected" 
 									id="logo_black"
-									data-tool="tooltip" title="LOGO BLACK" data-placement="top" >
+									data-tool="tooltip" title="LOGO BLACK" data-title="BLACK" data-placement="top" >
 							</div>
 							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
        </div>
+   </div>
+   <div class="panel panel-default">
+   	<div class="panel-body">
+	   	<div class="pannello-body" style="padding:20px">
+	   		<br>
+	   		<h3 style="text-align:center">OPZIONE CREATA</h3>
+	   		<p id="description-option">
+	   			[TomaiaUp] <strong><span id="option-tomaiaup">CROSTA ANGEL</span></strong> 
+	   			<br>[TomaiaDown] <strong><span id="option-tomaiadown">TESSUTO BLACK</span></strong> 
+	   			<br>[Tacco] <strong><span id="option-tacco">PELLE BLACK</span></strong> 
+	   			<br>[Suola] <strong><span id="option-suola">GESSO</span></strong> 
+	   			<br>[Scritta] <strong><span id="option-scritta">WHITE</span></strong> 
+	   			<br>[Logo] <strong><span id="option-logo">BLACK</span></strong>
+	   		</p>
+	   		<br>
+	   		<btn class="btn btn-danger">Inserisci nell'ordine <span class="fa fa-shopping-cart"></span></btn>
+	   		<br>
+	   	</div>
+	   </div>
    </div>
 </div>
 {{-- END CONTENT FRAME LEFT --}}
@@ -397,7 +417,7 @@ $(document).ready(function(){
 			
 		   $('#shadow').fadeOut(20, function() {
 				$('#shadow').attr("src", shadowHref.replace('front', 'back') );
-				$('#tomaiaup').fadeIn(600);
+				$('#shadow').fadeIn(600);
 			});
 			$('#tomaiaup').fadeOut(20, function() {
 				$('#tomaiaup').attr("src", tomaiaupHref.replace('front', 'back') );
@@ -430,7 +450,7 @@ $(document).ready(function(){
 			
 		   $('#shadow').fadeOut(20, function() {
 				$('#shadow').attr("src", shadowHref.replace('back', 'front') );
-				$('#tomaiaup').fadeIn(600);
+				$('#shadow').fadeIn(600);
 			});
 			$('#tomaiaup').fadeOut(20, function() {
 				$('#tomaiaup').attr("src", tomaiaupHref.replace('back', 'front') );
@@ -478,6 +498,13 @@ $(document).ready(function(){
 	});
 
 	$('.change_tomaiaup').click(function(){
+		// red border
+		$('.change_tomaiaup').removeClass('square-selected');	$(this).addClass('square-selected');
+
+		// change description
+		title = $(this).data('title');
+		$('#option-tomaiaup').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#tomaiaup').fadeOut(20, function() {
 			$('#tomaiaup').attr("src", idToSRC );
@@ -486,6 +513,13 @@ $(document).ready(function(){
 	});
 	
 	$('.change_tomaiadown').click(function(){
+		// red border
+		$('.change_tomaiadown').removeClass('square-selected');	$(this).addClass('square-selected');
+		
+		// change description
+		title = $(this).data('title');
+		$('#option-tomaiadown').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#tomaiadown').fadeOut(20, function() {
 			$('#tomaiadown').attr("src", idToSRC );
@@ -494,6 +528,13 @@ $(document).ready(function(){
 	});
 	
 	$('.change_tacco').click(function(){
+		// red border
+		$('.change_tacco').removeClass('square-selected');	$(this).addClass('square-selected');
+		
+		// change description
+		title = $(this).data('title');
+		$('#option-tacco').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#tacco').fadeOut(300, function() {
 			$('#tacco').attr("src", idToSRC );
@@ -502,6 +543,13 @@ $(document).ready(function(){
 	});
 	
 	$('.change_suola').click(function(){
+		// red border
+		$('.change_suola').removeClass('square-selected');	$(this).addClass('square-selected');
+		
+		// change description
+		title = $(this).data('title');
+		$('#option-suola').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#suola').fadeOut(300, function() {
 			$('#suola').attr("src", idToSRC );
@@ -510,6 +558,13 @@ $(document).ready(function(){
 	});
 	
 	$('.change_scritta').click(function(){
+		// red border
+		$('.change_scritta').removeClass('square-selected');	$(this).addClass('square-selected');
+		
+		// change description
+		title = $(this).data('title');
+		$('#option-scritta').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#scritta').fadeOut(300, function() {
 			$('#scritta').attr("src", idToSRC );
@@ -518,6 +573,13 @@ $(document).ready(function(){
 	});
 	
 	$('.change_logo').click(function(){
+		// red border
+		$('.change_logo').removeClass('square-selected');	$(this).addClass('square-selected');
+		
+		// change description
+		title = $(this).data('title');
+		$('#option-logo').text(title);
+		
 	   var idToSRC = '/assets/images/cinziaaraia_customizer/'+position+'/'+ this.id +'.png';
 	   $('#logo').fadeOut(300, function() {
 			$('#logo').attr("src", idToSRC );

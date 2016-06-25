@@ -64,23 +64,23 @@ class OrderController extends Controller
 			return redirect()->back();
 		
 			
-			$autocomplete = new Autocomplete();
+			$autocomplete2 = new Autocomplete();
 
-			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-			$autocomplete->setInputId('place_input');
+			$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
+			$autocomplete2->setInputId('place_input');
 
-			$autocomplete->setInputAttributes(array('class' => 'my-class'));
-			$autocomplete->setInputAttribute('name', 'address');
-			$autocomplete->setInputAttribute('class', 'form-control');
+			$autocomplete2->setInputAttributes(array('class' => 'my-class'));
+			$autocomplete2->setInputAttribute('name', 'address');
+			$autocomplete2->setInputAttribute('class', 'form-control');
 
 			//$autocomplete->setValue('aaa');
 
-			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
+			$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
 			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-			$autocomplete->setBound(45, 9, 45, 9, true, true);
+			$autocomplete2->setBound(45, 9, 45, 9, true, true);
 
-			$autocomplete->setAsync(false);
-			$autocomplete->setLanguage(Localization::getCurrentLocale());
+			$autocomplete2->setAsync(false);
+			$autocomplete2->setLanguage(Localization::getCurrentLocale());
 			
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
@@ -88,7 +88,7 @@ class OrderController extends Controller
 		$customer_id = Input::get('id');
 		$customer = \App\Customer::find($customer_id);
 		
-		return view('pages.orders.step2', compact('customer','autocomplete', 'autocompleteHelper'));
+		return view('pages.orders.step2', compact('customer','autocomplete2', 'autocompleteHelper'));
 		
 	}
 	
@@ -103,7 +103,7 @@ class OrderController extends Controller
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
 		// query all products for active season
-		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name')->paginate(28);
+		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(28);
 		
 		if (Session::has('order.items')){
 			$items = Session::get('order.items');

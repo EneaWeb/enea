@@ -33,13 +33,13 @@
                 @if ($product->has_variations == '1')
                     @foreach ($product->variations as $variation)
                         <a href="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation->picture!!}">
-                            <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation->picture!!}",
-                                data-big="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation->picture!!}"
+                            <img alt="{!!\App\Color::find($variation->color_id)->name!!}" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation->picture!!}",
+                                data-big="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation->picture!!}" 
                             >
                         </a>
                         @foreach ($variation->pictures as $variation_picture)
                             <a href="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation_picture->picture!!}">
-                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation_picture->picture!!}",
+                                <img alt="{!!\App\Color::find($variation->color_id)->name!!}" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation_picture->picture!!}",
                                     data-big="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$variation_picture->picture!!}"
                                 >
                             </a>
