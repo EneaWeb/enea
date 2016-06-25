@@ -3,6 +3,15 @@
 @section('content')
 {{ HTML::style('/assets/css/customizer.css') }} {{-- add some style --}}
 
+<div style="display:none" id="pre-load-images">
+@foreach (File::allFiles(public_path().'/assets/images/cinziaaraia_customizer/back/') as $file)
+<img src="/assets/images/cinziaaraia_customizer/back/{!!$file->getFilename()!!}" style="height:1px; width:1px" />
+@endforeach
+@foreach (File::allFiles(public_path().'/assets/images/cinziaaraia_customizer/front/') as $file)
+<img src="/assets/images/cinziaaraia_customizer/front/{!!$file->getFilename()!!}" style="height:1px; width:1px" />
+@endforeach
+</div>
+
 <div class="content-frame">
 
 {{--	1) TOMAIA UP
