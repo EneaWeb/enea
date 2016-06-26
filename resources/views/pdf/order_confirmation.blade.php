@@ -35,6 +35,9 @@
       zoom: 1;
     }
     </style>
+    <title>
+        {!!trans('messages.Order')!!} {!!$brand->name!!} #{!!$order->id!!}
+    </title>
 </head>
 <body style="width:100%">
 <div id="container" style="font-family:'Open Sans', sans-serif; width:100%;">

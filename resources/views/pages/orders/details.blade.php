@@ -12,13 +12,15 @@
         
         <div class="page-title">                    
             <h2>Ordine # {!!$order->id!!} - {!!$order->customer->companyname!!}</h2>
+            <span style="float:right">
+                <a href="/order/pdf/download/{!!$order->id!!}"><button class="btn btn-warning">DOWNLOAD</button></a>
+            </span>
         </div> 
 
         <div class="row">
             <div class="col-md-12">
                 
                 <div id="pdfview" style="height:80vh; z-index:899">
-                    pasfasf
                 </div>
                 <script>
                     PDFObject.embed("/order/pdf/{!!$order->id!!}", "#pdfview");

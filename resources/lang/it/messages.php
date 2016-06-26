@@ -79,5 +79,9 @@ return [
 	'Conditions' => 'Condizioni',
 	'Payment conditions' => 'Condizioni di pagamento',
 	'Yes' => 'Si',
+	'New Order' => 'Nuovo Ordine',
+	'Dear' => 'Gentile',
+	'As attached you can find a copy of your Order' => 'In allegato puoi trovare la copia del tuo Ordine',
+	'Order' => 'Ordine',
 	
 ];

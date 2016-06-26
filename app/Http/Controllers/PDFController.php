@@ -28,7 +28,7 @@ class PDFController extends Controller
 		$pdf->setPaper('A4');
 		$pdf->setOrientation('landscape');
 		
-		return $pdf->download('test.pdf');	
+		return $pdf->download(trans('messages.Order').' '.$brand->name.' #'.$order->id.'.pdf');	
 	}
 	
 	public function order_confirmation_view($id)

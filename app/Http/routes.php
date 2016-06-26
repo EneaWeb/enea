@@ -77,7 +77,11 @@ Route::get('/create-roles', function(){
 */
 
 Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
-Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
+Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
+Route::get('/email/confirmation/{id}', function($id) {
+   $confirm = \App\EneaMail::order_confirmation($id);
+});;
+
 
 Route::group([
 	'prefix'     => Localization::setLocale(),
@@ -149,8 +153,10 @@ Route::group([
 	Route::get('/order/new/confirm', 'OrderController@confirm');
 	Route::get('/order/details/{id}', 'OrderController@details');
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
+	Route::get('/order/email/{id}', 'OrderController@send_mail');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
+	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
 	
 	// end localization middleware
 });

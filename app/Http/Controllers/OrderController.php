@@ -335,6 +335,9 @@ class OrderController extends Controller
 		$order_image->save();
 		// pulisco la variabile di sessione
 		Session::forget('order');
+		
+		$email_confirmation = \App\EneaMail::order_confirmation($order->id);
+		
 		Alert::success('Ordine salvato correttamente');
 		return redirect('/');
 	}
@@ -371,6 +374,14 @@ class OrderController extends Controller
 		Alert::success('Ordine eliminato correttamente');
 		return redirect()->back();
 
+	}
+	
+	public function send_mail($id)
+	{
+		$mail = \App\EneaMail::order_confirmation($id);
+		
+		Alert::success('Mail inviata');
+		return redirect()->back();
 	}
 	
 }

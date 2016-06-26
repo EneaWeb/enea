@@ -80,5 +80,8 @@ return [
 	'Payment conditions' => 'Payment Conditions',
 	'Yes' => 'Yes',
 	'No' => 'No',
-	
+	'New Order' => 'New Order',
+	'Dear' => 'Dear',
+	'As attached you can find a copy of your Order' => 'As attached you can find a copy of your Order',
+	'Order' => 'Order',
 ];
