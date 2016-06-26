@@ -42,7 +42,7 @@
 <body style="width:100%">
 <div id="container" style="font-family:'Open Sans', sans-serif; width:100%;">
 
-    @include('pdf.header')
+    @include('pdf.order_confirmation_header')
     
     <table style="width:100%">
         <tr style="width:100%">
@@ -155,7 +155,7 @@
 
     <div class="page-break"></div>
     
-    @include('pdf.header')
+    @include('pdf.order_confirmation_header')
     
     <h3>{!!strtoupper(trans('messages.Detail'))!!}:</h3>
     <br><br>
@@ -201,7 +201,7 @@
     
     <div class="page-break"></div>
 
-    @include('pdf.header')
+    @include('pdf.order_confirmation_header')
 
     <h3>NOTE :</h3>
 

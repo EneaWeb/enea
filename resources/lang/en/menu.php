@@ -57,5 +57,6 @@ return [
 	'New Order' => 'New Order',
 	'Continue' => 'Continue',
 	'Orders' => 'Orders',
+	'Line Sheet' => 'Line Sheet',
 	
 ];

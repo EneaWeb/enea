@@ -154,7 +154,7 @@ $(document).ready(function() {
                 <div class="form-group">
                     {!!Form::label('type_id', trans('auth.Type'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::select('type_id', \App\Type::where('active',1)->lists('slug', 'id'), '', ['class' => 'form-control', 'placeholder'=>trans('messages.Select')])!!}
+                        {!!Form::select('type_id', \App\Type::lists('slug', 'id'), '', ['class' => 'form-control', 'placeholder'=>trans('messages.Select')])!!}
                     </div>
                 </div>
                 <div class="form-group">
