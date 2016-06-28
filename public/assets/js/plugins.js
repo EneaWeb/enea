@@ -157,18 +157,26 @@ $(function() {
     }();
 
     var uiElements = function(){
-
+        var currentLocale = $('#getcurrentlocale').text();
         //Datatables
         var uiDatatable = function(){
             if($(".datatable").length > 0){                
-                $(".datatable").dataTable();
+                $(".datatable").dataTable({
+                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                });
                 $(".datatable").on('page.dt',function () {
                     onresize(100);
                 });
             }
             
             if($(".datatable_simple").length > 0){                
-                $(".datatable_simple").dataTable({"ordering": false, "info": false, "lengthChange": false,"searching": false});
+                $(".datatable_simple").dataTable({
+                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                    "ordering": false, 
+                    "info": false, 
+                    "lengthChange": false,
+                    "searching": false
+                });
                 $(".datatable_simple").on('page.dt',function () {
                     onresize(100);
                 });                

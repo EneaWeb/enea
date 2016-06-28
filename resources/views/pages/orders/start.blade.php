@@ -168,7 +168,5 @@
             </div>   
         </div>
     </div>
-<div style="display:none" id="currentlocale">{!!Localization::getCurrentLocale()!!}</div>
 @include('pages.customers._modal_add_customer');
-
 @stop

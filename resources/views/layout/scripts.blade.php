@@ -167,7 +167,7 @@
                                 $('#mobile').val(parsed.mobile);
                                 $('#email').val(parsed.email);
                                 // current locale
-                                currentlocale = $('#currentlocale').text()
+                                currentlocale = $('#getcurrentlocale').text()
                                 // CONTINUE button href
                                 $('.goto-step2').attr("href", "/order/new/step2?id="+parsed.id);
                             },

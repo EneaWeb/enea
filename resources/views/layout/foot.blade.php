@@ -1,3 +1,5 @@
+{{-- Current locale for js inclusion --}}
+<div id="getcurrentlocale">{!!strtoupper(Localization::getCurrentLocale())!!}</div>
 {{-- START PRELOADS --}}
 <audio id="audio-alert" src="/assets/audio/alert.mp3" preload="auto"></audio>
 <audio id="audio-fail" src="/assets/audio/fail.mp3" preload="auto"></audio>
