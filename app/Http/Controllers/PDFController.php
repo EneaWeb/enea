@@ -63,7 +63,8 @@ class PDFController extends Controller
 		$pdf->setPaper('A4');
 		
 		// return view('pdf.line_sheet', compact('brand', 'products', 'seasonlist');
-		return $pdf->stream();
+		//return $pdf->stream();
+		return $pdf->download($brand->name.' Line Sheet '.\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name.' '.$sesonlist->name.'.pdf');	
 	}
 
 }

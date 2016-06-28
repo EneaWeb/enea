@@ -108,9 +108,9 @@
                                             <td>{!!$product->slug!!}</td>
                                             <td>{!!$product->prodmodel->name!!}</td>
                                             <td>
-                                            <a href="/catalogue/product/edit/{!!$product->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a>
-                                            <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_product({!!$product->id!!});"><span class="fa fa-times"></span></button>
-                                        </td>
+                                                <a href="/catalogue/product/edit/{!!$product->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a>
+                                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_product({!!$product->id!!});"><span class="fa fa-times"></span></button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     @endif
@@ -122,7 +122,7 @@
             </div>   
         </div>
     </div>
-    
+{{--
 <script>
 $(document).ready(function() {
     var table = $('#products').DataTable();
@@ -134,6 +134,7 @@ $(document).ready(function() {
     } );
 } );
 </script>
+--}}
 {{-- MODALS --}}
 
 <div class="modal animated fadeIn" id="modal_add_product" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">

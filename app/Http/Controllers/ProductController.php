@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \App\Product as Product;
 use Input;
 use Auth;
+use Image;
 use \App\ProductVariation as ProductVariation;
 use \App\Alert as Alert;
 use App\Http\Requests;
@@ -235,10 +236,19 @@ class ProductController extends Controller
 			$imageFullName = 	$product_id.
 									'-'.str_random(4).
 									'-'.Input::file('picture')->getClientOriginalName();
-
-			Input::file('picture')->move(
-				base_path() . '/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/', $imageFullName
-			);
+									
+			$imageUrl = base_path().'/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/';
+			// move the original image
+			Input::file('picture')->move(	$imageUrl, $imageFullName );
+			// make a copy
+			$img300 = Image::make($imageUrl.$imageFullName);
+			// resize with aspect ration and prevent possible upsizing
+			$img300->resize(null, 400, function ($constraint) {
+			    $constraint->aspectRatio();
+			    $constraint->upsize();
+			});
+			//save the image as a new file
+			$img300->save($imageUrl.'300/'.$imageFullName);
 			
 			if (Input::get('product_variation_id') == 0) {
 				$product = Product::find($product_id);
@@ -280,9 +290,19 @@ class ProductController extends Controller
 			$imageFullName = 	$product_id.
 									'-'.str_random(4).
 									'-'.Input::file('picture')->getClientOriginalName();
-			Input::file('picture')->move(
-				base_path() . '/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/', $imageFullName
-			);
+
+			$imageUrl = base_path().'/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/';
+			// move the original image
+			Input::file('picture')->move(	$imageUrl, $imageFullName );
+			// make a copy
+			$img300 = Image::make($imageUrl.$imageFullName);
+			// resize with aspect ration and prevent possible upsizing
+			$img300->resize(null, 400, function ($constraint) {
+			    $constraint->aspectRatio();
+			    $constraint->upsize();
+			});
+			//save the image as a new file
+			$img300->save($imageUrl.'300/'.$imageFullName);
 			
 			if (Input::get('product_variation_id') == 0) {
 				$product_picture = new \App\ProductPicture;

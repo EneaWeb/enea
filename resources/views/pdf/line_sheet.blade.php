@@ -1,5 +1,6 @@
 <html style="width:100%">
 <head>
+    <title>{!!$brand->name!!} Line Sheet {!!\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name!!}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
     body {
@@ -60,20 +61,20 @@
         @if ($product->slug != '_custom')
             <tr><td></td></tr>
             <tr>
-                <th style="text-align:right; width:310px; border:10px solid #F6F6F6; background-color: #F6F6F6">
-                    <img style="max-width:300px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/{!!$product->picture!!}"/>
+                <th style="text-align:right; width:320px; padding-top:20px; padding-bottom:20px; background-color: #F1F1F1">
+                    <img style="max-width:300px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
                 </th>
-                <th style="text-align:left; background-color:#F6F6F6"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
+                <th style="text-align:left; background-color:#F1F1F1"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
                 <p>{!!$product->description!!}</p>
                 </th>
             </tr>
             @foreach ($product->variations as $variation)
             
                 <tr>
-                    <td style="text-align:right; width:310px; border:10px solid #F6F6F6; background-color: #F6F6F6">
-                        <img style="max-width:140px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/{!!$variation->picture!!}"/>
+                    <td style="text-align:right; width:250px; background-color: #F1F1F1">
+                        <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation->picture!!}"/>
                     </td>
-                    <td style="text-align:left; background-color:#F6F6F6;">
+                    <td style="text-align:left; background-color:#F1F1F1;">
                         <h3>
                             {!!$product->prodmodel->name!!} / {!!$product->name!!}
                         </h3>

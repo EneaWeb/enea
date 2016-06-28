@@ -162,6 +162,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         // dompdf
         Barryvdh\DomPDF\ServiceProvider::class,
+        // image
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -211,6 +213,7 @@ return [
         'HTML' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
