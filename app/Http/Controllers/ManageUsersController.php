@@ -90,7 +90,7 @@ class ManageUsersController extends Controller
 			
 			\App\Brand::find($active_brand)->users()->attach($user->id);
 
-			$options = new \App\UserOption;
+			$option = new \App\UserOption;
 			$option->user_id = $user->id;
 			$option->active_brand = \App\Option::where('name', 'active_brand')->first()->value;
 			$option->save();
