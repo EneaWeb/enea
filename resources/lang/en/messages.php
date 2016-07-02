@@ -90,5 +90,6 @@ return [
 	'From now on you will able to select the network just clicking on the brand name on top-right' => 'From now on you will able to select the network just clicking on the brand name on top-right',
 	'User invited to confirm the registration' => 'User invited to confirm the registration',
 	'In order to activate your account, you will need to login and change your personal informations' => 'In order to activate your account, you will need to login and change your personal informations',
+	'User already linked to your network' => 'User already linked to your network',
 	
 ];

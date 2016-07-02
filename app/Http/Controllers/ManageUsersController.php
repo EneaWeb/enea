@@ -42,11 +42,20 @@ class ManageUsersController extends Controller
 		// check if User already exhists
 		if (User::where('email', Input::get('email'))->count() > 0) {
 		   // user found
+		   
+		   // if user already linked to brand
+		   if (\App\Brand::find($active_brand)->users()->contains($user_id)) {
+		   	// throw error
+		   	Alert::error(trans('User already linked to your network'));
+		   	// redirect back
+		   	return redirect()->back();
+		   }
+		   
 		   $user_id = User::where('email', Input::get('email'))->value('id');
 		   // attach user id to brand id within brand_user pivot
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   // success message
-		   Alert::success('User correctly linked to your network');
+		   Alert::success(trans('User correctly linked to your network'));
 		   // send email to user
 		   $mail = EneaMail::user_linked_to_network($user_id, $active_brand, $custom_message);
 		   // redirect back
@@ -78,11 +87,8 @@ class ManageUsersController extends Controller
 			
 			$user->assignRole('agent');
 			
-			$brand_user = new \App\Brand_User;
-			$brand_user->user_id = $user->id;
-			$brand_user->brand_id = \App\Option::where('name', 'active_brand')->first()->value;
-			$brand_user->save();
-			
+			\App\Brand::find($active_brand)->users()->attach($user->id);
+
 			$options = new \App\UserOption;
 			$option->user_id = $user->id;
 			$option->active_brand = \App\Option::where('name', 'active_brand')->first()->value;
@@ -91,7 +97,7 @@ class ManageUsersController extends Controller
 		   // send email to user
 		   $mail = EneaMail::user_invited_to_register($user, $active_brand, $custom_message);
 		   // success message
-		   Alert::success('User invited to confirm the registration');
+		   Alert::success(trans('User invited to confirm the registration'));
 		   // redirect back
 		   return redirect()->back();
 		}

@@ -67,7 +67,7 @@ class EneaMail extends Model
 
       // INVIO ALL'UTENTE
 		$data = [
-		   'title' => trans('messages.Join the network').' - '.$brand->name,
+		   'title' => trans('messages.Join the network'),
 		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
 		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
@@ -95,7 +95,7 @@ class EneaMail extends Model
 
       // INVIO ALL'UTENTE
 		$data = [
-		   'title' => trans('messages.Join the network').' - '.$brand->name,
+		   'title' => trans('messages.Join the network'),
 		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
 		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.

@@ -143,7 +143,7 @@
             {!!Form::open(array('url' => '/admin/add-user', 'method'=>'POST'))!!}
             <div class="modal-body form-horizontal form-group-separated">                        
                 <div class="form-group">
-                    {!!Form::label('name', trans('auth.Name'), ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('name', trans('auth.Company Name'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
                         {!!Form::input('text', 'companyname', '', ['class' => 'form-control', 'placeholder' => trans('auth.Company Name')])!!}
                     </div>
