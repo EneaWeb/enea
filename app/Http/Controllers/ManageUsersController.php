@@ -47,7 +47,7 @@ class ManageUsersController extends Controller
 		   $user_id = User::where('email', Input::get('email'))->value('id');
 		   
 		   // if user already linked to brand
-		   if (\App\Brand::find($active_brand)->users()->contains($user_id)) {
+		   if (\App\Brand::find($active_brand)->users->contains($user_id)) {
 		   	// throw error
 		   	Alert::error(trans('User already linked to your network'));
 		   	// redirect back
