@@ -92,7 +92,7 @@ class ManageUsersController extends Controller
 
 			$option = new \App\UserOption;
 			$option->user_id = $user->id;
-			$option->active_brand = \App\Option::where('name', 'active_brand')->first()->value;
+			$option->active_brand = $active_brand;
 			$option->save();
 			
 		   // send email to user
