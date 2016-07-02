@@ -42,7 +42,6 @@ class ManageUsersController extends Controller
 		// check if User already exhists
 		if (User::where('email', Input::get('email'))->count() > 0) {
 		   // user found
-		   
 		   // get user id
 		   $user_id = User::where('email', Input::get('email'))->value('id');
 		   
@@ -69,7 +68,7 @@ class ManageUsersController extends Controller
 			$user = new User;
 			// if user inserted a companyname
 			if ($companyname != '')
-				$user->username = strtolower(trim(mb_substr($companyname, 0, 8)));
+				$user->username = strtolower(mb_substr(trim($companyname), 0, 8));
 			// if not, I set 'changeme' + 0-100 random number as username
 			else
 				$user->username = 'changeme'.rand(0,100);
