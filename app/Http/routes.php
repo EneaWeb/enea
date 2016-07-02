@@ -156,6 +156,7 @@ Route::group([
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
 	Route::get('/registration/new', 'ManageUsersController@register');
+	Route::post('/registration/confirm', 'ManageUsersController@confirm_registration');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
@@ -201,7 +202,6 @@ Route::group([
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
 	Route::post('/order/new/save-line', 'OrderController@save_line');
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
-	Route::post('/registration/confirm', 'ManageUsersController@confirm_registration');
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	
