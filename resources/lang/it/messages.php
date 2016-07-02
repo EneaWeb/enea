@@ -83,5 +83,11 @@ return [
 	'Dear' => 'Gentile',
 	'As attached you can find a copy of your Order' => 'In allegato puoi trovare la copia del tuo Ordine',
 	'Order' => 'Ordine',
+	'User correctly linked to your network' => 'Utente collegato correttamente al tuo network',
+	'Join the network' => 'Unisciti al gruppo di lavoro',
+	'requested your join to the network' => 'ha richiesto il tuo collegamento al network',
+	'From now on you will able to select the network just clicking on the brand name on top-right' => 'Da questo momento potrai selezionare il network semplicemente cliccando sul nome del brand in alto a destra',
+	'User invited to confirm the registration' => 'L\'utente è stato invitato a confermare la registrazione',
+	'In order to activate your account, you will need to login and change your personal informations' => 'Per attivare il tuo account, dovrai effettuare un primo accesso e modificare le tue informazioni personali',
 	
 ];

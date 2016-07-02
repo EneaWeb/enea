@@ -54,7 +54,7 @@
         </div>
         {{-- END WIDGETS --}}
 
-        <div class="row">         
+        <div class="row">  
             <div class="col-md-10">
                 {{-- START DATATABLE EXPORT --}}
                 <div class="panel panel-default">
@@ -78,7 +78,14 @@
                                     <div class="col-md-6 col-xs-8">   
                                         Cerca un cliente già inserito scrivendo qui la ragione sociale (dropdown):
                                         <br><br>
-                                        {!!Form::input('text', 'companyname', '', ['class'=>'form-control ui-autocomplete-input', 'id'=>'customer-full-autocomplete'])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'companyname', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->companyname : 
+                                            '', 
+                                            ['class'=>'form-control ui-autocomplete-input', 'id'=>'customer-full-autocomplete']
+                                        )!!}
                                     </div>
                                     <div class="col-md-2 col-xs-2">
                                         <br><br>
@@ -108,49 +115,91 @@
                                 <div class="form-group">
                                     {!!Form::label('name', trans('auth.Name'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::input('text', 'name', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    {!!Form::label('surname', trans('auth.Surname'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
-                                        {!!Form::input('text', 'surname', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'name', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->name : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('sign', trans('auth.Sign'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::input('text', 'sign', '', ['class'=>'form-control maxw500 ui-autocomplete-input', 'disabled'=>''])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'sign', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->sign : 
+                                            '', 
+                                            ['class'=>'form-control maxw500 ui-autocomplete-input', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('vat', trans('auth.Vat'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::input('text', 'vat', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'vat', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->vat : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                         {!!Form::label('address', trans('menu.Address'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
-                                        {!!Form::input('text', 'address', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                    <div class="col-md-8">
+                                        {!!Form::input(
+                                            'text', 
+                                            'address', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->address : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('telephone', trans('auth.Telephone'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::input('text', 'telephone', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'telephone', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->telephone : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('telephone', trans('auth.Mobile'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::input('text', 'mobile', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                        {!!Form::input(
+                                            'text', 
+                                            'mobile', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->mobile : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('email', trans('auth.Email'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-8">   
-                                        {!!Form::email('email', '', ['class'=>'form-control maxw500', 'disabled'=>''])!!}
+                                        {!!Form::email(
+                                            'email', 
+                                            (Session::has('order')) ? 
+                                            \App\Customer::find(Session::get('order.customer_id'))->email : 
+                                            '', 
+                                            ['class'=>'form-control maxw500', 'disabled'=>'']
+                                        )!!}
                                     </div>
                                 </div>
                                 <br><br><br>

@@ -140,12 +140,12 @@
                 <p>{!!trans("messages.Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." )!!}</p>
                 <p>{!!trans("messages.If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." )!!}</p>
             </div>
-            {!!Form::open(array('url' => '/', 'method'=>'POST'))!!}
+            {!!Form::open(array('url' => '/admin/add-user', 'method'=>'POST'))!!}
             <div class="modal-body form-horizontal form-group-separated">                        
                 <div class="form-group">
                     {!!Form::label('name', trans('auth.Name'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::input('text', 'name', '', ['class' => 'form-control', 'placeholder' => trans('auth.User Name')])!!}
+                        {!!Form::input('text', 'companyname', '', ['class' => 'form-control', 'placeholder' => trans('auth.Company Name')])!!}
                     </div>
                 </div>
                 <div class="form-group">

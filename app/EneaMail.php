@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use \App\User;
 use Auth;
 use Mail;
 use PDF;
@@ -53,6 +54,67 @@ class EneaMail extends Model
 		});
 		
 		return true;      
+   }
+   
+   public static function user_linked_to_network($user_id, $active_brand, $custom_message)
+   {
+    	$sender = Auth::user()->options->brand_in_use->name;
+		$sender_mail = 'no-reply@eneaweb.com';
+		$reply_to = Auth::user()->options->brand_in_use->confirmation_email;
+    	$user_to_link = \App\User::find($user_id);
+    	$user = Auth::user();
+    	$brand = \App\Brand::find($active_brand);
+
+      // INVIO ALL'UTENTE
+		$data = [
+		   'title' => trans('messages.Join the network').' - '.$brand->name,
+		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
+		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
+		                  $brand->name.'.<br><br>'.
+		                  trans('messages.From now on you will able to select the network just clicking on the brand name on top-right').'.<br>'.
+		                  '<hr>'.$custom_message.'<hr>',
+			]; 
+		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $brand, $custom_message, $user_to_link, $sender_mail, $reply_to)
+		{
+			$message->subject(trans('messages.Join the network').' - '.$brand->name);
+			$message->from($sender_mail);
+			$message->to($user_to_link->email);
+			$message->replyTo($reply_to);
+		});
+		
+		return true; 
+   }
+   
+   public function user_invited_to_register( User $user, $active_brand, $custom_message)
+   {
+    	$sender = Auth::user()->options->brand_in_use->name;
+		$sender_mail = 'no-reply@eneaweb.com';
+		$reply_to = Auth::user()->options->brand_in_use->confirmation_email;
+    	$user = Auth::user();
+    	$brand = \App\Brand::find($active_brand);
+
+      // INVIO ALL'UTENTE
+		$data = [
+		   'title' => trans('messages.Join the network').' - '.$brand->name,
+		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
+		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
+		                  $brand->name.'.<br><br>'.
+		                  trans('messages.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
+		                  'Activation Link: <i><a href="http://ordini.eneaweb.com/registration/confirm?usr='.$user->username.'&pas=provvisoria">http://ordini.eneaweb.com/registration/new?usr='.$user->username.'&pas=provvisoria</a></i><br>'.
+		                  'Username: <i>'.$user->username.'</i><br>'.
+		                  'Password: <i>provvisoria</i><br><br>'.
+		                  '<hr>'.$custom_message.'<hr>',
+			]; 
+		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $brand, $custom_message, $sender_mail, $reply_to)
+		{
+			$message->subject(trans('messages.Join the network').' - '.$brand->name);
+			$message->from($sender_mail);
+			$message->to($user->email);
+			$message->bcc($cc);
+			$message->replyTo($reply_to);
+		});
+		
+		return true; 
    }
 
 }

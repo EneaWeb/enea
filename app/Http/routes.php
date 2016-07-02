@@ -155,6 +155,7 @@ Route::group([
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
+	Route::get('/registration/new', 'ManageUsersController@register');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
@@ -188,6 +189,7 @@ Route::group([
 	Route::post('/catalogue/seasons/delivery/new', 'SeasonDeliveryController@create');
 	Route::post('/catalogue/seasons/list/new', 'SeasonListController@create');
 	Route::post('/admin/payment/new', 'PaymentController@create');
+	Route::post('/admin/add-user', 'ManageUsersController@add_user');
 	Route::post('/customers/new', 'CustomerController@create');
 	Route::post('/customer-delivery/new', 'CustomerDeliveryController@create');
 	Route::post('/catalogue/models/new', 'ProdModelController@create');
@@ -199,6 +201,7 @@ Route::group([
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
 	Route::post('/order/new/save-line', 'OrderController@save_line');
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
+	Route::post('/registration/confirm', 'ManageUsersController@confirm_registration');
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	

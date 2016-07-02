@@ -26,64 +26,68 @@ class OrderController extends Controller
 	public function create()
 	{
 		
-		$user = Auth::user();
-		$orders = Order::all();
-
 		// retrieve all customers
 		$customers = Customer::all();
-		
 		$autocomplete = new Autocomplete();
-
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 		$autocomplete->setInputId('place_input');
-
-		$autocomplete->setInputAttributes(array('class' => 'my-class'));
-		$autocomplete->setInputAttribute('name', 'address');
-		$autocomplete->setInputAttribute('class', 'form-control');
-
+		$autocomplete->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
 		//$autocomplete->setValue('aaa');
-
 		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
-
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
-		
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
+		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
+	}
+	
+	public function edit($order_id)
+	{
+		
+		// retrieve all customers
+		$customers = Customer::all();
+		$autocomplete = new Autocomplete();
+		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete->setInputId('place_input');
+		$autocomplete->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
+		//$autocomplete->setValue('aaa');
+		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
+		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+		$autocomplete->setBound(45, 9, 45, 9, true, true);
+		$autocomplete->setAsync(false);
+		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		// render
+		$autocompleteHelper = new AutocompleteHelper();
+		
+		$order_image = unserialize(\App\OrderImage::where('order_id', $order_id)->first()['image']);
+		Session::put('order', $order_image);
 		
 		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
 	}
 	
 	public function step2()
 	{
+		
+		return dd(Input::all()); 
 		// required customer id to go on
 		if (!Input::has('id'))
 			return redirect()->back();
-		
-			
-			$autocomplete2 = new Autocomplete();
-
-			$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
-			$autocomplete2->setInputId('place_input');
-
-			$autocomplete2->setInputAttributes(array('class' => 'my-class'));
-			$autocomplete2->setInputAttribute('name', 'address');
-			$autocomplete2->setInputAttribute('class', 'form-control');
-
-			//$autocomplete->setValue('aaa');
-
-			$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
-			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-			$autocomplete2->setBound(45, 9, 45, 9, true, true);
-
-			$autocomplete2->setAsync(false);
-			$autocomplete2->setLanguage(Localization::getCurrentLocale());
-			
-			// render
-			$autocompleteHelper = new AutocompleteHelper();
+	
+		$autocomplete2 = new Autocomplete();
+		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete2->setInputId('place_input');
+		$autocomplete2->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
+		//$autocomplete->setValue('aaa');
+		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
+		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+		$autocomplete2->setBound(45, 9, 45, 9, true, true);
+		$autocomplete2->setAsync(false);
+		$autocomplete2->setLanguage(Localization::getCurrentLocale());
+		// render
+		$autocompleteHelper = new AutocompleteHelper();
 		
 		$customer_id = Input::get('id');
 		$customer = \App\Customer::find($customer_id);
