@@ -56,7 +56,7 @@ class ManageUsersController extends Controller
 		   // attach user id to brand id within brand_user pivot
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   // success message
-		   Alert::success(trans('User correctly linked to your network'));
+		   Alert::success(trans('messages.User correctly linked to your network'));
 		   // send email to user
 		   $mail = EneaMail::user_linked_to_network($user_id, $active_brand, $custom_message);
 		   // redirect back
@@ -98,7 +98,7 @@ class ManageUsersController extends Controller
 		   // send email to user
 		   $mail = EneaMail::user_invited_to_register($user, $active_brand, $custom_message);
 		   // success message
-		   Alert::success(trans('User invited to confirm the registration'));
+		   Alert::success(trans('messages.User invited to confirm the registration'));
 		   // redirect back
 		   return redirect()->back();
 		}

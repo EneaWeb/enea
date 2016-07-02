@@ -85,7 +85,7 @@ class EneaMail extends Model
 		return true; 
    }
    
-   public static function user_invited_to_register( User $user, $active_brand, $custom_message)
+   public static function user_invited_to_register( User $new_user, $active_brand, $custom_message)
    {
     	$sender = Auth::user()->options->brand_in_use->name;
 		$sender_mail = 'no-reply@eneaweb.com';
@@ -96,20 +96,20 @@ class EneaMail extends Model
       // INVIO ALL'UTENTE
 		$data = [
 		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$user->companyname.',<br><br>'.
+		   'content' => trans('messages.Dear').' '.$new_user->companyname.',<br><br>'.
 		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
 		                  trans('messages.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
-		                  'Activation Link: <i><a href="http://ordini.eneaweb.com/registration/confirm?usr='.$user->username.'&pas=provvisoria">http://ordini.eneaweb.com/registration/new?usr='.$user->username.'&pas=provvisoria</a></i><br>'.
-		                  'Username: <i>'.$user->username.'</i><br>'.
+		                  'Activation Link: <i><a href="http://ordini.eneaweb.com/registration/confirm?usr='.$new_user->username.'&pas=provvisoria">http://ordini.eneaweb.com/registration/new?usr='.$new_user->username.'&pas=provvisoria</a></i><br>'.
+		                  'Username: <i>'.$new_user->username.'</i><br>'.
 		                  'Password: <i>provvisoria</i><br><br>'.
 		                  '<hr>'.$custom_message.'<hr>',
 			]; 
-		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $brand, $custom_message, $sender_mail, $reply_to)
+		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $new_user, $brand, $custom_message, $sender_mail, $reply_to)
 		{
 			$message->subject(trans('messages.Join the network').' - '.$brand->name);
 			$message->from($sender_mail);
-			$message->to($user->email);
+			$message->to($new_user->email);
 			$message->replyTo($reply_to);
 		});
 		
