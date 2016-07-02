@@ -68,8 +68,8 @@ class EneaMail extends Model
       // INVIO ALL'UTENTE
 		$data = [
 		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
-		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
+		   'content' => trans('messages.Dear').' '.$user_to_link->profile->companyname.',<br><br>'.
+		                  $user->profile->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
 		                  trans('messages.From now on you will able to select the network just clicking on the brand name on top-right').'.<br>'.
 		                  '<hr>'.$custom_message.'<hr>',
@@ -96,8 +96,8 @@ class EneaMail extends Model
       // INVIO ALL'UTENTE
 		$data = [
 		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$new_user->companyname.',<br><br>'.
-		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
+		   'content' => trans('messages.Dear').' '.$new_user->profile->companyname.',<br><br>'.
+		                  $user->profile->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
 		                  trans('messages.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
 		                  'Activation Link: <i><a href="http://ordini.eneaweb.com/registration/confirm?usr='.$new_user->username.'&pas=provvisoria">http://ordini.eneaweb.com/registration/new?usr='.$new_user->username.'&pas=provvisoria</a></i><br>'.
