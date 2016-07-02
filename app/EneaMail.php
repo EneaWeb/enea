@@ -85,7 +85,7 @@ class EneaMail extends Model
 		return true; 
    }
    
-   public function user_invited_to_register( User $user, $active_brand, $custom_message)
+   public static function user_invited_to_register( User $user, $active_brand, $custom_message)
    {
     	$sender = Auth::user()->options->brand_in_use->name;
 		$sender_mail = 'no-reply@eneaweb.com';
