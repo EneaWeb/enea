@@ -111,7 +111,7 @@ class ManageUsersController extends Controller
 	
 	public function confirm_registration()
 	{
-		return redirect('');
+		return redirect('/');
 	}
 	
 }
