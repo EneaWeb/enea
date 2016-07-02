@@ -96,7 +96,7 @@ class EneaMail extends Model
       // INVIO ALL'UTENTE
 		$data = [
 		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$user_to_link->companyname.',<br><br>'.
+		   'content' => trans('messages.Dear').' '.$user->companyname.',<br><br>'.
 		                  $user->companyname.' '.trans('messages.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
 		                  trans('messages.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
