@@ -110,7 +110,6 @@ class EneaMail extends Model
 			$message->subject(trans('messages.Join the network').' - '.$brand->name);
 			$message->from($sender_mail);
 			$message->to($user->email);
-			$message->bcc($cc);
 			$message->replyTo($reply_to);
 		});
 		
