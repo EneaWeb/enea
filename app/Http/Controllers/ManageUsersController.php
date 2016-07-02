@@ -68,7 +68,7 @@ class ManageUsersController extends Controller
 			$user = new User;
 			// if user inserted a companyname
 			if ($companyname != '')
-				$user->username = strtolower(mb_substr(trim($companyname), 0, 8));
+				$user->username = strtolower(mb_substr(str_replace(' ', '', trim($companyname)), 0, 8));
 			// if not, I set 'changeme' + 0-100 random number as username
 			else
 				$user->username = 'changeme'.rand(0,100);
