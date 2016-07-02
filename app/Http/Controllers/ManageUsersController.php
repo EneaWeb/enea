@@ -43,6 +43,9 @@ class ManageUsersController extends Controller
 		if (User::where('email', Input::get('email'))->count() > 0) {
 		   // user found
 		   
+		   // get user id
+		   $user_id = User::where('email', Input::get('email'))->value('id');
+		   
 		   // if user already linked to brand
 		   if (\App\Brand::find($active_brand)->users()->contains($user_id)) {
 		   	// throw error
@@ -51,7 +54,6 @@ class ManageUsersController extends Controller
 		   	return redirect()->back();
 		   }
 		   
-		   $user_id = User::where('email', Input::get('email'))->value('id');
 		   // attach user id to brand id within brand_user pivot
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   // success message
