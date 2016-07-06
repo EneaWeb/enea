@@ -64,7 +64,7 @@
     <table class="bordered" style="width:100%;">
         @foreach ($products as $product)
         @if ($product->slug != '_custom')
-            <tr><td colspan="2"><div style="background-color:black; width:100%; height:10px;">&nbsp;</div></td></tr>
+            <tr><td colspan="2"><div style="">&nbsp;</div></td></tr>
             <tr>
                 <th style="text-align:left; width:360px; padding-top:20px; padding-bottom:20px;">
                     <img style="max-width:300px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
