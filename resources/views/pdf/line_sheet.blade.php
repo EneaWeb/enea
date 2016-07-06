@@ -13,19 +13,24 @@
     
     h6 {
         font-size:13px;
+        line-height:20px;
     }
     h3 {
         font-size:17px;
+        line-height:24px;
     }
     h4 {
         font-size:15px;
+        line-height:23px;
     }
     h1 {
         font-size:26px;
+        line-height:36px;
     }
     table.bordered td,
     table.bordered th {
         padding:6px 20px;
+        line-height:20px;
     }
 
     .clearfix {
@@ -49,9 +54,9 @@
     </div>
     <div style="display:inline-block; float:left; width:64%; text-align:left">
         <h1 style="text-align:right; margin-right:20px">
-        <br><br><br>
+        <br>
             LINE SHEET {!!\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name!!}<br>
-            <br>
+            
             LIST {!!strtoupper($seasonlist->name)!!}
         </h1>
     </div>
@@ -59,31 +64,34 @@
     <table class="bordered" style="width:100%;">
         @foreach ($products as $product)
         @if ($product->slug != '_custom')
-            <tr><td></td></tr>
+            <tr><td colspan="2"><div style="background-color:black; width:100%; height:10px;">&nbsp;</div></td></tr>
             <tr>
-                <th style="text-align:right; width:320px; padding-top:20px; padding-bottom:20px; background-color: #F1F1F1">
+                <th style="text-align:left; width:360px; padding-top:20px; padding-bottom:20px;">
                     <img style="max-width:300px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
                 </th>
-                <th style="text-align:left; background-color:#F1F1F1"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
+                <th style="text-align:left; background-color:#F1F1F1; border-top:20px solid white; border-bottom:20px solid white;"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
                 <p>{!!$product->description!!}</p>
                 </th>
             </tr>
             @foreach ($product->variations as $variation)
             
                 <tr>
-                    <td style="text-align:right; width:250px; background-color: #F1F1F1">
+                    <td style="text-align:right; width:360px; background-color: #F1F1F1;">
                         <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation->picture!!}"/>
+                        @foreach (array_slice(\App\ProductVariationPicture::where('variation_id', $variation->id)->get()->toArray(), 0, 2) as $variation_picture)
+                            <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation_picture->picture!!}"/>
+                        @endforeach
                     </td>
                     <td style="text-align:left; background-color:#F1F1F1;">
                         <h3>
                             {!!$product->prodmodel->name!!} / {!!$product->name!!}
                         </h3>
                         <h3>
-                            col. {!!\App\Color::find($variation->color_id)->name!!}
+                            color : {!!\App\Color::find($variation->color_id)->name!!}
                         </h3>
                         <h3>
                         
-                            {!!$seasonlist->name!!}: € {!!\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price']!!}
+                            {{--{!!$seasonlist->name!!}:--}} € {!!\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price']!!}
                         </h3>
                     </td>
                 </tr>
