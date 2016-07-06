@@ -71,6 +71,8 @@ class ProductController extends Controller
 
 			// success message
 			Alert::success(trans('messages.Product saved.'));
+			
+			return redirect('/catalogue/product/edit/'.$product->id);
 		
 		// if not ok...
 		} else {
