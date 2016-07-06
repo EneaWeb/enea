@@ -66,7 +66,7 @@
         @if ($product->slug != '_custom')
             <tr><td colspan="2"><div style="">&nbsp;</div></td></tr>
             <tr>
-                <th style="text-align:left; width:360px; padding-top:20px; padding-bottom:20px;">
+                <th style="text-align:left; width:380px; padding-top:20px; padding-bottom:20px;">
                     <img style="max-width:300px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
                 </th>
                 <th style="text-align:left; background-color:#F1F1F1; border-top:20px solid white; border-bottom:20px solid white;"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
@@ -76,7 +76,7 @@
             @foreach ($product->variations as $variation)
             
                 <tr>
-                    <td style="text-align:right; width:360px; background-color: #F1F1F1;">
+                    <td style="text-align:right; width:380px; background-color: #F1F1F1;">
                         <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation->picture!!}"/>
                         @foreach (array_slice(\App\ProductVariationPicture::where('product_variation_id', $variation->id)->get()->toArray(), 0, 2) as $variation_picture)
                             <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation_picture['picture']!!}"/>
