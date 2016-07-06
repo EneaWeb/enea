@@ -68,7 +68,10 @@ class PDFController extends Controller
 		
 		// return view('pdf.line_sheet', compact('brand', 'products', 'seasonlist');
 		//return $pdf->stream();
-		return $pdf->download($brand->name.' Line Sheet '.\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name.' '.$seasonlist->name.'.pdf');	
+		if ($seasonlist == 'clean')
+			return $pdf->download($brand->name.' Line Sheet '.\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name.' clean.pdf');
+		else
+			return $pdf->download($brand->name.' Line Sheet '.\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name.' '.$seasonlist->name.'.pdf');
 	}
 	
 	public function linesheet_test($id)
@@ -88,7 +91,7 @@ class PDFController extends Controller
 		
 		// return view('pdf.line_sheet', compact('brand', 'products', 'seasonlist');
 		//return $pdf->stream();
-		return $pdf->stream();	
+		return $pdf->stream();
 	}
 
 }
