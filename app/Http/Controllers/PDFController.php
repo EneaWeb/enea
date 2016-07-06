@@ -56,7 +56,11 @@ class PDFController extends Controller
 		// DOMPDF
 		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
 		$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
-		$seasonlist = \App\SeasonList::find($id);
+		
+		if ($id == 'clean')
+			$seasonlist = 'clean';
+		else 
+			$seasonlist = \App\SeasonList::find($id);
 		
 		$pdf = App::make('dompdf.wrapper');
 		$pdf = PDF::loadView('pdf.line_sheet', compact('brand', 'products', 'seasonlist'));
@@ -72,7 +76,11 @@ class PDFController extends Controller
 		// DOMPDF
 		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
 		$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
-		$seasonlist = \App\SeasonList::find($id);
+		
+		if ($id == 'clean')
+			$seasonlist = 'clean';
+		else 
+			$seasonlist = \App\SeasonList::find($id);
 		
 		$pdf = App::make('dompdf.wrapper');
 		$pdf = PDF::loadView('pdf.line_sheet', compact('brand', 'products', 'seasonlist'));

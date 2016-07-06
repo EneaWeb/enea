@@ -57,7 +57,10 @@
         <br>
             LINE SHEET {!!\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name!!}<br>
             
-            LIST {!!strtoupper($seasonlist->name)!!}
+            @if($seasonlist!='clean')
+                LIST {!!strtoupper($seasonlist->name)!!}
+            @endif
+            
         </h1>
     </div>
     <br><br>
@@ -90,10 +93,11 @@
                         <h3>
                             color : {!!\App\Color::find($variation->color_id)->name!!}
                         </h3>
-                        <h3>
-                        
-                            {{--{!!$seasonlist->name!!}:--}} € {!!\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price']!!}
-                        </h3>
+                        @if ($seasonlist != 'clean')
+                            <h3>
+                                {{--{!!$seasonlist->name!!}:--}} € {!!\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_id', $product->id)->first()['id'])->first()['price']!!}
+                            </h3>
+                        @endif
                     </td>
                 </tr>
             
