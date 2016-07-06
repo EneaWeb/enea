@@ -146,6 +146,7 @@ Route::group([
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
 	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
 	Route::get('/catalogue/product/delete-picture/{id}', 'ProductController@delete_product_picture');
+	Route::get('/catalogue/product/delete-variation-picture/{id}', 'ProductController@delete_variation_picture');
 	Route::get('/order/new', 'OrderController@create');
 	Route::get('/order/new/step2', 'OrderController@step2');
 	Route::get('/order/new/step3', 'OrderController@step3');
@@ -155,7 +156,6 @@ Route::group([
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
-	Route::get('/registration/confirm', 'ManageUsersController@register');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
@@ -175,6 +175,8 @@ Route::group([
 ], function() {
 	
 	Route::get('/login', 'Auth\AuthController@login');
+	Route::get('/registration/confirm', 'ManageUsersController@register');
+	
 	
 });
 
@@ -229,7 +231,6 @@ Route::group([
 				Session::put($x, '1');
 		}
 	});
-
 
 /*
 

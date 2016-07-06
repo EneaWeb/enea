@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\Order');
     }
+    
+    public function season_lists()
+    {
+        return $this->belongsToMany('\App\SeasonList', 'user_season_list');
+    }
 }

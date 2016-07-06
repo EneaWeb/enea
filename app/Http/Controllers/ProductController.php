@@ -346,4 +346,16 @@ class ProductController extends Controller
 		
 	}
 	
+	public function delete_variation_picture($id)
+	{
+		$picture = \App\ProductVariationPicture::find($id);
+		$picture->setConnection(Auth::user()->options->brand_in_use->slug);
+		$picture->delete();
+		
+		// success message
+		Alert::success(trans('messages.Picture deleted'));
+		return redirect()->back();
+		
+	}
+	
 }

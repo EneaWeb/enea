@@ -155,6 +155,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!!Form::label('season_list_id', 'Season List', ['class' => 'col-md-3 control-label'])!!}
+                    <div class="col-md-8">
+                        {!!Form::select('season_list_id', \App\SeasonList::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('messages.Select Season List')])!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!!Form::label('message', trans('auth.Message'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
                         {{ Form::textarea('message', trans('messages.invite_user_message', ['brandname' => Auth::user()->options->brand_in_use->name, 'UserNameSurname' => Auth::user()->profile->name_surname()]), ['class' => 'form-control']) }}

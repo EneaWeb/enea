@@ -96,4 +96,8 @@ return [
 	'Confirm New Password' => 'Conferma Nuova Password',
 	'Personal Informations' => 'Informazioni Personali',
 	'Confirm' => 'Conferma',
+	'New Username'=> 'Nuovo Username',
+	'Registration' => 'Registrazione',
+	"Don't change" => "Non modificare",
+	'Select Season List' => 'Seleziona Listino',
 ];

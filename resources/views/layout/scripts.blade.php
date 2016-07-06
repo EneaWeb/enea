@@ -106,6 +106,18 @@
             }
         );
     };
+    
+    function confirm_remove_variation_picture(id){
+        alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this picture?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/catalogue/product/delete-variation-picture/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
         
     function confirm_delete_customer_delivery(id){
         alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this option?')!!}", 

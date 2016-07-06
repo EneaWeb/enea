@@ -41,7 +41,8 @@ class ManageUsersController extends Controller
 		
 		// check if User already exhists
 		if (User::where('email', Input::get('email'))->count() > 0) {
-		   // user found
+		   // user found !!
+		   
 		   // get user id
 		   $user_id = User::where('email', Input::get('email'))->value('id');
 		   
@@ -55,6 +56,10 @@ class ManageUsersController extends Controller
 		   
 		   // attach user id to brand id within brand_user pivot
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
+		   
+		   // attach season_list_id to user id within user_season_list pivot
+		   \App\User::find($user_id)->season_lists()->attach(Input::get('season_list_id'));
+		   
 		   // success message
 		   Alert::success(trans('messages.User correctly linked to your network'));
 		   // send email to user
@@ -88,7 +93,10 @@ class ManageUsersController extends Controller
 			
 			$user->assignRole('agent');
 			
+			// attach user id to brand id within brand_user pivot
 			\App\Brand::find($active_brand)->users()->attach($user->id);
+			// attach season_list_id to user id within user_season_list pivot
+		   $user->season_lists()->attach(Input::get('season_list_id'));
 
 			$option = new \App\UserOption;
 			$option->user_id = $user->id;

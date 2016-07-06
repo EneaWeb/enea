@@ -97,5 +97,9 @@ return [
 	'Confirm New Password' => 'Confirm New Password',
 	'Personal Informations' => 'Personal Informations',
 	'Confirm' => 'Confirm',
+	'New Username' => 'New Username',
+	'Registration' => 'Registration',
+	"Don't change" => "Don't change",
+	'Select Season List' => 'Select Season List',
 	
 ];
