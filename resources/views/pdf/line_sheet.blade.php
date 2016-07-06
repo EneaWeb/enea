@@ -80,6 +80,7 @@
                         <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation->picture!!}"/>
                         @foreach (array_slice(\App\ProductVariationPicture::where('product_variation_id', $variation->id)->get()->toArray(), 0, 2) as $variation_picture)
                             <img style="max-width:130px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation_picture['picture']!!}"/>
+                            &nbsp;
                         @endforeach
                     </td>
                     <td style="text-align:left; background-color:#F1F1F1;">
