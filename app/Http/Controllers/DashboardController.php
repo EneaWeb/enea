@@ -38,8 +38,8 @@ class DashboardController extends Controller
 		*/
 
 			// retrieve all customers
-			/*
 			$customers = Customer::all();
+			// autocomplete
 			$autocomplete = new Autocomplete();
 			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 			$autocomplete->setInputId('place_input');
@@ -52,9 +52,8 @@ class DashboardController extends Controller
 			$autocomplete->setLanguage(Localization::getCurrentLocale());
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
-			*/
 			
-			return view('dashboard.agent', compact('orders'));
+			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper'));
 		// }
 		
 	}
