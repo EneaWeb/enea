@@ -131,7 +131,6 @@ class CustomerController extends Controller
 			$customer->companyname = Input::get('companyname');
 			$customer->sign = Input::get('sign');
 			$customer->name = Input::get('name');
-			$customer->surname = Input::get('surname');
 			$customer->vat = Input::get('vat');
 			$customer->telephone = Input::get('telephone');
 			$customer->mobile = Input::get('mobile');
