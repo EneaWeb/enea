@@ -71,7 +71,6 @@ class OrderController extends Controller
 	public function step2()
 	{
 		
-		return dd(Input::all()); 
 		// required customer id to go on
 		if (!Input::has('id'))
 			return redirect()->back();
