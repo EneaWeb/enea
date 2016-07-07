@@ -43,7 +43,7 @@ class DashboardController extends Controller
 			$autocomplete = new Autocomplete();
 			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 			$autocomplete->setInputId('place_input');
-			$autocomplete->setInputAttributes(['class' => 'my-class', 'name', 'address', 'class', 'form-control']);
+			$autocomplete->setInputAttributes(['class' => 'my-class', 'name' => 'address', 'class' => 'form-control']);
 			//$autocomplete->setValue('aaa');
 			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
