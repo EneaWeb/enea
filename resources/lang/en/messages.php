@@ -102,5 +102,6 @@ return [
 	"Don't change" => "Don't change",
 	'Select Season List' => 'Select Season List',
 	'No prices' => 'No prices',
+	'' => '',
 	
 ];

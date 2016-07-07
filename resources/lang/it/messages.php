@@ -101,4 +101,5 @@ return [
 	"Don't change" => "Non modificare",
 	'Select Season List' => 'Seleziona Listino',
 	'No prices' => 'Senza prezzi',
+	'' => '',
 ];
