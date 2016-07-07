@@ -45,7 +45,7 @@
                                 <img style="max-width:40px" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product_variation->picture!!}"/>
                             </th>
                             <th style="border-left:5px solid {!!\App\Color::find($product_variation->color_id)->hex!!}">
-                                {!!\App\Color::find($product_variation->color_id)->name!!}
+                                {!!substr(\App\Color::find($product_variation->color_id)->name, 0, 14)!!}
                             </th>
                             @foreach (\App\Item::where('product_variation_id', $product_variation->id)->get() as $item)
                             <td style="padding:2px">
