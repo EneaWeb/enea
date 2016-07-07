@@ -19,7 +19,7 @@
 
         @foreach($products as $product)
             <a class="gallery-item" href="/catalogue/product/{!!$product->id!!}" title="{!!$product->name!!}" data-gallery="">
-                <div class="image" style="max-height:383px">
+                <div class="image" style="max-height: 346px;">
                     <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
                 </div>
                 <div class="meta">
