@@ -10,6 +10,7 @@ use \App\Customer as Customer;
 use \App\CustomerDelivery as CustomerDelivery;
 use \App\Alert as Alert;
 use App\Http\Requests;
+use App;
 use App\Gestionale\Maps as Maps;
 use Ivory\GoogleMap\Helper\MapHelper;
 use Ivory\GoogleMap\Places\Autocomplete;
@@ -72,7 +73,7 @@ class CustomerController extends Controller
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
-		if (!$app->environment('local')) 
+		if (!App::environment('local')) 
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
 		$autocomplete2 = new Autocomplete();
@@ -86,7 +87,7 @@ class CustomerController extends Controller
 		$autocomplete2->setBound(45, 9, 45, 9, true, true);
 		$autocomplete2->setAsync(false);
 		$autocomplete2->setLanguage(Localization::getCurrentLocale());
-		if (!$app->environment('local')) 
+		if (!App::environment('local')) 
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
 		// render
