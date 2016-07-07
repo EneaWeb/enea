@@ -45,7 +45,7 @@
                         
                         {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
                         {{-- Google Autocomplete Script --}}
-                        {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
+                        {{-- {!! $autocompleteHelper->renderJavascripts($autocomplete) !!} --}}
                         {{-- END Google Autocomplete Script --}}
                     </div>
                 </div>
