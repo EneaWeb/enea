@@ -25,8 +25,10 @@ class DashboardController extends Controller
 	{
 		
 		$user = Auth::user();
-		$orders = Order::all();
-
+		if (Auth::user()->can('manage orders'))
+			$orders = Order::all();
+		else
+			$orders = Order::where('user_id', Auth::user()->id)->get();
 		/*
 		if ($user->can('manage brands')) {
 			$mapHelper = new MapHelper;
@@ -38,28 +40,18 @@ class DashboardController extends Controller
 			
 			// retrieve all customers
 			$customers = Customer::all();
-			
 			$autocomplete = new Autocomplete();
-
 			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 			$autocomplete->setInputId('place_input');
-
-			$autocomplete->setInputAttributes(array('class' => 'my-class'));
-			$autocomplete->setInputAttribute('name', 'address');
-			$autocomplete->setInputAttribute('class', 'form-control');
-
+			$autocomplete->setInputAttributes(['class' => 'my-class', 'name', 'address', 'class', 'form-control']);
 			//$autocomplete->setValue('aaa');
-
 			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
 			$autocomplete->setBound(45, 9, 45, 9, true, true);
-
 			$autocomplete->setAsync(false);
 			$autocomplete->setLanguage(Localization::getCurrentLocale());
-			
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
-			
 			
 			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper'));
 		// }

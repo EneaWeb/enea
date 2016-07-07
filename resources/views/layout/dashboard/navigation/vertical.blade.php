@@ -34,18 +34,20 @@
     </li>
     <li><a href="/catalogue/products"><span class="fa fa-tags"></span> <span class="xn-text">{!!trans('menu.Products')!!}</span></a></li>
     <li><a href="/customers"><span class="fa fa-user"></span><span class="xn-text">{!!trans('menu.Customers')!!}</span></a></li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-barcode"></span> <span class="xn-text">{!!trans('menu.Manage Catalogue')!!}</span></a>
-        <ul>
-            {{-- <li><a href="/catalogue/variations"><span class="fa fa-code-fork"></span> {!!trans('menu.Product Variations')!!}</a></li> --}}
-            <li><a href="/admin/products"><span class="fa fa-tags"></span>{!!trans('menu.Products')!!}</a></li>
-            <li><a href="/catalogue/models"><span class="fa fa-sitemap"></span> {!!trans('menu.Models')!!}</a></li>
-            <li><a href="/admin/types"><span class="fa fa-female"></span>{!!trans('menu.Types')!!}</a></li>
-            <li><a href="/catalogue/colors"><span class="fa fa-chrome"></span>{!!trans('menu.Colors')!!}</a></li>
-            <li><a href="/catalogue/sizes"><span class="fa fa-arrows"></span>{!!trans('menu.Sizes')!!}</a></li>
-            <li><a href="/catalogue/seasons"><span class="fa fa-calendar"></span> <span class="xn-text">{!!trans('menu.Seasons')!!}</span></a></li>
-        </ul>
-    </li>
+    
+    @if(Auth::user()->can('manage brands'))
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-barcode"></span> <span class="xn-text">{!!trans('menu.Manage Catalogue')!!}</span></a>
+            <ul>
+                {{-- <li><a href="/catalogue/variations"><span class="fa fa-code-fork"></span> {!!trans('menu.Product Variations')!!}</a></li> --}}
+                <li><a href="/admin/products"><span class="fa fa-tags"></span>{!!trans('menu.Products')!!}</a></li>
+                <li><a href="/catalogue/models"><span class="fa fa-sitemap"></span> {!!trans('menu.Models')!!}</a></li>
+                <li><a href="/admin/types"><span class="fa fa-female"></span>{!!trans('menu.Types')!!}</a></li>
+                <li><a href="/catalogue/colors"><span class="fa fa-chrome"></span>{!!trans('menu.Colors')!!}</a></li>
+                <li><a href="/catalogue/sizes"><span class="fa fa-arrows"></span>{!!trans('menu.Sizes')!!}</a></li>
+                <li><a href="/catalogue/seasons"><span class="fa fa-calendar"></span> <span class="xn-text">{!!trans('menu.Seasons')!!}</span></a></li>
+            </ul>
+        </li>    
     <li class="xn-openable">
         <a href="#"><span class="fa fa-usd"></span> <span class="xn-text">{!!trans('menu.Selling Tools')!!}</span></a>
         <ul>
@@ -58,5 +60,6 @@
             <li><a href="/admin/users"><span class="fa fa-user"></span> {!!trans('menu.Manage Users')!!}</a></li>
         </ul>
     </li>
+    @endif
     
 </ul>
