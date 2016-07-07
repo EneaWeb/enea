@@ -9,6 +9,7 @@ use URL;
 use Localization;
 use App\Http\Requests;
 use App\Order as Order;
+use Config;
 use App\Gestionale\Maps as Maps;
 use \App\Customer as Customer;
 use Ivory\GoogleMap\Helper\MapHelper;
@@ -50,6 +51,7 @@ class DashboardController extends Controller
 			$autocomplete->setBound(45, 9, 45, 9, true, true);
 			$autocomplete->setAsync(false);
 			$autocomplete->setLanguage(Localization::getCurrentLocale());
+			$autocomplete->setApiKey(Config::get('general.google_api_key'));
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
 			
