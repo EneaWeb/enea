@@ -83,7 +83,7 @@
                                     <a class="gallery-item" href="#" data-toggle="modal" data-target="#modal_add_lines_{!!$product->id!!}" class="tile tile-primary">
                                 @endif
                                 
-                                    <div class="image" style="max-height: 346px;">
+                                    <div class="image" style="max-height: 342px;">
                                         <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
                                     </div>
                                     <div class="meta">
