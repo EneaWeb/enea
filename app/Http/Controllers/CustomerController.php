@@ -109,7 +109,6 @@ class CustomerController extends Controller
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
 			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
-			$geocoder->apiKey = Config::get('general.google_api_key');
 			// get address from input
 			$address = Input::get('address');
 			// get geocoding result ..
