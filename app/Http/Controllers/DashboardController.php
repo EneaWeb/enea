@@ -23,7 +23,7 @@ class DashboardController extends Controller
 	
 	public function index()
 	{
-		
+
 		$user = Auth::user();
 		if (Auth::user()->can('manage orders'))
 			$orders = Order::all();
@@ -34,10 +34,9 @@ class DashboardController extends Controller
 			$mapHelper = new MapHelper;
 			$map = Maps::orders_map();
 			return view('dashboard.admin', compact('map', 'mapHelper', 'orders'));
-			
 		} else {
 		*/
-			
+
 			// retrieve all customers
 			$customers = Customer::all();
 			$autocomplete = new Autocomplete();
