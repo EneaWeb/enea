@@ -72,6 +72,8 @@ class CustomerController extends Controller
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		if (!$app->environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
 		$autocomplete2 = new Autocomplete();
 		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
@@ -84,6 +86,8 @@ class CustomerController extends Controller
 		$autocomplete2->setBound(45, 9, 45, 9, true, true);
 		$autocomplete2->setAsync(false);
 		$autocomplete2->setLanguage(Localization::getCurrentLocale());
+		if (!$app->environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
 		// render
 		$autocompleteHelper = new AutocompleteHelper();

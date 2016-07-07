@@ -38,6 +38,8 @@ class OrderController extends Controller
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		if (!$app->environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
