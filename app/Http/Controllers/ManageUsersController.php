@@ -60,7 +60,7 @@ class ManageUsersController extends Controller
 		   
 		   // attach season_list_id to user id within user_season_list pivot
 		   foreach ($season_lists as $key => $season_list) {
-		   	\App\User::find($user_id)->season_lists()->attach($season_list);
+		   	Auth::user()->season_lists()->attach($season_list);
 		   }
 		   
 		   // success message
@@ -104,7 +104,7 @@ class ManageUsersController extends Controller
 			
 		   // attach season_list_id to user id within user_season_list pivot
 		   foreach ($season_lists as $key => $season_list) {
-		   	\App\User::find($user_id)->season_lists()->attach($season_list);
+		   	Auth::user()->season_lists()->attach($season_list);
 		   }
 
 			$option = new \App\UserOption;

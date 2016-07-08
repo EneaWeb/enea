@@ -56,8 +56,14 @@ class SeasonList extends Model
 
 	public static function return_user_lists()
 	{
-		if(Auth::user()->can('manage brands'))
+		if(Auth::user()->can('manage brands')) {
+			// get all the price lists
 			return \App\SeasonList::lists('name', 'id');
+		}
+		else {
+			// get only user price lists
+			return \App\User::season_lists()->lists('name', 'id');
+		}
 	}
 
 }
