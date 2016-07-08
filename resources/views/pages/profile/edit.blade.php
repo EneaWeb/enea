@@ -165,6 +165,7 @@
                     
                 </div>
                 
+                {{--
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3><span class="fa fa-cog"></span> Settings</h3>
@@ -200,6 +201,7 @@
                         </div>
                     </div>
                 </div>
+                --}}
             </div>
             
         </div>
