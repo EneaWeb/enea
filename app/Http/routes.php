@@ -205,6 +205,7 @@ Route::group([
 	Route::post('/order/new/save-line', 'OrderController@save_line');
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
 	Route::post('/registration/confirm-registration', 'ManageUsersController@confirm_registration');
+	Route::post('/profile/change-password', 'ManageUsersController@change_password');
 	
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');

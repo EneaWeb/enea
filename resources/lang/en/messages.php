@@ -108,5 +108,6 @@ return [
 	'Check and fill all the required fields' => 'Check and fill all the required fields',
 	'Welcome back' => 'Welcome back',
 	'Welcome' => 'Welcome',
+	'Old Password' => 'Old Password',
 	
 ];

@@ -251,32 +251,34 @@
                         <h4 class="modal-title" id="smallModalHead">Change password</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer faucibus, est quis molestie tincidunt</p>
+                        <p></p>
                     </div>
-                    <div class="modal-body form-horizontal form-group-separated">                        
+                    {!!Form::open(['url'=>'/profile/change-password', 'method'=>'POST'])!!}   
+                    <div class="modal-body form-horizontal form-group-separated">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Old Password</label>
+                            {!!Form::label('old_password', trans('messages.Old Password'), ['class'=>'col-md-3 control-label'])!!}
                             <div class="col-md-9">
-                                <input type="password" class="form-control" name="old_password"/>
+                                {!!Form::input('text', 'old_password', '', ['class'=>'form-control'])!!}
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">New Password</label>
+                            {!!Form::label('new_password', trans('messages.New Password'), ['class'=>'col-md-3 control-label'])!!}
                             <div class="col-md-9">
-                                <input type="password" class="form-control" name="new_password"/>
+                                {!!Form::input('text', 'new_password', '', ['class'=>'form-control'])!!}
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Repeat New</label>
+                            {!!Form::label('confirm_new_password', trans('messages.Confirm New Password'), ['class'=>'col-md-3 control-label'])!!}
                             <div class="col-md-9">
-                                <input type="password" class="form-control" name="re_password"/>
+                                {!!Form::input('text', 'confirm_new_password', '', ['class'=>'form-control'])!!}
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Proccess</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">{!!trans('messages.Save')!!}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('messages.close')!!}</button>
                     </div>
+                    {!!Form::close()!!}
                 </div>
             </div>
         </div>        

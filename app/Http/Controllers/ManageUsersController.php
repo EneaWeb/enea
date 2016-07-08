@@ -174,4 +174,19 @@ class ManageUsersController extends Controller
 		return redirect()->back();
 	}
 	
+	public function change_password()
+	{
+		if (Hash::check(Input::get('old_password'), Auth::user()->password) {
+			
+			// retrieve user instance
+			$user = Auth::user();
+			// change password
+		   $user->password = bcrypt('new_password');
+		   $user->save();
+		   // throw success message
+		   Alert::success('Password changed');
+		}
+		return redirect()->back();
+	}
+	
 }

@@ -107,5 +107,6 @@ return [
 	'Check and fill all the required fields' => 'Controlla e compila tutti i campi obbligatori',
 	'Welcome back' => 'Bentornato',
 	'Welcome' => 'Benvenuto',
+	'Old Password' => 'Password attuale',
 	
 ];
