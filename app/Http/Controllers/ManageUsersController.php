@@ -132,7 +132,6 @@ class ManageUsersController extends Controller
 	
 	public function confirm_registration()
 	{
-		$user = \App\User::where('username', 'username')
 		
 		// provisory authentication
 		if (Auth::once(['email' => Input::get('email'), 'password' => 'provvisoria'])) {
