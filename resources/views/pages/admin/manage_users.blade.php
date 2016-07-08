@@ -143,7 +143,7 @@
             {!!Form::open(array('url' => '/admin/add-user', 'method'=>'POST'))!!}
             <div class="modal-body form-horizontal form-group-separated">         
                 <div class="form-group">
-                    @if (Auth::user()->can('manage brand'))
+                    @if (Auth::user()->can('manage brands'))
                         {!!Form::label('role', trans('auth.Role'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
                             {!!Form::select('role', \App\Role::where('name', '!=', 'superuser')->lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('auth.Select Role')])!!}
