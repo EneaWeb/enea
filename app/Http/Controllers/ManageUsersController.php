@@ -10,6 +10,7 @@ use \App\Brand as Brand;
 use \App\Alert as Alert;
 use \App\EneaMail as EneaMail;
 use Input;
+use Hash;
 use App\Http\Requests;
 
 class ManageUsersController extends Controller
@@ -176,16 +177,27 @@ class ManageUsersController extends Controller
 	
 	public function change_password()
 	{
-		if (Hash::check(Input::get('old_password'), Auth::user()->password) {
-			
-			// retrieve user instance
-			$user = Auth::user();
-			// change password
-		   $user->password = bcrypt('new_password');
-		   $user->save();
-		   // throw success message
-		   Alert::success('Password changed');
+		if (! Hash::check(Input::get('old_password'), Auth::user()->password)) {
+			// old password is wrong ..
+			Alert::error('Password is wrong');
+		} else {
+			// old password matches
+			// check if 2 new passwords match
+			if (Input::get('new_password') == Input::get('confirm_new_password')) {
+				// retrieve user instance
+				$user = Auth::user();
+				// change password
+			   $user->password = bcrypt('new_password');
+			   $user->save();
+			   // throw success message
+			   Alert::success('Password changed');
+			   
+			} else {
+				// 2 new passwords doesn't match
+				Alert::error("Password doesn't match");
+			}
 		}
+		// return redirect back
 		return redirect()->back();
 	}
 	
