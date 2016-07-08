@@ -146,7 +146,7 @@
                     @if (Auth::user()->can('manage brands'))
                         {!!Form::label('role', trans('auth.Role'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::select('role', \App\Role::where('name', '!=', 'superuser')->lists('name'), '', ['class' => 'form-control', 'placeholder' => trans('auth.Select Role')])!!}
+                            {!!Form::select('role', \App\Role::where('name', '!=', 'superuser')->lists('name', 'name'), '', ['class' => 'form-control', 'placeholder' => trans('auth.Select Role')])!!}
                         </div>
                     @endif
                 </div>             
