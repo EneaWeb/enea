@@ -63,5 +63,6 @@ return [
     'Role' => 'Role',
     'Select Role' => 'Select Role',
     'Season Lists' => 'Lists',
+    'Orders' => 'Orders',
     
 ];

@@ -58,11 +58,11 @@ class SeasonList extends Model
 	{
 		if(Auth::user()->can('manage brands')) {
 			// get all the price lists
-			return \App\SeasonList::lists('name', 'id');
+			return \App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->lists('name', 'id');
 		}
 		else {
 			// get only user price lists
-			return \App\User::season_lists()->lists('name', 'id');
+			return Auth::user()->season_lists()->where('season_lists.season_id', \App\Option::where('name', 'active_season')->first()->value)->lists('name', 'id');
 		}
 	}
 

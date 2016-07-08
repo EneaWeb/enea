@@ -98,7 +98,7 @@
                                             <td>{!!$customer->sign!!}</td>
                                             <td>{!!$customer->city!!} @if ($customer->province!='') ({!!$customer->province!!}) @endif</td>
                                             <td>{!!$customer->country!!}</td>
-                                            <td><span class="badge">00</span></td>
+                                            <td><span class="badge">{!!$customer->orders->count()!!}</span></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

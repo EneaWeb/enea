@@ -75,5 +75,10 @@ class Customer extends Model
 	{
 		return $this->hasMany('\App\CustomerDelivery');
 	}
+	
+	public function orders()
+	{
+		return $this->hasMany('\App\Order');
+	}
 
 }
