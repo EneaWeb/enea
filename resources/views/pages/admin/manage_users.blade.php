@@ -103,7 +103,7 @@
                                 <tbody>
                                     @foreach ($users as $user)
                                     <tr>
-                                        <td>{!!ucfirst($user->companyname)!!}</td>
+                                        <td>{!!ucfirst($user->profile->companyname)!!}</td>
                                         <td>{!! $user->email !!}</td>
                                         <td>{!!ucfirst($user->role())!!}</td>
                                         <td>{!!$user->last_login!!}</td>
