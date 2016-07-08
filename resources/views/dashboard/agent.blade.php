@@ -108,7 +108,7 @@
                                             </td>
                                             <td>{!!$order->products_qty!!}</td>
                                             <td>{!!$order->items_qty!!}</td>
-                                            <td>{!!$order->payment_amount!!}%</td>
+                                            <td>{!!($order->payment_amount == '') ? '/' : $order->payment_amount.'%' !!}</td>
                                             <td>€ {!!number_format($order->total, 2)!!}</td>
                                             <td>
                                         		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->

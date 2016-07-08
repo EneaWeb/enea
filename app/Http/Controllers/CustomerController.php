@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Input;
 use Auth;
 use Config;
+use App;
 use \App\Customer as Customer;
 use \App\CustomerDelivery as CustomerDelivery;
 use \App\Alert as Alert;
 use App\Http\Requests;
-use App;
 use App\Gestionale\Maps as Maps;
 use Ivory\GoogleMap\Helper\MapHelper;
 use Ivory\GoogleMap\Places\Autocomplete;
@@ -90,9 +90,9 @@ class CustomerController extends Controller
 		if (!App::environment('local')) 
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
-		// render
+		// autocomplete render helper
 		$autocompleteHelper = new AutocompleteHelper();
-		
+		// maps render helper
 		$mapHelper = new MapHelper;
 		$map = Maps::customer_position_map($customer->address.' - '.$customer->postcode.' '.$customer->city.' '.$customer->province);
 
