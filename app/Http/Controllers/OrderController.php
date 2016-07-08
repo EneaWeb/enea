@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Input;
 use App;
 use Auth;
+use Config;
 use Session;
 use Localization;
 use \App\Alert as Alert;

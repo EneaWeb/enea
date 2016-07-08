@@ -33,7 +33,7 @@ class ManageUsersController extends Controller
 	
 	public function add_user()
 	{
-		// Input: [ name | email | message ]
+		// Input: [ (role) | name | email | message ]
 		
 		$active_brand = Auth::user()->options->active_brand;
 		$companyname = Input::get('companyname');
@@ -91,7 +91,10 @@ class ManageUsersController extends Controller
 			$user_profile->avatar = 'avatar.jpg';
 			$user_profile->save();
 			
-			$user->assignRole('agent');
+			if (!Input::has('role'))
+				$user->assignRole('agent');
+			else 
+				$user->assignRole(Input::get('role'));
 			
 			// attach user id to brand id within brand_user pivot
 			\App\Brand::find($active_brand)->users()->attach($user->id);

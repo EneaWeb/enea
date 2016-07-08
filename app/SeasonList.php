@@ -54,4 +54,9 @@ class SeasonList extends Model
 	* Relations
 	*/
 
+	public static function return_user_lists()
+	{
+		
+	}
+
 }

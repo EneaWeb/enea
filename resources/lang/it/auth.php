@@ -60,6 +60,7 @@ return [
     'Receiver' => 'Destinatario',
     'Total' => 'Totale',
     'Customer' => 'Cliente',
-    
-    
+    'Role' => 'Ruolo',
+    'Select Role' => 'Seleziona Ruolo',
+
 ];

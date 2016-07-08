@@ -60,6 +60,7 @@ return [
     'Receiver' => 'Receiver',
     'Total' => 'Total',
     'Customer' => 'Customer',
-    
+    'Role' => 'Role',
+    'Select Role' => 'Select Role',
     
 ];

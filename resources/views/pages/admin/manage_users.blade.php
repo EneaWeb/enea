@@ -141,9 +141,17 @@
                 <p>{!!trans("messages.If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." )!!}</p>
             </div>
             {!!Form::open(array('url' => '/admin/add-user', 'method'=>'POST'))!!}
-            <div class="modal-body form-horizontal form-group-separated">                        
+            <div class="modal-body form-horizontal form-group-separated">         
                 <div class="form-group">
-                    {!!Form::label('name', trans('auth.Company Name'), ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('role', trans('auth.Role'), ['class' => 'col-md-3 control-label'])!!}
+                    @if (Auth::user()->can('manage brand'))
+                        <div class="col-md-8">
+                            {!!Form::select('role', \App\Role::where('name', '!=', 'superuser')->lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('auth.Select Role')])!!}
+                        </div>
+                    @endif
+                </div>             
+                <div class="form-group">
+                    {!!Form::label('companyname', trans('auth.Company Name'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
                         {!!Form::input('text', 'companyname', '', ['class' => 'form-control', 'placeholder' => trans('auth.Company Name')])!!}
                     </div>
@@ -157,7 +165,11 @@
                 <div class="form-group">
                     {!!Form::label('season_list_id', 'Season List', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::select('season_list_id', \App\SeasonList::lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('messages.Select Season List')])!!}
+                        <select class="selectpicker" multiple>
+                          <option>Mustard</option>
+                          <option>Ketchup</option>
+                          <option>Relish</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

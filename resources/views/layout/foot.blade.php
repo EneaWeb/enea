@@ -19,6 +19,7 @@
 {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap-datepicker.js') }}
 {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap-colorpicker.js') }}
 {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap-file-input.js') }}
+{{ HTML::script('/assets/js/plugins/bootstrap/bootstrap-select.js') }}
 {{ HTML::script('/assets/js/plugins/owl/owl.carousel.min.js') }}
 {{ HTML::script('/assets/js/plugins/moment.min.js') }} 
 {{ HTML::script('/assets/js/plugins/daterangepicker/daterangepicker.js') }} 
