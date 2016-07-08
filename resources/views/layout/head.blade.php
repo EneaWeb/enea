@@ -14,6 +14,7 @@
     {{-- {{ HTML::style('/assets/css/dropzone/dropzone.css') }} --}}
     {{ HTML::style('https://fonts.googleapis.com/icon?family=Material+Icons')}}  {{-- material icons font --}}
     {{ HTML::style('/assets/css/galleria.classic.css') }}
+    {{ HTML::style('/assets/css/bootstrap-select.css') }}
     
     {{ HTML::style('/assets/css/style.css') }}
     

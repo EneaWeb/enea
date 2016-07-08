@@ -38,6 +38,7 @@ class ManageUsersController extends Controller
 		$active_brand = Auth::user()->options->active_brand;
 		$companyname = Input::get('companyname');
 		$custom_message = Input::get('message');
+		$season_lists = Input::get('season_list_id');
 		
 		// check if User already exhists
 		if (User::where('email', Input::get('email'))->count() > 0) {
@@ -58,7 +59,9 @@ class ManageUsersController extends Controller
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   
 		   // attach season_list_id to user id within user_season_list pivot
-		   \App\User::find($user_id)->season_lists()->attach(Input::get('season_list_id'));
+		   foreach ($season_lists as $key => $season_list) {
+		   	\App\User::find($user_id)->season_lists()->attach($season_list);
+		   }
 		   
 		   // success message
 		   Alert::success(trans('messages.User correctly linked to your network'));
@@ -98,8 +101,11 @@ class ManageUsersController extends Controller
 			
 			// attach user id to brand id within brand_user pivot
 			\App\Brand::find($active_brand)->users()->attach($user->id);
-			// attach season_list_id to user id within user_season_list pivot
-		   $user->season_lists()->attach(Input::get('season_list_id'));
+			
+		   // attach season_list_id to user id within user_season_list pivot
+		   foreach ($season_lists as $key => $season_list) {
+		   	\App\User::find($user_id)->season_lists()->attach($season_list);
+		   }
 
 			$option = new \App\UserOption;
 			$option->user_id = $user->id;

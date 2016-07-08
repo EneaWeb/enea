@@ -62,5 +62,6 @@ return [
     'Customer' => 'Cliente',
     'Role' => 'Ruolo',
     'Select Role' => 'Seleziona Ruolo',
+    'Season Lists' => 'Listini',
 
 ];

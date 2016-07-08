@@ -62,5 +62,6 @@ return [
     'Customer' => 'Customer',
     'Role' => 'Role',
     'Select Role' => 'Select Role',
+    'Season Lists' => 'Lists',
     
 ];

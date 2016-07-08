@@ -143,8 +143,8 @@
             {!!Form::open(array('url' => '/admin/add-user', 'method'=>'POST'))!!}
             <div class="modal-body form-horizontal form-group-separated">         
                 <div class="form-group">
-                    {!!Form::label('role', trans('auth.Role'), ['class' => 'col-md-3 control-label'])!!}
                     @if (Auth::user()->can('manage brand'))
+                        {!!Form::label('role', trans('auth.Role'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
                             {!!Form::select('role', \App\Role::where('name', '!=', 'superuser')->lists('name', 'id'), '', ['class' => 'form-control', 'placeholder' => trans('auth.Select Role')])!!}
                         </div>
@@ -163,13 +163,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('season_list_id', 'Season List', ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('season_list_id', trans('auth.Season Lists'), ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        <select class="selectpicker" multiple>
-                          <option>Mustard</option>
-                          <option>Ketchup</option>
-                          <option>Relish</option>
-                        </select>
+                        {!!Form::select('season_list_id', \App\SeasonList::return_user_lists(), '', ['class'=>'selectpicker', 'multiple'=>'multiple', 'name'=>'season_list_id[]'])!!}
                     </div>
                 </div>
                 <div class="form-group">
