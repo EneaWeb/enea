@@ -94,7 +94,7 @@ return [
 	'Please fill all the fields below' => 'Compila tutti i campi sottostanti',
 	'New Password' => 'Nuova Password',
 	'Confirm New Password' => 'Conferma Nuova Password',
-	'Personal Informations' => 'Informazioni Personali',
+	'Personal Informations' => 'Inserisci i dati Personali',
 	'Confirm' => 'Conferma',
 	'New Username'=> 'Nuovo Username',
 	'Registration' => 'Registrazione',
@@ -102,6 +102,10 @@ return [
 	'Select Season List' => 'Seleziona Listino',
 	'No prices' => 'Senza prezzi',
 	'' => '',
-	'User unlinked from your network' => 'User unlinked from your network',
+	'User unlinked from your network' => 'Utente scollegato dal tuo network',
+	'Temporary login informations' => 'Dati di accesso provvisori',
+	'Check and fill all the required fields' => 'Controlla e compila tutti i campi obbligatori',
+	'Welcome back' => 'Bentornato',
+	'Welcome' => 'Benvenuto',
 	
 ];

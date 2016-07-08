@@ -10,15 +10,8 @@
                 {!!Form::open(['url'=>'/registration/confirm-registration', 'method'=>'POST'])!!}
                 
                     <div class="col-md-6">
-                        <div class="registration-title"><strong>{!!trans('messages.Registration')!!}</strong></div>
+                        <div class="registration-title">&nbsp;&nbsp;<strong>{!!trans('messages.Temporary login informations')!!}</strong></div>
                         <br>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                {!!Form::label('username', 'Username')!!} - {!!trans("messages.Don't change")!!}
-                                {!!Form::input('text', 'username', Input::get('usr'), ['class'=>'form-control'])!!}
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         
                         <div class="form-group">
                             <div class="col-md-12">
@@ -37,9 +30,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="registration-title"><strong>{!!trans('messages.Personal Informations')!!}</strong></div>
+                        <div class="registration-title">&nbsp;&nbsp;<strong>{!!trans('messages.Personal Informations')!!}</strong></div>
                         <div class="registration-subtitle"> {!!trans('messages.Please fill all the fields below')!!} </div>
                         <br>
+                        
                         <div class="form-group">
                             <div class="col-md-12">
                                 {!!Form::label('new_username', trans('messages.New Username'))!!}
@@ -47,7 +41,6 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        
                         <div class="form-group">
                             <div class="col-md-12">
                                 {!!Form::label('new_password', trans('messages.New Password'))!!}
@@ -70,8 +63,8 @@
                                 {!!Form::input('text', 'companyname', '', ['class'=>'form-control'])!!}
                             </div>
                             <div class="clearfix"></div>
-                        </div>
-
+                        </div>    
+                                            
                         <div class="form-group push-up-30">
                             <div class="col-md-6">
                             </div>

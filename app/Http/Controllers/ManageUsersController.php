@@ -132,7 +132,47 @@ class ManageUsersController extends Controller
 	
 	public function confirm_registration()
 	{
-		return redirect('/');
+		$user = \App\User::where('username', 'username')
+		
+		// provisory authentication
+		if (Auth::once(['email' => Input::get('email'), 'password' => 'provvisoria'])) {
+			if (Input::has('new_username') && Input::has('new_password') && Input::has('confirm_new_password')) {
+				// retrieve user temporary logged
+			   $user = Auth::user();
+			   // update username and pass
+			   $user->username = Input::get('new_username');
+			   $user->password = bcrypt(Input::get('new_password'));
+			   $user->active = '1';
+			   $user->save();
+			   // save companyname
+			   $user->profile->companyname = Input::get('companyname');
+			   $user->profile->save();
+			   // logout user
+			   Auth::logout();
+			   // login with new credentials
+				if ( Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('new_password'), 'active' => '1' ], true) ||
+				   Auth::attempt(['username' => Input::get('new_username'), 'password' => Input::get('new_password'), 'active' => '1' ], true) ) {
+						// auth success
+						// throw confirmation message
+				      Alert::success(trans('messages.Welcome').', '.Auth::user()->username.'.');
+				   	// redirect on dashboard
+				      return redirect()->intended('dashboard');
+				} else {
+				   // Authentication fails...
+				   Alert::error(trans('auth.failed'));
+				   return redirect('/login');
+				}
+			} else {
+				Alert::error(trans('messages.Check and fill all the required fields'));
+				return redirect()->back();
+			}
+		} else {
+			// provisory authentication failed
+			Alert::error('autenticazione provvisoria fallita'));
+			return redirect()->back();
+		}
+
+		return redirect()->back();
 	}
 	
 }

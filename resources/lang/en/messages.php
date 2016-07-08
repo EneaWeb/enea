@@ -95,7 +95,7 @@ return [
 	'Please fill all the fields below' => 'Please follow all the fields below',
 	'New Password' => 'New Password',
 	'Confirm New Password' => 'Confirm New Password',
-	'Personal Informations' => 'Personal Informations',
+	'Personal Informations' => 'Insert personal Informations',
 	'Confirm' => 'Confirm',
 	'New Username' => 'New Username',
 	'Registration' => 'Registration',
@@ -104,5 +104,9 @@ return [
 	'No prices' => 'No prices',
 	'' => '',
 	'User unlinked from your network' => 'User unlinked from your network',
+	'Temporary login informations' => 'Temporary login informations',
+	'Check and fill all the required fields' => 'Check and fill all the required fields',
+	'Welcome back' => 'Welcome back',
+	'Welcome' => 'Welcome',
 	
 ];

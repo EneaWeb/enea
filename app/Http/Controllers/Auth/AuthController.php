@@ -94,7 +94,7 @@ class AuthController extends Controller
         if ( Auth::attempt(['email' => $username, 'password' => $password, 'active' => '1' ], true) ||
             Auth::attempt(['username' => $username, 'password' => $password, 'active' => '1' ], true) ) {
                 // Authentication passed with EMAIL
-                Alert::success('Bentornato, '.Auth::user()->username.'.');
+                Alert::success(trans('messages.Welcome back').', '.Auth::user()->username.'.');
                 return redirect()->intended('dashboard');
         } else {
             // Authentication fails...
