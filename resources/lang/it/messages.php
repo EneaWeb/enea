@@ -102,4 +102,6 @@ return [
 	'Select Season List' => 'Seleziona Listino',
 	'No prices' => 'Senza prezzi',
 	'' => '',
+	'User unlinked from your network' => 'User unlinked from your network',
+	
 ];

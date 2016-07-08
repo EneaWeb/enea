@@ -28,7 +28,11 @@ class ManageUsersController extends Controller
 	
 	public function unlink_user_from_brand($userid)
 	{
+		$active_brand = Auth::user()->options->active_brand;
+		\App\Brand::find($active_brand)->users()->detach($userid);
 		
+		Alert::success(trans('messages.User unlinked from your network'));
+		return redirect()->back();
 	}
 	
 	public function add_user()
@@ -50,7 +54,7 @@ class ManageUsersController extends Controller
 		   // if user already linked to brand
 		   if (\App\Brand::find($active_brand)->users->contains($user_id)) {
 		   	// throw error
-		   	Alert::error(trans('User already linked to your network'));
+		   	Alert::error(trans('messages.User already linked to your network'));
 		   	// redirect back
 		   	return redirect()->back();
 		   }
