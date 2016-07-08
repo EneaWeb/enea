@@ -102,6 +102,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
+                                    @if(!$user->hasRole('superuser'))
                                     <tr>
                                         <td>{!!ucfirst($user->profile->companyname)!!}</td>
                                         <td>{!! $user->email !!}</td>
@@ -110,12 +111,11 @@
                                         <td>
                                             @if ($user->id != Auth::user()->id)
                                                 {{-- <button class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></button> --}}
-                                                @if($user->role() != 'superuser') {{-- CANT DELETE SUPERUSER M*F*KER --}}
-                                                    <button onClick="confirm_unlink_user({!!$user->id!!});" class="btn btn-danger btn-rounded btn-condensed btn-sm" ><span class="fa fa-times"></span></button>
-                                                @endif
+                                                <button onClick="confirm_unlink_user({!!$user->id!!});" class="btn btn-danger btn-rounded btn-condensed btn-sm" ><span class="fa fa-times"></span></button>
                                             @endif
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>                                    
