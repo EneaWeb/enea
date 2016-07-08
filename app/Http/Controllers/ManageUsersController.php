@@ -167,7 +167,7 @@ class ManageUsersController extends Controller
 			}
 		} else {
 			// provisory authentication failed
-			Alert::error('autenticazione provvisoria fallita'));
+			Alert::error('autenticazione provvisoria fallita');
 			return redirect()->back();
 		}
 
