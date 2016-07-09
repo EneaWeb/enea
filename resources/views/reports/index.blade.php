@@ -16,11 +16,6 @@
                 <a href="/"><button class="btn btn-warning">//</button></a>
             </span>
         </div> 
-        <style>
-
-table.dataTable th,table.dataTable td {
-white-space: nowrap;
-}        </style>
 
         <div class="row">
             <div class="col-md-12">
