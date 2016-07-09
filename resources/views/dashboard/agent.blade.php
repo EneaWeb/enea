@@ -80,7 +80,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="orders" class="table datatable table-condensed">
+                            <table id="orders" class="table table-condensed">
                                 <thead>
                                     <tr>
                                         <th>{!!trans('auth.Id')!!}</th>
@@ -133,7 +133,20 @@
             </div>   
         </div>
     </div>
- 
+    <script>
+        $(document).ready(function() {
+            var currentLocale = $('#getcurrentlocale').text();
+            var lastColumn = $('#orders').find('th:last').index();
+            $('#orders').DataTable( {
+                responsive : true,
+                "columnDefs": [
+                    { "width": "160px", "targets": lastColumn }
+                ],
+                "order": [[ (lastColumn-1), "desc" ]],
+                "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
+            });
+        });
+    </script>
 @include('pages.customers._modal_add_customer');
 
 @stop
