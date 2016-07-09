@@ -121,9 +121,6 @@
                             
                         @if (Auth::user()->can('manage lists'))
                             @foreach(\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
-                        @else
-                            @foreach(Auth::user()->season_lists()->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
-                        @endif
                            
                             {{-- print List name --}}
                             {!!strtoupper($season_list->name)!!}<br><br>
@@ -148,6 +145,33 @@
                                 </tr>
                             </table><br>
                             @endforeach
+                        @else
+                            @foreach(Auth::user()->season_lists()->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
+                            
+                            {{-- print List name --}}
+                            {!!strtoupper($season_list->name)!!}<br><br>
+                            
+                            {{-- print table with sizes --}}
+                            <table class="table-condensed table-bordered">
+                                <tr>
+                                    <th>Size /</th>
+                                    @foreach (\App\Item::where('product_variation_id', $variation->id)
+                                                        ->get() as $item)
+                                        <th>{!!$item->size->name!!}</th>
+                                    @endforeach
+                                </tr><tr>
+                                    <th>Eur /</th>
+                                   @foreach (\App\Item::where('product_variation_id', $variation->id)
+                                                        ->get() as $item)
+                                    <td>
+                                        {!!\App\ItemPrice::where('item_id', $item->id)
+                                                ->where('season_list_id', $season_list->id)->first()['price'] !!}
+                                    </td>
+                                    @endforeach
+                                </tr>
+                            </table><br>
+                            @endforeach
+                        @endif
                         </div>
                     {{-- */ $i2++ /* --}}
                     @endforeach
