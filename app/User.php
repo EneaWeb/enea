@@ -55,8 +55,7 @@ class User extends Authenticatable
     
     public function role()
     {
-        $a = $this->roles()->first()->name;
-        return $a;
+        return \App\Role::find(\App\RoleUser::where('user_id', $this->id)->first()['role_id'])->name;
     }
     
     public function options()

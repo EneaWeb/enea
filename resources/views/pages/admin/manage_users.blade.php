@@ -102,7 +102,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
-                                    @if(!$user->hasRole('superuser'))
+                                    @if($user->role() != 'superuser')
                                     <tr>
                                         <td>{!!ucfirst($user->profile->companyname)!!}</td>
                                         <td>{!! $user->email !!}</td>
