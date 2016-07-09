@@ -22,7 +22,7 @@
             
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{!! trans('messages.Sold by product')!!}</h3>
+                        <h2 class="panel-title"><strong>{!! trans('messages.Sold by product')!!}</strong></h2>
                         <div class="btn-group pull-right">
                             <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
                             <ul class="dropdown-menu">
@@ -61,6 +61,9 @@
                                         <th>{!!trans('auth.Picture')!!}</th>
                                         <th>{!!trans('auth.Model')!!}</th>
                                         <th>{!!trans('auth.Product')!!}</th>
+                                        @foreach (\App\Size::all() as $size)
+                                            <th>{!!$size->name!!}</th>
+                                        @endforeach
                                         <th>{!!trans('auth.Quantity')!!}</th>
                                         <th>{!!trans('auth.Total')!!}</th>
                                     </tr>
@@ -69,20 +72,22 @@
                                     @foreach($product_ids as $product_id)
                                         <tr>
                                             <td>
-                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Product::find($product_id)->picture!!}" style="max-height:60px"/>
+                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Product::find($product_id)->picture!!}" style="max-height:50px"/>
                                             </td>
-                                            <td>
-                                                {!!\App\Product::find($product_id)->prodmodel->name!!}
-                                            </td>
-                                            <td>
-                                                {!!\App\Product::find($product_id)->name!!}
-                                            </td>
-                                            <td>
-                                                {!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}
-                                            </td>
-                                            <td style="text-align:right">
+                                            <td>{!!\App\Product::find($product_id)->prodmodel->name!!}</td>
+                                            <td>{!!\App\Product::find($product_id)->name!!}</td>
+                                            @foreach (\App\Size::all() as $size)
+                                                <td>{!!
+                                                    \App\OrderItem::whereHas('comments', function ($query) {
+                                                        $query->where('content', 'like', 'foo%');
+                                                    })->get();
+                                                
+                                                !!}</td>
+                                            @endforeach
+                                            <th>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</th>
+                                            <th style="text-align:right">
                                                 € {!!number_format(\App\OrderDetail::where('product_id', $product_id)->sum('total_price'), 2, ',', '.')!!}
-                                            </td>
+                                            </th>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -93,7 +98,7 @@
                 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{!! trans('messages.Sold by product')!!}</h3>
+                        <h2 class="panel-title"><strong>{!! trans('messages.Sold by variation')!!}</strong></h2>
                         <div class="btn-group pull-right">
                             <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
                             <ul class="dropdown-menu">
@@ -140,7 +145,7 @@
                                     @foreach($variation_ids as $variation_id)
                                         <tr>
                                             <td>
-                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Product::find($product_id)->picture!!}" style="max-height:60px"/>
+                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\ProductVariation::find($variation_id)->picture!!}" style="max-height:50px"/>
                                             </td>
                                             <td>
                                                 {!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}
@@ -171,13 +176,25 @@
                 var currentLocale = $('#getcurrentlocale').text();
                 
                 $('#sold-by-item').DataTable( {
+                    "columnDefs": [
+                        { "width": "70px", "targets": 0 }
+                    ],
                     "order": [[ 3, "desc" ]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
                 });
                 
                 $('#sold-by-variation').DataTable( {
+                    "columnDefs": [
+                        { "width": "70px", "targets": 0 }
+                    ],
                     "order": [[ 3, "desc" ]],
-                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
+                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                    drawCallback: function () {
+                        var api = this.api();
+                        $( api.table().footer() ).html(
+                            api.column( 4, {page:'current'} ).data().sum()
+                        );
+                    }
                 });
                 
             } );

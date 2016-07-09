@@ -70,5 +70,10 @@ class ProductVariation extends Model
 	{
 	  return $this->hasMany('\App\ProductVariationPicture');
 	}
+    
+    public function color()
+    {
+        return $this->belongsTo('\App\Color');
+    }
 
 }

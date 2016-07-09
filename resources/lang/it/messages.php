@@ -109,5 +109,6 @@ return [
 	'Welcome' => 'Benvenuto',
 	'Old Password' => 'Password attuale',
 	'Sold by product' => 'Venduto per articolo',
+	'Sold by variation' => 'Venduto per variante',
 	
 ];

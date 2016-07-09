@@ -69,8 +69,9 @@ return [
     'Variation' => 'Variazione',
     'Date' => 'Data',
     'Color' => 'Colore',
-    'Product' => 'Prodotto',
+    'Product' => 'Articolo',
     'Quantity' => 'Quantità',
     'Price' => 'Prezzo',
+    'Picture' => 'Immagine',
     
 ];

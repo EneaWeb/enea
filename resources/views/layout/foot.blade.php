@@ -39,6 +39,7 @@
 
 <script type="text/javascript" src="/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/datatables/sum().js"></script>
 <script type="text/javascript" src="/assets/js/plugins/tableexport/tableExport.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/tableexport/jquery.base64.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/tableexport/html2canvas.js"></script>

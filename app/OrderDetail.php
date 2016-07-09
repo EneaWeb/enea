@@ -68,5 +68,20 @@ class OrderDetail extends Model
 	{
 		return $this->belongsTo('\App\Order');
 	}
+    
+    public function product()
+    {
+        return $this->belongsTo('\App\Product');
+    }
+    
+    public function product_variation()
+    {
+        return $this->belongsTo('\App\ProductVariation');
+    }
+    
+    public function item()
+    {
+        return $this->belongsTo('\App\Item');
+    }
 
 }

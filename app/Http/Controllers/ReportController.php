@@ -17,7 +17,7 @@ class ReportController extends Controller
 	public function index()
 	{
 		$product_ids = OrderDetail::groupBy('product_id')->lists('product_id');
-		$variation_ids = OrderDetail::groupBy('product_variation_id')->lists('product_variation_id');
+		$variation_ids = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
 		$order_details = OrderDetail::all();
 		return view('reports.index', compact('order_details', 'product_ids', 'variation_ids'));
 	}
