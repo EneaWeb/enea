@@ -55,43 +55,45 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="sold-by-item" class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>{!!trans('auth.Picture')!!}</th>
-                                        <th>{!!trans('auth.Model')!!}</th>
-                                        <th>{!!trans('auth.Product')!!}</th>
-                                        @foreach (\App\Size::all() as $size)
-                                            <th>{!!$size->name!!}</th>
-                                        @endforeach
-                                        <th>{!!trans('auth.Qty')!!}</th>
-                                        <th>{!!trans('auth.Total')!!}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($product_ids as $product_id)
+                            <div class="dataTables_wrapper no-footer">
+                                <table id="sold-by-item" class="table table-condensed">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Product::find($product_id)->picture!!}" style="max-height:50px"/>
-                                            </td>
-                                            <td>{!!\App\Product::find($product_id)->prodmodel->name!!}</td>
-                                            <td>{!!\App\Product::find($product_id)->name!!}</td>
+                                            <th>{!!trans('auth.Picture')!!}</th>
+                                            <th>{!!trans('auth.Model')!!}</th>
+                                            <th>{!!trans('auth.Product')!!}</th>
                                             @foreach (\App\Size::all() as $size)
-                                                <td>{!!
-                                                    \App\OrderDetail::where('product_id', $product_id)
-                                                        ->whereHas('item', function($query) use ($size) {
-                                                        $query->where('items.size_id', '=', $size->id);
-                                                    })->sum('qty');
-                                                !!}</td>
+                                                <th>{!!$size->name!!}</th>
                                             @endforeach
-                                            <th>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</th>
-                                            <th style="text-align:right">
-                                                € {!!number_format(\App\OrderDetail::where('product_id', $product_id)->sum('total_price'), 2, ',', '.')!!}
-                                            </th>
+                                            <th>{!!trans('auth.Qty')!!}</th>
+                                            <th>{!!trans('auth.Total')!!}</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>         
+                                    </thead>
+                                    <tbody>
+                                        @foreach($product_ids as $product_id)
+                                            <tr>
+                                                <td>
+                                                    <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Product::find($product_id)->picture!!}" style="max-height:50px"/>
+                                                </td>
+                                                <td>{!!\App\Product::find($product_id)->prodmodel->name!!}</td>
+                                                <td>{!!\App\Product::find($product_id)->name!!}</td>
+                                                @foreach (\App\Size::all() as $size)
+                                                    <td>{!!
+                                                        \App\OrderDetail::where('product_id', $product_id)
+                                                            ->whereHas('item', function($query) use ($size) {
+                                                            $query->where('items.size_id', '=', $size->id);
+                                                        })->sum('qty');
+                                                    !!}</td>
+                                                @endforeach
+                                                <th>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</th>
+                                                <th style="text-align:right">
+                                                    € {!!number_format(\App\OrderDetail::where('product_id', $product_id)->sum('total_price'), 2, ',', '.')!!}
+                                                </th>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,46 +133,48 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="sold-by-variation" class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>{!!trans('auth.Picture')!!}</th>
-                                        <th>{!!trans('auth.Model')!!}</th>
-                                        <th>{!!trans('auth.Product')!!}</th>
-                                        @foreach (\App\Size::all() as $size)
-                                            <th>{!!$size->name!!}</th>
-                                        @endforeach
-                                        <th>{!!trans('auth.Qty')!!}</th>
-                                        <th>{!!trans('auth.Total')!!}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($variation_ids as $variation_id)
+                            <div class="dataTables_wrapper no-footer">
+                                <table id="sold-by-variation" class="table table-condensed">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\ProductVariation::find($variation_id)->picture!!}" style="max-height:50px"/>
-                                            </td>
-                                            <td>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}</td>
-                                            <td>
-                                                {!!\App\ProductVariation::find($variation_id)->product->name!!}
-                                                {!!\App\ProductVariation::find($variation_id)->color->name!!}
-                                            </td>
+                                            <th>{!!trans('auth.Picture')!!}</th>
+                                            <th>{!!trans('auth.Model')!!}</th>
+                                            <th>{!!trans('auth.Product')!!}</th>
                                             @foreach (\App\Size::all() as $size)
-                                                <td>{!!
-                                                    \App\OrderDetail::where('product_variation_id', $variation_id)
-                                                        ->whereHas('item', function($query) use ($size) {
-                                                        $query->where('items.size_id', '=', $size->id);
-                                                    })->sum('qty');
-                                                !!}</td>
+                                                <th>{!!$size->name!!}</th>
                                             @endforeach
-                                            <td>{!!\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty')!!}</td>
-                                            <td style="text-align:right">
-                                                € {!!number_format(\App\OrderDetail::where('product_variation_id', $variation_id)->sum('total_price'), 2, ',', '.')!!}
-                                            </td>
+                                            <th>{!!trans('auth.Qty')!!}</th>
+                                            <th>{!!trans('auth.Total')!!}</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>                             
+                                    </thead>
+                                    <tbody>
+                                        @foreach($variation_ids as $variation_id)
+                                                  <tr>
+                                                <td>
+                                                    <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\ProductVariation::find($variation_id)->picture!!}" style="max-height:50px"/>
+                                                </td>
+                                                <td>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}</td>
+                                                <td>
+                                                    {!!\App\ProductVariation::find($variation_id)->product->name!!}
+                                                    {!!\App\ProductVariation::find($variation_id)->color->name!!}
+                                                </td>
+                                                @foreach (\App\Size::all() as $size)
+                                                    <td>{!!
+                                                        \App\OrderDetail::where('product_variation_id', $variation_id)
+                                                            ->whereHas('item', function($query) use ($size) {
+                                                            $query->where('items.size_id', '=', $size->id);
+                                                        })->sum('qty');
+                                                    !!}</td>
+                                                @endforeach
+                                                <td>{!!\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty')!!}</td>
+                                                <td style="text-align:right">
+                                                    € {!!number_format(\App\OrderDetail::where('product_variation_id', $variation_id)->sum('total_price'), 2, ',', '.')!!}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>                         
                         </div>
                     </div>
                 </div>
