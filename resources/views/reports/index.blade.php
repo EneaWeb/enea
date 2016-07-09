@@ -64,7 +64,7 @@
                                         @foreach (\App\Size::all() as $size)
                                             <th>{!!$size->name!!}</th>
                                         @endforeach
-                                        <th>{!!trans('auth.Quantity')!!}</th>
+                                        <th>{!!trans('auth.Qty')!!}</th>
                                         <th>{!!trans('auth.Total')!!}</th>
                                     </tr>
                                 </thead>
@@ -78,10 +78,10 @@
                                             <td>{!!\App\Product::find($product_id)->name!!}</td>
                                             @foreach (\App\Size::all() as $size)
                                                 <td>{!!
-                                                    \App\OrderItem::whereHas('comments', function ($query) {
-                                                        $query->where('content', 'like', 'foo%');
-                                                    })->get();
-                                                
+                                                    \App\OrderDetail::where('product_id', $product_id)
+                                                        ->whereHas('item', function($query) use ($size) {
+                                                        $query->where('items.size_id', '=', $size->id);
+                                                    })->sum('qty');
                                                 !!}</td>
                                             @endforeach
                                             <th>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</th>
@@ -91,7 +91,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>                             
+                            </table>         
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,10 @@
                                         <th>{!!trans('auth.Picture')!!}</th>
                                         <th>{!!trans('auth.Model')!!}</th>
                                         <th>{!!trans('auth.Product')!!}</th>
-                                        <th>{!!trans('auth.Quantity')!!}</th>
+                                        @foreach (\App\Size::all() as $size)
+                                            <th>{!!$size->name!!}</th>
+                                        @endforeach
+                                        <th>{!!trans('auth.Qty')!!}</th>
                                         <th>{!!trans('auth.Total')!!}</th>
                                     </tr>
                                 </thead>
@@ -147,16 +150,20 @@
                                             <td>
                                                 <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\ProductVariation::find($variation_id)->picture!!}" style="max-height:50px"/>
                                             </td>
-                                            <td>
-                                                {!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}
-                                            </td>
+                                            <td>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}</td>
                                             <td>
                                                 {!!\App\ProductVariation::find($variation_id)->product->name!!}
                                                 {!!\App\ProductVariation::find($variation_id)->color->name!!}
                                             </td>
-                                            <td>
-                                                {!!\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty')!!}
-                                            </td>
+                                            @foreach (\App\Size::all() as $size)
+                                                <td>{!!
+                                                    \App\OrderDetail::where('product_variation_id', $variation_id)
+                                                        ->whereHas('item', function($query) use ($size) {
+                                                        $query->where('items.size_id', '=', $size->id);
+                                                    })->sum('qty');
+                                                !!}</td>
+                                            @endforeach
+                                            <td>{!!\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty')!!}</td>
                                             <td style="text-align:right">
                                                 € {!!number_format(\App\OrderDetail::where('product_variation_id', $variation_id)->sum('total_price'), 2, ',', '.')!!}
                                             </td>
@@ -174,12 +181,14 @@
             $(document).ready(function() {
                 
                 var currentLocale = $('#getcurrentlocale').text();
+                var soldByItemQty_column = $('#sold-by-item').find('th:last').index()-1;
+                var soldByVariationQty_column = $('#sold-by-variation').find('th:last').index()-1;
                 
                 $('#sold-by-item').DataTable( {
                     "columnDefs": [
                         { "width": "70px", "targets": 0 }
                     ],
-                    "order": [[ 3, "desc" ]],
+                    "order": [[ soldByItemQty_column, "desc" ]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
                 });
                 
@@ -187,7 +196,7 @@
                     "columnDefs": [
                         { "width": "70px", "targets": 0 }
                     ],
-                    "order": [[ 3, "desc" ]],
+                    "order": [[ soldByVariationQty_column, "desc" ]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     drawCallback: function () {
                         var api = this.api();

@@ -73,5 +73,6 @@ return [
     'Quantity' => 'Quantità',
     'Price' => 'Prezzo',
     'Picture' => 'Immagine',
+    'Qty' => 'Qta',
     
 ];

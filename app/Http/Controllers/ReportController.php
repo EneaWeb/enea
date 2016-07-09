@@ -16,6 +16,7 @@ class ReportController extends Controller
 {
 	public function index()
 	{
+		$model_ids = Order::detail::whereHas('models')
 		$product_ids = OrderDetail::groupBy('product_id')->lists('product_id');
 		$variation_ids = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
 		$order_details = OrderDetail::all();
