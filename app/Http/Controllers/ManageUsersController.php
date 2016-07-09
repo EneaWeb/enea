@@ -19,10 +19,13 @@ class ManageUsersController extends Controller
 	{
 		$active_brand = Auth::user()->options->active_brand;
 		
-		$users = User::whereHas('brands', function($q) use ($active_brand)
-		{
-		    $q->where('brand_id', $active_brand);
-		})->get();
+		$users = User::with(['roles' => function($q){
+    		$q->where('name', '!=', 'superuser');
+		}])
+		->whereHas('brands', function($q) use ($active_brand)
+			{
+			    $q->where('brand_id', $active_brand);
+			})->get();
 		
 		return view('pages.admin.manage_users', compact('users'));
 	}
