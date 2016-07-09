@@ -67,9 +67,11 @@ class ManageUsersController extends Controller
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   
 		   // attach season_list_id to user id within user_season_list pivot
-		   foreach ($season_lists as $key => $season_list) {
-		   	\App\User::find($user_id)->season_lists()->attach($season_list);
-		   }
+		   if (Input::has('season_lists')) {
+			   foreach ($season_lists as $key => $season_list) {
+			   	\App\User::find($user_id)->season_lists()->attach($season_list);
+			   }
+			}
 		   
 		   // success message
 		   Alert::success(trans('messages.User correctly linked to your network'));
@@ -111,9 +113,11 @@ class ManageUsersController extends Controller
 			\App\Brand::find($active_brand)->users()->attach($user->id);
 			
 		   // attach season_list_id to user id within user_season_list pivot
-		   foreach ($season_lists as $key => $season_list) {
-		   	$user->season_lists()->attach($season_list);
-		   }
+		   if (Input::has('season_lists')) {
+			   foreach ($season_lists as $key => $season_list) {
+			   	$user->season_lists()->attach($season_list);
+			   }
+			}
 
 			$option = new \App\UserOption;
 			$option->user_id = $user->id;
