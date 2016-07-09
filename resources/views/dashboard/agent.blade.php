@@ -81,7 +81,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div class="dataTables_wrapper no-footer">
-                                <table id="orders" class="table table-responsive">
+                                <table id="orders" class="table table-responsive" style="max-width:100%!important;">
                                     <thead>
                                         <tr>
                                             <th>{!!trans('auth.Id')!!}</th>
