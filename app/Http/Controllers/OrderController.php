@@ -252,7 +252,7 @@ class OrderController extends Controller
 			$price = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()['price'];
 			$subtotal += $price * $quantity;
 
-			// products_arr = PRODUCT_ID=>[ VARIATION_ID .. VARIATION_ID .. ]			
+			// products_arr = PRODUCT_ID=>[ PRODUCT_VARIATION_ID .. PRODUCT_VARIATION_ID .. ]			
 			if (!in_array(\App\Item::find($item_id)->product_variation_id, $temp_variations))
 				$products_array[\App\Item::find($item_id)->product_id][] = \App\Item::find($item_id)->product_variation_id;
 			
@@ -324,7 +324,7 @@ class OrderController extends Controller
 			$order_detail = new \App\OrderDetail;
 			$order_detail->order_id = $order->id;
 			$order_detail->product_id = \App\Item::find($key)->product_id;
-			$order_detail->variation_id = \App\Item::find($key)->product_variation_id;
+			$order_detail->product_variation_id = \App\Item::find($key)->product_variation_id;
 			$order_detail->item_id = $key;
 			$order_detail->qty = $val;
 			$order_detail->price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'];

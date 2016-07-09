@@ -109,5 +109,6 @@ return [
 	'Welcome back' => 'Welcome back',
 	'Welcome' => 'Welcome',
 	'Old Password' => 'Old Password',
+	'Sold by product' => 'Sold by product',
 	
 ];

@@ -108,5 +108,6 @@ return [
 	'Welcome back' => 'Bentornato',
 	'Welcome' => 'Benvenuto',
 	'Old Password' => 'Password attuale',
+	'Sold by product' => 'Venduto per articolo',
 	
 ];
