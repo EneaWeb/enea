@@ -55,7 +55,8 @@ class User extends Authenticatable
     
     public function role()
     {
-        return $this->roles->first()->name;
+        $a = $this->roles->first()->name;
+        return $a;
     }
     
     public function options()

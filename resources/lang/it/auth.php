@@ -74,5 +74,6 @@ return [
     'Price' => 'Prezzo',
     'Picture' => 'Immagine',
     'Qty' => 'Qta',
+    'With Variations' => 'With Variations',
     
 ];
