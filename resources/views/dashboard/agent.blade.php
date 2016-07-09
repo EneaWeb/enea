@@ -81,7 +81,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div class="dataTables_wrapper no-footer">
-                                <table id="orders" class="table table-responsive" style="max-width:100%!important;">
+                                <table id="orders" class="table table-responsive">
                                     <thead>
                                         <tr>
                                             <th>{!!trans('auth.Id')!!}</th>
@@ -144,8 +144,7 @@
                     { "width": "160px", "targets": lastColumn }
                 ],
                 "order": [[ (lastColumn-1), "desc" ]],
-                "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
-                sScrollX: "100%"
+                "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
             });
         });
     </script>
