@@ -193,7 +193,8 @@
                         { "width": "70px", "targets": 0 }
                     ],
                     "order": [[ soldByItemQty_column, "desc" ]],
-                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
+                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                    sScrollX: "100%"
                 });
                 
                 $('#sold-by-variation').DataTable( {
@@ -207,7 +208,8 @@
                         $( api.table().footer() ).html(
                             api.column( 4, {page:'current'} ).data().sum()
                         );
-                    }
+                    },
+                    sScrollX: "100%"
                 });
                 
             } );

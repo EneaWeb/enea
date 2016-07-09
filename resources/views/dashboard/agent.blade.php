@@ -144,7 +144,8 @@
                     { "width": "160px", "targets": lastColumn }
                 ],
                 "order": [[ (lastColumn-1), "desc" ]],
-                "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
+                "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                sScrollX: "100%"
             });
         });
     </script>
