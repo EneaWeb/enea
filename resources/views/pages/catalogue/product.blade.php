@@ -118,8 +118,12 @@
                                                     ->where('active', 1)
                                                     ->get() as $variation)
                         <div class="tab-pane @if($i2==1) active @endif" id="tab-{!!$variation->color_id!!}">
-                        
-                            @foreach (\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $season_list)
+                            
+                        @if (Auth::user()->can('manage lists'))
+                            @foreach(\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
+                        @else
+                            @foreach(Auth::user()->season_lists()->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
+                        @endif
                            
                             {{-- print List name --}}
                             {!!strtoupper($season_list->name)!!}<br><br>

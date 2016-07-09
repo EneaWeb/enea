@@ -157,6 +157,7 @@ Route::group([
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
 	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
+	Route::get('/report', 'ReportController@index');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');

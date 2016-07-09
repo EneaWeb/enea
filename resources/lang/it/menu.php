@@ -58,6 +58,7 @@ return [
 	'Continue' => 'Continua',	
 	'Orders' => 'Ordini',
 	'Line Sheet' => 'Line Sheet',
+	'Report' => 'Report',
 	
 	
 ];

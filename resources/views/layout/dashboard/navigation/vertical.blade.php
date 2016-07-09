@@ -27,13 +27,25 @@
         <a href="#"><span class="fa fa-book"></span> <span class="xn-text">{!!trans('menu.Line Sheet')!!}</span></a>
         <ul>
             <li><a href="/catalogue/linesheet/clean"><span class="fa fa-book"></span>{!!trans('messages.No prices')!!}</a></li>
-            @foreach(\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
-                <li><a href="/catalogue/linesheet/{!!$seasonlist->id!!}"><span class="fa fa-book"></span>{!!$seasonlist->name!!}</a></li>
-            @endforeach
+            @if (Auth::user()->can('manage lists'))
+                @foreach(\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
+                    <li><a href="/catalogue/linesheet/{!!$seasonlist->id!!}"><span class="fa fa-book"></span>{!!$seasonlist->name!!}</a></li>
+                @endforeach
+            @else
+                @foreach(Auth::user()->season_lists()->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
+                    <li><a href="/catalogue/linesheet/{!!$seasonlist->id!!}"><span class="fa fa-book"></span>{!!$seasonlist->name!!}</a></li>
+                @endforeach
+            @endif
         </ul>
     </li>
     <li><a href="/catalogue/products"><span class="fa fa-tags"></span> <span class="xn-text">{!!trans('menu.Products')!!}</span></a></li>
     <li><a href="/customers"><span class="fa fa-user"></span><span class="xn-text">{!!trans('menu.Customers')!!}</span></a></li>
+    
+    @if(Auth::user()->can('manage orders'))
+    
+    <li><a href="/report"><span class="fa fa-table"></span><span class="xn-text">{!!trans('menu.Report')!!}</span></a></li>
+    
+    @endif
     
     @if(Auth::user()->can('manage brands'))
         <li class="xn-openable">

@@ -85,10 +85,11 @@
                                     <tr>
                                         <th>{!!trans('auth.Id')!!}</th>
                                         <th>{!!trans('auth.Customer')!!}</th>
-                                        <th>Articoli</th>
-                                        <th>Pezzi</th>
-                                        <th>Variazione</th>
+                                        <th>{!!trans('auth.Products')!!}</th>
+                                        <th>{!!trans('auth.Items')!!}</th>
+                                        <th>{!!trans('auth.Variation')!!}</th>
                                         <th>{!!trans('auth.Total')!!}</th>
+                                        <th>{!!trans('auth.Date')!!}
                                         <th>{!!trans('auth.Options')!!}</th>
                                     </tr>
                                 </thead>
@@ -110,6 +111,7 @@
                                             <td>{!!$order->items_qty!!}</td>
                                             <td>{!!($order->payment_amount == '') ? '/' : $order->payment_amount.'%' !!}</td>
                                             <td>€ {!!number_format($order->total, 2)!!}</td>
+                                            <td>{{ $order->created_at->format('d/m/y - H:i') }}</td>
                                             <td>
                                         		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->
                                                 <a href="/order/details/{!!$order->id!!}"><button class="btn btn-info btn-rounded btn-condensed btn-sm"><span class="fa fa-search-plus"></span></button></a>

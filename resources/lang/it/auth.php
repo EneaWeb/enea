@@ -64,5 +64,13 @@ return [
     'Select Role' => 'Seleziona Ruolo',
     'Season Lists' => 'Listini',
     'Orders' => 'Ordini',
+    'Products' => 'Articoli',
+    'Items' => 'Pezzi',
+    'Variation' => 'Variazione',
+    'Date' => 'Data',
+    'Color' => 'Colore',
+    'Product' => 'Prodotto',
+    'Quantity' => 'Quantità',
+    'Price' => 'Prezzo',
     
 ];

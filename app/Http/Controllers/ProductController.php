@@ -20,9 +20,9 @@ class ProductController extends Controller
 		// query all products for active season
 		
 		if (Input::has('active'))
-			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(28);
+			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
 		else 
-			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(28);
+			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
 		
 		// return view
 		return view('pages.catalogue.products', compact('products'));

@@ -64,5 +64,14 @@ return [
     'Select Role' => 'Select Role',
     'Season Lists' => 'Lists',
     'Orders' => 'Orders',
+    'Products' => 'Products',
+    'Items' => 'Items',
+    'Variation' => 'Variation',
+    'Date' => 'Date',
+    'Color' => 'Color',
+    'Product' => 'Product',
+    'Quantity' => 'Quantity',
+    'Price' => 'Price',
+    
     
 ];
