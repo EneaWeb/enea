@@ -111,5 +111,6 @@ return [
 	'Old Password' => 'Old Password',
 	'Sold by product' => 'Sold by product',
 	'Sold by variation' => 'Sold by variation',
+	'All' => 'All',
 	
 ];
