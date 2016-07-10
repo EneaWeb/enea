@@ -72,39 +72,33 @@
 	   <div class="col-md-8">
 	       
 	       {{-- START SALES BLOCK --}}
-	       	<div class="panel panel-default">
-	           	<div class="panel-heading">
-	               <div class="panel-title-box">
-							<h3>Sales</h3>
-	                  <span></span>
-	               </div>   
-	               <ul class="panel-controls" style="margin-top: 2px;">
-	                   <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
-	               </ul>                           
-	               {{-- <ul class="panel-controls panel-controls-title">                                        
-	                   <li>
-	                       <div id="reportrange" class="dtrange">                                            
-	                           <span></span><b class="caret"></b>
-	                       </div>                                     
-	                   </li>                                
-	                   <li><a href="#" class="panel-fullscreen rounded"><span class="fa fa-expand"></span></a></li>
-	               </ul> --}}
-	           	</div>
-	         </div>
+			<div class="panel panel-default">
+			  	<div class="panel-heading">
+			      <div class="panel-title-box">
+						<h3>Sales</h3>
+			         <span></span>
+			      </div>   
+			      <ul class="panel-controls" style="margin-top: 2px;">
+			          <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+			      </ul>                           
+			      {{-- <ul class="panel-controls panel-controls-title">                                        
+			          <li>
+			              <div id="reportrange" class="dtrange">                                            
+			                  <span></span><b class="caret"></b>
+			              </div>                                     
+			          </li>                                
+			          <li><a href="#" class="panel-fullscreen rounded"><span class="fa fa-expand"></span></a></li>
+			      </ul> --}}
+			  	</div>
+			  	
+			   {{-- INCLUDE ORDERS TABLE --}}
+			   <div class="panel-body">
+			      @include('dashboard._orders_table')
+			   </div>
+			   {{-- END INCLUDE ORDERS TABLE --}}
+
 	      </div>
-	   </div>
-	   
-	   <div>
-	   	<div>
-
-               {{-- INCLUDE ORDERS TABLE --}}
-               <div class="panel-body">
-                  @include('dashboard._orders_table')
-               </div>
-               {{-- END INCLUDE ORDERS TABLE --}}
-
-	       </div>
-	       {{-- END SALES BLOCK --}}
+	      {{-- END SALES BLOCK --}}
 	       
 	   </div>
 	</div>
