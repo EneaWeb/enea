@@ -1,6 +1,7 @@
 <head>
     {{-- META SECTION --}}
-    <title>{!! Config::get('general.sitename') !!}{!!(isset($page_title)) ? '- '.$page_title : '' !!}</title>            
+    <title>{!! Config::get('general.sitename') !!}{!!(isset($page_title)) ? '- '.$page_title : '' !!}</title>  
+    <meta charset="UTF-8">          
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
