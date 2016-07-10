@@ -90,6 +90,12 @@
 	                   <li><a href="#" class="panel-fullscreen rounded"><span class="fa fa-expand"></span></a></li>
 	               </ul> --}}
 	           	</div>
+	         </div>
+	      </div>
+	   </div>
+	   
+	   <div>
+	   	<div>
 
                {{-- INCLUDE ORDERS TABLE --}}
                <div class="panel-body">
