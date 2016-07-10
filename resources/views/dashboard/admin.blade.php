@@ -4,7 +4,7 @@
 
 	<div class="row">
 	
-	   <div class="col-md-4">
+	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}
 	       <div class="panel panel-default">
 	           <div class="panel-heading">
@@ -81,7 +81,7 @@
 	       {{-- END PROJECTS BLOCK --}}
 	   </div>
 	
-	   <div class="col-md-8">
+	   <div class="col-md-12">
 	       
 	       {{-- START SALES BLOCK --}}
 			<div class="panel panel-default">
