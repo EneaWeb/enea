@@ -81,7 +81,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div class="dataTables_wrapper no-footer">
-                                <table id="orders" class="table table-responsive">
+                                <table id="orders" class="table table-responsive table-condensed">
                                     <thead>
                                         <tr>
                                             <th>{!!trans('auth.Id')!!}</th>
@@ -114,6 +114,7 @@
                                                 <td>€ {!!number_format($order->total, 2)!!}</td>
                                                 <td>{{ $order->created_at->format('d/m/y - H:i') }}</td>
                                                 <td>
+                                                    <div style="width:110px; height:1px; clear:both;">&nbsp;</div>
                                             		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->
                                                     <a href="/order/details/{!!$order->id!!}"><button class="btn btn-info btn-rounded btn-condensed btn-sm"><span class="fa fa-search-plus"></span></button></a>
                                                     
