@@ -30,81 +30,16 @@
 	                   <table class="table table-condensed table-bordered table-striped">
 	                       <thead>
 	                           <tr>
-	                               <th width="50%">Project</th>
-	                               <th width="20%">Status</th>
-	                               <th width="30%">Activity</th>
+	                               <th width="40%">Agent</th>
+	                               <th width="60%">Activity</th>
 	                           </tr>
 	                       </thead>
 	                       <tbody>
 	                           <tr>
 	                               <td><strong>Atlant</strong></td>
-	                               <td><span class="label label-danger">Developing</span></td>
 	                               <td>
 	                                   <div class="progress progress-small progress-striped active">
 	                                       <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">85%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>
-	                           <tr>
-	                               <td><strong>Gemini</strong></td>
-	                               <td><span class="label label-warning">Updating</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">40%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>                                                
-	                           <tr>
-	                               <td><strong>Taurus</strong></td>
-	                               <td><span class="label label-warning">Updating</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>
-	                           <tr>
-	                               <td><strong>Gemini</strong></td>
-	                               <td><span class="label label-warning">Updating</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">40%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>                                                
-	                           <tr>
-	                               <td><strong>Taurus</strong></td>
-	                               <td><span class="label label-warning">Updating</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>
-	                           <tr>
-	                               <td><strong>Leo</strong></td>
-	                               <td><span class="label label-success">Support</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>
-	                           <tr>
-	                               <td><strong>Virgo</strong></td>
-	                               <td><span class="label label-success">Support</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
-	                                   </div>
-	                               </td>
-	                           </tr>                                                
-	                           <tr>
-	                               <td><strong>Aquarius</strong></td>
-	                               <td><span class="label label-success">Support</span></td>
-	                               <td>
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
 	                                   </div>
 	                               </td>
 	                           </tr>
@@ -124,7 +59,7 @@
 	           <div class="panel-heading">
 	               <div class="panel-title-box">
 	                   <h3>Sales</h3>
-	                   <span>Sales activity by period you selected</span>
+	                   <span></span>
 	               </div>                                     
 	               <ul class="panel-controls panel-controls-title">                                        
 	                   <li>
@@ -137,9 +72,7 @@
 	           </div>
 	           <div class="panel-body">                                    
 	               <div class="row stacked">
-	                   <div class="" style="height:400px">
-	                       {!! $mapHelper->renderHtmlContainer($map) !!}
-	                   </div>
+
 	               </div>                                    
 	           </div>
 	       </div>
@@ -151,8 +84,5 @@
 @stop
 
 @section('more_foot')
-
-{!! $mapHelper->renderJavascripts($map) !!}
-{!! $mapHelper->renderStylesheets($map) !!}
 
 @stop

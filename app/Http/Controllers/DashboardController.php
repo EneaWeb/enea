@@ -31,13 +31,6 @@ class DashboardController extends Controller
 			$orders = Order::all();
 		else
 			$orders = Order::where('user_id', Auth::user()->id)->get();
-		/*
-		if ($user->can('manage brands')) {
-			$mapHelper = new MapHelper;
-			$map = Maps::orders_map();
-			return view('dashboard.admin', compact('map', 'mapHelper', 'orders'));
-		} else {
-		*/
 
 			// retrieve all customers
 			$customers = Customer::all();
@@ -56,6 +49,9 @@ class DashboardController extends Controller
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
+			
+			if ($user->can('manage brands'))
+				return view('dashboard.admin', compact('orders', 'autocomplete', 'autocompleteHelper'));
 			
 			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper'));
 		// }

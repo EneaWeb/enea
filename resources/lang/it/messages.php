@@ -8,7 +8,7 @@ return [
 	'On brand' => 'Sul brand',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Inserisci il <b>nome</b> e <b>l'indirizzo email</b> dell'utente che vuoi aggiungere al tuo network.",
 	"If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." => "Se l'utente è già registrato sul nostro sistema, sarà aggiunto automaticamente al tuo network. <br>In caso contrario, riceverà <b>un'email</b> con la quale sarà invitato a confermare la sua scelta di unirsi al network del tuo brand.",
-	'invite_user_message' => 'Ciao, ti invito ad unirti al gruppo di lavoro :Brandname . Segui le indicazioni che trovi nella email per entrare a far parte del nostro network. - :UserNameSurname .',
+	'invite_user_message' => 'Sei invitato/a ad unirti al gruppo di lavoro :Brandname . Segui le indicazioni che trovi nella email per entrare a far parte del nostro network. - :UserNameSurname .',
 	'Attribute Name' => 'Nome Attributo',
 	'Attribute Slug' => 'Codice Attributo',
 	'Attribute Value saved' => 'Valore Attributo creato',
