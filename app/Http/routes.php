@@ -22,6 +22,9 @@ Route::get('profile', function(){
 });
 */
 
+Route::get('1', function(){
+	return \App\EneaHelper::percentage('50', '200');
+});
 Route::get('/createuser', function(){
 	$user = new \App\User;
 	$user->username = '88showroom';
