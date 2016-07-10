@@ -112,5 +112,7 @@ return [
 	'Sold by product' => 'Sold by product',
 	'Sold by variation' => 'Sold by variation',
 	'All' => 'All',
-	
+	'Sales' => 'Sales',
+	'Orders table' => 'Orders table',
+	'Sales per Agent' => 'Sales per Agent',
 ];

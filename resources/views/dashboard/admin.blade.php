@@ -9,8 +9,8 @@
 	       <div class="panel panel-default">
 	           <div class="panel-heading">
 	               <div class="panel-title-box">
-	                   <h3>Projects</h3>
-	                   <span>Projects activity</span>
+	                   <h3>{!!trans('messages.Sales')!!}</h3>
+	                   <span>{!!trans('messages.Sales per Agent')!!}</span>
 	               </div>                                    
 	               <ul class="panel-controls" style="margin-top: 2px;">
 	                   <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
@@ -22,9 +22,9 @@
 	                   <table class="table table-condensed table-bordered table-striped">
 	                       <thead>
 	                           <tr>
-	                              <th width="30%">Agent</th>
-	                              <th width="25%">Amount</th>
-	                              <th width="45%">Activity</th>
+	                              <th style="width:30%">Agent</th>
+	                              <th style="width:25%">Amount</th>
+	                              <th style="width:45%">Activity</th>
 	                           </tr>
 	                       </thead>
 	                       <tbody>
@@ -87,8 +87,8 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 			      <div class="panel-title-box">
-						<h3>Sales</h3>
-			         <span></span>
+						<h3>{!!trans('messages.Sales')!!}</h3>
+						<span>{!!trans('messages.Orders table')!!}</span>
 			      </div>   
 			      <ul class="panel-controls" style="margin-top: 2px;">
 			          <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   

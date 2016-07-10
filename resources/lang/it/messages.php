@@ -111,5 +111,8 @@ return [
 	'Sold by product' => 'Venduto per articolo',
 	'Sold by variation' => 'Venduto per variante',
 	'All' => 'Tutti',
+	'Sales' => 'Vendite',
+	'Orders table' => 'Tabella ordini',
+	'Sales per Agent' => 'Vendite per Agente',
 	
 ];
