@@ -114,7 +114,6 @@
                                                 <td>€ {!!number_format($order->total, 2)!!}</td>
                                                 <td>{{ $order->created_at->format('d/m/y - H:i') }}</td>
                                                 <td>
-                                                    <div style="width:110px; height:1px; clear:both;">&nbsp;</div>
                                             		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->
                                                     <a href="/order/details/{!!$order->id!!}"><button class="btn btn-info btn-rounded btn-condensed btn-sm"><span class="fa fa-search-plus"></span></button></a>
                                                     
@@ -123,6 +122,7 @@
                                                     <!--<a href="/order/email/{!!$order->id!!}?back=1"><button class="btn btn-warning btn-rounded btn-condensed btn-sm"><span class="fa fa-envelope"></span></button></a>  -->                    
                                                     
                                                 	<button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_order({!!$order->id!!});"><span class="fa fa-times"></span></button>
+                                                    <div style="width:110px; height:1px; clear:both;">&nbsp;</div>
                                         		</td>
                                             </tr>
                                         @endforeach
