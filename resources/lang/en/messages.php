@@ -115,4 +115,7 @@ return [
 	'Sales' => 'Sales',
 	'Orders table' => 'Orders table',
 	'Sales per Agent' => 'Sales per Agent',
+	'Amount' => 'Amount',
+	'Activity' => 'Activity',
+	
 ];

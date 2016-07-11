@@ -114,5 +114,7 @@ return [
 	'Sales' => 'Vendite',
 	'Orders table' => 'Tabella ordini',
 	'Sales per Agent' => 'Vendite per Agente',
+	'Amount' => 'Fatturato',
+	'Activity' => 'Attività',
 	
 ];

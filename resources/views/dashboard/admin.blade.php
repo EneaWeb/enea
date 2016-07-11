@@ -22,9 +22,9 @@
 	                   <table class="table table-condensed table-bordered table-striped">
 	                       <thead>
 	                           <tr>
-	                              <th style="width:30%">Agent</th>
-	                              <th style="width:25%">Amount</th>
-	                              <th style="width:45%">Activity</th>
+	                              <th style="width:30%">{!!trans('messages.Agent')!!}</th>
+	                              <th style="width:25%; text-align:right">{!!trans('messages.Amount')!!}</th>
+	                              <th style="width:45%">{!!trans('messages.Activity')!!}</th>
 	                           </tr>
 	                       </thead>
 	                       <tbody>
@@ -35,8 +35,8 @@
 	                       			})->get() as $agent)
 	                           <tr>
 	                               <td><strong>{!!$agent->profile->companyname!!}</strong></td>
-	                               <td><strong>
-	                               	{!!number_format(\App\Order::where('user_id', $agent->id)->sum('total'), 2, ',','.') !!}
+	                               <td style="text-align:right"><strong>
+	                               	{!!number_format(\App\Order::where('user_id', $agent->id)->sum('total'), 2, ',','.') !!} €
 	                               </strong></td>
 	                               <td>
 	                               {{--*/ 
@@ -62,8 +62,8 @@
 	                           <tr><td colspan="3"></td></tr>
 	                           <tr>
 											<td><strong>{!!trans('messages.Total')!!}</strong></td>
-											<td><strong>
-											{!!number_format(\App\Order::sum('total'), 2, ',','.') !!}
+											<td style="text-align:right"><strong>
+											{!!number_format(\App\Order::sum('total'), 2, ',','.') !!} €
 											</strong></td>
 											<td>
 												<div class="progress progress-small progress-striped active">
