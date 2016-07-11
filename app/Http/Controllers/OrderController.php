@@ -100,7 +100,7 @@ class OrderController extends Controller
 		$autocomplete2->setAsync(false);
 		$autocomplete2->setLanguage(Localization::getCurrentLocale());
 		if (!App::environment('local')) 
-				$autocomplete->setApiKey(Config::get('general.google_api_key'));
+				$autocomplete2->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
