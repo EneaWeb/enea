@@ -35,16 +35,7 @@ class EneaMail extends Model
       $pdf = PDF::loadView('pdf.order_confirmation', compact('order', 'brand', 'order_details', 'customer_delivery'));
       
       // SEND MAIL TO CUSTOMER ETC
-      if ($edited == FALSE) {
-      	// NEW ORDER -- NOT EDITED
-			$data = [
-			   'title' => trans('messages.New Order').' #'.$order->id,
-			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
-			                  trans('messages.As attached you can find a copy of your Order').' '.
-			                  Auth::user()->options->brand_in_use->name.' #'.
-			                  $order->id,
-			]; 
-      } else {
+		if ($edited == TRUE) {
       	// EDITED ORDER
 			$data = [
 			   'title' => trans('messages.Order Update').' #'.$order->id,
@@ -53,6 +44,15 @@ class EneaMail extends Model
 			                  Auth::user()->options->brand_in_use->name.' #'.
 			                  $order->id.'.<br><br>'.
 			                  trans("messages.This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it").'.',
+			]; 
+      } else {
+      	// NEW ORDER -- NOT EDITED
+			$data = [
+			   'title' => trans('messages.New Order').' #'.$order->id,
+			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
+			                  trans('messages.As attached you can find a copy of your Order').' '.
+			                  Auth::user()->options->brand_in_use->name.' #'.
+			                  $order->id,
 			]; 
       }
 
