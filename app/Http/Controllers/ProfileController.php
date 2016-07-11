@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Input;
 use Alert;
 use Auth;
+use Session;
 use App\Http\User;
 use App\Http\Requests;
 
@@ -27,6 +28,9 @@ class ProfileController extends Controller
     
     public function set_current_brand($brand_id)
     {
+        // flush working orders
+        Session::forget('order');
+        
         $user_options = \App\UserOption::where('user_id', Auth::user()->id)->first();
         $user_options->active_brand = $brand_id;
         $user_options->save();

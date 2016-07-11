@@ -14,7 +14,7 @@ use Input;
 class EneaMail extends Model
 {
 	
-   public static function order_confirmation($order_id)
+   public static function order_confirmation($order_id, $edited)
    {
     	
     	$sender = Auth::user()->options->brand_in_use->name;
@@ -34,14 +34,28 @@ class EneaMail extends Model
 
       $pdf = PDF::loadView('pdf.order_confirmation', compact('order', 'brand', 'order_details', 'customer_delivery'));
       
-      // INVIO AL CLIENTE
-		$data = [
-		   'title' => trans('messages.New Order').' #'.$order->id,
-		   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
-		                  trans('messages.As attached you can find a copy of your Order').' '.
-		                  Auth::user()->options->brand_in_use->name.' #'.
-		                  $order->id,
+      // SEND MAIL TO CUSTOMER ETC
+      if ($edited == FALSE) {
+      	// NEW ORDER -- NOT EDITED
+			$data = [
+			   'title' => trans('messages.New Order').' #'.$order->id,
+			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
+			                  trans('messages.As attached you can find a copy of your Order').' '.
+			                  Auth::user()->options->brand_in_use->name.' #'.
+			                  $order->id,
 			]; 
+      } else {
+      	// EDITED ORDER
+			$data = [
+			   'title' => trans('messages.Order Update').' #'.$order->id,
+			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
+			                  trans('messages.As attached you can find a copy of your Order').' '.
+			                  Auth::user()->options->brand_in_use->name.' #'.
+			                  $order->id.'.<br><br>'.
+			                  trans("messages.This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it").'.',
+			]; 
+      }
+
 		Mail::send('email.order_confirmation', $data, function($message) use ($data, $order, $sender_mail, $customer, $cc, $reply_to, $brand, $pdf)
 		{
 			$message->subject(Auth::user()->options->brand_in_use->name.' - '.trans('messages.New Order'));

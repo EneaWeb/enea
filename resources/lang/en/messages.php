@@ -117,5 +117,8 @@ return [
 	'Sales per Agent' => 'Sales per Agent',
 	'Amount' => 'Amount',
 	'Activity' => 'Activity',
+	"You don't have the permission to edit this order" => "You don't have the permission to edit this order",
+	'Order Update' => 'Order Update',
+	"This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it" => "This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it",
 	
 ];

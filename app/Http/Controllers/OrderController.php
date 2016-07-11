@@ -51,6 +51,13 @@ class OrderController extends Controller
 	public function edit($order_id)
 	{
 		
+		$order = \App\Order::find($order_id);
+		// if user is not the owner of the order, of is not someone who manage orders
+		if ( (!Auth::user()->can('manage orders')) && ($order->user_id != Auth::user()->id) ) {
+			Alert::error(trans("messages.You don't have the permission to edit this order"));
+			return redirect()->back();
+		}
+		
 		// retrieve all customers
 		$customers = Customer::all();
 		$autocomplete = new Autocomplete();
@@ -63,11 +70,14 @@ class OrderController extends Controller
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
+		if (!App::environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
 		$order_image = unserialize(\App\OrderImage::where('order_id', $order_id)->first()['image']);
 		Session::put('order', $order_image);
+		Session::put('order.edited', $order_id);
 		
 		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
 	}
@@ -89,6 +99,8 @@ class OrderController extends Controller
 		$autocomplete2->setBound(45, 9, 45, 9, true, true);
 		$autocomplete2->setAsync(false);
 		$autocomplete2->setLanguage(Localization::getCurrentLocale());
+		if (!App::environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
@@ -110,7 +122,7 @@ class OrderController extends Controller
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
 		// query all products for active season
-		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(28);
+		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
 		
 		if (Session::has('order.items')){
 			$items = Session::get('order.items');
@@ -135,31 +147,45 @@ class OrderController extends Controller
 			}
 		}
 		
-		// se questo passaggio è stato fatto, 
-		// apro direttamente la view
-		if (Session::has('order'))
-			return view('pages.orders.step3', compact('products', 'qty', 'products_array', 'items_color_grouped', 'subtotal'));
 		
-		// check if everything was selected
-		$message = '';
-		if (!Input::has('season_list_id'))
-			$message .= 'Selezione del listino obbligatoria<br>';
-		if (!Input::has('payment_id'))
-			$message .= 'Metodo di pagamento obbligatorio<br>';
-		if (!Input::has('season_delivery_id'))
-			$message .= 'Data di consegna obbligatoria<br>';
-		if (!Input::has('customer_delivery_id'))
-			$message .= "Indirizzo di consegna obbligatorio<br>";
-		
-		if ((!Input::has('season_list_id')) || (!Input::has('payment_id')) || (!Input::has('season_delivery_id')) || (!Input::has('customer_delivery_id'))) {
-			// throw errors
-			Alert::error($message);
-			return redirect()->back();
+		if (Session::has('order')) {
+			// EXHISTING DATA (back button or edited order) ###########	
+			if (Input::has('season_list_id'))
+				Session::put('order.season_list_id', Input::get('season_list_id'));
+			
+			if (Input::has('payment_id'))
+				Session::put('order.payment_id', Input::get('payment_id'));
+				
+			if (Input::has('season_delivery_id'))
+				Session::put('order.season_delivery_id', Input::get('season_delivery_id'));
+			
+			if (Input::has('customer_delivery_id'))
+				Session::put('order.customer_delivery_id', Input::get('customer_delivery_id'));
+		}
+
+		else {
+			// NEW ORDER ###########
+			
+			// CHECK IF SOMETHING IS MISSING //
+			$message = '';
+			if (!Input::has('season_list_id'))
+				$message .= 'Selezione del listino obbligatoria<br>';
+			if (!Input::has('payment_id'))
+				$message .= 'Metodo di pagamento obbligatorio<br>';
+			if (!Input::has('season_delivery_id'))
+				$message .= 'Data di consegna obbligatoria<br>';
+			if (!Input::has('customer_delivery_id'))
+				$message .= "Indirizzo di consegna obbligatorio<br>";
+			if ((!Input::has('season_list_id')) || (!Input::has('payment_id')) || (!Input::has('season_delivery_id')) || (!Input::has('customer_delivery_id'))) {
+				// throw errors
+				Alert::error($message);
+				return redirect()->back();
+			}
+			// Save NEW ORDER inside SESSION
+			Session::put('order', Input::all());
 		}
 		
-		// store data in a session variable 'order'
-		Session::put('order', Input::all());
-		
+		// redirect to step 3 => products selection
 		return view('pages.orders.step3', compact('products', 'products_array', 'qty', 'items_color_grouped', 'subtotal'));
 	}
 	
@@ -288,12 +314,36 @@ class OrderController extends Controller
 	{
 		
 		$products_count = 0;
+		$edited = FALSE;
+		
 		foreach (Session::get('order.products_array') as $key => $product) {
 		    $products_count += count($product);
 		}
 		
-		$order = new \App\Order;
-		$order->user_id = Auth::user()->id;
+		// EDITED EXHISTING ORDER ##############
+		if (Session::has('order.edited')) {
+			
+			// store it in a variable
+			$edited = TRUE;
+			// use exhisting order line
+			$order = \App\Order::find(Session::get('order.edited'));
+			// delete all order details lines associated to the specified order_id
+			foreach (\App\OrderDetail::where('order_id', Session::get('order.edited'))->get() as $order_detail) {
+				$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
+				$order_detail->delete();
+			}
+			// delete order image associated to the specified order_id
+			foreach (\App\OrderImage::where('order_id', Session::get('order.edited'))->get() as $order_image) {
+				$order_image->setConnection(Auth::user()->options->brand_in_use->slug);
+				$order_image->delete();
+			}
+			
+		} else {
+		// NEW ORDER ##############
+			$order = new \App\Order;
+			$order->user_id = Auth::user()->id;
+		}
+		
 		$order->customer_id = Session::get('order.customer_id');
 		$order->payment_id = Session::get('order.payment_id');
 		$order->payment_amount = \App\Payment::find(Session::get('order.payment_id'))->variation.
@@ -319,7 +369,7 @@ class OrderController extends Controller
 		$colors_temp = array();
 		
 		foreach (Session::get('order.items') as $key => $val) {
-			$colors_temp[] = \App\Item::find($key)->color_id; // arrey con colori
+			$colors_temp[] = \App\Item::find($key)->color_id; // array con colori
 			
 			$order_detail = new \App\OrderDetail;
 			$order_detail->order_id = $order->id;
@@ -343,7 +393,7 @@ class OrderController extends Controller
 		// pulisco la variabile di sessione
 		Session::forget('order');
 		
-		$email_confirmation = \App\EneaMail::order_confirmation($order->id);
+		$email_confirmation = \App\EneaMail::order_confirmation($order->id, $edited);
 		
 		Alert::success('Ordine salvato correttamente');
 		return redirect('/');

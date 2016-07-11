@@ -89,7 +89,13 @@
                                     </div>
                                     <div class="col-md-2 col-xs-2">
                                         <br><br>
-                                        <a class="goto-step2" href="">
+                                        <a class="goto-step2" 
+                                        @if (Session::has('order.customer_id'))
+                                            href="/order/new/step2?id={!!Session::get('order.customer_id')!!}"
+                                        @else
+                                            href=""
+                                        @endif
+                                        >
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">CONTINUA</button>
                                         </a>
                                     </div>
