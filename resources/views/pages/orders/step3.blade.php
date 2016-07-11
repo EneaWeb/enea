@@ -84,7 +84,7 @@
                                 @endif
                                 
                                     <div class="image" style="max-height: 342px;">
-                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
+                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
                                     </div>
                                     <div class="meta">
                                         <strong>{!!$product->name!!}</strong>
