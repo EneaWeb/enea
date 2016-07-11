@@ -156,6 +156,7 @@ Route::group([
 	Route::get('/order/new/save-order', 'OrderController@step4');
 	Route::get('/order/new/confirm', 'OrderController@confirm');
 	Route::get('/order/details/{id}', 'OrderController@details');
+	Route::get('/order/edit/{id}', 'OrderController@edit');
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');

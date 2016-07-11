@@ -33,15 +33,9 @@
                         <td style="text-align:right">{!!number_format($order->total, 2, ',', '.')!!}</td>
                         <td>{{ $order->created_at->format('d/m/y H:i') }}</td>
                         <td>
-                    		<!-- <a href="/catalogue/order/edit/{!!$order->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a> -->
-                            <a href="/order/details/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm"><span class="fa fa-search-plus"></span></a>
-                            
-                            <a href="/order/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm"><span class="fa fa-download"></span></a>    
-                            
-                            <!--<a href="/order/email/{!!$order->id!!}?back=1"><button class="btn btn-warning btn-rounded btn-condensed btn-sm"><span class="fa fa-envelope"></span></button></a>  -->                    
-                            
-                        	<button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_order({!!$order->id!!});"><span class="fa fa-times"></span></button>
-                            <div style="width:110px; height:1px; clear:both;">&nbsp;</div>
+                            <a href="#" data-toggle="modal" data-target="#modal_edit_{!!$order->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm">
+                                <span class="fa fa-cogs"></span>
+                            </a>
                 		</td>
                     </tr>
                 @endforeach
@@ -60,3 +54,43 @@
         });
     });
 </script>
+
+@foreach ($orders as $order)
+<div class="modal animated fadeIn" id="modal_edit_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
+
+    <div class="modal-dialog animated zoomIn" style="width:334px">
+    
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h3>
+                    #{!!$order->id!!}- {!!$order->customer->companyname!!}
+                </h3>
+                
+                <a href="/order/details/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm">
+                    <span class="fa fa-search-plus" style="font-size:40px"></span>
+                </a>
+                
+                <a href="/order/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm">
+                    <span class="fa fa-download" style="font-size:40px"></span>
+                </a>    
+                
+                <!-- <a href="/order/email/{!!$order->id!!}?back=1"> -->
+                    <button class="btn btn-rounded btn-condensed btn-sm disabled">
+                        <span class="fa fa-envelope" style="font-size:40px"></span>
+                    </button>
+                <!--</a>-->              
+                
+                <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm">
+                    <span class="fa fa-pencil" style="font-size:40px"></span>
+                </a>
+                
+                <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_order({!!$order->id!!});">
+                    <span class="fa fa-times" style="font-size:40px"></span>
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach

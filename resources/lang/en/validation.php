@@ -13,12 +13,13 @@ return [
     |
     */
 
-    'Please Confirm' => 'lease Confirm',
+    'Please Confirm' => 'Please Confirm',
     'Are you sure you want to unlink the user from your brand?' => 'Are you sure you want to unlink the user from your brand?',
     'Are you sure you want to delete this date?' => 'Are you sure you want to delete this date?',
     'Are you sure you want to delete this price list?' => 'Are you sure you want to delete this price list?',
     'Are you sure you want to delete this payment option?' => 'Are you sure you want to delete this payment option?',
-    
+    'Are you sure you want to delete this order?' => 'Are you sure you want to delete this order? The action is irreversible.',
+       
     
     'required-attribute-name' => 'The Attribute Name field is required',
     'required-attribute-slug' => 'The Attribute Slug field is required',

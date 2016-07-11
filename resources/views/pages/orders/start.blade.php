@@ -205,7 +205,13 @@
                                 <br><br><br>
                             </div>
                             <div style="text-align:right">
-                                <a id="continue" class="goto-step2" href="">
+                                <a id="continue" class="goto-step2" 
+                                @if (Session::has('order.customer_id'))
+                                    href="/order/new/step2?id={!!Session::get('order.customer_id')!!}"
+                                @else
+                                    href=""
+                                @endif
+                                >
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">CONTINUA</button>
                                 </a>
                             </div>
