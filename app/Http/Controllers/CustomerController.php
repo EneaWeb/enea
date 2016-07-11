@@ -33,23 +33,16 @@ class CustomerController extends Controller
 		$customers = Customer::all();
 		
 		$autocomplete = new Autocomplete();
-
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 		$autocomplete->setInputId('place_input');
-
-		$autocomplete->setInputAttributes(array('class' => 'my-class'));
-		$autocomplete->setInputAttribute('name', 'address');
-		$autocomplete->setInputAttribute('class', 'form-control');
-
-		//$autocomplete->setValue('aaa');
-
+		$autocomplete->setInputAttributes(['class' => 'my-class', 'name' => 'address', 'class' => 'form-control']);
 		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
-
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
-		
+		if (!App::environment('local')) 
+				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
@@ -60,43 +53,54 @@ class CustomerController extends Controller
 	{
 		// get customer profile
 		$customer = Customer::find($id);
+		$address = $customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country;
 		
+		// autocomplete
 		$autocomplete = new Autocomplete();
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete->setInputId('place_input');
-		$autocomplete->setInputAttributes(array('class' => 'my-class'));
-		$autocomplete->setInputAttribute('name', 'address');
-		$autocomplete->setInputAttribute('class', 'form-control');
-		$autocomplete->setValue($customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country);
+		$autocomplete->setInputId('main_autocomplete');
+		$autocomplete->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
 		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
-		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
+		$autocomplete->setValue($address);
 		$autocomplete->setBound(45, 9, 45, 9, true, true);
 		$autocomplete->setAsync(false);
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
 		if (!App::environment('local')) 
-				$autocomplete->setApiKey(Config::get('general.google_api_key'));
+			$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
+		// autocomplete
 		$autocomplete2 = new Autocomplete();
 		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete2->setInputId('place_input');
-		$autocomplete2->setInputAttributes(array('class' => 'my-class'));
-		$autocomplete2->setInputAttribute('name', 'address');
-		$autocomplete2->setInputAttribute('class', 'form-control');
+		$autocomplete2->setInputId('delivery_autocomplete');
+		$autocomplete2->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
 		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
-		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
 		$autocomplete2->setBound(45, 9, 45, 9, true, true);
 		$autocomplete2->setAsync(false);
 		$autocomplete2->setLanguage(Localization::getCurrentLocale());
 		if (!App::environment('local')) 
-				$autocomplete->setApiKey(Config::get('general.google_api_key'));
+			$autocomplete2->setApiKey(Config::get('general.google_api_key'));
 		
-		// autocomplete render helper
+		// rendering helper
 		$autocompleteHelper = new AutocompleteHelper();
+		
 		// maps render helper
 		$mapHelper = new MapHelper;
-		$map = Maps::customer_position_map($customer->address.' - '.$customer->postcode.' '.$customer->city.' '.$customer->province);
+		$map = Maps::customer_position_map($address);
+		
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[Config::get('localization.locales.'.$locale.'.native')] = $locale;
+		}
 
-		return view('pages.customers.show', compact('customer', 'map', 'mapHelper', 'autocomplete', 'autocomplete2', 'autocompleteHelper'));
+		return view('pages.customers.show', compact('customer', 
+		                                            'map', 
+		                                            'mapHelper', 
+		                                            'autocomplete', 
+		                                            'autocomplete2', 
+		                                            'autocompleteHelper',
+		                                            'supportedLocales'));
 	}
 	
 	public function create()
@@ -140,6 +144,7 @@ class CustomerController extends Controller
 			$customer->telephone = Input::get('telephone');
 			$customer->mobile = Input::get('mobile');
 			$customer->email = Input::get('email');
+			$customer->language = Input::get('language');
 			
 			// setConnection
 			$customer->setConnection('mysql');
@@ -224,6 +229,7 @@ class CustomerController extends Controller
 			$customer->telephone = Input::get('telephone');
 			$customer->mobile = Input::get('mobile');
 			$customer->email = Input::get('email');
+			$customer->language = Input::get('language');
 			// setConnection -required- for BRAND DB
 			$customer->setConnection('mysql');
 			// save the line(s)

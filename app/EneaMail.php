@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use \App\User;
 use Auth;
+use Localization;
 use Mail;
 use PDF;
 use App;
@@ -24,6 +25,13 @@ class EneaMail extends Model
     	
     	$order = \App\Order::find($order_id);
     	$customer = \App\Customer::find($order->customer_id);
+    	
+    	// get customer language
+    	$customer_language = $customer->language;
+    	// get current locale
+    	$user_locale = Localization::getCurrentLocale();
+    	// SET customer language as locale language
+		Localization::setLocale($customer_language);
       
 		if ($order->customer_delivery_id == 0)
 			$customer_delivery = $order->customer;
@@ -66,6 +74,9 @@ class EneaMail extends Model
 			$message->bcc(Auth::user()->email);
 			$message->replyTo($reply_to);
 		});
+		
+		// REVERT PREVIOUS LOCALE LANGUAGE
+		Localization::setLocale($user_locale);
 		
 		return true;      
    }

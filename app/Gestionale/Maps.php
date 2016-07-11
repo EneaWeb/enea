@@ -5,6 +5,7 @@ use Session;
 use Ivory\GoogleMap\Map;
 use Ivory\GoogleMap\MapTypeId;
 use Localization;
+use Config;
 use Ivory\GoogleMap\Overlays\Animation;
 use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Overlays\Circle;
@@ -72,19 +73,17 @@ class Maps
 	public static function customer_position_map($address)
 	{
 		// create Map
+		
 		$map = new Map();
 
+		$map->setLibraries(array('places'));
+		$map->setApiKey(Config::get('general.google_api_key'));
 		$map->setPrefixJavascriptVariable('map_');
 		$map->setHtmlContainerId('map_canvas');
-
-		$map->setAsync(true);
+		$map->setAsync(false);
 		$map->setAutoZoom(false);
-
-		$map->setCenter(47, 20, true);
 		$map->setBound(-2.1, -3.9, 2.6, 1.4, true, true);
-		
 		$map->setLanguage(Localization::getCurrentLocale());
-
 		$map->setMapOptions(array(
 			'zoom'						=> 15,
 			'mapTypeId'					=> 'roadmap', // hybrid, roadmap, satellite, terrain
@@ -96,27 +95,26 @@ class Maps
 			'width'  => '100%',
 			'height' => '300px',
 		));
-		
+				
 		// initilize geolocation
 		$geocoder = new Geocoder();
 		$geocoder->registerProviders(array(
 			new GeocoderProvider(new CurlHttpAdapter())
 		));
-		
 		// Geocode a location
 		$response = $geocoder->geocode($address);
-		foreach ($response->getResults() as $result)
-		{
-			$location = $result->getGeometry()->getLocation();
-			// Create a marker
-			$marker = new Marker();
-			// Position the marker
-			$marker->setPosition($location);
-			// Add the marker to the map
-			$map->addMarker($marker);
-			// Center the map on the new marker
-			$map->setCenter($location);
-		}
+		$result = $response->getResults()[0];
+
+		$location = $result->getGeometry()->getLocation();
+		// Create a marker
+		$marker = new Marker();
+		// Position the marker
+		$marker->setPosition($location);
+		// Add the marker to the map
+		$map->addMarker($marker);
+		// Center the map on the new marker
+		$map->setCenter($location);
+
 		
 		return $map;
 	}

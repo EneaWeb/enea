@@ -61,7 +61,7 @@ class ApiHelper extends AbstractHelper
     public function render(
         $language = 'en',
         $apiKey = NULL,
-        array $libraries = array(),
+        $libraries = null,
         $callback = null,
         $sensor = false
     )
@@ -73,7 +73,7 @@ class ApiHelper extends AbstractHelper
         }
 
         $otherParameters['language'] = $language;
-        $otherParameters['key'] = $apiKey;
+        $otherParameters['apiKey'] = $apiKey;
         $otherParameters['sensor'] = json_encode((bool) $sensor);
 
         $this->jsonBuilder

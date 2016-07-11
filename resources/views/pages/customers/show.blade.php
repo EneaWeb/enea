@@ -18,7 +18,7 @@
                     <div class="panel-body">
                         <h3><span class="fa fa-user"></span> {!!$customer->name!!} {!!$customer->surname!!}</h3>
                         <p>Customer [#{!!$customer->id!!}]</p>
-                        {{-- {!! $mapHelper->renderHtmlContainer($map) !!} --}}
+                        {!! $mapHelper->render($map) !!}
                     </div>
                 </div>
                 
@@ -62,6 +62,7 @@
                             <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Address')!!}</label>
                             <div class="col-md-9 col-xs-7">
                                 {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
+                                {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
                                 {{-- Google Autocomplete Script --}}
                             </div>
                         </div>  
@@ -142,11 +143,10 @@
 
         </div>
     </div>  
-{{--
+
 {!! $mapHelper->renderJavascripts($map) !!}
 {!! $mapHelper->renderStylesheets($map) !!}
---}}
-{!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
+
 @include('pages.customers._modal_add_delivery')
 
 @stop

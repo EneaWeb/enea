@@ -75,6 +75,7 @@ return [
     'Picture' => 'Picture',
     'Qty' => 'Qty',
     'With Variations' => 'With Variations',
+    'Language' => 'Language',
     
     
 ];

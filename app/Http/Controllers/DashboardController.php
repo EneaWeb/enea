@@ -38,7 +38,7 @@ class DashboardController extends Controller
 			$autocomplete = new Autocomplete();
 			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 			$autocomplete->setInputId('place_input');
-			$autocomplete->setInputAttributes(['class' => 'my-class', 'name' => 'address', 'class' => 'form-control']);
+			$autocomplete->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
 			//$autocomplete->setValue('aaa');
 			$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
 			//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
@@ -50,10 +50,17 @@ class DashboardController extends Controller
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
 			
-			if ($user->can('manage brands'))
-				return view('dashboard.admin', compact('orders', 'autocomplete', 'autocompleteHelper'));
+			// prepare dropdown with supported Locales
+			$configLocales = Config::get('localization.supported-locales');
+			$supportedLocales = array();
+			foreach ($configLocales as $key => $locale) {
+				$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
+			}
 			
-			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper'));
+			if ($user->can('manage brands'))
+				return view('dashboard.admin', compact('orders', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
+			
+			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
 		// }
 		
 	}

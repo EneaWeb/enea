@@ -35,7 +35,8 @@ class Customer extends Model
 		'mobile',
 		'fax',
 		'email',
-		'vat'
+		'vat',
+		'language'
 	];
 
 	protected $hidden = [
@@ -54,6 +55,7 @@ class Customer extends Model
 		   'address' => 'required',
 		   'telephone' => 'required',
 		   'email' => 'required',
+		   'language' => 'required'
 		);
 
 		$messages = array(
@@ -62,6 +64,7 @@ class Customer extends Model
 		   'address.required' => trans('validation.required-customer-address'),
 		   'telephone.required' => trans('validation.required-customer-telephone'),
 		   'email.required' => trans('validation.required-customer-email'),
+		   'language.required' => trans('validation.required-customer-language'),
 		);
 
 		return Validator::make($input, $rules, $messages);

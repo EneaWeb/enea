@@ -48,7 +48,14 @@ class OrderController extends Controller
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
-		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
+		}
+		
+		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'supportedLocales'));
 	}
 	
 	public function edit($order_id)

@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('vat', trans('auth.Vat').'*', ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('vat', trans('auth.Vat').'', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">   
                         {!!Form::input('text', 'vat', '', ['class'=>'form-control'])!!}
                     </div>
@@ -65,6 +65,12 @@
                     {!!Form::label('email', trans('auth.Email').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">   
                         {!!Form::email('email', '', ['class'=>'form-control'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!!Form::label('language', trans('auth.Language').'*', ['class' => 'col-md-3 control-label'])!!}
+                    <div class="col-md-8">   
+                        {!!Form::select('language', $supportedLocales, '', ['class'=>'form-control'])!!}
                     </div>
                 </div>
                 <br><br><br>

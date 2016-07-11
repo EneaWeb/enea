@@ -29,13 +29,14 @@
                 {{-- START BREADCRUMB --}}
                 <ul class="breadcrumb">
                     @if (!isset($noback))
-                        <a href="{{ URL::previous() }}" class="btn btn-warning">
+                        <a href="{{ URL::previous() }}" class="btn btn-rounded btn-primary">
                             <i class="fa fa-step-backward" aria-hidden="true"></i>
                             {!!strtoupper(trans('messages.Back'))!!}
                         </a>
                     @endif
-                    <li><a href="#">// future</a></li>                    
+                    {{-- <li><a href="#">// future</a></li>                    
                     <li class="active">// breadcrumb space</li>
+                    --}}
                 </ul>
                 {{-- END BREADCRUMB --}}                     
                 
