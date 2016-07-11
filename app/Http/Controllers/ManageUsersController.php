@@ -67,7 +67,7 @@ class ManageUsersController extends Controller
 		   \App\Brand::find($active_brand)->users()->attach($user_id);
 		   
 		   // attach season_list_id to user id within user_season_list pivot
-		   if (Input::has('season_lists')) {
+		   if (Input::has('season_list_id')) {
 			   foreach ($season_lists as $key => $season_list) {
 			   	\App\User::find($user_id)->season_lists()->attach($season_list);
 			   }
@@ -113,7 +113,7 @@ class ManageUsersController extends Controller
 			\App\Brand::find($active_brand)->users()->attach($user->id);
 			
 		   // attach season_list_id to user id within user_season_list pivot
-		   if (Input::has('season_lists')) {
+		   if (Input::has('season_list_id')) {
 			   foreach ($season_lists as $key => $season_list) {
 			   	$user->season_lists()->attach($season_list);
 			   }
