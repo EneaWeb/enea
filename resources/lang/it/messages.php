@@ -119,5 +119,6 @@ return [
 	"You don't have the permission to edit this order" => "Non hai i permessi per modificare questo ordine",
 	'Order Update' => 'Aggiornamento Ordine',
 	"This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it" => "Questo è un aggiornamento completo dell'ordine. Se hai ricevuto precedentemente un'email di conferma con lo stesso numero d'ordine, considera solo questa ultima conferma come valida.",
+	'Back' => 'Indietro',
 	
 ];

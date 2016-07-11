@@ -18,7 +18,7 @@
                     <div class="panel-body">
                         <h3><span class="fa fa-user"></span> {!!$customer->name!!} {!!$customer->surname!!}</h3>
                         <p>Customer [#{!!$customer->id!!}]</p>
-                        {!! $mapHelper->renderHtmlContainer($map) !!}
+                        {{-- {!! $mapHelper->renderHtmlContainer($map) !!} --}}
                     </div>
                 </div>
                 
@@ -142,9 +142,10 @@
 
         </div>
     </div>  
-
+{{--
 {!! $mapHelper->renderJavascripts($map) !!}
 {!! $mapHelper->renderStylesheets($map) !!}
+--}}
 {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
 @include('pages.customers._modal_add_delivery')
 

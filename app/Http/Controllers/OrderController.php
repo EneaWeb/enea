@@ -27,6 +27,9 @@ class OrderController extends Controller
 {
 	public function create()
 	{
+		// CLEAN previous orders
+		if (Session::has('order'))
+			Session::forget('order');
 		
 		// retrieve all customers
 		$customers = Customer::all();
@@ -107,7 +110,12 @@ class OrderController extends Controller
 		$customer_id = Input::get('id');
 		$customer = \App\Customer::find($customer_id);
 		
-		return view('pages.orders.step2', compact('customer','autocomplete2', 'autocompleteHelper'));
+		$noback = true;
+		return view('pages.orders.step2', compact( 'customer', 
+		                                          'autocomplete2', 
+		                                          'autocompleteHelper', 
+		                                          'noback'
+		                                          ));
 		
 	}
 	

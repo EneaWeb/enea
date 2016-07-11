@@ -28,6 +28,12 @@
 
                 {{-- START BREADCRUMB --}}
                 <ul class="breadcrumb">
+                    @if (!isset($noback))
+                        <a href="{{ URL::previous() }}" class="btn btn-warning">
+                            <i class="fa fa-step-backward" aria-hidden="true"></i>
+                            {!!strtoupper(trans('messages.Back'))!!}
+                        </a>
+                    @endif
                     <li><a href="#">// future</a></li>                    
                     <li class="active">// breadcrumb space</li>
                 </ul>

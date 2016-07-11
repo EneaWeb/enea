@@ -75,11 +75,11 @@
                     <span class="fa fa-download" style="font-size:40px"></span>
                 </a>    
                 
-                <!-- <a href="/order/email/{!!$order->id!!}?back=1"> -->
+                 <a href="/order/email/{!!$order->id!!}?back=1">
                     <button class="btn btn-rounded btn-condensed btn-sm disabled">
                         <span class="fa fa-envelope" style="font-size:40px"></span>
                     </button>
-                <!--</a>-->              
+                </a>            
                 
                 <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm">
                     <span class="fa fa-pencil" style="font-size:40px"></span>
