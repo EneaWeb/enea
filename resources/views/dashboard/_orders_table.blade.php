@@ -64,7 +64,7 @@
 
             <div class="modal-body">
                 <h3>
-                    #{!!$order->id!!}- {!!$order->customer->companyname!!}
+                    #{!!$order->id!!} - {!!$order->customer->companyname!!}
                 </h3>
                 
                 <a href="/order/details/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm">
