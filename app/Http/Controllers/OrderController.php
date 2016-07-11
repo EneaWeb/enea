@@ -393,7 +393,11 @@ class OrderController extends Controller
 		// pulisco la variabile di sessione
 		Session::forget('order');
 		
-		$email_confirmation = \App\EneaMail::order_confirmation($order->id, $edited);
+		/*
+		======= DONT SEND MAIL JUST AFTER SAVING ORDER ========
+		if (!App::environment('local'))
+			$email_confirmation = \App\EneaMail::order_confirmation($order->id, $edited);
+		*/
 		
 		Alert::success('Ordine salvato correttamente');
 		return redirect('/');
@@ -435,7 +439,8 @@ class OrderController extends Controller
 	
 	public function send_mail($id)
 	{
-		$mail = \App\EneaMail::order_confirmation($id);
+		if (!App::environment('local'))
+			$mail = \App\EneaMail::order_confirmation($id, FALSE);
 		
 		Alert::success('Mail inviata');
 		return redirect()->back();
