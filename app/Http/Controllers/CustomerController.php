@@ -46,7 +46,14 @@ class CustomerController extends Controller
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
-		return view('pages.customers.index', compact('customers', 'autocomplete', 'autocompleteHelper'));
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[Config::get('localization.locales.'.$locale.'.native')] = $locale;
+		}
+		
+		return view('pages.customers.index', compact('customers', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
 	}
 
 	public function show($id)
