@@ -121,5 +121,6 @@ return [
 	'Order Update' => 'Order Update',
 	"This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it" => "This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it",
 	'Back' => 'Back',
+	'Select' => 'Select',
 	
 ];

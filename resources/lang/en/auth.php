@@ -76,6 +76,7 @@ return [
     'Qty' => 'Qty',
     'With Variations' => 'With Variations',
     'Language' => 'Language',
+    'Hex' => 'Hex',
     
     
 ];

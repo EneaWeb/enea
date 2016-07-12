@@ -76,5 +76,6 @@ return [
     'Qty' => 'Qta',
     'With Variations' => 'Con Variazioni',
     'Language' => 'Lingua',
+    'Hex' => 'Hex',
     
 ];
