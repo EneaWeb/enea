@@ -41,11 +41,11 @@
     <li><a href="/catalogue/products"><span class="fa fa-tags"></span> <span class="xn-text">{!!trans('menu.Products')!!}</span></a></li>
     <li><a href="/customers"><span class="fa fa-user"></span><span class="xn-text">{!!trans('menu.Customers')!!}</span></a></li>
     
-    @if(Auth::user()->can('manage orders'))
+    {{-- @if(Auth::user()->can('manage orders')) --}}
     
     <li><a href="/report"><span class="fa fa-table"></span><span class="xn-text">{!!trans('menu.Report')!!}</span></a></li>
     
-    @endif
+    {{-- @endif --}}
     
     @if(Auth::user()->can('manage brands'))
         <li class="xn-openable">
