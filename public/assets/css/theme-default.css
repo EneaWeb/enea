@@ -2363,7 +2363,7 @@ html {
   width: 50px;
 }
 .page-container .page-content {
-  min-height: 100%;
+  min-height: 100vh;
   margin-left: 300px;
   background: #f5f5f5 url('../img/bg.png') left top repeat;
   position: relative;
