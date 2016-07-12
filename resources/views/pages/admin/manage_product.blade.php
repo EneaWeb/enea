@@ -280,20 +280,23 @@
                         @endforeach
                     </div>
                 </div>
-                <!-- END TABS -->
+                <!-- END TABS -->  
             
             <div class="panel panel-default">
+                <div class="panel-title">
+                    <h3>Bulk edit prices</h3>
+                </div>
                 <div class="panel-body"> 
                     {!!Form::open(['url'=>'/catalogue/products/bulk-update-prices', 'method'=>'GET'])!!}
                         {!!Form::hidden('id', $product->id)!!}
                         @foreach (\App\SeasonList::where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get() as $seasonlist)
-                        <div class="form-group">
-                            {!!Form::label($seasonlist->id, $seasonlist->name, ['class' => 'col-md-3 control-label'])!!}
-                            <div class="col-md-8">
-                                {!!Form::input('text', $seasonlist->id, '', ['class'=>'form-control', 'placeholder'=>'€'])!!}
+                            <div class="form-group">
+                                {!!Form::label($seasonlist->id, $seasonlist->name, ['class' => 'col-md-3 control-label'])!!}
+                                <div class="col-md-8">
+                                    {!!Form::input('text', $seasonlist->id, '', ['class'=>'form-control', 'placeholder'=>'€'])!!}
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
                         @endforeach
                         <div class="form-group">
                             {!!Form::submit(trans('auth.Save'), ['class'=>'btn btn-main'])!!}
