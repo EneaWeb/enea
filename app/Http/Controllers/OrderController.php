@@ -96,7 +96,7 @@ class OrderController extends Controller
 		Session::put('order', $order_image);
 		Session::put('order.edited', $order_id);
 		
-		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'configLocales'));
+		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'supportedLocales'));
 	}
 	
 	public function step2()
