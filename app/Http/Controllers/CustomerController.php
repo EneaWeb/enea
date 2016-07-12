@@ -45,12 +45,12 @@ class CustomerController extends Controller
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
-		
+
 		// prepare dropdown with supported Locales
 		$configLocales = Config::get('localization.supported-locales');
 		$supportedLocales = array();
 		foreach ($configLocales as $key => $locale) {
-			$supportedLocales[Config::get('localization.locales.'.$locale.'.native')] = $locale;
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 		}
 		
 		return view('pages.customers.index', compact('customers', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
@@ -64,7 +64,7 @@ class CustomerController extends Controller
 		
 		// autocomplete
 		$autocomplete = new Autocomplete();
-		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete->setPrefixJavascriptVariable('place_main_autocomplete_');
 		$autocomplete->setInputId('main_autocomplete');
 		$autocomplete->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
 		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
@@ -77,7 +77,7 @@ class CustomerController extends Controller
 		
 		// autocomplete
 		$autocomplete2 = new Autocomplete();
-		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
+		$autocomplete2->setPrefixJavascriptVariable('place_delivery_autocomplete_');
 		$autocomplete2->setInputId('delivery_autocomplete');
 		$autocomplete2->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
 		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
@@ -98,7 +98,7 @@ class CustomerController extends Controller
 		$configLocales = Config::get('localization.supported-locales');
 		$supportedLocales = array();
 		foreach ($configLocales as $key => $locale) {
-			$supportedLocales[Config::get('localization.locales.'.$locale.'.native')] = $locale;
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 		}
 
 		return view('pages.customers.show', compact('customer', 

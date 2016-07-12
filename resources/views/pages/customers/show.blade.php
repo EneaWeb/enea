@@ -18,7 +18,7 @@
                     <div class="panel-body">
                         <h3><span class="fa fa-user"></span> {!!$customer->name!!} {!!$customer->surname!!}</h3>
                         <p>Customer [#{!!$customer->id!!}]</p>
-                        {!! $mapHelper->render($map) !!}
+                        {{-- {!! $mapHelper->render($map) !!} --}}
                     </div>
                 </div>
                 
@@ -61,8 +61,8 @@
                         <div class="form-group">
                             <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Address')!!}</label>
                             <div class="col-md-9 col-xs-7">
-                                {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
-                                {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
+                                 {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
+                                 {!! $autocompleteHelper->renderJavascripts($autocomplete) !!} 
                                 {{-- Google Autocomplete Script --}}
                             </div>
                         </div>  
@@ -82,6 +82,12 @@
                             <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Email')!!}</label>
                             <div class="col-md-9 col-xs-7">
                                 {!!Form::input('text', 'email', $customer->email, ['class'=>'form-control'])!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Language')!!}</label>
+                            <div class="col-md-9 col-xs-7">
+                                {!!Form::select('language', $supportedLocales, $customer->language, ['class'=>'form-control'])!!}
                             </div>
                         </div>
                         <div class="form-group">
@@ -144,8 +150,8 @@
         </div>
     </div>  
 
-{!! $mapHelper->renderJavascripts($map) !!}
-{!! $mapHelper->renderStylesheets($map) !!}
+{{-- {!! $mapHelper->renderJavascripts($map) !!} --}}
+{{-- {!! $mapHelper->renderStylesheets($map) !!} --}}
 
 @include('pages.customers._modal_add_delivery')
 
