@@ -85,11 +85,18 @@ class OrderController extends Controller
 		// render
 		$autocompleteHelper = new AutocompleteHelper();
 		
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
+		}
+		
 		$order_image = unserialize(\App\OrderImage::where('order_id', $order_id)->first()['image']);
 		Session::put('order', $order_image);
 		Session::put('order.edited', $order_id);
 		
-		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper'));
+		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'configLocales'));
 	}
 	
 	public function step2()
