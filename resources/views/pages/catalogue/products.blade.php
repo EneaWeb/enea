@@ -19,8 +19,8 @@
 
         @foreach($products as $product)
             <a class="gallery-item" href="/catalogue/product/{!!$product->id!!}" title="{!!$product->name!!}" data-gallery="">
-                <div class="image" style="max-height: 338px;">
-                    <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
+                <div class="image" style="max-height: 332px;">
+                    <div style="height:322px; background:url('/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/300/{!!$product->picture!!}'); background-size: contain; background-position: center; background-repeat: no-repeat" alt="{!!$product->name!!}"></div>                                                          
                 </div>
                 <div class="meta">
                     <strong>{!!$product->name!!}</strong>
