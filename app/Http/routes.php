@@ -226,6 +226,8 @@ Route::group([
 		return \App\Customer::where('companyname', $companyname)->first()->toJson();
 	});
 	
+	Route::post('/add-lines/api-product-id', 'ProductController@api_product_id');
+	
 	Route::post('/minimize-maximize', function()
 	{ // menu minimize-maximize session variable
 		$x = 'minimized';

@@ -3,6 +3,25 @@
   border-radius: 4px;
 }
 
+.page-container .page-content .content-frame .content-frame-left, .page-container .page-content .content-frame .content-frame-right {
+  width:300px!important;
+}
+
+@media only screen and (max-width: 800px) {
+  .page-container .page-content .content-frame#cinziaaraiagest .content-frame-body {
+    width:50%;
+  }
+  #cinziaaraiagest {}
+}
+
+@media only screen and (max-width: 640px) {
+  .page-container .page-content .content-frame#cinziaaraiagest .content-frame-body,
+  .page-container .page-content .content-frame#cinziaaraiagest .content-frame-right,
+   {
+    width:100%!important;
+  }
+}
+
 a:focus,
 a:hover,
 a:active {
@@ -68,19 +87,6 @@ a:active {
   border-radius: 0;
   transition: border-radius linear 0s;
 }
-/* #bs-collapse icon scale option */
-/*
-.pannello-heading a:before {
-  content: '\e146';
-  position: absolute;
-  font-family: 'Material Icons';
-  right: 5px;
-  top: 10px;
-  font-size: 24px;
-  transition: all 0.5s;
-  transform: scale(1);
-}
-*/
 
 .pannello-heading.active a:before {
   content: ' ';
@@ -180,10 +186,6 @@ a:active {
   top:20px;
   background-color:transparent;
   cursor:pointer;
-}
-
-.page-container .page-content .content-frame .content-frame-left, .page-container .page-content .content-frame .content-frame-right {
-  width:300px!important;
 }
 
 @media all and (max-width:1200px)

@@ -55,7 +55,7 @@
         {{-- END WIDGETS --}}
 
         <div class="row">  
-            <div class="col-md-10">
+            <div class="col-md-12 col-lg-10">
                 {{-- START DATATABLE EXPORT --}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -86,9 +86,7 @@
                                             '', 
                                             ['class'=>'form-control ui-autocomplete-input', 'id'=>'customer-full-autocomplete']
                                         )!!}
-                                    </div>
-                                    <div class="col-md-2 col-xs-2">
-                                        <br><br>
+                                        <br>
                                         <a class="goto-step2" 
                                         @if (Session::has('order.customer_id'))
                                             href="/order/new/step2?id={!!Session::get('order.customer_id')!!}"
@@ -102,25 +100,12 @@
                                     <div class="clearfix"></div><br>
                                 </div>
                             </div>
-                            
-                            <div class="modal-body form-horizontal form-group-separated">
-                                <br>                      
-                                <div class="form-group">
-                                    {!!Form::label('companyname', 'O crea una uova anagrafica', ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="btn btn-danger">
-                                            {!!trans('menu.New Customer')!!}
-                                        </a>
-                                    </div>
-                                    <div class="clearfix"></div><br>
-                                </div>
-                            </div>
-                            
-                            <div class="modal-body form-horizontal form-group-separated">  
-                            
-                                <div class="form-group">
-                                    {!!Form::label('name', trans('auth.Name'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                              
+                            <div class="col-md-3"></div>
+                            <div class="modal-body form-horizontal form-material col-md-12 col-lg-8" style="padding-left:0px">  
+                            <br><br>
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('name', trans('auth.Name'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'name', 
@@ -129,11 +114,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    {!!Form::label('sign', trans('auth.Sign'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('sign', trans('auth.Sign'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'sign', 
@@ -142,11 +125,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500 ui-autocomplete-input', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    {!!Form::label('vat', trans('auth.Vat'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('vat', trans('auth.Vat'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'vat', 
@@ -155,11 +136,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                        {!!Form::label('address', trans('menu.Address'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">
+                                <div class="form-group col-md-6">
+                                        {!!Form::label('address', trans('menu.Address'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'address', 
@@ -168,11 +147,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    {!!Form::label('telephone', trans('auth.Telephone'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('telephone', trans('auth.Telephone'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'telephone', 
@@ -181,11 +158,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    {!!Form::label('telephone', trans('auth.Mobile'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('telephone', trans('auth.Mobile'), ['class' => 'control-label'])!!}
                                         {!!Form::input(
                                             'text', 
                                             'mobile', 
@@ -194,11 +169,9 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    {!!Form::label('email', trans('auth.Email'), ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-8">   
+                                <div class="form-group col-md-6">
+                                    {!!Form::label('email', trans('auth.Email'), ['class' => 'control-label'])!!}
                                         {!!Form::email(
                                             'email', 
                                             (Session::has('order')) ? 
@@ -206,20 +179,22 @@
                                             '', 
                                             ['class'=>'form-control maxw500', 'disabled'=>'']
                                         )!!}
-                                    </div>
                                 </div>
-                                <br><br><br>
                             </div>
-                            <div style="text-align:right">
-                                <a id="continue" class="goto-step2" 
-                                @if (Session::has('order.customer_id'))
-                                    href="/order/new/step2?id={!!Session::get('order.customer_id')!!}"
-                                @else
-                                    href=""
-                                @endif
-                                >
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">CONTINUA</button>
-                                </a>
+                            <div class="modal-body form-horizontal form-group-separated">
+                                <div class="clearfix">&nbsp;</div>
+                            </div>
+                            <div class="modal-body form-horizontal form-group-separated">
+                                <br>                      
+                                <div class="form-group">
+                                    {!!Form::label('companyname', 'O crea una nuova anagrafica', ['class' => 'col-md-3 control-label'])!!}
+                                    <div class="col-md-6 col-xs-12">
+                                        <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="btn btn-danger">
+                                            {!!trans('menu.New Customer')!!}
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div><br>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,4 +205,49 @@
         </div>
     </div>
 @include('pages.customers._modal_add_customer');
+@stop
+
+@section('more_scripts')
+    <script>
+        $( window ).load(function() {
+            $.getJSON('/customers/api-companyname', function(data) {
+                $( "#customer-full-autocomplete" ).autocomplete({
+                    source: data,
+                    select: function(event, ui) {
+                        if(ui.item){
+                            
+                            $.ajax({
+                                type: 'GET',
+                                data: {
+                                    'companyname' : ui.item.value,
+                                    format: 'json'
+                                },
+                                url: '/customers/api-customer-data',
+                                success: function(data) {
+                                    parsed = JSON.parse(data);
+                                    $('#name').val(parsed.name);
+                                    $('#surname').val(parsed.surname);
+                                    $('#address').val(parsed.address+' '+parsed.postcode+' '+parsed.city+' - '+parsed.country);
+                                    $('#sign').val(parsed.sign);
+                                    $('#surname').val(parsed.surname);
+                                    $('#vat').val(parsed.vat);
+                                    $('#telephone').val(parsed.telephone);
+                                    $('#mobile').val(parsed.mobile);
+                                    $('#email').val(parsed.email);
+                                    // current locale
+                                    currentlocale = $('#getcurrentlocale').text()
+                                    // CONTINUE button href
+                                    $('.goto-step2').attr("href", "/order/new/step2?id="+parsed.id);
+                                },
+                                error: function() {
+                                    console.log('ajax error');
+                                }
+                            });
+                            
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @stop

@@ -12,7 +12,7 @@
 @endforeach
 </div>
 
-<div class="content-frame">
+<div class="content-frame" id="cinziaaraiagest">
 
 {{--	1) TOMAIA UP
 			3 MATERIALI - Pitone Stampato, Crosta, Pelle (come esempio su fogli)

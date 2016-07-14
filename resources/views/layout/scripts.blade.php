@@ -143,55 +143,9 @@
         );
     };
 
-    $( window ).load(function() {
-        $.getJSON('/customers/api-companyname', function(data) {
-            $( "#customer-autocomplete" ).autocomplete({
-                source: data
-            });
-        });
-        $.getJSON('/customers/api-sign', function(data) {
-            $( "#sign-autocomplete" ).autocomplete({
-                source: data
-            });
-        });
-        $.getJSON('/customers/api-companyname', function(data) {
-            $( "#customer-full-autocomplete" ).autocomplete({
-                source: data,
-                select: function(event, ui) {
-                    if(ui.item){
-                        
-                        $.ajax({
-                            type: 'GET',
-                            data: {
-                                'companyname' : ui.item.value,
-                                format: 'json'
-                            },
-                            url: '/customers/api-customer-data',
-                            success: function(data) {
-                                parsed = JSON.parse(data);
-                                $('#name').val(parsed.name);
-                                $('#surname').val(parsed.surname);
-                                $('#address').val(parsed.address+' '+parsed.postcode+' '+parsed.city+' - '+parsed.country);
-                                $('#sign').val(parsed.sign);
-                                $('#surname').val(parsed.surname);
-                                $('#vat').val(parsed.vat);
-                                $('#telephone').val(parsed.telephone);
-                                $('#mobile').val(parsed.mobile);
-                                $('#email').val(parsed.email);
-                                // current locale
-                                currentlocale = $('#getcurrentlocale').text()
-                                // CONTINUE button href
-                                $('.goto-step2').attr("href", "/order/new/step2?id="+parsed.id);
-                            },
-                            error: function() {
-                                console.log('ajax error');
-                            }
-                        });
-                        
-                    }
-                }
-            });
-        });
-    });
-        
 </script>
+@yield('more_scripts')
+@yield('more_scripts2')
+@yield('more_scripts3')
+@yield('more_scripts4')
+@yield('more_scripts5')

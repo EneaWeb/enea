@@ -1,5 +1,6 @@
+{{--
 <div class="modal animated fadeIn" id="modal_add_lines_{!!$product->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
-
+--}}
     <div class="modal-dialog animated zoomIn">
     
         <div class="modal-content">
@@ -74,7 +75,7 @@
             </div>
             {!!Form::close()!!}
                 <script>
-                    $(document).ready(function(){
+
                         $('form#lines-form-{!!$product->id!!} :input').change(function() {
                           var tot = 0;
                           var price = 0;
@@ -90,8 +91,10 @@
                           $('#tot-qty-{!!$product->id!!}').text(tot);
                           $('#tot-price-{!!$product->id!!}').text(price);
                         }).change();
-                    });
+
                 </script>
         </div>
     </div>
+{{--
 </div>
+--}}

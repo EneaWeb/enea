@@ -360,4 +360,16 @@ class ProductController extends Controller
 		
 	}
 	
+	public function api_product_id()
+	{
+		if (!Input::has('product_id'))
+			return 'no product_id found in request';
+		// retrieve data from add_lines jquery call during the step3 order process
+		$product_id = Input::get('product_id');
+		$product = \App\Product::find($product_id);
+		
+		return view('pages.orders._modal_add_lines', compact('product'));
+		
+	}
+	
 }

@@ -103,13 +103,31 @@
         </div>
     </div>
 </div>
-<script>
-// disable ENTER on form
-$('#customer-form').on('keyup keypress', function(e) {
-  var keyCode = e.keyCode || e.which;
-  if (keyCode === 13) { 
-    e.preventDefault();
-    return false;
-  }
-});
-</script>
+
+@section('more_scripts5')
+    <script>
+        // disable ENTER on form
+        $('#customer-form').on('keyup keypress', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13) { 
+            e.preventDefault();
+            return false;
+          }
+        });
+        
+        $( window ).load(function() {
+        
+            $.getJSON('/customers/api-companyname', function(data) {
+                $( "#customer-autocomplete" ).autocomplete({
+                    source: data
+                });
+            });
+            
+            $.getJSON('/customers/api-sign', function(data) {
+                $( "#sign-autocomplete" ).autocomplete({
+                    source: data
+                });
+            });
+        });
+    </script>
+@stop

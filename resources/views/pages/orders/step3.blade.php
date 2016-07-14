@@ -73,18 +73,18 @@
 
                             <div class="gallery" id="links">
                             
+                            {{--*/ $brand_slug = Auth::user()->options->brand_in_use->slug; /*--}}
                             @foreach($products as $product)
                             
                                 {{-- CUSTOMIZER --}}
-                                @if ((Auth::user()->options->brand_in_use->slug == 'cinziaaraia') && $product->slug == '_custom')
+                                @if (($brand_slug == 'cinziaaraia') && $product->slug == '_custom')
                                     {{-- CUSTOMIZER --}}
-                                    <a class="gallery-item" href="/customizer/{!!Auth::user()->options->brand_in_use->slug!!}" class="tile tile-primary">
+                                    <a class="gallery-item" href="/customizer/{!!$brand_slug!!}" class="tile tile-primary">
                                 @else
-                                    <a class="gallery-item" href="#" data-toggle="modal" data-target="#modal_add_lines_{!!$product->id!!}" class="tile tile-primary">
+                                    <a class="gallery-item" href="#" data-toggle="modal" data-target="#modal_add_lines" data-product_id="{!!$product->id!!}" class="tile tile-primary">
                                 @endif
-                                
-                                    <div class="image" style="max-height: 342px;">
-                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!$product->picture!!}" alt="{!!$product->name!!}">                                                             
+                                    <div class="image" style="max-height: 322px;">
+                                        <div style="height:322px; background:url('/assets/images/products/{!!$brand_slug!!}/300/{!!$product->picture!!}'); background-size: contain; background-position: center; background-repeat: no-repeat" alt="{!!$product->name!!}"></div>                                                    
                                     </div>
                                     <div class="meta">
                                         <strong>{!!$product->name!!}</strong>
@@ -115,8 +115,36 @@
         </div>
     </div>
 
-@foreach($products as $product)
-    @include('pages.orders._modal_add_lines')
-@endforeach
+<div class="modal animated fadeIn" id="modal_add_lines" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
+
+
+</div>
+
+<script>
+    $('#modal_add_lines').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var product_id = button.data('product_id') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+              
+        modal.empty();
+        
+        $.ajax({
+          type: 'POST',
+          url: '/add-lines/api-product-id',
+          data: { '_token' : '{!!csrf_token()!!}', product_id: product_id },
+          success:function(data){
+            // successful request; do something with the data
+            modal.append(data);
+          },
+          error:function(){
+            // failed request; give feedback to user
+            alert('ajax error');
+          }
+        });
+
+    })
+</script>
 
 @stop
