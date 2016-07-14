@@ -37,6 +37,7 @@ class CustomerDeliveryController extends Controller
 			// create a new instance
 			$customer_delivery = new CustomerDelivery();
 			
+			/*
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
 			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
@@ -47,16 +48,17 @@ class CustomerDeliveryController extends Controller
 			// can't geocoding the address
 			if ($geocoded == '')
 			{
-				$customer_delivery->address = Input::get('address');
+				$customer->address = Input::get('address');
 				// can geocoding the address .. so take values from response
 			} else {
+				}
+			*/
 				// populate infos
-				$customer_delivery->address = $geocoded[0]['streetName'].' , '. $geocoded[0]['streetNumber'];
-				$customer_delivery->city = $geocoded[0]['city'];
-				$customer_delivery->postcode = $geocoded[0]['zipcode'];
-				$customer_delivery->province = $geocoded[0]['countyCode'];
-				$customer_delivery->country = $geocoded[0]['countryCode'];
-			}
+			$customer_delivery->address = Input::get('address');
+			$customer_delivery->city = Input::get('city');
+			$customer_delivery->postcode = Input::get('postcode');
+			$customer_delivery->province = Input::get('province');
+			$customer_delivery->country = Input::get('country');
 
 			// populate more
 			$customer_delivery->customer_id = Input::get('customer_id');

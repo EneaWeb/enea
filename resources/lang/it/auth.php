@@ -77,5 +77,6 @@ return [
     'With Variations' => 'Con Variazioni',
     'Language' => 'Lingua',
     'Hex' => 'Hex',
-    
+    'Province' => 'Provincia',
+    'Postcode' => 'CAP',
 ];

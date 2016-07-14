@@ -120,6 +120,7 @@ class CustomerController extends Controller
 			// create a new instance
 			$customer = new Customer();
 			
+			/*
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
 			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
@@ -133,13 +134,14 @@ class CustomerController extends Controller
 				$customer->address = Input::get('address');
 				// can geocoding the address .. so take values from response
 			} else {
+				}
+			*/
 				// populate infos
-				$customer->address = $geocoded[0]['streetName'].' , '. $geocoded[0]['streetNumber'];
-				$customer->city = $geocoded[0]['city'];
-				$customer->postcode = $geocoded[0]['zipcode'];
-				$customer->province = $geocoded[0]['countyCode'];
-				$customer->country = $geocoded[0]['countryCode'];
-			}
+			$customer->address = Input::get('address');
+			$customer->city = Input::get('city');
+			$customer->postcode = Input::get('postcode');
+			$customer->province = Input::get('province');
+			$customer->country = Input::get('country');
 
 			// populate more
 			$customer->companyname = Input::get('companyname');
@@ -209,6 +211,7 @@ class CustomerController extends Controller
 			$customer->sign = Input::get('sign');
 			$customer->vat = Input::get('vat');
 			
+			/*
 			// prepare geocoding
 			$curl     = new \Geocoder\HttpAdapter\SocketHttpAdapter();
 			$geocoder = new \Geocoder\Provider\GoogleMapsProvider($curl);
@@ -216,20 +219,20 @@ class CustomerController extends Controller
 			$address = Input::get('address');
 			// get geocoding result ..
 			$geocoded = $geocoder->getGeocodedData($address);
-			
 			// can't geocoding the address
 			if ($geocoded == '')
 			{
 				$customer->address = Input::get('address');
 				// can geocoding the address .. so take values from response
 			} else {
+				}
+			*/
 				// populate infos
-				$customer->address = $geocoded[0]['streetName'].' , '. $geocoded[0]['streetNumber'];
-				$customer->city = $geocoded[0]['city'];
-				$customer->postcode = $geocoded[0]['zipcode'];
-				$customer->province = $geocoded[0]['countyCode'];
-				$customer->country = $geocoded[0]['countryCode'];
-			}
+			$customer->address = Input::get('address');
+			$customer->city = Input::get('city');
+			$customer->postcode = Input::get('postcode');
+			$customer->province = Input::get('province');
+			$customer->country = Input::get('country');
 			
 			$customer->telephone = Input::get('telephone');
 			$customer->mobile = Input::get('mobile');

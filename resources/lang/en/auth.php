@@ -77,6 +77,7 @@ return [
     'With Variations' => 'With Variations',
     'Language' => 'Language',
     'Hex' => 'Hex',
-    
+    'Province' => 'Province',
+    'Postcode' => 'Postcode',
     
 ];

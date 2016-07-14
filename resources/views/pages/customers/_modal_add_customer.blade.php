@@ -40,13 +40,33 @@
                     </div>
                 </div>
                 <div class="form-group">
-                        {!!Form::label('address', trans('menu.Address').'*', ['class' => 'col-md-3 control-label'])!!}
-                    <div class="col-md-8">
-                        
-                        {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
-                        {{-- Google Autocomplete Script --}}
-                         {!! $autocompleteHelper->renderJavascripts($autocomplete) !!}
-                        {{-- END Google Autocomplete Script --}}
+                    <label class="col-md-3 control-label">{!!trans('auth.Address')!!}*</label>
+                    <div class="col-md-8">  
+                        {!!Form::input('text', 'address', '', ['class'=>'form-control'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{!!trans('auth.City')!!}*</label>
+                    <div class="col-md-8">  
+                        {!!Form::input('text', 'city', '', ['class'=>'form-control'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{!!trans('auth.Province')!!}</label>
+                    <div class="col-md-8">  
+                        {!!Form::input('text', 'province', '', ['class'=>'form-control'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{!!trans('auth.Postcode')!!}</label>
+                    <div class="col-md-8">  
+                        {!!Form::input('text', 'postcode', '', ['class'=>'form-control'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{!!trans('auth.Country')!!}</label>
+                    <div class="col-md-8">  
+                        {!!Form::input('text', 'country', '', ['class'=>'form-control'])!!}
                     </div>
                 </div>
                 <div class="form-group">

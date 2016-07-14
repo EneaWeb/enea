@@ -59,13 +59,35 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Address')!!}</label>
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Address')!!}*</label>
                             <div class="col-md-9 col-xs-7">
-                                 {!! $autocompleteHelper->renderHtmlContainer($autocomplete) !!}
-                                 {!! $autocompleteHelper->renderJavascripts($autocomplete) !!} 
-                                {{-- Google Autocomplete Script --}}
+                                {!!Form::input('text', 'address', $customer->address, ['class'=>'form-control'])!!}
                             </div>
-                        </div>  
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.City')!!}*</label>
+                            <div class="col-md-9 col-xs-7">
+                                {!!Form::input('text', 'city', $customer->city, ['class'=>'form-control'])!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Province')!!}</label>
+                            <div class="col-md-9 col-xs-7">
+                                {!!Form::input('text', 'province', $customer->province, ['class'=>'form-control'])!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Postcode')!!}</label>
+                            <div class="col-md-9 col-xs-7">
+                                {!!Form::input('text', 'postcode', $customer->postcode, ['class'=>'form-control'])!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Country')!!}</label>
+                            <div class="col-md-9 col-xs-7">
+                                {!!Form::input('text', 'country', $customer->country, ['class'=>'form-control'])!!}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-3 col-xs-5 control-label">{!!trans('auth.Telephone')!!}</label>
                             <div class="col-md-9 col-xs-7">
