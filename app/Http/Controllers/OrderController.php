@@ -412,6 +412,7 @@ class OrderController extends Controller
 		$order_image->image = serialize(Session::get('order'));
 		$order_image->setConnection(Auth::user()->options->brand_in_use->slug);
 		$order_image->save();
+		
 		// pulisco la variabile di sessione
 		Session::forget('order');
 		
