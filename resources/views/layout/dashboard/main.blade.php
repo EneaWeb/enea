@@ -16,7 +16,7 @@
                 {{-- START X-NAVIGATION --}}
                 @include('layout.dashboard.navigation.vertical')
                 {{-- END X-NAVIGATION --}}
-            
+                
             </div> {{-- END PAGE SIDEBAR --}}
             
             {{-- PAGE CONTENT --}}
