@@ -18,7 +18,11 @@
                     <div class="panel-body">
                         <h3><span class="fa fa-user"></span> {!!$customer->name!!} {!!$customer->surname!!}</h3>
                         <p>Customer [#{!!$customer->id!!}]</p>
-                        {{-- {!! $mapHelper->render($map) !!} --}}
+                        @if ($test_position == true)
+                            {!! $mapHelper->render($map) !!}
+                        @else 
+                            <img src="/assets/images/no-position.jpg" style="max-width:100%;"/>
+                        @endif
                     </div>
                 </div>
                 

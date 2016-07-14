@@ -62,6 +62,7 @@ class CustomerController extends Controller
 		$customer = Customer::find($id);
 		$address = $customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country;
 		
+		/*
 		// autocomplete
 		$autocomplete = new Autocomplete();
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
@@ -74,21 +75,12 @@ class CustomerController extends Controller
 		$autocomplete->setLanguage(Localization::getCurrentLocale());
 			$autocomplete->setApiKey(Config::get('general.google_api_key'));
 		
-		// autocomplete
-		$autocomplete2 = new Autocomplete();
-		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete2->setInputId('delivery_autocomplete');
-		$autocomplete2->setInputAttributes(['name' => 'address', 'class' => 'form-control']);
-		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
-		$autocomplete2->setBound(45, 9, 45, 9, true, true);
-		$autocomplete2->setAsync(false);
-		$autocomplete2->setLanguage(Localization::getCurrentLocale());
-			$autocomplete2->setApiKey(Config::get('general.google_api_key'));
-		
 		// rendering helper
 		$autocompleteHelper = new AutocompleteHelper();
-		
+		*/
 		// maps render helper
+		
+		$test_position = Maps::test_position($address);
 		$mapHelper = new MapHelper;
 		$map = Maps::customer_position_map($address);
 		
@@ -101,6 +93,7 @@ class CustomerController extends Controller
 
 		return view('pages.customers.show', compact('customer', 
 		                                            'map', 
+		                                            'test_position',
 		                                            'mapHelper', 
 		                                            'autocomplete', 
 		                                            'autocomplete2', 

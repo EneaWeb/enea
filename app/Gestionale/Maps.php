@@ -103,20 +103,42 @@ class Maps
 		));
 		// Geocode a location
 		$response = $geocoder->geocode($address);
-		$result = $response->getResults()[0];
-
-		$location = $result->getGeometry()->getLocation();
-		// Create a marker
-		$marker = new Marker();
-		// Position the marker
-		$marker->setPosition($location);
-		// Add the marker to the map
-		$map->addMarker($marker);
-		// Center the map on the new marker
-		$map->setCenter($location);
-
+		
+		if (!empty($response->getResults()))
+		{
+			// position found..
+			// so set position as true and get it!
+			$result = $response->getResults()[0];
+			$location = $result->getGeometry()->getLocation();
+			// Create a marker
+			$marker = new Marker();
+			// Position the marker
+			$marker->setPosition($location);
+			// Add the marker to the map
+			$map->addMarker($marker);
+			// Center the map on the new marker
+			$map->setCenter($location);
+		}
 		
 		return $map;
+	}
+	
+	public static function test_position($address)
+	{
+		// initilize geolocation
+		$geocoder = new Geocoder();
+		$geocoder->registerProviders(array(
+			new GeocoderProvider(new CurlHttpAdapter())
+		));
+		// Geocode a location
+		$response = $geocoder->geocode($address);
+		
+		if (empty($response->getResults()))
+		{
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 }
