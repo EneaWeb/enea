@@ -16,10 +16,10 @@
         {{-- START WIDGETS --}}
         <div class="row">
         	
-        		<div class="col-xs-12 col-md-12 col-lg-12">
+        	<div class="col-xs-12 col-md-12 col-lg-12">
         		
 	            <div style="max-width:350px; display:inline-block;">
-	                <a href="/order/new" class="tile tile-danger">
+	                <a href="/order/new" class="btn btn-danger">
                         {!!strtoupper(trans('menu.Order'))!!}
 	                    <span class="fa fa-plus"></span>
 	                </a>                                     
@@ -27,15 +27,17 @@
 	            
 	            <div style="width:1px; display:inline-block;"></div>
 	            
-					<div style="max-width:350px; display:inline-block; ">
-	                <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="tile tile-primary">
-	                    {!!strtoupper(trans('menu.Customer'))!!}
-                        <span class="fa fa-plus"></span>
-	                </a>
-					</div>
+				<div style="max-width:350px; display:inline-block; ">
+                <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="btn btn-primary">
+                    {!!strtoupper(trans('menu.Customer'))!!}
+                    <span class="fa fa-plus"></span>
+                </a>
+				</div>
+                
             </div>
             
         </div>
+        <br><br>
         {{-- END WIDGETS --}}
 
         <div class="row">         
