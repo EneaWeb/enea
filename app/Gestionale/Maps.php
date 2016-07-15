@@ -50,9 +50,14 @@ class Maps
 			'height' => '400px',
 		));
 			
+		// initilize geolocation
+		$geocoder = new Geocoder();
+		$geocoder->registerProviders(array(
+			new GeocoderProvider(new CurlHttpAdapter())
+		));
+		
 		$orders = \App\Order::all();
 		foreach ($orders as $order) {
-			
 			$customer = $order->customer;
 			$address = $customer->address.' '.$customer->postcode.' '.$customer->city.' '.$customer->country;
 			// Geocode a location
