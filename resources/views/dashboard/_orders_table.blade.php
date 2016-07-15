@@ -10,7 +10,7 @@
                     @endif
                     <th>{!!trans('messages.Prods')!!}</th>
                     <th>{!!trans('messages.Pcs')!!}</th>
-                    <th>{!!trans('auth.Total')!!} €</th>
+                    <th>{!!trans('auth.Total')!!}</th>
                     <th>{!!trans('auth.Date')!!}</th>
                     <th>{!!trans('messages.Delivery')!!}</th>
                     <th>{!!trans('auth.Options')!!}</th>
@@ -35,7 +35,7 @@
                         @endif
                         <td>{!!$order->products_qty!!}</td>
                         <td>{!!$order->items_qty!!}</td>
-                        <td style="text-align:right">{!!number_format($order->total, 2, ',', '.')!!}</td>
+                        <td style="text-align:right">{!!number_format($order->total, false, ',', '.')!!} €</td>
                         <td>
                             {{ $order->created_at->format('d/m/y') }}
                         </td>
@@ -58,7 +58,8 @@
         var lastColumn = $('#orders').find('th:last').index();
         $('#orders').DataTable( {
             "order": [[ (lastColumn-1), "desc" ]],
-            "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" }
+            "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+            pageLength: "20",
         });
     });
 </script>
