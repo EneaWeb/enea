@@ -50,14 +50,9 @@ class Maps
 			'height' => '400px',
 		));
 			
-		// initilize geolocation
-		$geocoder = new Geocoder();
-		$geocoder->registerProviders(array(
-			new GeocoderProvider(new CurlHttpAdapter())
-		));
-		
 		$orders = \App\Order::all();
 		foreach ($orders as $order) {
+			
 			$customer = $order->customer;
 			$address = $customer->address.' '.$customer->postcode.' '.$customer->city.' '.$customer->country;
 			// Geocode a location
@@ -77,7 +72,11 @@ class Maps
 			}
 		}
 		
-		$base_response = $geocoder->geocode('Milano Italia');
+		$base_geocoder = new Geocoder();
+		$base_geocoder->registerProviders(array(
+			new GeocoderProvider(new CurlHttpAdapter())
+		));
+		$base_response = $base_geocoder->geocode('Duomo di Milano, Piazza del Duomo, Milano, MI');
 		$base_result = $base_response->getResults()[0];
 		$base_location = $base_result->getGeometry()->getLocation();
 		$map->setCenter($base_location);
