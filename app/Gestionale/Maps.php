@@ -47,7 +47,7 @@ class Maps
 
 		$map->setStylesheetOptions(array(
 			'width'  => '100%',
-			'height' => '400px',
+			'height' => '340px',
 		));
 			
 		// initilize geolocation
