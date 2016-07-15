@@ -4,6 +4,26 @@
 
 	<div class="row">
 	
+		<div class="col-md-6">
+	      {{-- START PROJECTS BLOCK --}}
+	       <div class="panel panel-default">
+	           <div class="panel-heading">
+	               <div class="panel-title-box">
+	                   <h3>{!!trans('messages.Sales')!!}</h3>
+	                   <span>Map</span>
+	               </div>                                    
+	               <ul class="panel-controls" style="margin-top: 2px;">
+	                   <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+	               </ul>
+	           </div>
+	           <div class="panel-body panel-body-table">
+	               {!!$mapHelper->render($map)!!}
+	           </div>
+	           
+	       </div>
+	       {{-- END PROJECTS BLOCK --}}
+	   </div>
+	
 	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}
 	       <div class="panel panel-default">
@@ -81,26 +101,6 @@
 	       {{-- END PROJECTS BLOCK --}}
 	   </div>
 	   
-		<div class="col-md-6">
-	      {{-- START PROJECTS BLOCK --}}
-	       <div class="panel panel-default">
-	           <div class="panel-heading">
-	               <div class="panel-title-box">
-	                   <h3>{!!trans('messages.Sales')!!}</h3>
-	                   <span>Map</span>
-	               </div>                                    
-	               <ul class="panel-controls" style="margin-top: 2px;">
-	                   <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
-	               </ul>
-	           </div>
-	           <div class="panel-body panel-body-table">
-	               {!!$mapHelper->render($map)!!}
-	           </div>
-	           
-	       </div>
-	       {{-- END PROJECTS BLOCK --}}
-	   </div>
-	
 	   <div class="col-md-12">
 	      
          <div class="col-xs-12 col-md-12 col-lg-12">
