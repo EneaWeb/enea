@@ -37,3 +37,9 @@ span.little-delete-icon {
 .maxw500 {
 	max-width:500px;
 }
+
+.btn.order-actions {
+	width: 60px;
+   margin-top: -10px;
+   margin-bottom: 10px;
+}

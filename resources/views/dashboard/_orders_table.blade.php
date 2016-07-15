@@ -21,12 +21,12 @@
                 @foreach ($orders as $order)
                     <tr>
                         <td>
-                            <a href="/order/details/{!!$order->id!!}">
+                            <a href="/order/pdf/{!!$order->id!!}" target="_blank">
                                 {!!$order->id!!}
                             </a>
                         </td>
                         <td>
-                            <a href="/order/details/{!!$order->id!!}">
+                            <a href="/customer/show/{!!$order->customer_id!!}">
                                 {!!\App\Customer::find($order->customer_id)->companyname!!}
                             </a>
                         </td>
@@ -72,28 +72,76 @@
 
             <div class="modal-body">
                 <h3>
-                    #{!!$order->id!!} - {!!$order->customer->companyname!!}
+                    {!!trans('messages.Order')!!} #{!!$order->id!!} <br> {!!$order->customer->companyname!!}<br>
                 </h3>
-                
-                <a href="/order/details/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm">
-                    <span class="fa fa-search-plus" style="font-size:40px"></span>
-                </a>
-                
-                <a href="/order/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm">
-                    <span class="fa fa-download" style="font-size:40px"></span>
-                </a>    
-                
-                 <a href="/order/email/{!!$order->id!!}?back=1" class="btn btn-info btn-rounded btn-condensed btn-sm">
-                        <span class="fa fa-envelope" style="font-size:40px"></span>
-                </a>            
-                
-                <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm">
-                    <span class="fa fa-pencil" style="font-size:40px"></span>
-                </a>
-                
-                <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_order({!!$order->id!!});">
-                    <span class="fa fa-times" style="font-size:40px"></span>
-                </button>
+                <div class="modal-body form-horizontal form-group-separated">
+                    <br>                      
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Show order details')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                            <a href="/order/pdf/{!!$order->id!!}" target="_blank" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+                                <span class="fa fa-search-plus" style="font-size:40px"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Download order details')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                            <a href="/order/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+                                <span class="fa fa-download" style="font-size:40px"></span>
+                            </a> 
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Send by email')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                             <a href="/order/email/{!!$order->id!!}?back=1" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+                                    <span class="fa fa-envelope" style="font-size:40px"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Show Customer')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                             <a href="/customer/show/{!!$order->customer->id!!}" class="btn btn-success btn-rounded btn-condensed btn-sm order-actions">
+                                    <span class="fa fa-user" style="font-size:40px"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Edit order')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                            <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
+                                <span class="fa fa-pencil" style="font-size:40px"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Delete order')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                            <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                <span class="fa fa-times" style="font-size:40px"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
         </div>
