@@ -52,6 +52,11 @@ class DashboardController extends Controller
 			$autocompleteHelper = new AutocompleteHelper();
 			*/
 			
+			if (Auth::user()->can('manage orders')) {
+				$mapHelper = new MapHelper;
+				$map = Maps::orders_map($orders);
+			}
+			
 			// prepare dropdown with supported Locales
 			$configLocales = Config::get('localization.supported-locales');
 			$supportedLocales = array();
@@ -60,7 +65,7 @@ class DashboardController extends Controller
 			}
 			
 			if ($user->can('manage brands'))
-				return view('dashboard.admin', compact('orders', 'supportedLocales'));
+				return view('dashboard.admin', compact('orders', 'supportedLocales', 'map', 'mapHelper'));
 			
 			return view('dashboard.agent', compact('orders', 'supportedLocales'));
 		// }

@@ -67,11 +67,13 @@ class ApiHelper extends AbstractHelper
     )
     {
         $otherParameters = array();
-
+        
+        /*
         if (!empty($libraries)) {
             $otherParameters['libraries'] = implode(',', $libraries);
         }
-
+        */
+        
         $otherParameters['language'] = $language;
         $otherParameters['apiKey'] = $apiKey;
         $otherParameters['sensor'] = json_encode((bool) $sensor);
