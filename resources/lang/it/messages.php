@@ -1,6 +1,9 @@
 <?php
 return [	
 	'Welcome' => 'Benvenuto',
+	'Delivery' => 'Consegna',
+	'Prods' => '#Art',
+	'Pcs' => '#Pz',
 	'Language changed' => 'Lingua modificata',
 	'Brand in use changed' => 'Brand in uso modificato',
 	'Active Users for brand' => 'Utenti attivi per il brand',

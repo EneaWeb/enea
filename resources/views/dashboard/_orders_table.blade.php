@@ -5,11 +5,14 @@
                 <tr>
                     <th>{!!trans('auth.Id')!!}</th>
                     <th>{!!trans('auth.Customer')!!}</th>
-                    <th>{!!trans('auth.Products')!!}</th>
-                    <th>{!!trans('auth.Items')!!}</th>
-                    <th>{!!trans('auth.Variation')!!}</th>
+                    @if (Auth::user()->can('manage orders'))
+                        <th>{!!trans('messages.Agent')!!}</th>
+                    @endif
+                    <th>{!!trans('messages.Prods')!!}</th>
+                    <th>{!!trans('messages.Pcs')!!}</th>
                     <th>{!!trans('auth.Total')!!} €</th>
                     <th>{!!trans('auth.Date')!!}</th>
+                    <th>{!!trans('messages.Delivery')!!}</th>
                     <th>{!!trans('auth.Options')!!}</th>
                 </tr>
             </thead>
@@ -27,11 +30,16 @@
                                 {!!\App\Customer::find($order->customer_id)->companyname!!}
                             </a>
                         </td>
+                        @if (Auth::user()->can('manage orders'))
+                            <td>{!!$order->user->profile->companyname!!}</td>
+                        @endif
                         <td>{!!$order->products_qty!!}</td>
                         <td>{!!$order->items_qty!!}</td>
-                        <td>{!!($order->payment_amount == '') ? '/' : $order->payment_amount.'%' !!}</td>
                         <td style="text-align:right">{!!number_format($order->total, 2, ',', '.')!!}</td>
-                        <td>{{ $order->created_at->format('d/m/y H:i') }}</td>
+                        <td>
+                            {{ $order->created_at->format('d/m/y') }}
+                        </td>
+                        <td>{{ $order->season_delivery->name }}</td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#modal_edit_{!!$order->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm">
                                 <span class="fa fa-cogs"></span>

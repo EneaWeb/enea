@@ -91,5 +91,10 @@ class Order extends Model
     {
         return $this->belongsTo('\App\Payment');
     }
+    
+    public function season_delivery()
+    {
+        return $this->belongsTo('\App\SeasonDelivery');
+    }
 
 }

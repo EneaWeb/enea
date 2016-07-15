@@ -1,6 +1,9 @@
 <?php
 return [	
 	'Welcome' => 'Welcome',
+	'Delivery' => 'Delivery',
+	'Prods' => 'Prods',
+	'Pcs' => 'Pcs',
 	'Language changed' => 'Language changed',
 	'Brand in use changed' => 'Brand in use changed',
 	'Active Users for brand' => 'Active Users for brand',
