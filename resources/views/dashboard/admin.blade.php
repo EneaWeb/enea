@@ -134,8 +134,5 @@
 	   </div>
 	</div>
 
-@stop
-
-@section('more_foot')
-
+@include('pages.customers._modal_add_customer');
 @stop
