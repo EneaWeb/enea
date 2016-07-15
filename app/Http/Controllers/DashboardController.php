@@ -35,6 +35,7 @@ class DashboardController extends Controller
 			// retrieve all customers
 			$customers = Customer::all();
 			// autocomplete
+			/*
 			$autocomplete = new Autocomplete();
 			$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
 			$autocomplete->setInputId('place_input');
@@ -49,6 +50,7 @@ class DashboardController extends Controller
 				$autocomplete->setApiKey(Config::get('general.google_api_key'));
 			// render
 			$autocompleteHelper = new AutocompleteHelper();
+			*/
 			
 			// prepare dropdown with supported Locales
 			$configLocales = Config::get('localization.supported-locales');
@@ -58,9 +60,9 @@ class DashboardController extends Controller
 			}
 			
 			if ($user->can('manage brands'))
-				return view('dashboard.admin', compact('orders', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
+				return view('dashboard.admin', compact('orders', 'supportedLocales'));
 			
-			return view('dashboard.agent', compact('orders', 'autocomplete', 'autocompleteHelper', 'supportedLocales'));
+			return view('dashboard.agent', compact('orders', 'supportedLocales'));
 		// }
 		
 	}
