@@ -240,6 +240,20 @@ Route::group([
 				Session::put($x, '1');
 		}
 	});
+	
+	Route::get('/list-gallery', function()
+	{ // menu minimize-maximize session variable
+		$x = 'list';
+		if (!Session::has($x))
+			Session::put($x, '1');
+		else {
+			if (Session::get($x) == '1')
+				Session::forget($x);
+			else 
+				Session::put($x, '1');
+		}
+		return redirect()->back();
+	});
 
 /*
 

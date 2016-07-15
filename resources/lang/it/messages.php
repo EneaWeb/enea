@@ -6,6 +6,8 @@ return [
 	'Active Users for brand' => 'Utenti attivi per il brand',
 	'Active users' => 'Utenti attivi',
 	'On brand' => 'Sul brand',
+	'N. Items' => 'N. Pezzi',
+	'Gallery/List View' => 'Vista Gallery/Lista',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Inserisci il <b>nome</b> e <b>l'indirizzo email</b> dell'utente che vuoi aggiungere al tuo network.",
 	"If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." => "Se l'utente è già registrato sul nostro sistema, sarà aggiunto automaticamente al tuo network. <br>In caso contrario, riceverà <b>un'email</b> con la quale sarà invitato a confermare la sua scelta di unirsi al network del tuo brand.",
 	'invite_user_message' => 'Sei invitato/a ad unirti al gruppo di lavoro :Brandname . Segui le indicazioni che trovi nella email per entrare a far parte del nostro network. - :UserNameSurname .',

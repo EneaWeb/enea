@@ -6,6 +6,8 @@ return [
 	'Active Users for brand' => 'Active Users for brand',
 	'Active users' => 'Active users',
 	'On brand' => 'On brand',
+	'N. Items' => 'N. Items',
+	'Gallery/List View' => 'Gallery/List View',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network.",
 	"If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." => "If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network.",
 	'invite_user_message' => 'Hi, I invite you to join our :Brandname working group. Please follow the instructions you will find in the invitation email, to join our network. - :UserNameSurname .',
