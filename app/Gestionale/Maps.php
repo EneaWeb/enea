@@ -63,7 +63,7 @@ class Maps
 			$address = $customer->address.' '.$customer->postcode.' '.$customer->city.' '.$customer->country;
 			// Geocode a location
 			$response = $geocoder->geocode($address);
-			if (!$response->getResults())
+			if (!empty($response->getResults()))
 			{
 				// position found..
 				// so set position as true and get it!

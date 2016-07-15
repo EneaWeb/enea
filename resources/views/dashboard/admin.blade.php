@@ -4,8 +4,8 @@
 
 	<div class="row">
 	
+		{{--
 		<div class="col-md-6">
-	      {{-- START PROJECTS BLOCK --}}
 	       <div class="panel panel-default">
 	           <div class="panel-heading">
 	               <div class="panel-title-box">
@@ -21,8 +21,8 @@
 	           </div>
 	           
 	       </div>
-	       {{-- END PROJECTS BLOCK --}}
 	   </div>
+	   --}}
 	
 	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}

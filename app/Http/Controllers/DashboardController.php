@@ -52,10 +52,12 @@ class DashboardController extends Controller
 			$autocompleteHelper = new AutocompleteHelper();
 			*/
 			
+			/*
 			if (Auth::user()->can('manage orders')) {
 				$mapHelper = new MapHelper;
 				$map = Maps::orders_map($orders);
 			}
+			*/
 			
 			// prepare dropdown with supported Locales
 			$configLocales = Config::get('localization.supported-locales');
