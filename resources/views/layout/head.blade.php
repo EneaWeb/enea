@@ -16,6 +16,7 @@
     {{ HTML::style('https://fonts.googleapis.com/icon?family=Material+Icons')}}  {{-- material icons font --}}
     {{ HTML::style('/assets/css/galleria.classic.css') }}
     {{ HTML::style('/assets/css/bootstrap-select.css') }}
+    {{ HTML::style('/assets/css/lightbox/ekko-lightbox.min.css') }}
     {{ HTML::style('/assets/css/fontawesome/font-awesome.min.css') }}
     
     {{ HTML::style('/assets/css/theme-default.css') }}
@@ -26,6 +27,7 @@
     {{ HTML::script('/assets/js/plugins/jquery/jquery.min.js') }}
     {{ HTML::script('/assets/js/plugins/jquery/jquery-ui.min.js') }}
     {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap.min.js') }}
+    {{ HTML::script('/assets/js/plugins/lightbox/ekko-lightbox.min.js') }}
     {{ HTML::script('/assets/js/pdfobject.min.js') }} 
     {{ HTML::script('/assets/js/alertify.min.js') }} 
     

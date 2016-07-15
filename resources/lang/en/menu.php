@@ -1,6 +1,9 @@
 <?php
 return [
 	'Dashboard' => 'Dashboard',
+	'Sold' => 'Sold',
+	'Sold per Variations' => 'Sold per Variations',
+	'Zero Sold' => 'Zero Sold',
 	'Administration' => 'Administration',
 	'Manage Users' => 'Manage Users',
 	'Options' => 'Options',

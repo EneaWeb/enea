@@ -43,7 +43,14 @@
     
     {{-- @if(Auth::user()->can('manage orders')) --}}
     
-    <li><a href="/report"><span class="fa fa-table"></span><span class="xn-text">{!!trans('menu.Report')!!}</span></a></li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-table"></span> <span class="xn-text">{!!trans('menu.Report')!!}</span></a>
+        <ul>
+            <li><a href="/report"><span class="fa fa-table"></span>{!!trans('menu.Sold')!!}</a></li>
+            <li><a href="/report/variations"><span class="fa fa-table"></span>{!!trans('menu.Sold per Variations')!!}</a></li>
+            <li><a href="/report/zero-sold"><span class="fa fa-table"></span>{!!trans('menu.Zero Sold')!!}</a></li>
+        </ul>
+    </li>
     
     {{-- @endif --}}
     

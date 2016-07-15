@@ -162,6 +162,8 @@ Route::group([
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
 	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
 	Route::get('/report', 'ReportController@index');
+	Route::get('/report/variations', 'ReportController@sold_variations');
+	Route::get('/report/zero-sold', 'ReportController@zero_sold');
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
