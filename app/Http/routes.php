@@ -27,8 +27,8 @@ Route::get('customers-work', function(){
 	$brand = \App\Brand::find('4');
 	foreach ($customers as $customer) {
 		$brand->customers()->attach($customer->id);
-		return 'ok';
 	}
+	return 'ok';
 });
 
 Route::get('1', function(){
