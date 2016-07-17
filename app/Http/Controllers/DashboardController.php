@@ -66,7 +66,7 @@ class DashboardController extends Controller
 				$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 			}
 			
-			if ($user->can('manage brands'))
+			if ($user->can('manage orders'))
 				return view('dashboard.admin', compact('orders', 'supportedLocales', 'map', 'mapHelper'));
 			
 			return view('dashboard.agent', compact('orders', 'supportedLocales'));
