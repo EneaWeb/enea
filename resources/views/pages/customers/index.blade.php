@@ -20,7 +20,11 @@
         
             <div class="widget widget-warning widget-no-subtitle">
                 <div class="widget-subtitle">{!! trans('messages.Actual brand customers') !!}</div>
-                <div class="widget-big-int"><span class="num-count">{!!$customers->count()!!}</span></div>            
+                <div class="widget-big-int">
+                    <span class="num-count">
+                        {!!\App\Brand::find(Auth::user()->options->active_brand)->customers()->count()!!}
+                    </span>
+                </div>            
             </div>
             <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="tile tile-success tile-valign">
                 <span class="fa fa-plus"></span>
