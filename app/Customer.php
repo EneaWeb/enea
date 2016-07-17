@@ -83,5 +83,10 @@ class Customer extends Model
 	{
 		return $this->hasMany('\App\Order');
 	}
+	
+    public function brands()
+    {
+        return $this->belongsToMany('\App\Brand');
+    }
 
 }

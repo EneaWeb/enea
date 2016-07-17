@@ -22,6 +22,15 @@ Route::get('profile', function(){
 });
 */
 
+Route::('customers-work', function(){
+	$customers = \App\Customer::all();
+	$brand = \App\Brand::find('4');
+	foreach ($customers as $customer) {
+		$brand->customers()->attach($customer->id);
+		return 'ok';
+	}
+});
+
 Route::get('1', function(){
 	return \App\EneaHelper::percentage('50', '200');
 });
