@@ -97,9 +97,7 @@ Route::group([
 	],
 ], function() {
 	
-	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	Route::get('/test', function() { App\Alert::success('Ciaooo! Provo il successo!!'); return view('test'); });
-	
+	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/	
 	Route::get('/session/clear', function()
 	{
 		Session::forget('order');

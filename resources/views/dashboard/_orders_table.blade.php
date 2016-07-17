@@ -57,7 +57,7 @@
         var currentLocale = $('#getcurrentlocale').text();
         var lastColumn = $('#orders').find('th:last').index();
         $('#orders').DataTable( {
-            "order": [[ (lastColumn-1), "desc" ]],
+            "order": [[ (lastColumn-2), "desc" ]],
             "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
             pageLength: "20",
         });
