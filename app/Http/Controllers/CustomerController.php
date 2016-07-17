@@ -29,6 +29,12 @@ class CustomerController extends Controller
 	public function index()
 	{
 		
+		// if I need to retrieve all customers FOR selected brand... 
+		/* 
+		$active_brand = Auth::user()->options->active_brand;
+		$customers = \App\Brand::find($active_brand)->customers();
+		*/
+		
 		// retrieve all customers
 		$customers = Customer::all();
 		
@@ -150,6 +156,10 @@ class CustomerController extends Controller
 			$customer->setConnection('mysql');
 			// save the line(s)
 			$customer->save();
+			
+			// attach customer to related brand
+			$brand = \App\Brand::find(Auth::user()->options->active_brand);
+			$brand->customers()->attach($customer->id);
 
 			// success message
 			Alert::success(trans('messages.New Customer saved'));
