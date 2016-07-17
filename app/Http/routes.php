@@ -22,7 +22,7 @@ Route::get('profile', function(){
 });
 */
 
-Route::('customers-work', function(){
+Route::get('customers-work', function(){
 	$customers = \App\Customer::all();
 	$brand = \App\Brand::find('4');
 	foreach ($customers as $customer) {
