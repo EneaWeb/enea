@@ -18,6 +18,7 @@ return [
 	'On brand' => 'On brand',
 	'N. Items' => 'N. Items',
 	'Models' => 'Models',
+	'Colors' => 'Colors',
 	'Sold by model' => 'Sold by model',
 	'Gallery/List View' => 'Gallery/List View',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network.",
