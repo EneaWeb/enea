@@ -49,7 +49,7 @@
                                     <tr>
                                         <th>{!!trans('auth.Name')!!}</th>
                                         <th>{!!trans('auth.Slug')!!}</th>
-                                        <th>{!!trans('auth.Type')!!}</th>
+                                        <th>{!!trans('menu.Type')!!}</th>
                                         <th>{!!trans('menu.Actions')!!}</th>
                                     </tr>
                                 </thead>
