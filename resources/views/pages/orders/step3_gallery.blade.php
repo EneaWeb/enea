@@ -13,8 +13,12 @@
                 <div style="height:260px; background:url('/assets/images/products/{!!$brand_slug!!}/300/{!!$product->picture!!}'); background-size: contain; background-position: center; background-repeat: no-repeat" alt="{!!$product->name!!}"></div>                                                    
             </div>
             <div class="meta">
-                <strong>{!!$product->name!!}</strong>
-                <span>[ {!!$product->slug!!} ]</span>
+                <strong>
+                    {!!$product->prodmodel->name!!}
+                    <br>
+                    {!!$product->name!!}
+                </strong>
+                {{-- <span>[ {!!$product->slug!!} ]</span> --}}
             </div>
         </a>
 
