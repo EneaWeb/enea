@@ -23,6 +23,7 @@ return [
     'Name' => 'Name',
     'First Name' => 'First Name',
     'Bio' => 'Bio',
+    'Select' => 'Select',
     'Address' => 'Address',
     'Slug' => 'Slug',
     'Action' => 'Action',

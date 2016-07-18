@@ -23,6 +23,7 @@ return [
     'Name' => 'Nome',
     'Slug' => 'Codice',
     'Action' => 'Azione',
+    'Select' => 'Seleziona',
     'Amount' => 'Quantità',
     'Surname' => 'Cognome',
     'First Name' => 'Nome',
