@@ -21,6 +21,7 @@ return [
 	'New Attribute' => 'Nuovo Attributo',
 	'Attributes' => 'Attributi',
 	'Attribute' => 'Attributo',
+	'Type' => 'Tipologia',
 	'Value Name' => 'Nome Valore',
 	'New Value' => 'Nuovo Valore',
 	'Value Slug' => 'Codice Valore',

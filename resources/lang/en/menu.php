@@ -20,6 +20,7 @@ return [
 	'Submit' => 'Submit',
 	'New Attribute' => 'New Attribute',
 	'Attributes' => 'Attributes',
+	'Type' => 'Type',
 	'Attribute' => 'Attribute',
 	'Value Name' => 'Value Name',
 	'New Value' => 'New Value',

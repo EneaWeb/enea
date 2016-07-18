@@ -38,4 +38,6 @@ class ReportController extends Controller
 		return view('reports.zero', compact('order_details', 'variation_ids'));
 	}
 	
+	
+	
 }
