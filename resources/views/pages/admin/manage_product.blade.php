@@ -184,7 +184,8 @@
                                                                         ->where('active', 1)
                                                                         ->get() as $variation)
                                             <option value="{!!$variation->id!!}">
-                                                {!!\App\Color::find($variation->color_id)->name!!}
+                                                {!!\App\Color::find($variation->color_id)->name!!} 
+                                                [{!!\App\Color::find($variation->color_id)->slug!!}]
                                             </option>
                                         @endforeach
                                     </select>
