@@ -93,9 +93,9 @@
                                 <thead>
                                     <tr>
                                         <th>{!!trans('auth.Id')!!}</th>
+                                        <th>{!!trans('auth.Model')!!}</th>
                                         <th>{!!trans('auth.Name')!!}</th>
                                         <th>{!!trans('auth.Slug')!!}</th>
-                                        <th>{!!trans('auth.Model')!!}</th>
                                         <th>{!!trans('auth.Options')!!}</th>
                                     </tr>
                                 </thead>
@@ -104,9 +104,9 @@
                                     @foreach ($products as $product)
                                         <tr>
                                             <td><a href="/catalogue/product/edit/{!!$product->id!!}">{!!$product->id!!}</a></td>
+                                            <td>{!!$product->prodmodel->name!!}</td>
                                             <td><a href="/catalogue/product/edit/{!!$product->id!!}">{!!$product->name!!}</a></td>
                                             <td>{!!$product->slug!!}</td>
-                                            <td>{!!$product->prodmodel->name!!}</td>
                                             <td>
                                                 <a href="/catalogue/product/edit/{!!$product->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></a>
                                                 <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onclick="confirm_delete_product({!!$product->id!!});"><span class="fa fa-times"></span></button>
