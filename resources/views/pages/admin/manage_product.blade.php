@@ -74,7 +74,7 @@
                          <div class="form-group">
                             {!!Form::label('type_id', trans('auth.Type'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('type_id', \App\Type::lists('slug', 'id'), '', ['class' => 'form-control'])!!}
+                                {!!Form::select('type_id', \App\Type::lists('slug', 'id'), $product->type->id, ['class' => 'form-control'])!!}
                             </div>
                         </div>
                         <br><br>
