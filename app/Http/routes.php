@@ -21,6 +21,17 @@ Route::get('profile', function(){
 	$profile->save();
 });
 */
+Route::get('customer-work', function(){
+	$customers = \App\Customer::all();
+	$log = '';
+	$brand = \App\Brand::find('3');
+	foreach ($customers as $customer) {
+		if ($customer->brands->first()['slug'] != 'cinziaaraia') {
+			$brand->customers()->attach($customer->id);
+		}
+	}
+	return 'ok';
+});
 
 Route::get('1', function(){
 	return \App\EneaHelper::percentage('50', '200');
