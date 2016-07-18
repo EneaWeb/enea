@@ -36,6 +36,6 @@ class ProfileController extends Controller
         $user_options->save();
         
         \App\Alert::success(trans('messages.Brand in use changed'));
-        return redirect()->back();
+        return redirect('/');
     }
 }
