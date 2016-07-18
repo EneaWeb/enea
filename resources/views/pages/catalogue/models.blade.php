@@ -49,8 +49,8 @@
                                     <tr>
                                         <th>{!!trans('auth.Name')!!}</th>
                                         <th>{!!trans('auth.Slug')!!}</th>
-                                        <th>{!!trans('auth.Slug')!!}</th>
-                                        <th>{!!trans('menu.Type')!!}</th>
+                                        <th>{!!trans('auth.Type')!!}</th>
+                                        <th>{!!trans('menu.Actions')!!}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>{!!$model->name!!}</td>
                                         <td>{!!$model->slug!!}</td>
-                                        <td>{!!$model->type->name!!}</td>
+                                        <td>{!!trans('messages.'.$model->type->slug)!!}</td>
                                         <td>
                                             <button href="#" data-toggle="modal" data-target="#modal_edit_model{!!$model->id!!}" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-pencil"></span></button>
                                             <button class="btn btn-danger btn-rounded btn-condensed btn-sm" onClick="confirm_delete_model({!!$model->id!!});"><span class="fa fa-times"></span></button>
