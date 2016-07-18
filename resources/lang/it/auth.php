@@ -21,6 +21,7 @@ return [
     'Login' => 'Accedi',
     'Sign Out' => 'Scollegati',
     'Name' => 'Nome',
+    'Type' => 'Tipologia',
     'Slug' => 'Codice',
     'Action' => 'Azione',
     'Select' => 'Seleziona',

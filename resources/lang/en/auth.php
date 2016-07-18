@@ -20,6 +20,7 @@ return [
     'Create an account' => 'Create an account',
     'Login' => 'Login',
     'Sign Out' => 'Sign Out',
+    'Type' => 'Type',
     'Name' => 'Name',
     'First Name' => 'First Name',
     'Bio' => 'Bio',
