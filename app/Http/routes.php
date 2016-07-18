@@ -21,6 +21,7 @@ Route::get('profile', function(){
 	$profile->save();
 });
 */
+/*
 Route::get('customer-work', function(){
 	$customers = \App\Customer::all();
 	$log = '';
@@ -32,7 +33,7 @@ Route::get('customer-work', function(){
 	}
 	return 'ok';
 });
-
+*/
 Route::get('1', function(){
 	return \App\EneaHelper::percentage('50', '200');
 });
