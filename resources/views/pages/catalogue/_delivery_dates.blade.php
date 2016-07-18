@@ -6,6 +6,7 @@
             </ul>                     
     </div>
     <div class="panel-body">  
+        @if ($season->season_deliveries->all())
         @foreach($season->season_deliveries->all() as $delivery_date)
                 <table class="table" style="margin-bottom:6px">
                 <tr class="active">
@@ -30,6 +31,7 @@
                 </tr>    
                 </table>
         @endforeach
+        @endif
     </div>
 </div>
 

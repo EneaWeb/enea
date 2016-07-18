@@ -6,6 +6,7 @@
             </ul>                     
     </div>
     <div class="panel-body">  
+        @if ($season->season_lists->all())
         @foreach($season->season_lists->all() as $season_list)
                 <table class="table" style="margin-bottom:6px">
                 <tr class="active">
@@ -27,6 +28,7 @@
                 </tr>    
                 </table>
         @endforeach
+        @endif
     </div>
 </div>
 
