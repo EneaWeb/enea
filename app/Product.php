@@ -78,7 +78,7 @@ class Product extends Model
     
     public function type()
     {
-        return $this->belongsTo('\App\Types');
+        return $this->belongsTo('\App\Type');
     }
     
     public function items()
