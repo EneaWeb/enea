@@ -10,6 +10,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use Illuminate\Support\Collection as Collection;
 use Auth;
 
 class Size extends Model
@@ -52,5 +53,17 @@ class Size extends Model
 	/**
 	* Relations
 	*/
+	
+	public static function sizes_for_type(\App\Product $product)
+	{
+		$sizes = new Collection;
+		foreach (\App\Size::all() as $size) {
+			$types = unserialize($size->types);
+			if (in_array($product->type_id, $types)) {
+				$sizes->push($size);
+			}
+		}
+		return $sizes;
+	}
 
 }

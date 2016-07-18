@@ -35,7 +35,7 @@
                     <tr>
                         <th></th>
                         <th></th>
-                            @foreach (\App\Size::all() as $size)
+                            @foreach (\App\Size::sizes_for_type($product) as $size)
                             <th>{!!$size->name!!}</th>
                             @endforeach
                     </tr>

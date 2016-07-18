@@ -11,6 +11,11 @@ Route::get('/cust', 'CustomerController@add');
 |
 */
 
+Route::get('size', function(){
+	$product = \App\Product::find(5);
+	return \App\Size::sizes_for_type($product);
+});
+
 /*
 Route::get('profile', function(){
 	$profile = new \App\Profile;
