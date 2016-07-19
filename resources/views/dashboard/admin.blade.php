@@ -23,7 +23,12 @@
 	       </div>
 	   </div>
 	   --}}
-	
+		{{--
+		<div class="col-md-12">
+			@include('stats.orders')
+		</div>
+		--}}
+		
 	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}
 	       <div class="panel panel-default">

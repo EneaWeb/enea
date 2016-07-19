@@ -19,6 +19,8 @@
     {{ HTML::style('/assets/css/lightbox/ekko-lightbox.min.css') }}
     {{ HTML::style('/assets/css/fontawesome/font-awesome.min.css') }}
     
+    {{ HTML::style('/assets/css/morris-0.4.3.min.css') }}
+    
     {{ HTML::style('/assets/css/theme-default.css') }}
     {{ HTML::style('/assets/css/style.css') }}
     
@@ -31,7 +33,9 @@
     {{ HTML::script('/assets/js/pdfobject.min.js') }} 
     {{ HTML::script('/assets/js/alertify.min.js') }} 
     
-      
+    {{ HTML::script('/assets/js/plugins/morris/raphael-min.js') }}
+    {{ HTML::script('/assets/js/plugins/morris/morris.min.js') }}
+
     @include('components.alerts')
     
     {{-- END PLUGINS --}}

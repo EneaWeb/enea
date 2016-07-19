@@ -120,6 +120,11 @@ Route::group([
 		Session::forget('order');
 	});
 	
+	/*
+		API
+	*/
+	Route::get('/api1/stats/orders', 'ApiController@orders');
+	
 	Route::get('/session', function(){ return dd(Session::all()); });
 	Route::get('/logout', 'Auth\AuthController@logout');
 	Route::get('/dashboard', 'DashboardController@index');

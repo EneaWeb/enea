@@ -6,8 +6,6 @@
 {{ HTML::script('/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}
 {{ HTML::script('/assets/js/plugins/scrolltotop/scrolltopcontrol.js') }}
 
-{{ HTML::script('/assets/js/plugins/morris/raphael-min.js') }}
-{{ HTML::script('/assets/js/plugins/morris/morris.min.js') }}
 {{ HTML::script('/assets/js/plugins/rickshaw/d3.v3.js') }}
 {{ HTML::script('/assets/js/plugins/rickshaw/rickshaw.min.js') }}
 {{ HTML::script('/assets/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}

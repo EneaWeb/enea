@@ -2341,7 +2341,7 @@ html {
   float: left;
   min-height: 100%;
   position: relative;
-  background: #250023;
+  background: #000000;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;
@@ -2777,7 +2777,7 @@ body.page-container-boxed.wall_10 {
 }
 .x-navigation.x-navigation-horizontal {
   height: 50px;
-  background: #250023;
+  background: #000000;
 }
 .x-navigation.x-navigation-horizontal .xn-logo a {
   border-bottom: 0px;
@@ -3424,7 +3424,7 @@ body.page-container-boxed.wall_10 {
   float: left;
   padding: 15px 10px;
   position: relative;
-  background: #250023;
+  background: #000000;
 }
 .profile .profile-image {
   float: left;
