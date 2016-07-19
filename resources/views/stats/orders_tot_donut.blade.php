@@ -12,6 +12,7 @@ $.getJSON('/api1/stats/orders-seasonlist-tot?'+filter, function(ordersDonut) {
 	new Morris.Donut({
 		element: 'orders-donut-tot',
 		data: ordersDonut,
+		colors:['#7D0C0C', '#236CAA', '#225F0A', '#6B0C68', '#6E6B0F'],
 		resize:true,
 		formatter: function(x){return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+' €';},
 	});
