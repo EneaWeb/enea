@@ -20,6 +20,8 @@ return [
 	'Models' => 'Models',
 	'Colors' => 'Colors',
 	'Sold by model' => 'Sold by model',
+	'Total Sales' => 'Total Sales',
+	'Daily Income' => 'Daily Income',
 	'Gallery/List View' => 'Gallery/List View',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network.",
 	"If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network." => "If the user is already registered on our system, will be automatically added to your network. <br>Otherwhise he will get <b>an email</b> and will be invited to confirm and join your brand network.",

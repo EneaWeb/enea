@@ -23,11 +23,24 @@
 	       </div>
 	   </div>
 	   --}}
-		{{--
-		<div class="col-md-12">
-			@include('stats.orders')
+		
+		<div class="col-md-6">
+	      <div class="panel panel-default">
+	         <div class="panel-heading">
+	            <div class="panel-title-box">
+	               <h3>{!!trans('messages.Sales')!!}</h3>
+	               <span>{!!trans('messages.Daily Income')!!}</span>
+	            </div>                                    
+	            <ul class="panel-controls" style="margin-top: 2px;">
+	               <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+	            </ul>
+	         </div>
+	         <div class="panel-body panel-body-table">
+					@include('stats.orders')
+				</div>
+			</div>
 		</div>
-		--}}
+		
 		
 	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}

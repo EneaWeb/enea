@@ -19,6 +19,8 @@ return [
 	'N. Items' => 'N. Pezzi',
 	'Models' => 'Modelli',
 	'Colors' => 'Colori',
+	'Total Sales' => 'Vendite Totali',
+	'Daily Income' => 'Fatturato Giornaliero',
 	'Sold by model' => 'Venduto per modello',
 	'Gallery/List View' => 'Vista Gallery/Lista',
 	"Please insert the <b>name</b> and the <b>email address</b> of the user you want to add on your network." => "Inserisci il <b>nome</b> e <b>l'indirizzo email</b> dell'utente che vuoi aggiungere al tuo network.",

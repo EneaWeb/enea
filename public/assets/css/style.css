@@ -3,6 +3,7 @@
 ENEAWEB
 
 **/
+.md-scroll-mask { position: initial;}
 
 .brand-avatar-mini {
 	width:30px; height:30px;
