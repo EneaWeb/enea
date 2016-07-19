@@ -9,7 +9,8 @@
 
 @section('content')                
     <div class="page-content-wrap">
-        
+    
+    
         <div class="page-title">                    
             <h2>{!!trans('menu.Manage Orders')!!}</h2>
         </div>
@@ -39,6 +40,23 @@
         </div>
         <br><br>
         {{-- END WIDGETS --}}
+        
+        <div class="row"><div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title-box">
+                       <h3>{!!trans('messages.Sales')!!}</h3>
+                       <span>{!!trans('messages.Daily Income')!!}</span>
+                    </div>                                    
+                    <ul class="panel-controls" style="margin-top: 2px;">
+                       <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+                    </ul>
+                </div>
+                <div class="panel-body panel-body-table">
+                    @include('stats.orders_line')
+                </div>
+            </div>
+        </div>
 
         <div class="row">         
             <div class="col-md-12">
