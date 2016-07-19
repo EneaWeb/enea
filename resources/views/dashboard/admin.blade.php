@@ -41,7 +41,48 @@
 		   </div>
 		</div>
 		
-		
+		{{--
+		<div class="col-md-6">
+	       <div class="panel panel-default">
+	           <div class="panel-heading">
+	               <div class="panel-title-box">
+	                   <h3>{!!trans('messages.Sales')!!}</h3>
+	                   <span>Map</span>
+	               </div>                                    
+	               <ul class="panel-controls" style="margin-top: 2px;">
+	                   <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+	               </ul>
+	           </div>
+	           <div class="panel-body panel-body-table">
+	               {!!$mapHelper->render($map)!!}
+	           </div>
+	           
+	       </div>
+	   </div>
+	   --}}
+	   
+		<div class="col-md-6">	
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title-box">
+					    <h3>{!!trans('messages.Sales')!!}</h3>
+					    <span>{!!trans('messages.Stats')!!}</span>
+					</div>                                    
+					<ul class="panel-controls" style="margin-top: 2px;">
+					    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>                                   
+					</ul>
+				</div>
+				<div class="panel-body panel-body-table">
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				   	@include('stats.orders_n_donut')
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				   	@include('stats.orders_tot_donut')
+					</div>
+				</div>
+			</div>
+		</div>
+	   
 	   <div class="col-md-6">
 	      {{-- START PROJECTS BLOCK --}}
 	       <div class="panel panel-default">

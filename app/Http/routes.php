@@ -124,6 +124,8 @@ Route::group([
 		API
 	*/
 	Route::get('/api1/stats/orders', 'ApiController@orders');
+	Route::get('/api1/stats/orders-seasonlist-n', 'ApiController@orders_seasonlist_n');
+	Route::get('/api1/stats/orders-seasonlist-tot', 'ApiController@orders_seasonlist_tot');
 	
 	Route::get('/session', function(){ return dd(Session::all()); });
 	Route::get('/logout', 'Auth\AuthController@logout');

@@ -14,26 +14,17 @@
     </li>
 </ul>
 --}}
-<div id="stats-container" style="height: 250px;"></div>
+<div id="orders-line" style="height: 250px;"></div>
 
 <script>
-    Number.prototype.formatMoney = function(c, d, t){
-    var n = this, 
-        c = isNaN(c = Math.abs(c)) ? 2 : c, 
-        d = d == undefined ? "." : d, 
-        t = t == undefined ? "," : t, 
-        s = n < 0 ? "-" : "", 
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-        j = (j = i.length) > 3 ? j % 3 : 0;
-       return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-     };
+
     $(function() {
         filter = '';
-        $.getJSON('/api1/stats/orders?'+filter, function(data) {
+        $.getJSON('/api1/stats/orders?'+filter, function(ordersLine) {
             new Morris.Line({
                 // ID of the element in which to draw the chart.
-                element: 'stats-container',
-                data: data,
+                element: 'orders-line',
+                data: ordersLine,
                 resize:true,
                 lineColors: ['#9C1D00'],
                 xkey: 'date',
