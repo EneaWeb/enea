@@ -17,6 +17,7 @@ return [
 	'Active Users for brand' => 'Utenti attivi per il brand',
 	'Active users' => 'Utenti attivi',
 	'On brand' => 'Sul brand',
+	'Income per List' => 'Fatturato per Listino',
 	'Stats' => 'Stats',
 	'N. Items' => 'N. Pezzi',
 	'Models' => 'Modelli',

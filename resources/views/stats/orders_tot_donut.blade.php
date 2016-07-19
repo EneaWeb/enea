@@ -1,4 +1,4 @@
-&nbsp;&nbsp; <h6>N. {!!trans('messages.Orders per List')!!}</h6>
+&nbsp;&nbsp; <h6>{!!trans('messages.Income per List')!!}</h6>
 <div id="orders-donut-tot" style="max-width:200px; max-height:200px"></div>
 
 <script>
