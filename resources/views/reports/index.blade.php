@@ -68,6 +68,17 @@
                                             <th>{!!trans('auth.Total')!!}</th>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            @foreach (\App\Size::all() as $size)
+                                                <th></th>
+                                            @endforeach
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                     <tbody>
                                         @foreach($product_ids as $product_id)
                                             <tr>
@@ -108,16 +119,25 @@
             $(document).ready(function() {
                 
                 var currentLocale = $('#getcurrentlocale').text();
-                var soldByItemQty_column = $('#sold-by-item').find('th:last').index()-1;
+                var lastColumn = $('#sold-by-item').find('th:last').index();
+                var lastColumnMinusOne = lastColumn-1;
                 
                 $('#sold-by-item').DataTable( {
-                    "order": [[ soldByItemQty_column, "desc" ]],
+                    "order": [[ lastColumnMinusOne, "desc" ]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     sScrollX: "100%",
                     paginate: false,
                     bSort: false,
+                    drawCallback: function () {
+                    var api = this.api();
+                    $( api.table().columns().every() ).html(
+                        '<span style="float:right"><button class="btn btn-warning">'+            
+                        api.column( lastColumnMinusOne, {page:'current'} ).data().sum()
+                        +'</button></span>'
+                      );
+                    }
                 });
-                
+                       
             } );
         </script>
     </div>

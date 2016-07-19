@@ -23,19 +23,20 @@ class Customer extends Model
 
 	protected $fillable = [
 		'companyname',
-		'name',
-		'address',
 		'sign',
-		'telephone',
-		'email',
+		'name',
+		'vat',
+		'address',
 		'city',
 		'province',
 		'postcode',
 		'country',
+		'map_x',
+		'map_y',
+		'telephone',
 		'mobile',
 		'fax',
 		'email',
-		'vat',
 		'language'
 	];
 

@@ -210,6 +210,7 @@ class CustomerController extends Controller
 			// get the customer from ID
 			$customer = Customer::find(Input::get('id'));
 			// edit the informations
+			$customer->companyname = Input::get('companyname');
 			$customer->name = Input::get('name');
 			$customer->sign = Input::get('sign');
 			$customer->vat = Input::get('vat');
