@@ -1,5 +1,5 @@
 &nbsp;&nbsp; <h6>{!!trans('messages.Income per List')!!}</h6>
-<div id="orders-donut-tot" style="max-width:200px; max-height:200px"></div>
+<div id="orders-donut-tot" style="max-width:200px; max-height:200px; margin-left:auto; margin-right:auto;"></div>
 
 <script>
 /*
