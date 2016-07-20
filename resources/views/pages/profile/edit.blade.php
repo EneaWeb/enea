@@ -276,7 +276,7 @@
                     </div>
                     <div class="modal-footer">
                         {!!Form::submit(trans('auth.Save'), ['class'=>'btn btn-danger'])!!}
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('auth.close')!!}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('auth.Close')!!}</button>
                     </div>
                     {!!Form::close()!!}
                 </div>
