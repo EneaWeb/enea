@@ -13,7 +13,8 @@ class EneaHelper extends Model
 	
 	public static function percentage($num1, $num2)
 	{
-		return ($num1 / $num2) * 100;
+		if ($num2 != 0)
+			return ($num1 / $num2) * 100;
 	}
 	
 }
