@@ -181,13 +181,19 @@
                 </td>
                 {{--*/ $totprice = 0 /* --}}
                 {{--*/ $qty = 0 /* --}}
-                @foreach (\App\Item::where('product_variation_id', $product_variation_id)->get() as $item)
-                <td style="text-align:center" id="{!!$item->id!!}">
-                    @if (\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first() != NULL)
-                        {!!\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty!!}
-                        {{--*/ $price = \App\ItemPrice::where('item_id',$item->id)->where('season_list_id', $order->season_list_id)->first()->price /*--}}
-                        {{--*/ $totprice += ( \App\ItemPrice::where('item_id',$item->id)->where('season_list_id', $order->season_list_id)->first()->price * \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty ) /*--}}
-                        {{--*/ $qty += \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item->id)->first()->qty /*--}}
+                @foreach (\App\Size::all() as $size)
+                <td style="text-align:center">
+                    @if (!empty(\App\Item::where('product_variation_id', $product_variation_id)
+                                            ->where('size_id', $size->id)->get()))
+                        {{--*/ $item_id = \App\Item::where('product_variation_id', $product_variation_id)
+                                                    ->where('size_id', $size->id)->value('id'); /*--}}
+                                                                
+                        @if (\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item_id)->first() != NULL)
+                            {!!\App\OrderDetail::where('order_id', $order->id)->where('item_id', $item_id)->first()->qty!!}
+                            {{--*/ $price = \App\ItemPrice::where('item_id',$item_id)->where('season_list_id', $order->season_list_id)->first()['price'] /*--}}
+                            {{--*/ $totprice += ( \App\ItemPrice::where('item_id',$item_id)->where('season_list_id', $order->season_list_id)->first()['price'] * \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item_id)->first()['qty']) /*--}}
+                            {{--*/ $qty += \App\OrderDetail::where('order_id', $order->id)->where('item_id', $item_id)->first()['qty'] /*--}}
+                        @endif
                     @endif
                 </td>
                 @endforeach

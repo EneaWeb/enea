@@ -166,10 +166,17 @@
                                                                     \App\ProductVariation::find($product_variation_id)
                                                                         ->color_id)->name!!}
                                                     </th>
-                                                    @foreach (\App\Item::where('product_variation_id', $product_variation_id)->get() as $item)
-                                                    <td style="text-align:center" id="{!!$item->id!!}">
-                                                        @if (array_key_exists($item->id, Session::get('order.items')))
-                                                            {!! Session::get('order.items.'.$item->id) !!}
+                                                    @foreach (\App\Size::all() as $size)
+                                                    <td style="text-align:center">
+                                                        @if (!empty(\App\Item::where('product_variation_id', $product_variation_id))
+                                                            ->where('size_id', $size->id)->get()))
+                                                            
+                                                            {{--*/ $item_id = \App\Item::where('product_variation_id', $product_variation_id)
+                                                            ->where('size_id', $size->id)->value('id'); /*--}}
+                                                            @if (array_key_exists($item_id, Session::get('order.items')))
+                                                                {!! Session::get('order.items.'.$item_id) !!}
+                                                            @endif
+                                                            
                                                         @endif
                                                     </td>
                                                     @endforeach
