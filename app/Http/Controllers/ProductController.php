@@ -178,7 +178,13 @@ class ProductController extends Controller
 	{
 		
 		// NOTA ATTENZIONE
-		// se non ci sono colori, non crea nulla ma manda messaggio conferma success
+		// da fixare:
+		// se non ci sono colori o non ci sono le taglie non crea nulla ma manda messaggio conferma success
+		
+		// TERRIBILE
+		// da fixare:
+		// mi fa aggiungere colori anche se non ci sono taglie => creazione items risulta nulla
+		// => non posso aggiungere prezzi.. un casino
 		
 		// get product
 		$product_id = Input::get('id');

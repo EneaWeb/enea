@@ -16,6 +16,21 @@ Route::get('size', function(){
 	return \App\Size::sizes_for_type($product);
 });
 
+Route::get('fix', function(){
+	
+	foreach (\App\ProductVariation::all() as $prod_var) {
+		foreach (\App\Size::sizes_for_type($prod_var->product) as $size) {
+			$item = new \App\Item;
+			$item->product_id = $prod_var->product->id;
+			$item->product_variation_id = $prod_var->id;
+			$item->size_id = $size->id;
+			$item->active = '1';
+			$item->save();
+		}
+	}
+	
+});
+
 /*
 Route::get('profile', function(){
 	$profile = new \App\Profile;
