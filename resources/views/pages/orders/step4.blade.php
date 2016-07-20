@@ -203,7 +203,7 @@
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         € {!!number_format($subtotal, 2, ',', '.');!!}
                                         <br>
-                                        {!!trans('messages.'.ucfirst(\App\Payment::find($fullOrder['payment_id'])->action))!!}
+                                        {!!\App\Payment::find($fullOrder['payment_id'])->action)!!}
                                         {!!\App\Payment::find($fullOrder['payment_id'])->amount !!}%
                                     </h6>
                                 </div>
