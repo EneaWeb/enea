@@ -62,7 +62,7 @@ class SeasonList extends Model
 		}
 		else {
 			// get only user price lists
-			return Auth::user()->season_lists()->where('season_lists.season_id', \App\Option::where('name', 'active_season')->first()->value)->lists('name', 'id');
+			return Auth::user()->season_lists()->where('season_lists.season_id', \App\Option::where('name', 'active_season')->first()->value)->lists('season_lists.name', 'season_lists.id');
 		}
 	}
 

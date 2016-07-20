@@ -72,4 +72,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('\App\SeasonList', 'user_season_list');
     }
+
 }
