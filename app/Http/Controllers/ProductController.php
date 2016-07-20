@@ -154,7 +154,7 @@ class ProductController extends Controller
 
 			// BRUTALE
 			// salvo per ogni taglia una riga di item con il relativo colore
-			foreach (\App\Size::sizes_for_type($prod_var->product) as $size)
+			foreach (\App\Size::sizes_for_type($product) as $size)
 			{
 				$item = new \App\Item;
 				$item->product_id = Input::get('id');
