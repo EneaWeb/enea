@@ -241,10 +241,10 @@ Route::group([
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	
 	Route::get('/customers/api-companyname', function(){
-		return \App\Customer::lists('companyname')->toJson();
+		return \App\Brand::find(Auth::user()->options->brand_in_use->id)->customers()->lists('companyname')->toJson();
 	});
 	Route::get('/customers/api-sign', function(){
-		return \App\Customer::lists('sign')->toJson();
+		return \App\Brand::find(Auth::user()->options->brand_in_use->id)->customers()->lists('sign')->toJson();
 	});
 	Route::get('/customers/api-customer-data', function(){
 		$companyname = Input::get('companyname');
