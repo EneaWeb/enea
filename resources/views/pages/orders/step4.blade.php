@@ -168,8 +168,7 @@
                                                     </th>
                                                     @foreach (\App\Size::all() as $size)
                                                     <td style="text-align:center">
-                                                        @if (!empty(\App\Item::where('product_variation_id', $product_variation_id))
-                                                            ->where('size_id', $size->id)->get()))
+                                                        @if ( !empty( \App\Item::where('product_variation_id', $product_variation_id)->where('size_id', $size->id)->get() ) )
                                                             
                                                             {{--*/ $item_id = \App\Item::where('product_variation_id', $product_variation_id)
                                                             ->where('size_id', $size->id)->value('id'); /*--}}
