@@ -17,6 +17,7 @@ return [
 	'Active users' => 'Active users',
 	'Show Customer' => "Show Customer",
 	'Income per List' => 'Income per List',
+	'Income per Type' => 'Income per Type',
 	'Stats' => 'Stats',
 	'On brand' => 'On brand',
 	'N. Items' => 'N. Items',
