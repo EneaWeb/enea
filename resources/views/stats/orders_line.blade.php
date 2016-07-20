@@ -20,7 +20,7 @@
 
     $(function() {
         filter = '';
-        $.getJSON('/api1/stats/orders?'+filter, function(ordersLine) {
+        $.getJSON('/api1/stats/orders', function(ordersLine) {
             new Morris.Line({
                 // ID of the element in which to draw the chart.
                 element: 'orders-line',

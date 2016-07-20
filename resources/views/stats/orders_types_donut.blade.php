@@ -7,14 +7,15 @@
  *
  * Why not try some of the options above?
  */
-filter = '';
-$.getJSON('/api1/stats/orders-types?'+filter, function(ordersDonut) {
-	new Morris.Donut({
-		element: 'orders-types',
-		data: ordersDonut,
-		//colors:['#7D0C0C', '#236CAA', '#225F0A', '#6B0C68', '#6E6B0F'],
-		resize:true,
-		formatter: function(x){return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+' €';},
+$(function() {
+	$.getJSON('/api1/stats/orders-types', function(ordersDonut) {
+		new Morris.Donut({
+			element: 'orders-types',
+			data: ordersDonut,
+			colors:['#176E29', '#690B58', '#A1A311', '#6B0C68', '#6E6B0F'],
+			resize:true,
+			formatter: function(x){return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+' €';},
+		});
 	});
 });
 </script>
