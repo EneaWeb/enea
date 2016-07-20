@@ -122,7 +122,8 @@
 	                               $percent = \App\EneaHelper::percentage(
 	                                       		\App\Order::where('user_id', $agent->id)->sum('total'), 
 	                                       		\App\Order::sum('total'));
-	                                       		
+	                                 if($percent == 0)
+	                                 	$barColor = '';
 	                              	if($percent >= 1 && $percent < 20)
 	                              		$barColor = 'danger';
 	                              	else if ($percent >= 20 && $percent < 50)
