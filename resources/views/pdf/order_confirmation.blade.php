@@ -83,11 +83,21 @@
 
     <br><br><br>
     <p>
-    {!!trans('messages.The delivery of goods will be done at the following address:')!!} 
-            <u>{!!$customer_delivery->postcode!!} 
+        {!!trans('messages.The delivery of goods will be done at the following address:')!!} 
+        <u>
+        {!!$customer_delivery->address!!} 
+        {!!$customer_delivery->postcode!!} 
         {!!$customer_delivery->city!!} 
-        ({!!$customer_delivery->province!!})
-        - {!!$customer_delivery->country!!}</p>
+        {!! ($customer_delivery->province != '' ? '('.$customer_delivery->province .')' : '')!!}
+        - {!!$customer_delivery->country!!}
+        </u>
+    </p>
+    <p>
+        {!!trans('messages.Delivery Date')!!}:
+        <u>
+            {!!\App\SeasonDelivery::find($order->season_delivery_id)->name!!}
+        </u>
+    </p>
     </p>
     <p>
     {!!trans('messages.Payment conditions')!!}: 

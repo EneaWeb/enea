@@ -39,6 +39,7 @@ return [
 	'Current Season' => 'Current Season',
 	'Select Season' => 'Select Season',
 	'Delivery Dates' => 'Delivery Dates',
+	'Delivery Date' => 'Delivery Date',
 	'Delivery Date saved' => 'Delivery Date Saved',
 	'Delivery Date deleted' => 'Delivery Date deleted',
 	'Delivery Date updated' => 'Delivery Date updated',

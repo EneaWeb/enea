@@ -23,6 +23,7 @@ return [
 	'N. Items' => 'N. Pezzi',
 	'Models' => 'Modelli',
 	'Colors' => 'Colori',
+	'Delivery Date' => 'Data di consegna',
 	'Total Sales' => 'Vendite Totali',
 	'Daily Income' => 'Fatturato Giornaliero',
 	'Sold by model' => 'Venduto per modello',
