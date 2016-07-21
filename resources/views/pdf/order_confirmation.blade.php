@@ -84,25 +84,33 @@
     <br><br><br>
     <p>
         {!!trans('messages.The delivery of goods will be done at the following address:')!!} 
-        <u>
-        {!!$customer_delivery->address!!} 
+
+        {!!strtoupper($customer_delivery->address)!!} 
         {!!$customer_delivery->postcode!!} 
-        {!!$customer_delivery->city!!} 
+        {!!strtoupper($customer_delivery->city)!!} 
         {!! ($customer_delivery->province != '' ? '('.$customer_delivery->province .')' : '')!!}
         - {!!$customer_delivery->country!!}
-        </u>
+
+    </p>
+    <p>
+        {!!trans('messages.Referee')!!}: 
+        
+        {!!strtoupper($order->customer->name)!!} - {!!strtoupper($order->customer->telephone)!!} - {!!strtoupper($order->customer->email)!!}
     </p>
     <p>
         {!!trans('messages.Delivery Date')!!}:
-        <u>
-            {!!\App\SeasonDelivery::find($order->season_delivery_id)->name!!}
-        </u>
-    </p>
+        {!!strtoupper(\App\SeasonDelivery::find($order->season_delivery_id)->name)!!}
     </p>
     <p>
-    {!!trans('messages.Payment conditions')!!}: 
-        <u>{!!\App\Payment::find($order->payment_id)->name!!}</u>
-    </p><br><br>
+        {!!trans('messages.Payment conditions')!!}: 
+        {!!strtoupper(\App\Payment::find($order->payment_id)->name)!!}
+    </p>
+    <p>
+        {!!trans('messages.Agent Notes')!!}: 
+        {!!$order->note!!}
+    </p>
+    
+    <br><br>
 
     <table>
         <tr>
@@ -145,7 +153,7 @@
             </td>
             <td>
                 <div style="float:left; display:inline-block; width:100px; padding:16px; background-color:#591055; color:white">
-                    <h3>{!!($order->payment->amount != NULL) ? '-'.$order->payment->amount.'%' : '/' !!}</h3>
+                    <h3>{!!($order->payment->amount != NULL) ? $order->payment->action.' '.round($order->payment->amount).'%' : '/' !!}</h3>
                 </div>
             </td>
         </tr>
@@ -219,13 +227,7 @@
 
     @include('pdf.order_confirmation_header')
 
-    <h3>NOTE :</h3>
-
-    <br>
-    <p>
-        {!!$order->note!!}
-    </p>
-    <br><br><br>
+    <br><br>
 
     <h3>{!!strtoupper(trans('messages.Conditions'))!!}:</h3>
 
