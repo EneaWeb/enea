@@ -105,10 +105,12 @@
         {!!trans('messages.Payment conditions')!!}: 
         {!!strtoupper(\App\Payment::find($order->payment_id)->name)!!}
     </p>
-    <p>
-        {!!trans('messages.Agent Notes')!!}: 
-        {!!$order->note!!}
-    </p>
+    @if ($order->note != '')
+        <p>
+            {!!trans('messages.Agent Notes')!!}: 
+            {!!$order->note!!}
+        </p>
+    @endif
     
     <br><br>
 
