@@ -70,7 +70,7 @@
                 <p>{!!trans('auth.Vat')!!} {!!$order->customer->vat!!}</p>
                 <p>{!!$order->customer->address!!}</p>
                 <p>
-                   {!!($order->customer->postcode != '') ? $order->customer->postcode : ''!!} 
+                   {!!(($order->customer->postcode != '') && ($order->customer->postcode != '0') ) ? $order->customer->postcode : ''!!} 
                     {!!$order->customer->city!!} 
                     {!!($order->customer->province != '') ? '('.$order->customer->province.')' : ''!!}
                     - {!!$order->customer->country!!}
