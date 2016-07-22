@@ -70,10 +70,10 @@
                 <p>{!!trans('auth.Vat')!!} {!!$order->customer->vat!!}</p>
                 <p>{!!$order->customer->address!!}</p>
                 <p>
-                    {!!$order->customer->postcode!!} 
-                    {!!$order->customer->city!!} 
-                    ({!!$order->customer->province!!})
-                    - {!!$order->customer->country!!}
+                   {!!($customer->postcode != '') ? $customer->postcode : ''!!} 
+                    {!!$customer->city!!} 
+                    {!!($customer->province != '') ? '('.$customer->province.')' : ''!!}
+                    - {!!$customer->country!!}
                 </p>
                 <p>{!!$order->customer->email!!}</p>
                 <p>{!!$order->customer->telephone!!} / {!!$order->customer->mobile!!}</p>    
