@@ -74,14 +74,23 @@
                                 <div class="form-group">
                                     {!!Form::label('payment_id', 'Seleziona il listino*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
-                                        {!!Form::select('season_list_id', \App\SeasonList::return_user_lists(), '', ['class'=>'form-control'])!!}
+                                        {!!Form::select('season_list_id', 
+                                                        \App\SeasonList::return_user_lists(), 
+                                                        (Session::has('order.season_list_id')) ? 
+                                                            Session::get('order.season_list_id') : 
+                                                            '', 
+                                                        , ['class'=>'form-control'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('payment_id', 'Seleziona un metodo di pagamento*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
-                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
+                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), 
+                                        (Session::has('order.payment_id')) ? 
+                                            Session::get('order.payment_id') : 
+                                            '',
+                                         ['class'=>'form-control'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>
@@ -98,7 +107,7 @@
                                         <select name="customer_delivery_id" class="form-control">
                                             <option value="0">{!!$customer->address.' - '.$customer->postcode.' '.$customer->city!!}</option>
                                             @foreach (\App\CustomerDelivery::where('customer_id', $customer->id)->get() as $addr)
-                                                <option value="{!!$addr->id!!}">{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
+                                                <option @if(Session::has('customer_delivery_id'))@if(Session::get('customer_delivery_id')==$addr->id) selected="selected" @endif@endif value="{!!$addr->id!!}">{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
                                             @endforeach
                                         </select>   
                                     </div>
