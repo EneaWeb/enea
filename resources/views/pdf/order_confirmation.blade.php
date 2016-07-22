@@ -55,9 +55,9 @@
                 <p>{!!trans('auth.Vat')!!} {!!$brand->vat!!}</p>
                 <p>{!!$brand->address!!}</p>
                 <p>
-                    {!!$brand->postcode!!} 
+                    {!!($brand->postcode != '') $brand->postcode : ''!!} 
                     {!!$brand->city!!} 
-                    ({!!$brand->province!!})
+                    {!!($brand->province != '') '('.$brand->province.')' : ''!!}
                     - {!!$brand->country!!}
                 </p>
                 <p>{!!$brand->email!!}</p>
