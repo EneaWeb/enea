@@ -20,6 +20,7 @@ return [
     'Are you sure you want to delete this payment option?' => 'Sei sicuro di volere rimuovere questa opzione di pagamento?',
     'Are you sure you want to delete this order?' => "Sei sicuro di volere cancellare questo ordine? L'operazione è irreversibile.",
     'Are you sure you want to delete this model?' => 'Sei sicuro di volere cancellare questo modello?',
+    'Are you sure you want to delete this option?' => 'Sei sicuro di volere cancellare questa opzione?',
     
     'required-attribute-name' => 'Il campo Nome Attributo è obbligatorio',
     'required-attribute-slug' => 'Il campo Codice Attributo è obbligatorio',

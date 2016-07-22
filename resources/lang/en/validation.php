@@ -20,6 +20,7 @@ return [
     'Are you sure you want to delete this payment option?' => 'Are you sure you want to delete this payment option?',
     'Are you sure you want to delete this order?' => 'Are you sure you want to delete this order? The action is irreversible.',
     'Are you sure you want to delete this model?' => 'Are you sure you want to delete this model?',
+    'Are you sure you want to delete this option?' => 'Are you sure you want to delete this option?',
     
     'required-attribute-name' => 'The Attribute Name field is required',
     'required-attribute-slug' => 'The Attribute Slug field is required',
