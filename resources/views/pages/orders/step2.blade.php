@@ -74,23 +74,14 @@
                                 <div class="form-group">
                                     {!!Form::label('payment_id', 'Seleziona il listino*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
-                                        {!!Form::select('season_list_id', 
-                                                        \App\SeasonList::return_user_lists(), 
-                                                        (Session::has('order.season_list_id')) ? 
-                                                            Session::get('order.season_list_id') : 
-                                                            '', 
-                                                        , ['class'=>'form-control'])!!}
+                                        {!!Form::select('season_list_id', \App\SeasonList::return_user_lists(), '', ['class'=>'form-control'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
                                     {!!Form::label('payment_id', 'Seleziona un metodo di pagamento*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
-                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), 
-                                        (Session::has('order.payment_id')) ? 
-                                            Session::get('order.payment_id') : 
-                                            '',
-                                         ['class'=>'form-control'])!!}
+                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>
