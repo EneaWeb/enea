@@ -36,7 +36,7 @@ class CustomerController extends Controller
 		*/
 		
 		// retrieve all customers
-		$customers = \App\Brand::find(Auth::user()->options->active_brand)->customers->get();
+		$customers = \App\Brand::find(Auth::user()->options->active_brand)->customers;
 		
 		$autocomplete = new Autocomplete();
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
