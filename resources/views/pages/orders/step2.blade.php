@@ -107,7 +107,13 @@
                                         <select name="customer_delivery_id" class="form-control">
                                             <option value="0">{!!$customer->address.' - '.$customer->postcode.' '.$customer->city!!}</option>
                                             @foreach (\App\CustomerDelivery::where('customer_id', $customer->id)->get() as $addr)
-                                                <option @if(Session::has('customer_delivery_id'))@if(Session::get('customer_delivery_id') == $addr->id) selected="selected" @endif @endif value="{!!$addr->id!!}">{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
+                                                <option 
+                                                Value="{!!$addr->id!!}"
+                                                @if ( Session::has('customer_delivery_id') )
+                                                @if ( Session::get('customer_delivery_id') == $addr->id ) 
+                                                    selected="selected" 
+                                                @endif @endif 
+                                                >{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
                                             @endforeach
                                         </select>   
                                     </div>
