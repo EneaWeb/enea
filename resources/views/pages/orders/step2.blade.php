@@ -85,7 +85,7 @@
                                                 @endif @endif 
                                                 >{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
                                             @endforeach
-                                        </select>   
+                                        </select>
                                     </div>
                                     <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
                                         <button class="btn btn-main" style="margin-top:12px; color:white"><span class="fa fa-plus"></span></button>

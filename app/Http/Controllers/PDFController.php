@@ -126,7 +126,83 @@ class PDFController extends Controller
 		
 		Localization::setLocale($user_locale);
 		return $pdf->stream();
-		//return $pdf->download(trans('messages.Proforma').' '.$brand->name.' #'.$order->id.'.pdf');
+		//return $pdf->download(trans('messages.Proforma').' '.$brand->name.' '.$number.'.pdf');
+	}
+
+	public function invoice($id)
+	{
+		// DOMPDF
+		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
+		$order = \App\Order::find($id);
+		$user_locale = Localization::getCurrentLocale();
+		$customer_language = $order->customer->language;
+		Localization::setLocale($customer_language);
+		
+		if (Input::has('number'))
+			$number = Input::get('number');
+		else
+			$number = '[number]';
+		
+		if (Input::has('description'))
+			$description = Input::get('description');
+		else
+			$description = 'Esempio descrizione pagamento 30%';
+		
+		if (Input::has('percentage'))
+			$percentage = Input::get('percentage');
+		else
+			$percentage = '30';
+		
+		$pdf = App::make('dompdf.wrapper');
+		$pdf = PDF::loadView('pdf.invoice', compact('brand', 'order', 'number', 'description','percentage'));
+		$pdf->setPaper('A4');
+		
+		Localization::setLocale($user_locale);
+		return $pdf->stream();
+		//return $pdf->download(trans('messages.Invoice').' '.$brand->name.' '.$number.'.pdf');
+	}
+	
+	public function waybill($id)
+	{
+		// DOMPDF
+		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
+		$order = \App\Order::find($id);
+		$user_locale = Localization::getCurrentLocale();
+		$customer_language = $order->customer->language;
+		Localization::setLocale($customer_language);
+		
+		if (Input::has('number'))
+			$number = Input::get('number');
+		else
+			$number = '[number]';
+		
+		if (Input::has('date'))
+			$date = Input::get('date');
+		else
+			$date = '[data]';
+		
+		if (Input::has('n_colli'))
+			$n_colli = Input::get('n_colli');
+		else
+			$n_colli = '[n_colli]';
+		
+		if (Input::has('weight'))
+			$weight = Input::get('weight');
+		else
+			$weight = '[weight]';
+		
+		if (Input::has('shipper'))
+			$shipper = Input::get('shipper');
+		else
+			$shipper = '[shipper]';
+		
+		$pdf = App::make('dompdf.wrapper');
+		$pdf = PDF::loadView('pdf.waybill', compact('brand', 'order', 'number', 'date', 'weight', 'shipper', 'n_colli'));
+		$pdf->setPaper('A4');
+		
+		Localization::setLocale($user_locale);
+		return $pdf->stream();
+		//return $pdf->download(trans('messages.Invoice').' '.$brand->name.' '.$number.'.pdf');
 	}
 
 }

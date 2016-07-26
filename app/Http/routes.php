@@ -188,12 +188,14 @@ Route::group([
 	Route::get('/report', 'ReportController@index');
 	Route::get('/report/variations', 'ReportController@sold_variations');
 	Route::get('/report/zero-sold', 'ReportController@zero_sold');
-
-	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
-	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
+	/*
 	Route::get('/proforma/pdf/download/{id}', 'PDFController@proforma');
 	Route::get('/invoice/pdf/download/{id}', 'PDFController@invoice');
 	Route::get('/waybill/pdf/download/{id}', 'PDFController@waybill');
+	*/
+
+	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
+	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
 	
 	// end localization middleware
 });
@@ -240,6 +242,9 @@ Route::group([
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
 	Route::post('/registration/confirm-registration', 'ManageUsersController@confirm_registration');
 	Route::post('/profile/change-password', 'ManageUsersController@change_password');
+	Route::post('/proforma/pdf/download/{id}', 'PDFController@proforma');
+	Route::post('/invoice/pdf/download/{id}', 'PDFController@invoice');
+	Route::post('/waybill/pdf/download/{id}', 'PDFController@waybill');
 	
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');

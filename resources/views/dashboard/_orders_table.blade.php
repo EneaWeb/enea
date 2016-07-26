@@ -65,6 +65,193 @@
 </script>
 
 @foreach ($orders as $order)
+
+@if (Auth::user()->hasRole('accountant'))
+<div class="modal animated fadeIn" id="modal_proforma_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none; z-index:999999">
+
+    <div class="modal-dialog animated zoomIn" style="width:600px">
+    
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h3>
+                    {!!trans('messages.Proforma')!!}<br>
+                </h3>
+                {!!Form::open(['url'=>'/proforma/pdf/download/'.$order->id, 'method'=>'POST'])!!}
+                <div class="modal-body form-horizontal form-group-separated">
+                    <br>                      
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           N. Fattura Proforma 
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::input('number', 'number', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Descrizione
+                        </label>
+                        <div class="col-xs-8 col-md-8">  
+                            {!!Form::input('text', 'description', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Percentuale
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::input('number', 'percentage', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                        
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::submit('Genera', ['class'=>'btn btn-danger'])!!}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal animated fadeIn" id="modal_invoice_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none; z-index:999999">
+
+    <div class="modal-dialog animated zoomIn" style="width:600px">
+    
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h3>
+                    {!!trans('messages.Invoice')!!}<br>
+                </h3>
+                {!!Form::open(['url'=>'/invoice/pdf/download/'.$order->id, 'method'=>'POST'])!!}
+                <div class="modal-body form-horizontal form-group-separated">
+                    <br>                      
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           N. Fattura
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::input('number', 'number', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Descrizione
+                        </label>
+                        <div class="col-xs-8 col-md-8">  
+                            {!!Form::input('text', 'description', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Percentuale
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::input('number', 'percentage', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                        
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::submit('Genera', ['class'=>'btn btn-danger'])!!}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal animated fadeIn" id="modal_waybill_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none; z-index:999999">
+
+    <div class="modal-dialog animated zoomIn" style="width:600px">
+    
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h3>
+                    {!!trans('messages.Invoice')!!}<br>
+                </h3>
+                {!!Form::open(['url'=>'/waybill/pdf/download/'.$order->id, 'method'=>'POST'])!!}
+                <div class="modal-body form-horizontal form-group-separated">
+                    <br>                      
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           N. DDT
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::input('number', 'number', '', ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Data Spedizione
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!! Form::text('date', '', ['class' => 'form-control datepicker', 'placeholder'=>'yyyy-mm-dd']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           N. Colli
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!! Form::input('number', 'n_colli', '', ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Peso (Kg)
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!! Form::input('number', 'weight', '', ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                           Corriere
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!! Form::input('text', 'shipper', '', ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-4 col-md-4 control-label">
+                        
+                        </label>
+                        <div class="col-xs-8 col-md-8">   
+                            {!!Form::submit('Genera', ['class'=>'btn btn-danger'])!!}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="modal animated fadeIn" id="modal_edit_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
 
     <div class="modal-dialog animated zoomIn" style="width:334px">
@@ -150,10 +337,10 @@
                             <label  class="col-xs-8 col-md-8 control-label">
                                {!!trans('messages.Create Proforma')!!} 
                             </label>
-                            <div class="col-xs-4 col-md-4">   
-                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                            <div class="col-xs-4 col-md-4"> 
+                                <a href="#" data-toggle="modal" data-target="#modal_proforma_{!!$order->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions">  
                                     <span class="fa fa-file-text-o" style="font-size:40px"></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <br>
@@ -162,9 +349,9 @@
                                {!!trans('messages.Create Invoice')!!} 
                             </label>
                             <div class="col-xs-4 col-md-4">   
-                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                <a href="#" data-toggle="modal" data-target="#modal_invoice_{!!$order->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions">  
                                     <span class="fa fa-file-text" style="font-size:40px"></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <br>
@@ -176,9 +363,9 @@
                                {!!trans('messages.Create Waybill')!!} 
                             </label>
                             <div class="col-xs-4 col-md-4">   
-                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                <a href="#" data-toggle="modal" data-target="#modal_waybill_{!!$order->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions">  
                                     <span class="fa fa-truck" style="font-size:40px"></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     @endif
