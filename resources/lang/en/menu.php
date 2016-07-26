@@ -23,6 +23,7 @@ return [
 	'Type' => 'Type',
 	'Attribute' => 'Attribute',
 	'Value Name' => 'Value Name',
+	'New Delivery Address' => 'New Delivery Address',
 	'New Value' => 'New Value',
 	'Value Slug' => 'Value Slug',
 	'Seasons' => 'Seasons',

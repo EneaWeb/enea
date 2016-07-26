@@ -23,6 +23,7 @@ return [
 	'Attribute' => 'Attributo',
 	'Type' => 'Tipologia',
 	'Value Name' => 'Nome Valore',
+	'New Delivery Address' => 'Nuovo Indirizzo di Consegna',
 	'New Value' => 'Nuovo Valore',
 	'Value Slug' => 'Codice Valore',
 	'Seasons' => 'Stagioni',
