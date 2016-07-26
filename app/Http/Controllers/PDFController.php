@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use PDF;
 use Auth;
 use App;
+use Input;
+use Localization;
 use App\Http\Requests;
 
 class PDFController extends Controller
@@ -28,7 +30,7 @@ class PDFController extends Controller
 		$pdf->setPaper('A4');
 		$pdf->setOrientation('landscape');
 		
-		return $pdf->download(trans('messages.Order').' '.$brand->name.' #'.$order->id.'.pdf');	
+		return $pdf->download(trans('messages.Order').' '.$brand->name.' #'.$order->id.'.pdf');
 	}
 	
 	public function order_confirmation_view($id)
@@ -92,6 +94,39 @@ class PDFController extends Controller
 		// return view('pdf.line_sheet', compact('brand', 'products', 'seasonlist');
 		//return $pdf->stream();
 		return $pdf->stream();
+	}
+	
+	public function proforma($id)
+	{
+		// DOMPDF
+		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
+		$order = \App\Order::find($id);
+		$user_locale = Localization::getCurrentLocale();
+		$customer_language = $order->customer->language;
+		Localization::setLocale($customer_language);
+		
+		if (Input::has('number'))
+			$number = Input::get('number');
+		else
+			$number = '[number]';
+		
+		if (Input::has('description'))
+			$description = Input::get('description');
+		else
+			$description = 'Esempio descrizione pagamento 30%';
+		
+		if (Input::has('percentage'))
+			$percentage = Input::get('percentage');
+		else
+			$percentage = '30';
+		
+		$pdf = App::make('dompdf.wrapper');
+		$pdf = PDF::loadView('pdf.proforma', compact('brand', 'order', 'number', 'description','percentage'));
+		$pdf->setPaper('A4');
+		
+		Localization::setLocale($user_locale);
+		return $pdf->stream();
+		//return $pdf->download(trans('messages.Proforma').' '.$brand->name.' #'.$order->id.'.pdf');
 	}
 
 }

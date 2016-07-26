@@ -27,7 +27,7 @@ class DashboardController extends Controller
 	{
 
 		$user = Auth::user();
-		if (Auth::user()->can('manage orders'))
+		if ( (Auth::user()->can('manage orders')) || (Auth::user()->hasRole('accountant')))
 			$orders = Order::all();
 		else
 			$orders = Order::where('user_id', Auth::user()->id)->get();
@@ -66,8 +66,10 @@ class DashboardController extends Controller
 				$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 			}
 			
-			if ($user->can('manage orders'))
+			if (Auth::user()->can('manage orders'))
 				return view('dashboard.admin', compact('orders', 'supportedLocales', 'map', 'mapHelper'));
+			if (Auth::user()->hasRole('accountant'))
+			   return view('dashboard.accountant', compact('orders', 'orders', 'supportedLocales'));
 			
 			return view('dashboard.agent', compact('orders', 'supportedLocales'));
 		// }

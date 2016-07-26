@@ -191,6 +191,9 @@ Route::group([
 
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
+	Route::get('/proforma/pdf/download/{id}', 'PDFController@proforma');
+	Route::get('/invoice/pdf/download/{id}', 'PDFController@invoice');
+	Route::get('/waybill/pdf/download/{id}', 'PDFController@waybill');
 	
 	// end localization middleware
 });

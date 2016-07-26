@@ -17,4 +17,9 @@ class EneaHelper extends Model
 			return ($num1 / $num2) * 100;
 	}
 	
+	public static function inverse_percentage($num, $percentage)
+	{
+		return ($percentage / 100) * $num;
+	}
+	
 }

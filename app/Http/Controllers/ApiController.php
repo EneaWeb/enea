@@ -16,7 +16,7 @@ class ApiController extends Controller
 		//$days = Input::get('days', 7);
 		$range = \Carbon\Carbon::now()->subDays(999);
 		
-		if (Auth::user()->can('manage orders')) {
+		if ( (Auth::user()->can('manage orders')) || (Auth::user()->hasRole('accountant'))) {
 			$stats = Order::where('created_at', '>=', $range)
 			   ->groupBy('date')
 			   ->orderBy('date', 'DESC')

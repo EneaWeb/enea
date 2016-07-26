@@ -121,27 +121,68 @@
                         </div>
                     </div>
                     <br> 
-                    <div class="form-group">
-                        <label  class="col-xs-8 col-md-8 control-label">
-                           {!!trans('messages.Edit order')!!} 
-                        </label>
-                        <div class="col-xs-4 col-md-4">   
-                            <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
-                                <span class="fa fa-pencil" style="font-size:40px"></span>
-                            </a>
+                    @if (Auth::user()->can('make orders'))
+                        <div class="form-group">
+                            <label  class="col-xs-8 col-md-8 control-label">
+                               {!!trans('messages.Edit order')!!} 
+                            </label>
+                            <div class="col-xs-4 col-md-4">   
+                                <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
+                                    <span class="fa fa-pencil" style="font-size:40px"></span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <br> 
-                    <div class="form-group">
-                        <label  class="col-xs-8 col-md-8 control-label">
-                           {!!trans('messages.Delete order')!!} 
-                        </label>
-                        <div class="col-xs-4 col-md-4">   
-                            <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
-                                <span class="fa fa-times" style="font-size:40px"></span>
-                            </button>
+                        <br> 
+                        
+                        <div class="form-group">
+                            <label  class="col-xs-8 col-md-8 control-label">
+                               {!!trans('messages.Delete order')!!} 
+                            </label>
+                            <div class="col-xs-4 col-md-4">   
+                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                    <span class="fa fa-times" style="font-size:40px"></span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    @endif
+                    @if (Auth::user()->can('make invoices'))
+                        <div class="form-group">
+                            <label  class="col-xs-8 col-md-8 control-label">
+                               {!!trans('messages.Create Proforma')!!} 
+                            </label>
+                            <div class="col-xs-4 col-md-4">   
+                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                    <span class="fa fa-file-text-o" style="font-size:40px"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label  class="col-xs-8 col-md-8 control-label">
+                               {!!trans('messages.Create Invoice')!!} 
+                            </label>
+                            <div class="col-xs-4 col-md-4">   
+                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                    <span class="fa fa-file-text" style="font-size:40px"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                    @endif
+                    
+                    @if (Auth::user()->can('make waybills'))
+                        <div class="form-group">
+                            <label  class="col-xs-8 col-md-8 control-label">
+                               {!!trans('messages.Create Waybill')!!} 
+                            </label>
+                            <div class="col-xs-4 col-md-4">   
+                                <button class="btn btn-danger btn-rounded btn-condensed btn-sm order-actions" onclick="confirm_delete_order({!!$order->id!!});">
+                                    <span class="fa fa-truck" style="font-size:40px"></span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+                    
                 </div>
                 
             </div>

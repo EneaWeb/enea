@@ -72,6 +72,27 @@
                                 <br>
                                 {!!Form::hidden('customer_id', $customer->id)!!}
                                 <div class="form-group">
+                                    {!!Form::label('customer_delivery_id', 'Seleziona una indirizzo di consegna*', ['class' => 'col-md-3 control-label'])!!}
+                                    <div class="col-md-6 col-xs-12">
+                                        <select name="customer_delivery_id" class="form-control">
+                                            <option value="0">{!!$customer->address.' - '.$customer->postcode.' '.$customer->city!!}</option>
+                                            @foreach (\App\CustomerDelivery::where('customer_id', $customer->id)->get() as $addr)
+                                                <option 
+                                                Value="{!!$addr->id!!}"
+                                                @if ( Session::has('order.customer_delivery_id') )
+                                                @if ( Session::get('order.customer_delivery_id') == $addr->id ) 
+                                                    selected="selected" 
+                                                @endif @endif 
+                                                >{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
+                                            @endforeach
+                                        </select>   
+                                    </div>
+                                    <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
+                                        <button class="btn btn-main" style="margin-top:12px; color:white"><span class="fa fa-plus"></span></button>
+                                    </a>
+                                    <div class="clearfix"></div><br>
+                                </div>
+                                <div class="form-group">
                                     {!!Form::label('payment_id', 'Seleziona il listino*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
                                         {!!Form::select('season_list_id', 
@@ -99,27 +120,6 @@
                                     <div class="col-md-6 col-xs-12">   
                                         {!!Form::select('season_delivery_id', \App\SeasonDelivery::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
                                     </div>
-                                    <div class="clearfix"></div><br>
-                                </div>
-                                <div class="form-group">
-                                    {!!Form::label('customer_delivery_id', 'Seleziona una indirizzo di consegna*', ['class' => 'col-md-3 control-label'])!!}
-                                    <div class="col-md-6 col-xs-12">
-                                        <select name="customer_delivery_id" class="form-control">
-                                            <option value="0">{!!$customer->address.' - '.$customer->postcode.' '.$customer->city!!}</option>
-                                            @foreach (\App\CustomerDelivery::where('customer_id', $customer->id)->get() as $addr)
-                                                <option 
-                                                Value="{!!$addr->id!!}"
-                                                @if ( Session::has('order.customer_delivery_id') )
-                                                @if ( Session::get('order.customer_delivery_id') == $addr->id ) 
-                                                    selected="selected" 
-                                                @endif @endif 
-                                                >{!!$addr->address.' - '.$addr->postcode.' '.$addr->city!!}</option>
-                                            @endforeach
-                                        </select>   
-                                    </div>
-                                    <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
-                                        <button class="btn btn-main" style="margin-top:12px; color:white"><span class="fa fa-plus"></span></button>
-                                    </a>
                                     <div class="clearfix"></div><br>
                                 </div>
                             </div>

@@ -96,5 +96,10 @@ class Order extends Model
     {
         return $this->belongsTo('\App\SeasonDelivery');
     }
+    
+    public function customer_delivery()
+    {
+        return $this->belongsTo('\App\CustomerDelivery');
+    }
 
 }
