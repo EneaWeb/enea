@@ -153,9 +153,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!!Form::label('action', trans('auth.Action'), ['class' => 'col-md-3 control-label'])!!}
+                            {!!Form::label('slug', trans('auth.Action'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('action', ['none' => trans('menu.None'), 'increase'=>trans('menu.Increase'), 'discount'=>trans('menu.Discount')], $payment->action, ['class' => 'form-control'])!!}
+                                {!!Form::select('action', [''=>trans('menu.None'), '+'=>trans('menu.Increase'), '-'=>trans('menu.Discount')], $payment->action, ['class' => 'form-control', 'placeholder' => trans('menu.Select')])!!}
                             </div>
                         </div>
                         <div class="form-group">
