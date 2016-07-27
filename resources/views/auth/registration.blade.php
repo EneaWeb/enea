@@ -80,7 +80,7 @@
             </div>
             <div class="registration-footer">
                 <div class="pull-left">
-                    © 2016 Enea
+                    © 2016 EneaWeb
                 </div>
                 {{-- <div class="pull-right">
                     <a href="#">About</a> |

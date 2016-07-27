@@ -9,6 +9,7 @@ use \App\Profile as Profile;
 use \App\Brand as Brand;
 use \App\Alert as Alert;
 use \App\EneaMail as EneaMail;
+use Localization;
 use Input;
 use Hash;
 use App\Http\Requests;
@@ -135,6 +136,8 @@ class ManageUsersController extends Controller
 	
 	public function register()
 	{
+		if (Input::has('lang'))
+			Localization::setLocale(Input::get('lang'));
 		return view('auth.registration');
 	}
 	
