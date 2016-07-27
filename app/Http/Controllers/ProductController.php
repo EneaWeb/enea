@@ -97,6 +97,17 @@ class ProductController extends Controller
 		return view('pages.admin.manage_product', compact('product'));
 	}
 	
+	public function delete($id)
+	{
+		$product = Product::find($id);
+		$product->delete();
+		
+		// success message
+		Alert::success(trans('messages.Product deleted'));
+		
+		return redirect()->back();
+	}
+	
 	public function edit()
 	{
 		// try to validate the Input

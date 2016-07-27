@@ -47,6 +47,18 @@
         );
     };
     
+    function confirm_delete_product(id){
+        alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this product?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/catalogue/product/delete/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
+    
     function confirm_delete_payment(id){
         alertify.confirm( "{!!trans('validation.Please Confirm')!!}", "{!!trans('validation.Are you sure you want to delete this payment option?')!!}", 
             function () {

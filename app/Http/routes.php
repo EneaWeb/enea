@@ -164,6 +164,7 @@ Route::group([
 	Route::get('/catalogue/products/', 'ProductController@index');
 	Route::get('/catalogue/product/{id}', 'ProductController@show');
 	Route::get('/catalogue/product/edit/{id}', 'ProductController@manage_single');
+	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
 	Route::get('/catalogue/colors/', 'ColorController@index');
 	Route::get('/catalogue/color/delete/{id}', 'ColorController@delete');
 	Route::get('/catalogue/color/edit', 'ColorController@edit');
