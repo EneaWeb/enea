@@ -16,6 +16,40 @@ Route::get('size', function(){
 	return \App\Size::sizes_for_type($product);
 });
 
+Route::get('action', function() {
+	foreach (\App\ProductVariation::get() as $product_variation) {
+		
+		if ($product_variation->product->type_id == '4') {
+			
+			$item = new \App\Item;
+			$item->product_id = $product_variation->product_id;
+			$item->product_variation_id = $product_variation->id;
+			$item->size_id = '27';
+			$item->active = '1';
+			$item->save();
+			
+			foreach (\App\SeasonList::all() as $season_list) {
+				
+				$similar_item = \App\Item::where('product_variation_id', $product_variation->id)
+												->where('size_id', '30')
+												->first();
+												
+				$similar_price = \App\ItemPrice::where('item_id', $similar_item->id)
+														->where('season_list_id', $season_list->id)
+														->value('price');
+				
+				$item_price = new \App\ItemPrice;
+				$item_price->item_id = $item->id;
+				$item_price->season_list_id = $season_list->id;
+				$item_price->price = $similar_price;
+				$item_price->save();
+			}
+			
+		}
+	}
+	
+	return 'ok';
+});
 
 /*
 Route::get('profile', function(){
