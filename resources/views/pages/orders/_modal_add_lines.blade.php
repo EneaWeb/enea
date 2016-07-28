@@ -48,11 +48,13 @@
                             <th style="border-left:5px solid {!!\App\Color::find($product_variation->color_id)->hex!!}">
                                 {!!substr(\App\Color::find($product_variation->color_id)->name, 0, 14)!!}
                             </th>
-                            @foreach (\App\Item::where('product_variation_id', $product_variation->id)->get() as $item)
-                            <td style="padding:2px">
-                                <input name="{!!$item->id!!}" data-price="{!!\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', Session::get('order.season_list_id'))->first()['price']!!}" class="form-control tip" type="number" min="0" style="height: 30px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
-                            </td>
+                            
+                            @foreach (\App\Item::where('product_variation_id', $product_variation->id)->orderBy('size_id')->get() as $item)
+                                <td style="padding:2px">
+                                    <input name="{!!$item->id!!}" data-price="{!!\App\ItemPrice::where('item_id', $item->id)->where('season_list_id', Session::get('order.season_list_id'))->first()['price']!!}" class="form-control tip" type="number" min="0" style="height: 30px !important;padding:0px !important;width: 40px;padding-left:8px !important;" @if(Session::has('order.items')) @if(array_key_exists($item->id, Session::get('order.items'))) value="{!!Session::get('order.items.'.$item->id)!!}" @endif @endif />
+                                </td>
                             @endforeach
+                            
                         </tr>
                     {{-- */ $i2++ /* --}}
                     @endforeach

@@ -25,25 +25,25 @@
                                 <li>
                                     <a href="#" class="done" isdone="1" style="cursor:default">
                                         <span class="stepNumber">1</span>
-                                        <span class="stepDesc">Step 1<br><small>SELEZIONA IL CLIENTE</small></span>
+                                        <span class="stepDesc">Step 1<br><small>{!!trans('messages.Select Customer')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="done" isdone="1" style="cursor:default">
                                         <span class="stepNumber">2</span>
-                                        <span class="stepDesc">Step 2<br><small>INFORMAZIONI PRELIMINARI</small></span>
+                                        <span class="stepDesc">Step 2<br><small>{!!trans('messages.First Informations')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="done" isdone="1" style="cursor:default">
                                         <span class="stepNumber">3</span>
-                                        <span class="stepDesc">Step 3<br><small>INSERISCI GLI ARTICOLI</small></span>                   
+                                        <span class="stepDesc">Step 3<br><small>{!!trans('messages.Select Products')!!}</small></span>                   
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="selected" isdone="0" style="cursor:default">
                                         <span class="stepNumber">4</span>
-                                        <span class="stepDesc">Step 4<br><small>CONFERMA</small></span>                   
+                                        <span class="stepDesc">Step 4<br><small>{!!trans('messages.Confirm')!!}</small></span>                   
                                     </a>
                                 </li>
                             </ul>
@@ -60,7 +60,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Riepilogo dell'ordine
+                            {!!trans('messages.Order Summary')!!}
                         </h3>                        
                     </div>
                     <div class="panel-body">
@@ -72,7 +72,7 @@
                             <div class="modal-body form-horizontal form-group-separated">
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Cliente:
+                                        {!!trans('messages.Customer')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!\App\Customer::find($fullOrder['customer_id'])->companyname!!} /
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Dati di fatturazione:
+                                        {!!trans('messages.Billing Informations')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!\App\Customer::find($fullOrder['customer_id'])->address!!} - 
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Dati di spedizione:
+                                        {!!trans('messages.Shipping Informations')!!}
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                     @if($fullOrder['customer_delivery_id'] != 0)
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Listino:
+                                        {!!trans('messages.Price List')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!\App\SeasonList::find($fullOrder['season_list_id'])->name!!}
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Periodo di consegna:
+                                        {!!trans('messages.Delivery Time')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!\App\SeasonDelivery::find($fullOrder['season_delivery_id'])->name!!}
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Modalità di pagamento:
+                                        {!!trans('messages.Payment Conditions')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!\App\Payment::find($fullOrder['payment_id'])->name!!}
@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Dettagli:
+                                        {!!trans('messages.Details')!!}
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         <table class="table-condensed table-bordered" style="margin-left:auto; margin-right:auto; border-collapse: collapse; width:100%;">
@@ -154,7 +154,7 @@
                                             
                                             @foreach (Session::get('order.products_array') as $product_id => $product_variations)
                                             @foreach ($product_variations as $key => $product_variation_id)
-
+                                            
                                                 <tr>
                                                     <th style="border-left:5px solid {!!\App\Color::find(
                                                                     \App\ProductVariation::find($product_variation_id)
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        N. Pezzi:
+                                        {!!trans('messages.Pieces N.')!!}:
                                     </h6>
                                     <h3 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!$qty!!}
@@ -196,9 +196,9 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Subtotale:
+                                        {!!trans('messages.Subtotal')!!}:
                                         <br>
-                                        Variazioni:
+                                        {!!trans('messages.Variations')!!}:
                                     </h6>
                                     <h6 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         € {!!number_format($subtotal, 2, ',', '.');!!}
@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        TOTALE:
+                                        {!!strtoupper(trans('messages.Total'))!!}:
                                     </h6>
                                     <h3 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         € {!!number_format($total, 2, ',', '.');!!}
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="form-group">
                                     <h3 class="col-md-3 col-xs-12 control-label">
-                                        Inserisci note:
+                                        {!!trans('messages.Add Notes')!!}:
                                     </h3>
                                     <h3 class="col-md-8 col-xs-12 control-label" style="text-align:left">
                                         {!!Form::textarea('note', (Session::has('order.custom')) ? 'CUSTOM : '.Session::get('order.custom') : '', ['class'=>'form-control'])!!}
@@ -229,18 +229,20 @@
                                 <br>                      
                                 <div class="form-group">
                                     <h6 class="col-md-3 col-xs-12 control-label">
-                                        Clicca per confermare:
+                                        {!!trans('messages.Click to Confirm')!!}:
                                     </h6>
                                     <div class="col-md-6 col-xs-12">
-                                        <button type="button" onclick="location.href='{{ URL::to('/order/new/step3') }}';" class="btn btn-warning">Aggiungi/modifica gli articoli</button>
-                                        {!!Form::submit('Conferma', ['class'=>'btn btn-danger'])!!}
+                                        <button type="button" onclick="location.href='{{ URL::to('/order/new/step3') }}';" class="btn btn-warning">
+                                            {!!trans('messages.Add/Edit products') !!}
+                                        </button>
+                                        {!!Form::submit(trans('messages.Confirm'), ['class'=>'btn btn-danger'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>
                             </div>
  
                         {!!Form::close()!!}
-                        
+
                         </div>
                     </div>
                 </div>

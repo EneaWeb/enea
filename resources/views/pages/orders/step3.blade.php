@@ -25,25 +25,25 @@
                                 <li>
                                     <a href="#" class="done" isdone="1" style="cursor:default">
                                         <span class="stepNumber">1</span>
-                                        <span class="stepDesc">Step 1<br><small>SELEZIONA IL CLIENTE</small></span>
+                                        <span class="stepDesc">Step 1<br><small>{!!trans('messages.Select Customer')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="done" isdone="1" style="cursor:default">
                                         <span class="stepNumber">2</span>
-                                        <span class="stepDesc">Step 2<br><small>INFORMAZIONI PRELIMINARI</small></span>
+                                        <span class="stepDesc">Step 2<br><small>{!!trans('messages.First Informations')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="selected" isdone="0" style="cursor:default">
                                         <span class="stepNumber">3</span>
-                                        <span class="stepDesc">Step 3<br><small>INSERISCI GLI ARTICOLI</small></span>                   
+                                        <span class="stepDesc">Step 3<br><small>{!!trans('messages.Select Products')!!}</small></span>                   
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="disabled" isdone="0" style="cursor:default">
                                         <span class="stepNumber">4</span>
-                                        <span class="stepDesc">Step 4<br><small>CONFERMA</small></span>                   
+                                        <span class="stepDesc">Step 4<br><small>{!!trans('messages.Confirm')!!}</small></span>                   
                                     </a>
                                 </li>
                             </ul>
