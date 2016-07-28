@@ -267,14 +267,13 @@
                                 <table class="table-condensed table-bordered">
                                     <tr>
                                         <th>Size /</th>
-                                        @foreach (\App\Item::where('product_variation_id', $variation->id)
-                                                            ->get() as $item)
-                                            <th>{!!$item->size->name!!}</th>
+                                        @foreach (\App\Size::sizes_for_type($product) as $size)
+                                            <th>{!!$size->name!!}</th>
                                         @endforeach
                                     </tr><tr>
                                         <th>Eur /</th>
                                        @foreach (\App\Item::where('product_variation_id', $variation->id)
-                                                            ->get() as $item)
+                                                            ->orderBy('size_id')->get() as $item)
                                         <td>
                                             {!!\App\ItemPrice::where('item_id', $item->id)
                                                     ->where('season_list_id', $season_list->id)->first()['price'] !!}
