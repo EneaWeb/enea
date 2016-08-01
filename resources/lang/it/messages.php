@@ -18,6 +18,7 @@ return [
 	'Shipping Informations' => 'Dati di spedizione',
 	'Price List' => 'Listino',
 	'Click to continue' => 'Clicca per continuare',
+	'Complete Order' => "Concludi l'ordine",
 	'Select a delivery date' => 'Seleziona una data di consegna',
 	'Select a payment method' => 'Seleziona un metodo di pagamento',
 	'Select a Delivery address' => 'Seleziona una indirizzo di consegna',

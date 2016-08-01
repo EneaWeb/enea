@@ -19,6 +19,7 @@ return [
 	'Payment Conditions' => 'Payment Conditions',
 	'Select a Delivery address' => 'Select a Delivery address',
 	'Select a delivery date' => 'Select a delivery date',
+	'Complete Order' => "Complete Order",
 	'Details' => 'Details',
 	'Click to continue' => 'Click to continue',
 	'Select a payment method' => 'Select a payment method',

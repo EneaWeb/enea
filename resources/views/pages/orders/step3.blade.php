@@ -61,7 +61,9 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             {!!trans('messages.Select Products')!!}
-                             &nbsp; <a href="/order/new/save-order"><button class="btn btn-danger">CONCLUDI L'ORDINE</button></a>
+                             &nbsp; <a href="/order/new/save-order"><button class="btn btn-danger">
+                             {!!strtoupper(trans('messages.Complete Order'))!!}
+                             </button></a>
                         </h3>  
                         <button class="btn btn-main" style="float:right; margin-right:20px; cursor:default"><strong>
                             {{--Articoli:--}}  {!!trans('messages.N. Items')!!}:  {!!$qty!!} / Tot € {!!$subtotal!!}
