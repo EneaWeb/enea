@@ -60,7 +60,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Informazioni preliminari
+                           {!!trans('messages.First Informations')!!}
                         </h3>                        
                     </div>
                     <div class="panel-body">
@@ -72,7 +72,7 @@
                                 <br>
                                 {!!Form::hidden('customer_id', $customer->id)!!}
                                 <div class="form-group">
-                                    {!!Form::label('customer_delivery_id', 'Seleziona una indirizzo di consegna*', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('customer_delivery_id', trans('messages.Select a Delivery address').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
                                         <select name="customer_delivery_id" class="form-control">
                                             <option value="0">{!!$customer->address.' - '.$customer->postcode.' '.$customer->city!!}</option>
@@ -93,7 +93,7 @@
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
-                                    {!!Form::label('payment_id', 'Seleziona il listino*', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('payment_id', trans('messages.Select Price list').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
                                         {!!Form::select('season_list_id', 
                                             \App\SeasonList::return_user_lists(), 
@@ -105,7 +105,7 @@
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
-                                    {!!Form::label('payment_id', 'Seleziona un metodo di pagamento*', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('payment_id', trans('messages.Select a payment method').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
                                         {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), 
                                         (Session::has('order.payment_id')) ? 
@@ -116,7 +116,7 @@
                                     <div class="clearfix"></div><br>
                                 </div>
                                 <div class="form-group">
-                                    {!!Form::label('season_delivery_id', 'Seleziona una data di consegna*', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('season_delivery_id', trans('messages.Select a delivery date').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
                                         {!!Form::select('season_delivery_id', \App\SeasonDelivery::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
                                     </div>
@@ -127,7 +127,7 @@
                             <div class="modal-body form-horizontal form-group-separated">
                                 <br>                      
                                 <div class="form-group">
-                                    {!!Form::label('companyname', 'Clicca per continuare', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('companyname', trans('messages.Click to continue'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
                                         {!!Form::submit(trans('menu.Continue'), ['class'=>'btn btn-danger'])!!}
                                     </div>

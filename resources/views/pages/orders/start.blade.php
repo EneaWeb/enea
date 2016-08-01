@@ -25,25 +25,25 @@
                                 <li>
                                     <a href="#" class="selected" isdone="0" style="cursor:default">
                                         <span class="stepNumber">1</span>
-                                        <span class="stepDesc">Step 1<br><small>SELEZIONA IL CLIENTE</small></span>
+                                        <span class="stepDesc">Step 1<br><small>{!!trans('messages.Select Customer')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="disabled" isdone="0" style="cursor:default">
                                         <span class="stepNumber">2</span>
-                                        <span class="stepDesc">Step 2<br><small>INFORMAZIONI PRELIMINARI</small></span>
+                                        <span class="stepDesc">Step 2<br><small>{!!trans('messages.First Informations')!!}</small></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="disabled" isdone="0" style="cursor:default">
                                         <span class="stepNumber">3</span>
-                                        <span class="stepDesc">Step 3<br><small>INSERISCI GLI ARTICOLI</small></span>                   
+                                        <span class="stepDesc">Step 3<br><small>{!!trans('messages.Select Products')!!}</small></span>                   
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="disabled" isdone="0" style="cursor:default">
                                         <span class="stepNumber">4</span>
-                                        <span class="stepDesc">Step 4<br><small>CONFERMA</small></span>                   
+                                        <span class="stepDesc">Step 4<br><small>{!!trans('messages.Confirm')!!}</small></span>                   
                                     </a>
                                 </li>
                             </ul>
@@ -74,9 +74,9 @@
                             <div class="modal-body form-horizontal form-group-separated">
                                 <br>                      
                                 <div class="form-group">
-                                    {!!Form::label('companyname', 'Cerca per ragione sociale', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('companyname', trans('messages.Search by Company Name'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-8">   
-                                        Cerca un cliente già inserito scrivendo qui la ragione sociale (dropdown):
+                                        {!!trans('messages.Search for a Customer by Company Name (dropdown)')!!}:
                                         <br><br>
                                         {!!Form::input(
                                             'text', 
@@ -94,7 +94,9 @@
                                             href=""
                                         @endif
                                         >
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">CONTINUA</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                {!!strtoupper(trans('messages.Continue'))!!}
+                                            </button>
                                         </a>
                                     </div>
                                     <div class="clearfix"></div><br>
@@ -187,7 +189,7 @@
                             <div class="modal-body form-horizontal form-group-separated">
                                 <br>                      
                                 <div class="form-group">
-                                    {!!Form::label('companyname', 'O crea una nuova anagrafica', ['class' => 'col-md-3 control-label'])!!}
+                                    {!!Form::label('companyname', trans('messages.Or create a new Customer'), ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
                                         <a href="#" data-toggle="modal" data-target="#modal_add_customer" class="btn btn-danger">
                                             {!!trans('menu.New Customer')!!}
