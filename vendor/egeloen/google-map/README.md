@@ -1,5 +1,33 @@
 # README
 
+
+As the original repository has not been updated since years, this fork provides Api Key parameter usage.
+
+Just add this to your composer.json:
+
+      "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/EneaWeb/ivory-google-map.git"
+        }
+      ],
+      
+      "require": [
+         {
+            ...
+            "egeloen/google-map": "dev-master"
+         }
+      ]
+
+Then you can call the AbstractJavascriptVariableAsset instance with apiKey this way:
+      
+      $autocomplete = new Autocomplete();
+      if (!App::environment('local')) 
+         $autocomplete->setApiKey([API_KEY]);
+         
+
+
+
 [![Build Status](https://secure.travis-ci.org/egeloen/ivory-google-map.png?branch=master)](http://travis-ci.org/egeloen/ivory-google-map)
 [![Coverage Status](https://coveralls.io/repos/egeloen/ivory-google-map/badge.png?branch=master)](https://coveralls.io/r/egeloen/ivory-google-map?branch=master)
 

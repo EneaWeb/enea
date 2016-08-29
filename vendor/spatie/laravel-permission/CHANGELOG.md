@@ -2,6 +2,21 @@
 
 All Notable changes to `laravel-permission` will be documented in this file
 
+## 1.5.2 - 2016-08-26
+- make compatible with L5.3
+
+## 1.5.1 - 2016-07-23
+- fixes `givePermissionTo` and `assignRole` in Laravel 5.1
+
+## 1.5.0 - 2016-07-23
+** this version does not work in Laravel 5.1, please upgrade to version 1.5.1 of this package
+
+- allowed `givePermissonTo` to accept multiple permissions
+- allowed `assignRole` to accept multiple roles
+- added `syncPermissions`-method
+- added `syncRoles`-method
+- dropped support for PHP 5.5 and HHVM
+
 ## 1.4.0 - 2016-05-08
 -  added `hasPermissionTo` function to the `Role` model
 

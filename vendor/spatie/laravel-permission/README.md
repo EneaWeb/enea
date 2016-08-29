@@ -34,6 +34,14 @@ If you want a drop-in middleware to check permissions, check out our authorize p
 Spatie is webdesign agency in Antwerp, Belgium. You'll find an overview of all 
 our open source projects [on our website](https://spatie.be/opensource).
 
+## Postcardware
+
+You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
+
+Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
+
+The best postcards will get published on the open source page on our website.
+
 ## Install
 
 You can install the package via composer:
@@ -225,7 +233,7 @@ The `HasRoles` adds eloquent relationships to your models, which can be accessed
 
 ```php
 $permissions = $user->permissions;
-$roles = $user->roles()->pluck('name');
+$roles = $user->roles()->pluck('name'); // returns a collection
 ```
 
 ###Using permissions
@@ -233,6 +241,12 @@ A permission can be given to a user:
 
 ```php
 $user->givePermissionTo('edit articles');
+
+//you can also give multiple permission at once
+$user->givePermissionTo('edit articles', 'delete articles');
+
+//you may also pass an array
+$user->givePermissionTo(['edit articles', 'delete articles']);
 ```
 
 A permission can be revoked from a user:
@@ -257,6 +271,10 @@ A role can be assigned to a user:
 
 ```php
 $user->assignRole('writer');
+
+// you can also assign multiple roles at once
+$user->assignRole('writer', 'admin');
+$user->assignRole(['writer', 'admin']);
 ```
 
 A role can be removed from a user:
@@ -264,6 +282,14 @@ A role can be removed from a user:
 ```php
 $user->removeRole('writer');
 ```
+
+Roles can also be synced :
+
+```php
+//all current roles will be removed from the user and replace by the array given
+$user->syncRoles(['writer', 'admin']);
+```
+
 You can determine if a user has a certain role:
 
 ```php
@@ -348,6 +374,57 @@ I don't have all of these roles...
 
 You can use Laravel's native `@can` directive to check if a user has a certain permission.
 
+## Using a middleware
+The package doesn't contain a middleware to check permissions but it's very trivial to add this yourself.
+
+``` bash
+$ php artisan make:middleware RoleMiddleware
+```
+
+This will create a RoleMiddleware for you, where you can handle your role and permissions check.
+```php
+// app/Http/Middleware/RoleMiddleware.php
+use Auth;
+
+...
+
+public function handle($request, Closure $next, $role, $permission)
+{
+    if (Auth::guest()) {
+        return redirect($urlOfYourLoginPage);
+    }
+
+    if (! $request->user()->hasRole($role)) {
+       abort(403);
+    }
+    
+    if (! $request->user()->can($permission)) {
+       abort(403);
+    }
+
+    return $next($request);
+}
+```
+
+Don't forget to add the route middleware to your Kernel:
+
+```php
+// app/Http/Kernel.php
+protected $routeMiddleware = [
+    ...
+    'role' => \App\Http\Middleware\RoleMiddleware::class,
+    ...
+];
+```
+
+Now you can protect your routes using the middleware you just set up:
+
+```php
+Route::group(['middleware' => ['role:admin,access_backend']], function () {
+    //
+});
+```
+
 ## Extending
 
 If you need to extend or replace the existing `Role` or `Permission` models you just need to 
@@ -389,6 +466,7 @@ can be found [in this repo on GitHub](https://github.com/laracasts/laravel-5-rol
 - [BeatSwitch/lock-laravel](https://github.com/BeatSwitch/lock-laravel)
 - [Zizaco/entrust](https://github.com/Zizaco/entrust)
 - [JosephSilber/bouncer](https://github.com/JosephSilber/bouncer)
+- [bican/roles](https://github.com/romanbican/roles)
 
 ## About Spatie
 Spatie is webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).

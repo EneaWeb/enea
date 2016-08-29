@@ -39,25 +39,49 @@ trait HasRoles
     /**
      * Assign the given role to the user.
      *
-     * @param string|Role $role
+     * @param array|string|\Spatie\Permission\Models\Role ...$roles
      *
-     * @return Role
+     * @return \Spatie\Permission\Contracts\Role
      */
-    public function assignRole($role)
+    public function assignRole(...$roles)
     {
-        $this->roles()->save($this->getStoredRole($role));
+        $roles = collect($roles)
+            ->flatten()
+            ->map(function ($role) {
+                return $this->getStoredRole($role);
+            })
+            ->all();
+
+
+        $this->roles()->saveMany($roles);
+
+        $this->forgetCachedPermissions();
+
+        return $this;
     }
 
     /**
      * Revoke the given role from the user.
      *
      * @param string|Role $role
-     *
-     * @return mixed
      */
     public function removeRole($role)
     {
         $this->roles()->detach($this->getStoredRole($role));
+    }
+
+    /**
+     * Remove all current roles and set the given ones.
+     *
+     * @param array ...$roles
+     *
+     * @return $this
+     */
+    public function syncRoles(...$roles)
+    {
+        $this->roles()->detach();
+
+        return $this->assignRole($roles);
     }
 
     /**
@@ -123,7 +147,7 @@ trait HasRoles
             return $role instanceof Role ? $role->name : $role;
         });
 
-        return $roles->intersect($this->roles->lists('name')) == $roles;
+        return $roles->intersect($this->roles->pluck('name')) == $roles;
     }
 
     /**
