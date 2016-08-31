@@ -39,6 +39,7 @@
                                 <li><a href="#" onClick ="$('#sold-by-item').tableExport({type:'excel',escape:'false'});">
                                     <i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i> Excel
                                 </a></li>
+                                {{-- 
                                 <li><a href="#" onClick ="$('#sold-by-item').tableExport({type:'doc',escape:'false'});">
                                     <i class="fa fa-file-word-o fa-2x" aria-hidden="true"></i> Word
                                 </a></li>
@@ -49,6 +50,7 @@
                                 <li><a href="#" onClick ="$('#sold-by-item').tableExport({type:'pdf',escape:'false'});">
                                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> PDF
                                 </a></li>
+                                --}}
                             </ul>
                         </div>                                    
                         
