@@ -3,6 +3,7 @@ return [
 	'Dashboard' => 'Bacheca',
 	'Sold' => 'Venduto',
 	'Sold per Variations' => 'Venduto per Varianti',
+	'Sold per Delivery Date' => 'Venduto per Mese di Consegna',
 	'Zero Sold' => 'Zero Venduto',
 	'Administration' => 'Amministrazione',
 	'Manage Users' => 'Gestione Utenti',

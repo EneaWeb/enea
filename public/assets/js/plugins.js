@@ -172,7 +172,7 @@ $(function() {
             if($(".datatable_simple").length > 0){                
                 $(".datatable_simple").dataTable({
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
-                    "ordering": false, 
+                    "ordering": true, 
                     "info": false, 
                     "lengthChange": false,
                     "searching": false

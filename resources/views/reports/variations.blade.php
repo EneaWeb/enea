@@ -114,14 +114,14 @@
             $(document).ready(function() {
                 
                 var currentLocale = $('#getcurrentlocale').text();
-                var soldByVariationQty_column = $('#sold-by-variation').find('th:last').index()-1;
+                var myOrderColumn = $('#sold-by-variation').find('th:last').index()-2;
                 
                 $('#sold-by-variation').DataTable( {
-                    "order": [[ soldByVariationQty_column, "desc" ]],
+                    "order": [[ myOrderColumn]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     sScrollX: "100%",
                     paginate: false,
-                    bSort: false,
+                    bSort: true
                 });
                 
             } );

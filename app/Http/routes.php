@@ -222,6 +222,7 @@ Route::group([
 	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
 	Route::get('/report', 'ReportController@index');
 	Route::get('/report/variations', 'ReportController@sold_variations');
+	Route::get('/report/delivery', 'ReportController@sold_delivery');
 	Route::get('/report/zero-sold', 'ReportController@zero_sold');
 	/*
 	Route::get('/proforma/pdf/download/{id}', 'PDFController@proforma');
@@ -296,6 +297,8 @@ Route::group([
 	});
 	
 	Route::post('/add-lines/api-product-id', 'ProductController@api_product_id');
+	
+	Route::post('/report/select-delivery', 'ReportController@select_delivery');
 	
 	Route::post('/minimize-maximize', function()
 	{ // menu minimize-maximize session variable

@@ -44,3 +44,7 @@ span.little-delete-icon {
    margin-top: -10px;
    margin-bottom: 10px;
 }
+
+.dataTables_scrollBody th.sorting:before {
+	display:none!important;
+}

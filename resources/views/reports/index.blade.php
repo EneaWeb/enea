@@ -127,16 +127,19 @@
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     sScrollX: "100%",
                     paginate: false,
-                    bSort: false,
-                    drawCallback: function () {
-                    var api = this.api();
-                    $( api.table().columns().every() ).html(
-                        '<span style="float:right"><button class="btn btn-warning">'+            
-                        api.column( lastColumnMinusOne, {page:'current'} ).data().sum()
-                        +'</button></span>'
-                      );
-                    }
+                    bSort: false
                 });
+                
+                       var currentLocale = $('#getcurrentlocale').text();
+                        var myOrderColumn = $('#sold-by-delivery').find('th:last').index()-2;
+                        
+                        $('#sold-by-delivery').DataTable( {
+                            "order": [[ myOrderColumn]],
+                            "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
+                            sScrollX: "100%",
+                            paginate: false,
+                            bSort: true
+                        });
                        
             } );
         </script>

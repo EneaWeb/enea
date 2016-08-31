@@ -3,6 +3,7 @@ return [
 	'Dashboard' => 'Dashboard',
 	'Sold' => 'Sold',
 	'Sold per Variations' => 'Sold per Variations',
+	'Sold per Delivery Date' => 'Sold per Delivery Date',
 	'Zero Sold' => 'Zero Sold',
 	'Administration' => 'Administration',
 	'Manage Users' => 'Manage Users',
