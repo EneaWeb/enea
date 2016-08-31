@@ -102,10 +102,10 @@
                                                         })->sum('qty');
                                                     !!}</td>
                                                 @endforeach
-                                                <th>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</th>
-                                                <th style="text-align:right">
+                                                <td>{!!\App\OrderDetail::where('product_id', $product_id)->sum('qty')!!}</td>
+                                                <td style="text-align:right">
                                                     € {!!number_format(\App\OrderDetail::where('product_id', $product_id)->sum('total_price'), false, ',', '.')!!}
-                                                </th>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
