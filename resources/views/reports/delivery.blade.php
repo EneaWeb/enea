@@ -26,7 +26,7 @@
                         <br><br>
                         <div class="form-group col-md-3">
                             <select id="select-delivery" class="form-control">
-                                <option value="" selected="selected" disabled >Seleziona il mese di consegna</option>
+                                <option value="" selected="selected" disabled >Seleziona il periodo di consegna</option>
                                 @foreach ($season_delivery_ids as $season_delivery_id)
                                     <option value="{!!$season_delivery_id!!}">{!!\App\SeasonDelivery::find($season_delivery_id)->name!!}</option>
                                 @endforeach
