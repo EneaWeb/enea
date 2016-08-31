@@ -129,17 +129,6 @@
                     paginate: false,
                     bSort: false
                 });
-                
-                       var currentLocale = $('#getcurrentlocale').text();
-                        var myOrderColumn = $('#sold-by-delivery').find('th:last').index()-2;
-                        
-                        $('#sold-by-delivery').DataTable( {
-                            "order": [[ myOrderColumn]],
-                            "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
-                            sScrollX: "100%",
-                            paginate: false,
-                            bSort: true
-                        });
                        
             } );
         </script>

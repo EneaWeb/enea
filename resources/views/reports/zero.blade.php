@@ -104,15 +104,7 @@
                 
                 var currentLocale = $('#getcurrentlocale').text();
                 var soldByVariationQty_column = $('#sold-by-variation').find('th:last').index()-1;
-                
-                $('#zero-sold').DataTable( {
-                    "order": [[ soldByVariationQty_column, "desc" ]],
-                    "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
-                    sScrollX: "100%",
-                    paginate: false,
-                    bSort: false,
-                });
-                
+
             } );
         </script>
     </div>
