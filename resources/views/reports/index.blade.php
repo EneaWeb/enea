@@ -129,7 +129,7 @@
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     sScrollX: "100%",
                     paginate: false,
-                    bSort: false
+                    bSort: true
                 });
                        
             } );
