@@ -31,15 +31,23 @@
 {{ HTML::script('/assets/js/demo_dashboard.js') }} 
 {{-- END TEMPLATE --}}
 
-<script type="text/javascript" src="/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/datatables/sum().js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/tableExport.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/jquery.base64.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/html2canvas.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/jspdf/libs/sprintf.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/jspdf/jspdf.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/tableexport/jspdf/libs/base64.js"></script>
+{{ HTML::script("/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js") }}
+{{ HTML::script("/assets/js/plugins/datatables/jquery.dataTables.min.js") }}
+{{ HTML::script("/assets/js/plugins/datatables/sum().js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/tableExport.js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/jquery.base64.js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/html2canvas.js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/jspdf/libs/sprintf.js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/jspdf/jspdf.js") }}
+{{ HTML::script("/assets/js/plugins/tableexport/jspdf/libs/base64.js") }}
+{{ HTML::script('/assets/js/plugins/datatables/pdfmake.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/vfs_fonts.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/jszip.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/dataTables.buttons.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/buttons.bootstrap.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/buttons.print.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/buttons.html5.min.js') }}
+{{ HTML::script('/assets/js/plugins/datatables/buttons.flash.min.js') }}
 
 {{-- END SCRIPTS --}}
 @include('layout.scripts')
