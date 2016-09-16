@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th>{!!trans('auth.Picture')!!}</th>
-                    <th>{!!trans('auth.Model')!!}</th>
+                    <th>{!!trans('auth.Model')!!} / {!!trans('auth.Variation')!!}</th>
                     @foreach (\App\Size::all() as $size)
                         <th style="text-align:center">{!!$size->name!!}</th>
                     @endforeach
