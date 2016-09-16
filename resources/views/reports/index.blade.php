@@ -56,9 +56,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <strong>
-                                                        {!!\App\Product::find($product_id)->prodmodel->name!!} {!!\App\Product::find($product_id)->name!!}
-                                                    </strong>
+                                                    <strong>{!!\App\Product::find($product_id)->prodmodel->name!!} {!!\App\Product::find($product_id)->name!!}</strong>
                                                 </td>
                                                 @foreach (\App\Size::all() as $size)
                                                     <td>{!!

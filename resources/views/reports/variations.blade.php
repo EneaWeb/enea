@@ -48,15 +48,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <strong>
-                                                        {!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!} 
-                                                        <br>
-                                                        {!!\App\ProductVariation::find($variation_id)->product->name!!}
-                                                        <br>
-                                                        <span style="color:{!!(\App\ProductVariation::find($variation_id)->color->hex == '#ffffff') ? '#ffffff; background-color:#D9D9D9; padding:2px' : \App\ProductVariation::find($variation_id)->color->hex !!};">
-                                                            {!!\App\ProductVariation::find($variation_id)->color->name!!}
-                                                        </span>
-                                                    </strong>
+                                                    <strong>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}<br>{!!\App\ProductVariation::find($variation_id)->product->name!!}<br><span style="color:{!!(\App\ProductVariation::find($variation_id)->color->hex == '#ffffff') ? '#ffffff; background-color:#D9D9D9; padding:2px' : \App\ProductVariation::find($variation_id)->color->hex !!};">{!!\App\ProductVariation::find($variation_id)->color->name!!}</span></strong>
                                                 </td>
                                                 @foreach (\App\Size::all() as $size)
                                                     <td style="text-align:center">{!!
