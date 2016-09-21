@@ -50,6 +50,7 @@ return [
 	'Weight' => 'Weight',
 	'Courier' => 'Courier',
 	'Picking sign' => 'Picking sign',
+	'Sizes' => 'Sizes',
 	'Delivery sign' => 'Delivery sign',
 	'Picking date/hour' => 'Picking date',
 	'Total Pieces' => 'Total Pieces',

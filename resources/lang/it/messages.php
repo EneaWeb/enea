@@ -20,6 +20,7 @@ return [
 	'Billing Informations' => 'Dati di fatturazione',
 	'Shipping Informations' => 'Dati di spedizione',
 	'Price List' => 'Listino',
+	'Sizes' => 'Taglie',
 	'Click to continue' => 'Clicca per continuare',
 	'Complete Order' => "Concludi l'ordine",
 	'Select a delivery date' => 'Seleziona una data di consegna',
