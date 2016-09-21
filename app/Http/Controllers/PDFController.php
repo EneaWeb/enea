@@ -57,7 +57,12 @@ class PDFController extends Controller
 	{
 		// DOMPDF
 		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
-		$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		$type_id = Auth::user()->options->active_type;
+		if ($type_id == 1) {
+			$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		} else {
+			$products = \App\Product::where('active', 1)->where('type_id', $type_id)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		}
 		
 		if ($id == 'clean')
 			$seasonlist = 'clean';
@@ -80,7 +85,12 @@ class PDFController extends Controller
 	{
 		// DOMPDF
 		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
-		$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		$type_id = Auth::user()->options->active_type;
+		if ($type_id == 1) {
+			$products = \App\Product::where('active', 1)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		} else {
+			$products = \App\Product::where('active', 1)->where('type_id', $type_id)->where('season_id', \App\Option::where('name', 'active_season')->first()->value)->get();
+		}
 		
 		if ($id == 'clean')
 			$seasonlist = 'clean';

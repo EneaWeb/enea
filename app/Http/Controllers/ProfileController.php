@@ -38,4 +38,17 @@ class ProfileController extends Controller
         \App\Alert::success(trans('messages.Brand in use changed'));
         return redirect('/');
     }
+
+    public function set_current_type($type_id)
+    {
+        // flush working orders
+        Session::forget('order');
+        
+        $user_options = \App\UserOption::where('user_id', Auth::user()->id)->first();
+        $user_options->active_type = $type_id;
+        $user_options->save();
+        
+        \App\Alert::success(trans('messages.Type in use changed'));
+        return redirect()->back();
+    }
 }

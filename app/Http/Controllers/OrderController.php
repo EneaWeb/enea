@@ -144,8 +144,14 @@ class OrderController extends Controller
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
 		// query all products for active season
-		$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(200);
-		
+
+		$type_id = Auth::user()->options->active_type;
+		if ($type_id == 1) {
+			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(200);
+		} else {
+			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'desc')->paginate(200);
+		}
+
 		if (Session::has('order.items')){
 			$items = Session::get('order.items');
 			$season_list_id = Session::get('order.season_list_id');

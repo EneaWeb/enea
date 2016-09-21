@@ -38,4 +38,9 @@ class UserOption extends Model
     {
     	return $this->belongsTo('\App\Brand', 'active_brand', 'id');
     }
+
+    public function type_in_use()
+    {
+        return $this->belongsTo('\App\Type', 'active_type', 'id');
+    }
 }

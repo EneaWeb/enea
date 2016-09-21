@@ -42,7 +42,18 @@
         </ul>                        
     </li> 
     {{-- END LANG BAR --}}
-    
+
+    {{-- TYPE BAR --}}
+    <li class=" pull-right">
+        <a href="#"><span class="fa fa-venus-mars"></span>{!!ucfirst(trans('messages.'.Auth::user()->options->type_in_use->slug))!!}</a>
+        <ul class="xn-drop-left xn-drop-white animated zoomIn" style="max-width:160px">
+            <li><a href="/set-current-type/1"><span class="glyphicon glyphicon-play"></span>{!!ucfirst(trans('messages.all'))!!}</a></li>
+            <li><a href="/set-current-type/5"><span class="glyphicon glyphicon-play"></span>{!!ucfirst(trans('messages.woman'))!!}</a></li>
+            <li><a href="/set-current-type/4"><span class="glyphicon glyphicon-play"></span>{!!ucfirst(trans('messages.man'))!!}</a></li>
+        </ul>                        
+    </li>
+    {{-- END TYPE BAR --}}
+
     {{-- BRAND BAR --}}
     <li class=" pull-right">
         <a href="#"><span class="fa fa-university"></span>{!!strtoupper(Auth::user()->options->brand_in_use->name)!!}</a>

@@ -179,6 +179,7 @@ Route::group([
 	Route::get('/customer/show/{id}', 'CustomerController@show');
 	Route::get('/customer/delete-delivery/{id}', 'CustomerController@delete_delivery');
 	Route::get('/set-current-brand/{brand_id}', 'ProfileController@set_current_brand');
+	Route::get('/set-current-type/{type_id}', 'ProfileController@set_current_type');
 	Route::get('/admin/unlink-user-from-brand/{user_id}', 'ManageUsersController@unlink_user_from_brand');
 	Route::get('/admin/payments', 'PaymentController@index');
 	Route::get('/admin/payment/edit', 'PaymentController@edit');
@@ -316,7 +317,7 @@ Route::group([
 	});
 
 	Route::get('/customers/api-customer-data', function(){
-		$companyname = Input::get('name');
+		$companyname = Input::get('companyname');
 		return \App\Customer::where('companyname', $companyname)->first()->toJson();
 	});
 	
