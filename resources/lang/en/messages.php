@@ -8,6 +8,7 @@ return [
 	'Agent Notes' => 'Agent Notes',
 	'Referee' => 'Referee',
 	'Models' => 'Models',
+	'Model saved.' => 'Model saved.',
 	'Select Customer' => 'Select Customer',
 	'Search for a model in all the orders' => 'Search for a model in all the orders',
 	'First Informations' => 'First Informations',

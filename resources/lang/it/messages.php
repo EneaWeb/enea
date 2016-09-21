@@ -7,6 +7,7 @@ return [
 	'Total Amount' => 'Importo Totale',
 	'Agent Notes' => "Note dell'Agente",
 	'Add Notes' => 'Inserisci note',
+	'Model saved.' => 'Modello salvato.',
 	'Referee' => 'Persona di riferimento',
 	'Models' => 'Modelli',
 	'Search for a model in all the orders' => 'Cerca un modello in tutti gli ordini',
