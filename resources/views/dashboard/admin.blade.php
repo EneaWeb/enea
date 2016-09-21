@@ -208,6 +208,12 @@
 			      @include('dashboard._orders_table')
 			   </div>
 			   {{-- END INCLUDE ORDERS TABLE --}}
+           {{-- INCLUDE SEARCH TABLE --}}
+           <div class="panel-body">
+           <br>
+               @include('dashboard._search_table')
+           </div>
+           {{-- END INCLUDE SEARCH TABLE --}}
 
 	      </div>
 	      {{-- END SALES BLOCK --}}

@@ -9,6 +9,8 @@ return [
 	'Add Notes' => 'Inserisci note',
 	'Referee' => 'Persona di riferimento',
 	'Models' => 'Modelli',
+	'Search for a model in all the orders' => 'Cerca un modello in tutti gli ordini',
+	'Start searching..' => 'Inizia a cercare..',
 	'N. Packages' => 'N. Colli',
 	'Select Customer' => 'Seleziona il Cliente',
 	'First Informations' => 'Informazioni Preliminari',

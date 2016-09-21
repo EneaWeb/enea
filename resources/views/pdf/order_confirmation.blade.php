@@ -51,7 +51,7 @@
                 <h4 style="color: 770476; border-bottom:1px solid #770476; margin-right:30px">
                 {!!strtoupper(trans('messages.Brand info'))!!}:<br><br></h4>
                 <div style="height:10px"></div>
-                <p>{!!trans('messages.Agent')!!}: {!!strtoupper($order->user->profile->companyname)!!}</p>
+                <p>{!!$brand->companyname!!}</p>
                 <p>{!!trans('auth.Vat')!!} {!!$brand->vat!!}</p>
                 <p>{!!$brand->address!!}</p>
                 <p>
@@ -62,6 +62,7 @@
                 </p>
                 <p>{!!$brand->email!!}</p>
                 <p>{!!$brand->telephone!!}</p>
+                <p>{!!trans('messages.Agent')!!}: {!!strtoupper($order->user->profile->companyname)!!}</p>
             </td>
             <td>
                 <h4 style="color:770476; border-bottom:1px solid #770476; margin-right:30px">{!!strtoupper(trans('messages.Customer info'))!!}:<br><br></h4>

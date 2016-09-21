@@ -291,8 +291,32 @@ Route::group([
 	Route::get('/customers/api-sign', function(){
 		return \App\Brand::find(Auth::user()->options->brand_in_use->id)->customers()->lists('sign')->toJson();
 	});
+
+	Route::get('/customers/api-products', function(){
+		$export = array();
+		foreach (\App\ProductVariation::all() as $var) {
+			$export[$var->id] = $var->product->prodmodel->name.' '.$var->product->name.' '.$var->color->name;
+		}
+		Session::put('all_variations', $export);
+		$export = json_encode(array_values($export));
+		return $export;
+	});
+
+	Route::get('/customers/api-products-data', function(){
+		$array = Session::get('all_variations');
+		$export = '';
+		$variation_id = array_search(Input::get('name'), $array);
+		foreach (\App\OrderDetail::where('product_variation_id', $variation_id)->groupBy('order_id')->get() as $detail) {
+			$export .= '<tr><td><a href="/order/pdf/'.$detail->order_id.'" target="_blank">'.$detail->order_id.'</td>'.
+							'<td>'.$detail->order->customer->companyname.'</td>'.
+							'<td>'.$detail->order->user->profile->companyname.'</td>'.
+							'<td><a href="#" data-toggle="modal" data-target="#modal_edit_'.$detail->order_id.'" class="btn btn-danger btn-rounded btn-condensed btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
+		}
+		return $export;
+	});
+
 	Route::get('/customers/api-customer-data', function(){
-		$companyname = Input::get('companyname');
+		$companyname = Input::get('name');
 		return \App\Customer::where('companyname', $companyname)->first()->toJson();
 	});
 	
