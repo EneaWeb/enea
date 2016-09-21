@@ -111,7 +111,7 @@
 	                       </thead>
 	                       <tbody>
 	                       		@foreach (\App\User::whereHas('roles', function($q) {
-											    $q->where('name', 'agent');
+											    $q->where('name', '!=', 'admin');
 											})->whereHas('brands', function($qq) {
 	                       				$qq->where('brand_id', Auth::user()->options->brand_in_use->id);
 	                       			})->get() as $agent)
