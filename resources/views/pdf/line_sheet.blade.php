@@ -55,8 +55,8 @@
     <div style="display:inline-block; float:left; width:64%; text-align:left">
         <h1 style="text-align:right; margin-right:20px">
         <br>
-            LINE SHEET {!!\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name!!}<br>
-            
+            LINE SHEET {!!\App\Season::find(\App\Option::where('name', 'active_season')->first()->value)->name!!}<br>   
+            {!!strtoupper(\App\Type::find(Auth::user()->options->active_type)->slug)!!} / 
             @if($seasonlist!='clean')
                 LIST {!!strtoupper($seasonlist->name)!!}
             @endif
