@@ -282,6 +282,7 @@
                                         @endforeach
                                     </tr>
                                 </table><br>
+                                {!!Form::submit('Save')!!}
                                 {!!Form::close()!!}
                                 @endforeach
                             </div>
