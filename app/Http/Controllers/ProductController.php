@@ -101,9 +101,12 @@ class ProductController extends Controller
 	{
 		$array = Input::all();
 		unset($array['_token']);
-		
+		// get season_list_id
+		$season_list_id = $array['season_list_id'];
+		unset($array['season_list_id']);
+
 		foreach ($array as $k => $val) {
-			$itemprice = \App\ItemPrice::find($k);
+			$itemprice = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first();
 			$itemprice->price = str_replace(',','.',$val);
 			$itemprice->save();
 		}
