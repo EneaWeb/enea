@@ -99,8 +99,8 @@ class ProductController extends Controller
 
 	public function edit_single_prices()
 	{
-		$array = unset('_token', Input::all());
-		return dd($array);
+		unset(Input::all('_token'));
+		return dd(Input::all());
 	}
 	
 	public function delete($id)
