@@ -276,12 +276,13 @@
                                         @foreach (\App\Item::where('product_variation_id', $variation->id)
                                                             ->orderBy('size_id')->get() as $item)
                                             <td>
-                                                {!!Input::number($item->id, \App\ItemPrice::where('item_id', $item->id)
+                                                {!!Form::number($item->id, \App\ItemPrice::where('item_id', $item->id)
                                                         ->where('season_list_id', $season_list->id)->first()['price'], ['class'=>'form-control', 'steps'=>'0.1'])!!}
                                             </td>
                                         @endforeach
                                     </tr>
                                 </table><br>
+                                {!!Form::close()!!}
                                 @endforeach
                             </div>
                         {{-- */ $i2++ /* --}}
