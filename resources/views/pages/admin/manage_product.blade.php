@@ -273,6 +273,7 @@
                                         @endforeach
                                     </tr><tr>
                                         <th>Eur /</th>
+                                        {!!Input::hidden('season_list_id', $season_list->id)!!}
                                         @foreach (\App\Item::where('product_variation_id', $variation->id)
                                                             ->orderBy('size_id')->get() as $item)
                                             <td>
