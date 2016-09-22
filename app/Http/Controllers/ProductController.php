@@ -101,7 +101,16 @@ class ProductController extends Controller
 	{
 		$array = Input::all();
 		unset($array['_token']);
-		return dd($array);
+		
+		foreach ($array as $k => $val) {
+			$itemprice = \App\ItemPrice::find($k);
+			$itemprice->price = str_replace(',','.',$val);
+			$itemprice->save();
+		}
+
+		Alert::success('Prezzi aggiornati');
+		return redirect()->back();
+
 	}
 	
 	public function delete($id)
