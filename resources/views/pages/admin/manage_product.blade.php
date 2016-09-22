@@ -282,7 +282,7 @@
                                         @endforeach
                                     </tr>
                                 </table><br>
-                                {!!Form::submit('Save', ['class'=>'btn btn-main', 'style'=>'float:right'])!!}
+                                {!!Form::submit('Save', ['class'=>'btn btn-main', 'style'=>'margin-left:auto;'])!!}
                                 {!!Form::close()!!}
                                 @endforeach
                             </div>
