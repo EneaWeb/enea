@@ -228,33 +228,38 @@ class ProductController extends Controller
 		
 		foreach ($input as $seasonlist_id => $price)
 		{
-			foreach (\App\Item::where('product_id', $product_id)->get() as $item) {
+
+			if ($price != '') {
 				
-				// se non esiste già, devo creare la linea di item_price
-				if (\App\ItemPrice::where('item_id', $item->id)
-				    	->where('season_list_id', $seasonlist_id)
-				    	->get()
-				    	->isEmpty() ) {
-					$itemprice = new \App\ItemPrice;
-					$itemprice->item_id = $item->id;
-					$itemprice->season_list_id = $seasonlist_id;
-					$itemprice->price = number_format($price, 2);
-					// setConnection -required- for BRAND DB
-					$itemprice->setConnection(Auth::user()->options->brand_in_use->slug);
-					// save
-					$itemprice->save();
-				// se esiste già la linea, aggiorno il prezzo
-				} else {
-					$itemprice = \App\Itemprice::where('item_id', $item->id)
-										->where('season_list_id', $seasonlist_id)
-										->first();
-					$itemprice->price = number_format($price, 2);
-					// setConnection -required- for BRAND DB
-					$itemprice->setConnection(Auth::user()->options->brand_in_use->slug);
-					// save
-					$itemprice->save();
+				foreach (\App\Item::where('product_id', $product_id)->get() as $item) {
+					
+					// se non esiste già, devo creare la linea di item_price
+					if (\App\ItemPrice::where('item_id', $item->id)
+					    	->where('season_list_id', $seasonlist_id)
+					    	->get()
+					    	->isEmpty() ) {
+						$itemprice = new \App\ItemPrice;
+						$itemprice->item_id = $item->id;
+						$itemprice->season_list_id = $seasonlist_id;
+						$itemprice->price = number_format($price, 2);
+						// setConnection -required- for BRAND DB
+						$itemprice->setConnection(Auth::user()->options->brand_in_use->slug);
+						// save
+						$itemprice->save();
+					// se esiste già la linea, aggiorno il prezzo
+					} else {
+						$itemprice = \App\Itemprice::where('item_id', $item->id)
+											->where('season_list_id', $seasonlist_id)
+											->first();
+						$itemprice->price = number_format($price, 2);
+						// setConnection -required- for BRAND DB
+						$itemprice->setConnection(Auth::user()->options->brand_in_use->slug);
+						// save
+						$itemprice->save();
+					}
 				}
 			}
+			
 		}
 
 		// success message
