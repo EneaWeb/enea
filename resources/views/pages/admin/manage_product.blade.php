@@ -264,6 +264,7 @@
                                 {!!strtoupper($season_list->name)!!}<br><br>
                                 
                                 {{-- print table with sizes --}}
+                                {!!Form::open(['url'=>'/catalogue/products/edit-single-prices', 'method'=>'POST'])!!}
                                 <table class="table-condensed table-bordered">
                                     <tr>
                                         <th>Size /</th>
@@ -272,12 +273,12 @@
                                         @endforeach
                                     </tr><tr>
                                         <th>Eur /</th>
-                                       @foreach (\App\Item::where('product_variation_id', $variation->id)
+                                        @foreach (\App\Item::where('product_variation_id', $variation->id)
                                                             ->orderBy('size_id')->get() as $item)
-                                        <td>
-                                            {!!\App\ItemPrice::where('item_id', $item->id)
-                                                    ->where('season_list_id', $season_list->id)->first()['price'] !!}
-                                        </td>
+                                            <td>
+                                                {!!Input::number($item->id, \App\ItemPrice::where('item_id', $item->id)
+                                                        ->where('season_list_id', $season_list->id)->first()['price'], ['class'=>'form-control', 'steps'=>'0.1'])!!}
+                                            </td>
                                         @endforeach
                                     </tr>
                                 </table><br>
@@ -291,7 +292,7 @@
             
             <div class="panel panel-default">
                 <div class="panel-title">
-                    <h3>Bulk edit prices</h3>
+                    <h4>Bulk edit prices</h4>
                 </div>
                 <div class="panel-body"> 
                     {!!Form::open(['url'=>'/catalogue/products/bulk-update-prices', 'method'=>'GET'])!!}

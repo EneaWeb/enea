@@ -96,6 +96,11 @@ class ProductController extends Controller
 		$product = Product::find($id);
 		return view('pages.admin.manage_product', compact('product'));
 	}
+
+	public function edit_single_prices()
+	{
+		return dd(Input::all());
+	}
 	
 	public function delete($id)
 	{
