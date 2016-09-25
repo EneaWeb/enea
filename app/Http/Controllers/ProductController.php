@@ -18,11 +18,23 @@ class ProductController extends Controller
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
 		// query all products for active season
-		
-		if (Input::has('active'))
-			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
-		else 
-			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
+		$type_id = Auth::user()->options->active_type;
+
+		if (Input::has('active')) {
+			if ($type_id == 1 || $type_id == 0) {
+				$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
+			} else {
+				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
+			}
+		}
+		else {
+			if ($type_id == 1 || $type_id == 0) {
+				$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
+			} else {
+				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
+			}
+			
+		}
 		
 		// return view
 		return view('pages.catalogue.products', compact('products'));
