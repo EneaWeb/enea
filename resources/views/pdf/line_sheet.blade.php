@@ -97,7 +97,7 @@
                         </h3>
                         @if ($seasonlist != 'clean')
                             <h3>
-                                {{--{!!$seasonlist->name!!}:--}} € {!!\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_variation_id', $variation->id)->first()['id'])->first()['price']!!}
+                                {{--{!!$seasonlist->name!!}:--}} € {!!number_format(\App\ItemPrice::where('season_list_id', $seasonlist->id)->where('item_id', \App\Item::where('product_variation_id', $variation->id)->first()['id'])->first()['price'], 2, ',','.')!!}
                             </h3>
                         @endif
                     </td>
