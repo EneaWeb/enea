@@ -11,7 +11,7 @@
             <div class="modal-body">
 
                 <div class="col-md-4">
-                    <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!$product->picture!!}" style="width:60%">
+                    <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!$product->picture!!}" style="width:60%">
                 </div>  
                 
                 <div class="col-md-8">
@@ -43,7 +43,7 @@
                                                     ->where('active', 1)->get() as $product_variation)
                         <tr>
                             <th style="padding:1px">
-                                <img style="max-width:40px" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/{!!$product_variation->picture!!}"/>
+                                <img style="max-width:40px" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/300/{!!$product_variation->picture!!}"/>
                             </th>
                             <th style="border-left:5px solid {!!\App\Color::find($product_variation->color_id)->hex!!}">
                                 {!!substr(\App\Color::find($product_variation->color_id)->name, 0, 14)!!}
