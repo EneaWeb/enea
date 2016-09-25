@@ -90,7 +90,7 @@
                     </td>
                     <td style="text-align:left; background-color:#F1F1F1;">
                         <h3>
-                            {!!$product->prodmodel->name!!} / {!!$product->name!!}
+                            {!!$product->prodmodel->name!!} {!!$product->name!!}
                         </h3>
                         <h3>
                             {!!\App\Color::find($variation->color_id)->name!!}
