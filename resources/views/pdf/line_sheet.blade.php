@@ -93,7 +93,7 @@
                             {!!$product->prodmodel->name!!} / {!!$product->name!!}
                         </h3>
                         <h3>
-                            color : {!!\App\Color::find($variation->color_id)->name!!}
+                            {!!\App\Color::find($variation->color_id)->name!!}
                         </h3>
                         @if ($seasonlist != 'clean')
                             <h3>
