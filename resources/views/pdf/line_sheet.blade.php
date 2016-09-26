@@ -70,7 +70,9 @@
             <tr><td colspan="2"><div style="">&nbsp;</div></td></tr>
             <tr>
                 <th style="text-align:center; width:400px; border-top:20px solid white; border-bottom:20px solid white; background-color: #F1F1F1;">
-                    <img style="max-width:280px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
+                    @if ($product->picture != 'default.jpg')
+                     <img style="max-width:280px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$product->picture!!}"/>
+                    @endif
                 </th>
                 <th style="text-align:left; background-color:#F1F1F1; border-top:20px solid white; border-bottom:20px solid white;"><h1><u>{!!$product->prodmodel->name!!} / {!!$product->name!!}</u></h1>
                 <p>{!!$product->description!!}</p>
