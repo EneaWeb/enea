@@ -42,7 +42,7 @@ class ProfileController extends Controller
     public function set_current_type($type_id)
     {
         // flush working orders
-        Session::forget('order');
+        //Session::forget('order');
         
         $user_options = \App\UserOption::where('user_id', Auth::user()->id)->first();
         $user_options->active_type = $type_id;
