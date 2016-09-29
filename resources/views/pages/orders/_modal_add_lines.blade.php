@@ -35,9 +35,9 @@
                     <tr>
                         <th></th>
                         <th></th>
-                            @foreach (\App\Size::sizes_for_type($product) as $size)
-                            <th>{!!$size->name!!}</th>
-                            @endforeach
+                       @foreach (\App\Item::where('product_variation_id', $product->variations()->first()->id)->orderBy('size_id')->lists('size_id') as $size_id)
+                            <th>{!!\App\Size::find($size_id)->name!!}</th>
+                        @endforeach
                     </tr>
                     @foreach(\App\ProductVariation::where('product_id', $product->id)
                                                     ->where('active', 1)->get() as $product_variation)
@@ -46,7 +46,7 @@
                                 <img style="max-width:40px" src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug;!!}/300/{!!$product_variation->picture!!}"/>
                             </th>
                             <th style="border-left:5px solid {!!\App\Color::find($product_variation->color_id)->hex!!}">
-                                {!!substr(\App\Color::find($product_variation->color_id)->name, 0, 14)!!}
+                                {!!substr(\App\Color::find($product_variation->color_id)->name, 0, 20)!!}
                             </th>
                             
                             @foreach (\App\Item::where('product_variation_id', $product_variation->id)->orderBy('size_id')->get() as $item)

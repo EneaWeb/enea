@@ -118,9 +118,27 @@ class ProductController extends Controller
 		unset($array['season_list_id']);
 
 		foreach ($array as $k => $val) {
-			$itemprice = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first();
-			$itemprice->price = str_replace(',','.',$val);
-			$itemprice->save();
+
+			// verifico se esistono itemprices con quei parametri
+			$price_test = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->get();
+			// se non esiste
+			if ($price_test->isEmpty()) {
+				// Creo un nuovo record, inserisco i dati e salvo.
+				$itemprice = new \App\ItemPrice;
+				$itemprice->item_id = $k;
+				$itemprice->season_list_id = $season_list_id;
+				$itemprice->price = str_replace(',','.',$val);
+				$itemprice->save();
+				//return 'case 1 itemprice '.$itemprice;
+				// se esiste
+			} else {
+				// recupero la linea e aggiorno i dati. salvo.
+				$itemprice = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first();
+				$itemprice->price = str_replace(',','.',$val);
+				$itemprice->save();
+				//return 'case 2 itemprice '.$itemprice;
+
+			}
 		}
 
 		Alert::success('Prezzi aggiornati');
@@ -214,6 +232,30 @@ class ProductController extends Controller
 		Alert::success(trans('messages.Color added'));
 		
 		return redirect()->back();
+	}
+
+	public function add_size()
+	{
+		$product_id = Input::get('product_id');
+		$size_id = Input::get('size_id');
+		// verifico che non esistano già gli items con questa taglia
+		$product_has_items = \App\Item::where('product_id', $product_id)->where('size_id', $size_id)->get();
+		// se non ha items con quella taglia
+		if ($product_has_items->isEmpty()) {
+			foreach ($product->variations() as $product_variation) {
+				$newItem = new \App\Item;
+				$newItem->product_id = $product_id;
+				$newItem->product_variation_id = $product_variation->id;
+				$newItem->size_id = $size_id;
+				$newItem->active = 1;
+				$newItem->save();
+			}
+		}
+
+		// success message
+		Alert::success(trans('messages.Color added'));
+		return redirect()->back();
+
 	}
 	
 	public function bulk_update_prices()

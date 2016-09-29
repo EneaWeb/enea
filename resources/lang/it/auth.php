@@ -54,6 +54,7 @@ return [
     'Description' => 'Descrizione',
     'Variation' => 'Variante',
     'Add Color' => 'Aggiungi Colore',
+    'Add Size' => 'Aggiungi Taglia',
     'Save' => 'Salva',
     'Add/replace Main Picture' => 'Aggiungi/sostituisci l\'immagine principale',
     'Add more gallery images' => 'Aggiungi altre immagini di galleria',

@@ -207,6 +207,7 @@ Route::group([
 	Route::get('/catalogue/size/delete/{id}', 'SizeController@delete');
 	Route::get('/catalogue/size/edit', 'SizeController@edit');
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
+	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
 	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
 	Route::get('/catalogue/product/delete-picture/{id}', 'ProductController@delete_product_picture');
 	Route::get('/catalogue/product/delete-variation-picture/{id}', 'ProductController@delete_variation_picture');

@@ -234,6 +234,25 @@
                     {!!Form::close()!!}
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body"> 
+                    {!!Form::open(['url'=>'/catalogue/products/add-size', 'method'=>'GET'])!!}
+                        <div class="form-group">
+                            {!!Form::hidden('product_id', $product->id)!!}
+                            {!!Form::label('size_id', trans('auth.Add Size'), ['class' => 'col-md-3 control-label'])!!}
+                            <div class="col-md-8">
+                                {!!Form::select('size_id', \App\Size::orderBy('name')->lists('name', 'id'), '', ['class'=>'form-control', 'placeholder'=>trans('menu.Select')])!!}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            {!!Form::submit(trans('auth.Save'), ['class'=>'btn btn-main'])!!}
+                            <div class="clearfix"></div>
+                        </div>
+                    {!!Form::close()!!}
+                </div>
+            </div>
             
                 <!-- START TABS -->                                
                 <div class="panel panel-default tabs">           
@@ -265,27 +284,30 @@
                                 
                                 {{-- print table with sizes --}}
                                 {!!Form::open(['url'=>'/catalogue/products/edit-single-prices', 'method'=>'POST'])!!}
-                                <table class="table-condensed table-bordered">
-                                    <tr>
-                                        <th>Size /</th>
-                                        @foreach (\App\Size::sizes_for_type($product) as $size)
-                                            <th>{!!$size->name!!}</th>
-                                        @endforeach
-                                    </tr><tr>
-                                        <th>Eur /</th>
-                                        {!!Form::hidden('season_list_id', $season_list->id)!!}
-                                        @foreach (\App\Item::where('product_variation_id', $variation->id)
-                                                            ->orderBy('size_id')->get() as $item)
-                                            <td>
-                                                {!!Form::number($item->id, \App\ItemPrice::where('item_id', $item->id)
-                                                        ->where('season_list_id', $season_list->id)->first()['price'], ['class'=>'form-control', 'step'=>'0.1'])!!}
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                </table><br>
-                                <div>
-                                {!!Form::submit('Save', ['class'=>'btn btn-main', 'style'=>'margin-left:auto;'])!!}
-                                </div>
+                                    <table class="table-condensed table-bordered">
+                                        <tr>
+                                            <th>Size /</th>
+                                            @foreach (\App\Item::where('product_variation_id', $variation->id)->orderBy('size_id')->lists('size_id') as $size_id)
+                                                <th>{!!\App\Size::find($size_id)->name!!}</th>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <th>Eur /</th>
+                                            {!!Form::hidden('season_list_id', $season_list->id)!!}
+                                            @foreach (\App\Item::where('product_variation_id', $variation->id)
+                                                                ->orderBy('size_id')->get() as $item)
+                                                <td>
+                                                    {!!Form::number($item->id, \App\ItemPrice::where('item_id', $item->id)
+                                                                                            ->where('season_list_id', $season_list->id)
+                                                                                            ->first()['price'], 
+                                                                    ['class'=>'form-control', 'step'=>'0.1']) !!}
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                    </table><br>
+                                    <div>
+                                        {!!Form::submit('Save', ['class'=>'btn btn-main', 'style'=>'margin-left:auto;'])!!}
+                                    </div>
                                 {!!Form::close()!!}
                                 @endforeach
                             </div>

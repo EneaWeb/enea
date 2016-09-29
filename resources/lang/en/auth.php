@@ -53,6 +53,7 @@ return [
     'Model' => 'Model',
     'Description' => 'Description',
     'Variation' => 'Variation',
+    'Add Size' => 'Add Size',
     'Add Color' => 'Add Color',
     'Save' => 'Save',
     'Add/replace Main Picture' => 'Add/replace Main Picture',

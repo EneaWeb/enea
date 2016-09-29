@@ -204,7 +204,8 @@
                                         € {!!number_format($subtotal, 2, ',', '.');!!}
                                         <br>
                                         {!!\App\Payment::find($fullOrder['payment_id'])->action!!}
-                                        {!!\App\Payment::find($fullOrder['payment_id'])->amount !!}%
+                                        {!!\App\Payment::find($fullOrder['payment_id'])->amount !!}
+                                        @if (\App\Payment::find($fullOrder['payment_id'])->amount != '') % @else / @endif
                                     </h6>
                                 </div>
                                 <div class="form-group">
