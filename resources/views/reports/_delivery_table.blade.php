@@ -5,7 +5,7 @@
                 <tr>
                     <th>{!!trans('auth.Picture')!!}</th>
                     <th>{!!trans('auth.Model')!!} / {!!trans('auth.Variation')!!}</th>
-                    @foreach (\App\Size::all() as $size)
+                    @foreach (\App\Size::orderBy('name')->get() as $size)
                         <th style="text-align:center">{!!$size->name!!}</th>
                     @endforeach
                     <th>{!!trans('auth.Qty')!!}</th>
@@ -24,7 +24,7 @@
                         <td>
                             <strong>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}<br> {!!\App\ProductVariation::find($variation_id)->product->name!!}<br> <span style="color:{!!(\App\ProductVariation::find($variation_id)->color->hex == '#ffffff') ? '#ffffff; background-color:#D9D9D9; padding:2px' : \App\ProductVariation::find($variation_id)->color->hex !!};">{!!\App\ProductVariation::find($variation_id)->color->name!!}</span> </strong>
                         </td>
-                        @foreach (\App\Size::all() as $size)
+                        @foreach (\App\Size::orderBy('name')->get() as $size)
                             <td style="text-align:center">{!!
                                 \App\OrderDetail::where('product_variation_id', $variation_id)
                                         ->whereHas('order', function( $q ) use ($season_delivery_id) {

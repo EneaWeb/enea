@@ -29,7 +29,7 @@
                                         <tr>
                                             <th>{!!trans('auth.Picture')!!}</th>
                                             <th>{!!trans('auth.Model')!!}</th>
-                                            @foreach (\App\Size::all() as $size)
+                                            @foreach (\App\Size::orderBy('name')->get() as $size)
                                                 <th>{!!$size->name!!}</th>
                                             @endforeach
                                             <th>{!!trans('auth.Qty')!!}</th>
@@ -40,7 +40,7 @@
                                         <tr>
                                             <th></th>
                                             <th></th>
-                                            @foreach (\App\Size::all() as $size)
+                                            @foreach (\App\Size::orderBy('name')->get() as $size)
                                                 <th></th>
                                             @endforeach
                                             <th></th>
@@ -58,7 +58,7 @@
                                                 <td>
                                                     <strong>{!!\App\Product::find($product_id)->prodmodel->name!!} {!!\App\Product::find($product_id)->name!!}</strong>
                                                 </td>
-                                                @foreach (\App\Size::all() as $size)
+                                                @foreach (\App\Size::orderBy('name')->get() as $size)
                                                     <td>{!!
                                                         \App\OrderDetail::where('product_id', $product_id)
                                                             ->whereHas('item', function($query) use ($size) {

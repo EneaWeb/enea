@@ -184,7 +184,7 @@
     <table class="bordered" style="margin-right:auto; border-collapse: collapse; width:100%;">
         <tr>
             <th style="text-align:left"><span>{!!strtoupper(trans('messages.Product'))!!}</span></th>
-            @foreach (\App\Size::all() as $size)
+            @foreach (\App\Size::orderBy('name')->get() as $size)
                 <th style="text-align:center"><span>{!!$size->name!!}</span></th>
             @endforeach
             <th><span>{!!trans('messages.Price')!!}</span></th>
@@ -202,7 +202,7 @@
                 </td>
                 {{--*/ $totprice = 0 /* --}}
                 {{--*/ $qty = 0 /* --}}
-                @foreach (\App\Size::all() as $size)
+                @foreach (\App\Size::orderBy('name')->get() as $size)
                 <td style="text-align:center">
                     @if (!empty(\App\Item::where('product_variation_id', $product_variation_id)
                                             ->where('size_id', $size->id)->get()))

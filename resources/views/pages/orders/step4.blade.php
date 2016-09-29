@@ -145,7 +145,7 @@
                                         <table class="table-condensed table-bordered" style="margin-left:auto; margin-right:auto; border-collapse: collapse; width:100%;">
                                             <tr>
                                                 <th></th>
-                                                @foreach (\App\Size::all() as $size)
+                                                @foreach (\App\Size::orderBy('name')->get() as $size)
                                                     <th style="text-align:center">
                                                         {!!$size->name!!}
                                                     </th>
@@ -166,7 +166,7 @@
                                                                     \App\ProductVariation::find($product_variation_id)
                                                                         ->color_id)->name!!}
                                                     </th>
-                                                    @foreach (\App\Size::all() as $size)
+                                                    @foreach (\App\Size::orderBy('name')->get() as $size)
                                                     <td style="text-align:center">
                                                         @if ( !empty( \App\Item::where('product_variation_id', $product_variation_id)->where('size_id', $size->id)->get() ) )
                                                             
