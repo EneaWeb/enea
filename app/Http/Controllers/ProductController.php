@@ -242,7 +242,7 @@ class ProductController extends Controller
 		// verifico che non esistano già gli items con questa taglia
 		$product_has_items = \App\Item::where('product_id', $product_id)->where('size_id', $size_id)->get();
 
-		return dd($product_id.' '.$size_id);
+		return dd($product_has_items->isEmpty());
 
 		// se non ha items con quella taglia
 		if ($product_has_items->isEmpty()) {
