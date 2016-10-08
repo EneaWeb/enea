@@ -241,6 +241,9 @@ class ProductController extends Controller
 		$size_id = Input::get('size_id');
 		// verifico che non esistano già gli items con questa taglia
 		$product_has_items = \App\Item::where('product_id', $product_id)->where('size_id', $size_id)->get();
+
+		return dd($product_id.' '.$size_id);
+
 		// se non ha items con quella taglia
 		if ($product_has_items->isEmpty()) {
 			foreach ($product->variations() as $product_variation) {
