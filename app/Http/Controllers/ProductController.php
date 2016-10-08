@@ -251,10 +251,13 @@ class ProductController extends Controller
 				$newItem->active = 1;
 				$newItem->save();
 			}
+			// success message
+			Alert::success(trans('messages.Size added'));
+			return redirect()->back();
 		}
 
 		// success message
-		Alert::success(trans('messages.Size added'));
+		Alert::error(trans('messages.Size already exhists'));
 		return redirect()->back();
 
 	}
