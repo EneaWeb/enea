@@ -237,6 +237,7 @@ class ProductController extends Controller
 	public function add_size()
 	{
 		$product_id = Input::get('product_id');
+		$product  = \App\Product::find($product_id);
 		$size_id = Input::get('size_id');
 		// verifico che non esistano già gli items con questa taglia
 		$product_has_items = \App\Item::where('product_id', $product_id)->where('size_id', $size_id)->get();
