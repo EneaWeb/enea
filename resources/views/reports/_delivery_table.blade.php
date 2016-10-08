@@ -6,12 +6,21 @@
                     <th>{!!trans('auth.Picture')!!}</th>
                     <th>{!!trans('auth.Model')!!} / {!!trans('auth.Variation')!!}</th>
                     @foreach (\App\Size::orderBy('name')->get() as $size)
-                        <th style="text-align:center">{!!$size->name!!}</th>
+                        <th class="sum" style="text-align:center">{!!$size->name!!}</th>
                     @endforeach
-                    <th>{!!trans('auth.Qty')!!}</th>
-                    <th>{!!trans('auth.Total')!!}</th>
+                    <th class="sum">{!!trans('auth.Qty')!!}</th>
+                    <th class="sum">{!!trans('auth.Total')!!}</th>
                 </tr>
             </thead>
+            <tfoot>
+                <th></th>
+                <th></th>
+                    @foreach (\App\Size::orderBy('name')->get() as $size)
+                        <th></th>
+                    @endforeach
+                <th></th>
+                <th></th>
+            </tfoot>
             <tbody>
                 @foreach($variation_ids as $variation_id)
 

@@ -57,7 +57,7 @@
                         var currentLocale = $('#getcurrentlocale').text();
                         var myOrderColumn = $('#sold-by-delivery').find('th:last').index()-2;
                         
-                        $('#sold-by-delivery').DataTable( {
+                        var table = $('#sold-by-delivery').DataTable( {
                             "order": [[ myOrderColumn]],
                             "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                             sScrollX: "100%",
@@ -66,11 +66,43 @@
                             deferRender: true,
                             dom: 'Bfrtip',
                             buttons: [
-                            'copyHtml5',
-                            'excelHtml5',
-                            'csvHtml5',
-                            'pdf'
-                            ],
+                                {
+                                    extend: 'copyHtml5',
+                                    footer: 'true'
+                                },
+                                {
+                                    extend: 'excelHtml5',
+                                    footer: 'true'
+                                },
+                                {
+                                    extend: 'csvHtml5',
+                                    footer: 'true'
+                                },
+                                {
+                                    extend: 'pdf',
+                                    footer: 'true'
+                                },
+                            ]
+                        });
+
+                        table.on( 'search.dt', function (settings, json) {
+                            table.columns('.sum', { search:'applied' }).every(function(){
+                                var column = this;
+
+                                var sum = column
+                                    .data()
+                                    .reduce(function (a, b) { 
+                                       a = parseFloat(a.toString().replace('€ ','').replace('.',''), 10);
+                                       if(isNaN(a)){ a = 0; }                   
+
+                                       b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
+                                       if(isNaN(b)){ b = 0; }
+
+                                       return (a + b).toLocaleString('it');
+                                    });
+
+                                $(column.footer()).html(sum);
+                            });
                         });
                 
                     })
