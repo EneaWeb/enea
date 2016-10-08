@@ -254,7 +254,7 @@ class ProductController extends Controller
 		}
 
 		// success message
-		Alert::success(trans('messages.Color added'));
+		Alert::success(trans('messages.Size added'));
 		return redirect()->back();
 
 	}
