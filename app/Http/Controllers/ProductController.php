@@ -244,9 +244,9 @@ class ProductController extends Controller
 
 		// se non ha items con quella taglia
 		if ($product_has_items->isEmpty()) {
-			foreach ($product->variations() as $product_variation) {
 
-				return dd($product_variation);
+			return dd($product->variations());
+			foreach ($product->variations() as $product_variation) {
 				$newItem = new \App\Item;
 				$newItem->product_id = $product_id;
 				$newItem->product_variation_id = $product_variation->id;
