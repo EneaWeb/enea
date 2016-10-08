@@ -242,8 +242,6 @@ class ProductController extends Controller
 		// verifico che non esistano già gli items con questa taglia
 		$product_has_items = \App\Item::where('product_id', $product_id)->where('size_id', $size_id)->get();
 
-		return dd($product_has_items->isEmpty());
-
 		// se non ha items con quella taglia
 		if ($product_has_items->isEmpty()) {
 			foreach ($product->variations() as $product_variation) {
@@ -252,6 +250,8 @@ class ProductController extends Controller
 				$newItem->product_variation_id = $product_variation->id;
 				$newItem->size_id = $size_id;
 				$newItem->active = 1;
+				// setConnection -required- for BRAND DB
+				$newItem->setConnection(Auth::user()->options->brand_in_use->slug);
 				$newItem->save();
 			}
 			// success message
