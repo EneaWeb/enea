@@ -57,7 +57,7 @@
                         var currentLocale = $('#getcurrentlocale').text();
                         var myOrderColumn = $('#sold-by-delivery').find('th:last').index()-2;
                         
-                        var table = $('#sold-by-delivery').DataTable( {
+                        $('#sold-by-delivery').DataTable( {
                             "order": [[ myOrderColumn]],
                             "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                             sScrollX: "100%",
@@ -82,27 +82,37 @@
                                     extend: 'pdf',
                                     footer: 'true'
                                 },
-                            ]
-                        });
+                            ],
+                            "footerCallback": function ( row, data, start, end, display ) {
+                                var api = this.api(), data;
+                                
+                                api.columns('.sum').every(function(){
+                                    var column = this;
+                                    // Total over all pages
+                                    total = api
+                                        .column( this, { page: 'current'} ) // rimuovi { page: 'current'} per ottenere il totale totale fisso
+                                        .data()
+                                        .reduce( function (a, b) {
+                                           a = parseFloat(a.toString().replace('€ ','').replace('.',''), 10);
+                                           if(isNaN(a)){ a = 0; }                   
 
-                        table.on( 'search.dt', function (settings, json) {
-                            table.columns('.sum', { search:'applied' }).every(function(){
-                                var column = this;
+                                           b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
+                                           if(isNaN(b)){ b = 0; }
 
-                                var sum = column
-                                    .data()
-                                    .reduce(function (a, b) { 
-                                       a = parseFloat(a.toString().replace('€ ','').replace('.',''), 10);
-                                       if(isNaN(a)){ a = 0; }                   
+                                           return (a + b).toLocaleString('it');
+                                        }, 0 );
 
-                                       b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
-                                       if(isNaN(b)){ b = 0; }
+                                    // Update footer
+                                    // Se è l'ultima colonna, aggiungo il simbolo Euro prima
+                                    if ( this.index() == api.column(-1).index() ) {
+                                        $( api.column( this ).footer() ).html('€ '+total); 
+                                   } else {
+                                        $( api.column( this ).footer() ).html( total );
+                                   }
 
-                                       return (a + b).toLocaleString('it');
-                                    });
+                                });
+                            }
 
-                                $(column.footer()).html(sum);
-                            });
                         });
                 
                     })

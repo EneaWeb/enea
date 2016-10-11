@@ -33,12 +33,23 @@
                                             <th>{!!trans('auth.Picture')!!}</th>
                                             <th>{!!trans('auth.Model')!!} / {!!trans('auth.Variation')!!}</th>
                                             @foreach (\App\Size::orderBy('name')->get() as $size)
-                                                <th style="text-align:center">{!!$size->name!!}</th>
+                                                <th class="sum" style="text-align:center">{!!$size->name!!}</th>
                                             @endforeach
-                                            <th>{!!trans('auth.Qty')!!}</th>
-                                            <th>{!!trans('auth.Total')!!}</th>
+                                            <th class="sum" >{!!trans('auth.Qty')!!}</th>
+                                            <th class="sum">{!!trans('auth.Total')!!}</th>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            @foreach (\App\Size::orderBy('name')->get() as $size)
+                                                <th style="text-align:center"></th>
+                                            @endforeach
+                                            <th></th>
+                                            <th style="text-align:right"></th>
+                                        </tr>
+                                    </tfoot>
                                     <tbody>
                                         @foreach($variation_ids as $variation_id)
                                             <tr>
@@ -77,9 +88,9 @@
             $(document).ready(function() {
                 
                 var currentLocale = $('#getcurrentlocale').text();
-                var myOrderColumn = $('#sold-by-variation').find('th:last').index()-2;
+                var myOrderColumn = $('#sold-by-variation').find('th:last').index()-1;
                 
-                var table = $('#sold-by-variation').DataTable( {
+                $('#sold-by-variation').DataTable( {
                     "order": [[ myOrderColumn]],
                     "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                     sScrollX: "100%",
@@ -104,28 +115,37 @@
                             extend: 'pdf',
                             footer: 'true'
                         },
-                    ]
-                });
+                    ],
+                    "footerCallback": function ( row, data, start, end, display ) {
+                        var api = this.api(), data;
+                        
+                        api.columns('.sum').every(function(){
+                            var column = this;
+                            // Total over all pages
+                            total = api
+                                .column( this, { page: 'current'} ) // rimuovi { page: 'current'} per ottenere il totale totale fisso
+                                .data()
+                                .reduce( function (a, b) {
+                                   a = parseFloat(a.toString().replace('€ ','').replace('.',''), 10);
+                                   if(isNaN(a)){ a = 0; }                   
 
+                                   b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
+                                   if(isNaN(b)){ b = 0; }
 
-                table.on( 'search.dt', function (settings, json) {
-                    table.columns('.sum', { search:'applied' }).every(function(){
-                        var column = this;
+                                   return (a + b).toLocaleString('it');
+                                }, 0 );
 
-                        var sum = column
-                            .data()
-                            .reduce(function (a, b) { 
-                               a = parseFloat(a.toString().replace('€ ','').replace('.',''), 10);
-                               if(isNaN(a)){ a = 0; }                   
+                            // Update footer
+                            // Se è l'ultima colonna, aggiungo il simbolo Euro prima
+                            if ( this.index() == api.column(-1).index() ) {
+                                $( api.column( this ).footer() ).html('€ '+total); 
+                           } else {
+                                $( api.column( this ).footer() ).html( total );
+                           }
 
-                               b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
-                               if(isNaN(b)){ b = 0; }
+                        });
+                    }
 
-                               return (a + b).toLocaleString('it');
-                            });
-
-                        $(column.footer()).html(sum);
-                    });
                 });
                 
             } );

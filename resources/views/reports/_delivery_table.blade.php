@@ -16,10 +16,10 @@
                 <th></th>
                 <th></th>
                     @foreach (\App\Size::orderBy('name')->get() as $size)
-                        <th></th>
+                        <th style="text-align:center"></th>
                     @endforeach
                 <th></th>
-                <th></th>
+                <th style="text-align:right"></th>
             </tfoot>
             <tbody>
                 @foreach($variation_ids as $variation_id)
