@@ -4,7 +4,7 @@ return [
 	'Sold' => 'Sold',
 	'Sold per Variations' => 'Sold per Variations',
 	'Sold per Delivery Date' => 'Sold per Delivery Date',
-	'Sold per Time Interval' => 'Sold per Time Interval',
+	'Sold per Creation Date' => 'Sold per Creation Date',
 	'Zero Sold' => 'Zero Sold',
 	'Administration' => 'Administration',
 	'Manage Users' => 'Manage Users',
