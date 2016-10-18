@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Input;
 use Auth;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -57,6 +58,21 @@ class ReportController extends Controller
 
 		return view('reports.variations', compact('order_details', 'variation_ids'));
 	}
+
+	public function time_interval()
+	{
+		$dates = array();
+		$grouped_by_Ymd = Order::select('created_at')
+						->get()
+						->groupBy(function($date) {
+		  				return Carbon::parse($date->created_at)->format('Y-m-d');
+					});
+		foreach ($grouped_by_Ymd as $k => $v) {
+			$dates[] = $k.' 00:01';
+		}
+
+		return view('reports.time_interval', compact('dates'));
+	}
 	
 	public function sold_delivery()
 	{
@@ -94,6 +110,38 @@ class ReportController extends Controller
 		}
 		
 		return view('reports._delivery_table', compact('order_details', 'variation_ids', 'season_delivery_id'));
+	}
+
+	public function select_date()
+	{
+		$date = Input::get('date');
+		$type_id = Auth::user()->options->active_type;
+
+		if ($type_id == 1) {
+
+			$variation_ids = OrderDetail::whereHas('order', function($q) use ($date) {
+				$q->where('created_at', '>=', $date);
+			})->groupBy('product_variation_id')->lists('product_variation_id');
+			
+			$order_details = OrderDetail::whereHas('order', function($q) use ($date) {
+				$q->where('created_at', '>=', $date);
+			})->get();
+
+		} else {
+			$variation_ids = OrderDetail::whereHas('product', function($q) use ($type_id) {
+			    $q->where('type_id', '=', $type_id);
+			})->whereHas('order', function($q) use ($date) {
+				$q->where('created_at', '>=', $date);
+			})->groupBy('product_variation_id')->lists('product_variation_id');
+			
+			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
+			    $q->where('type_id', '=', $type_id);
+			})->whereHas('order', function($q) use ($date) {
+				$q->where('created_at', '>=', $date);
+			})->get();
+		}
+		
+		return view('reports._time_interval_table', compact('order_details', 'variation_ids', 'date'));
 	}
 	
 	public function zero_sold()

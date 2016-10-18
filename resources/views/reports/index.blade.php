@@ -28,12 +28,12 @@
                                     <thead>
                                         <tr>
                                             <th>{!!trans('auth.Picture')!!}</th>
-                                            <th>{!!trans('auth.Model')!!}</th>
+                                            <th class="export">{!!trans('auth.Model')!!}</th>
                                             @foreach (\App\Size::orderBy('name')->get() as $size)
-                                                <th class="sum">{!!$size->name!!}</th>
+                                                <th class="sum export">{!!$size->name!!}</th>
                                             @endforeach
-                                            <th class="sum">{!!trans('auth.Qty')!!}</th>
-                                            <th class="sum">{!!trans('auth.Total')!!}</th>
+                                            <th class="sum export">{!!trans('auth.Qty')!!}</th>
+                                            <th class="sum export">{!!trans('auth.Total')!!}</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -99,19 +99,39 @@
                     buttons: [
                         {
                             extend: 'copyHtml5',
-                            footer: 'true'
+                            footer: 'true',
+                            exportOptions: {
+                                columns: '.export'
+                            }
                         },
                         {
                             extend: 'excelHtml5',
-                            footer: 'true'
+                            footer: 'true',
+                            exportOptions: {
+                                columns: '.export'
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            footer: 'true',
+                            text: 'Excel [Safari]',
+                            exportOptions: {
+                                columns: '.export'
+                            }
                         },
                         {
                             extend: 'csvHtml5',
-                            footer: 'true'
+                            footer: 'true',
+                            exportOptions: {
+                                columns: '.export'
+                            }
                         },
                         {
                             extend: 'pdf',
-                            footer: 'true'
+                            footer: 'true',
+                            exportOptions: {
+                                columns: '.export'
+                            }
                         },
                     ],
                     "footerCallback": function ( row, data, start, end, display ) {

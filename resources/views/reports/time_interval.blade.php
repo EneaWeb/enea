@@ -19,13 +19,15 @@
             
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2 class="panel-title"><strong>{!! trans('menu.Sold per Delivery Date')!!}</strong></h2>
-                        <br><br>
+                        <h2 class="panel-title"><strong>{!! trans('menu.Sold per Time Interval')!!}</strong></h2><br>
+                        <div class="clearfix"></div>
+                        <p> &nbsp;&nbsp;Nella lista sono indicate solo le date in cui sono stati effettuati ordini</p>
+                        <br>
                         <div class="form-group col-md-3">
-                            <select id="select-delivery" class="form-control">
-                                <option value="" selected="selected" disabled >Seleziona il periodo di consegna</option>
-                                @foreach ($season_delivery_ids as $season_delivery_id)
-                                    <option value="{!!$season_delivery_id!!}">{!!\App\SeasonDelivery::find($season_delivery_id)->name!!}</option>
+                            <select id="select-date" class="form-control">
+                                <option value="" selected="selected" disabled >Seleziona la data di partenza (inclusa)</option>
+                                @foreach ($dates as $date)
+                                    <option value="{!!$date!!}">{!!\Carbon\Carbon::parse($date)->format('d-m-Y')!!}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -40,24 +42,24 @@
         </div>
         <script>
             $(document).ready(function() {
-                $('#select-delivery').change(function(){
+                $('#select-date').change(function(){
                     
                     pageLoadingFrame("show");
-                    season_delivery_id = $(this).val();
+                    date = $(this).val();
                     
                     $.ajax({
                         method: "POST",
-                        url: "/report/select-delivery",
-                        data: { _token: '{!!csrf_token()!!}', season_delivery_id: season_delivery_id }
+                        url: "/report/select-date",
+                        data: { _token: '{!!csrf_token()!!}', date: date }
                     })
                     .done(function( msg ) {
                         pageLoadingFrame("hide");
                         $('#ajax-table-container').html( msg );
                         
                         var currentLocale = $('#getcurrentlocale').text();
-                        var myOrderColumn = $('#sold-by-delivery').find('th:last').index()-2;
+                        var myOrderColumn = $('#sold-by-date').find('th:last').index()-2;
                         
-                        $('#sold-by-delivery').DataTable( {
+                        $('#sold-by-date').DataTable( {
                             "order": [[ myOrderColumn]],
                             "language": { "url": "/assets/js/plugins/datatables/"+currentLocale+".json" },
                             sScrollX: "100%",
@@ -123,12 +125,7 @@
                                         }, 0 );
 
                                     // Update footer
-                                    // Se è l'ultima colonna, aggiungo il simbolo Euro prima
-                                    if ( this.index() == api.column(-1).index() ) {
-                                        $( api.column( this ).footer() ).html('€ '+total); 
-                                   } else {
-                                        $( api.column( this ).footer() ).html( total );
-                                   }
+                                    $( api.column( this ).footer() ).html( total );
 
                                 });
                             }

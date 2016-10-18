@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <div class="dataTables_wrapper no-footer">
-       <table id="sold-by-delivery" class="table table-condensed">
+       <table id="sold-by-date" class="table table-condensed">
             <thead>
                 <tr>
                     <th>{!!trans('auth.Picture')!!}</th>
@@ -9,7 +9,6 @@
                         <th class="sum export" style="text-align:center">{!!$size->name!!}</th>
                     @endforeach
                     <th class="sum export">{!!trans('auth.Qty')!!}</th>
-                    <th class="sum export">{!!trans('auth.Total')!!}</th>
                 </tr>
             </thead>
             <tfoot>
@@ -19,7 +18,6 @@
                         <th style="text-align:center"></th>
                     @endforeach
                 <th></th>
-                <th style="text-align:right"></th>
             </tfoot>
             <tbody>
                 @foreach($variation_ids as $variation_id)
@@ -36,8 +34,8 @@
                         @foreach (\App\Size::orderBy('name')->get() as $size)
                             <td style="text-align:center">{!!
                                 \App\OrderDetail::where('product_variation_id', $variation_id)
-                                        ->whereHas('order', function( $q ) use ($season_delivery_id) {
-                                                $q->where('season_delivery_id', $season_delivery_id);
+                                        ->whereHas('order', function( $q ) use ($date) {
+                                                $q->where('created_at', '>=', $date);
                                             })->whereHas('item', function($q) use ($size) {
                                                 $q->where('items.size_id', '=', $size->id);
                                             })->sum('qty');
@@ -45,16 +43,10 @@
                         @endforeach
                         <td>{!!
                                 \App\OrderDetail::where('product_variation_id', $variation_id)
-                                        ->whereHas('order', function( $q ) use ($season_delivery_id) {
-                                                $q->where('season_delivery_id', $season_delivery_id);
+                                        ->whereHas('order', function( $q ) use ($date) {
+                                                $q->where('created_at', '>=', $date);
                                             })->sum('qty');
                             !!}</td>
-                        <td style="text-align:right">
-                            € {!!number_format( \App\OrderDetail::where('product_variation_id', $variation_id)
-                                    ->whereHas('order', function($q) use ($season_delivery_id) {
-                                        $q->where('season_delivery_id', $season_delivery_id);
-                                    })->sum('total_price'), false, ',', '.')!!}
-                        </td>
                     </tr>
                 @endforeach
             </tbody>

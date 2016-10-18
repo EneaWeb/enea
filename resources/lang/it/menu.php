@@ -4,6 +4,7 @@ return [
 	'Sold' => 'Venduto',
 	'Sold per Variations' => 'Venduto per Varianti',
 	'Sold per Delivery Date' => 'Venduto per Periodo di Consegna',
+	'Sold per Time Interval' => 'Venduto per Intervallo di Tempo',
 	'Zero Sold' => 'Zero Venduto',
 	'Administration' => 'Amministrazione',
 	'Manage Users' => 'Gestione Utenti',
