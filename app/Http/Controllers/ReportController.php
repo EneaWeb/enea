@@ -62,7 +62,7 @@ class ReportController extends Controller
 	public function time_interval()
 	{
 		$dates = array();
-		$type_id = Auth::user()->options->active_type;
+		$season_delivery_id = Input::get('season_delivery_id');
 		$grouped_by_Ymd = Order::where('season_delivery_id', $season_delivery_id)
 						->select('created_at')
 						->get()
