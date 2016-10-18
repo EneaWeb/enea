@@ -48,3 +48,6 @@ span.little-delete-icon {
 .dataTables_scrollBody th.sorting:before {
 	display:none!important;
 }
+
+td.day {background-color:#d2e0ea!important;}
+td.day.disabled {background-color:white!important;}

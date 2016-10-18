@@ -24,12 +24,7 @@
                         <p> &nbsp;&nbsp;Nella lista sono indicate solo le date in cui sono stati effettuati ordini</p>
                         <br>
                         <div class="form-group col-md-3">
-                            <select id="select-date" class="form-control">
-                                <option value="" selected="selected" disabled >Seleziona la data di partenza (inclusa)</option>
-                                @foreach ($dates as $date)
-                                    <option value="{!!$date!!}">{!!\Carbon\Carbon::parse($date)->format('d-m-Y')!!}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="date" value="" id="mydates" />
                         </div>
                         <br><br> 
                     </div>
@@ -42,10 +37,44 @@
         </div>
         <script>
             $(document).ready(function() {
-                $('#select-date').change(function(){
+
+                var currentLocale = $('#getcurrentlocale').text();
+                var dates_js = {!!json_encode($dates_js)!!};
+                console.log(dates_js);
+
+                $.fn.datepicker.dates['it'] = {
+                    days: ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
+                    daysShort: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"],
+                    daysMin: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa"],
+                    months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+                    monthsShort: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"],
+                    today: "Oggi",
+                    clear: "Cancella",
+                    format: "dd/mm/yyyy",
+                    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+                    weekStart: 1
+                };
+
+                $('#mydates').datepicker({
+                    language: currentLocale,
+                    beforeShowDay: function (date) {
+                        var dt_ddmmyyyy = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+                        return (dates_js.indexOf(dt_ddmmyyyy) != -1);
+                    }, 
+                    changeMonth: true, 
+                    changeYear: false
+                }).on('changeDate', function(e) {
+
+                    the_date = e.date;
+                    var yyyy = the_date.getFullYear().toString();
+                    var mm = (the_date.getMonth()+1).toString();
+                    var dd  = the_date.getDate().toString();
+                    var mmChars = mm.split('');
+                    var ddChars = dd.split('');
+                    var date = yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
                     
                     pageLoadingFrame("show");
-                    date = $(this).val();
+                    $(this).datepicker('hide');
                     
                     $.ajax({
                         method: "POST",
@@ -137,8 +166,12 @@
                         alert('ajax error');
                     });
                 });
-            });
 
+            });
+            
+            $(window).load(function(){
+                $('#mydates').focus();
+            })
         </script>
     </div>
 

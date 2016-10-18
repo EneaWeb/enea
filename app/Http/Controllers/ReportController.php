@@ -62,6 +62,7 @@ class ReportController extends Controller
 	public function time_interval()
 	{
 		$dates = array();
+		$dates_js = array();
 		$grouped_by_Ymd = Order::select('created_at')
 						->get()
 						->groupBy(function($date) {
@@ -69,9 +70,10 @@ class ReportController extends Controller
 					});
 		foreach ($grouped_by_Ymd as $k => $v) {
 			$dates[] = $k.' 00:01';
+			$dates_js[] = Carbon::parse($k)->format('j-n-Y');
 		}
 
-		return view('reports.time_interval', compact('dates'));
+		return view('reports.time_interval', compact('dates', 'dates_js'));
 	}
 	
 	public function sold_delivery()
