@@ -19,7 +19,7 @@
             
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2 class="panel-title"><strong>{!! trans('menu.Sold per Time Interval')!!}</strong></h2><br>
+                        <h2 class="panel-title"><strong>{!! trans('menu.Sold per Creation Date')!!}</strong></h2><br>
                         <div class="clearfix"></div>
                         <p> &nbsp;&nbsp;Nella lista sono indicate solo le date in cui sono stati effettuati ordini</p>
                         <br>

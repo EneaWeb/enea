@@ -49,7 +49,7 @@
             <li><a href="/report"><span class="fa fa-table"></span>{!!trans('menu.Sold')!!}</a></li>
             <li><a href="/report/variations"><span class="fa fa-table"></span>{!!trans('menu.Sold per Variations')!!}</a></li>
             <li><a href="/report/delivery"><span class="fa fa-table"></span>{!!trans('menu.Sold per Delivery Date')!!}</a></li>
-            <li><a href="/report/time-interval"><span class="fa fa-table"></span>{!!trans('menu.Sold per Time Interval')!!}</a></li>
+            <li><a href="/report/time-interval"><span class="fa fa-table"></span>{!!trans('menu.Sold per Creation Date')!!}</a></li>
             <li><a href="/report/zero-sold"><span class="fa fa-table"></span>{!!trans('menu.Zero Sold')!!}</a></li>
         </ul>
     </li>
