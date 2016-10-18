@@ -62,7 +62,9 @@ class ReportController extends Controller
 	public function time_interval()
 	{
 		$dates = array();
-		$grouped_by_Ymd = Order::select('created_at')
+		$type_id = Auth::user()->options->active_type;
+		$grouped_by_Ymd = Order::where('season_delivery_id', $season_delivery_id)
+						->select('created_at')
 						->get()
 						->groupBy(function($date) {
 		  				return Carbon::parse($date->created_at)->format('Y-m-d');
