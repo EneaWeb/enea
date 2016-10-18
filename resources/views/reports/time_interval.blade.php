@@ -24,7 +24,7 @@
                         <p> &nbsp;&nbsp;Nella lista sono indicate solo le date in cui sono stati effettuati ordini</p>
                         <br>
                         <div class="form-group col-md-3">
-                            <input type="text" name="date" value="" id="mydates" />
+                            <input type="text" name="date" value="" id="mydates" class="form-control" placeholder="Seleziona una data" />
                         </div>
                         <br><br> 
                     </div>
