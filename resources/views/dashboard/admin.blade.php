@@ -152,6 +152,9 @@
 											<td style="text-align:right"><strong>
 											{!!number_format(\App\Order::sum('total'), 2, ',','.') !!} €
 											</strong></td>
+											<td style="text-align:right"><strong>
+											{!! \App\Order::count() !!} €
+											</strong></td>
 											<td>
 	                              </td>
 	                           </tr>
