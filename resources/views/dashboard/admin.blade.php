@@ -105,9 +105,9 @@
 	                       <thead>
 	                           <tr>
 	                              <th style="width:30%">{!!trans('messages.Agent')!!}</th>
-	                              <th style="width:25%; text-align:right">{!!trans('messages.Amount')!!}</th>
-	                              <th style="width:25%; text-align:right">{!!trans('menu.Orders')!!}</th>
-	                              <th style="width:45%">{!!trans('messages.Activity')!!}</th>
+	                              <th style="width:20%; text-align:right">{!!trans('messages.Amount')!!}</th>
+	                              <th style="width:10%; text-align:right">{!!trans('menu.Orders')!!}</th>
+	                              <th style="width:40%">{!!trans('messages.Activity')!!}</th>
 	                           </tr>
 	                       </thead>
 	                       <tbody>
