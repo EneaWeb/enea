@@ -146,14 +146,14 @@
 	                               </td>
 	                           </tr>
 	                           @endforeach
-	                           <tr><td colspan="3"></td></tr>
+	                           <tr><td colspan="4"></td></tr>
 	                           <tr>
 											<td><strong>{!!trans('messages.Total')!!}</strong></td>
 											<td style="text-align:right"><strong>
 											{!!number_format(\App\Order::sum('total'), 2, ',','.') !!} €
 											</strong></td>
 											<td style="text-align:right"><strong>
-											{!! \App\Order::count() !!} €
+											{!! \App\Order::count() !!}
 											</strong></td>
 											<td>
 	                              </td>
