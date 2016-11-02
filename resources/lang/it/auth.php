@@ -21,7 +21,7 @@ return [
     'Login' => 'Accedi',
     'Sign Out' => 'Scollegati',
     'Name' => 'Nome',
-    'Undiscounted' => 'No Scont.',
+    'Undiscounted' => 'Lordo',
     'Type' => 'Tipologia',
     'Slug' => 'Codice',
     'Action' => 'Azione',
