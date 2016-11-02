@@ -106,6 +106,7 @@
 	                           <tr>
 	                              <th style="width:30%">{!!trans('messages.Agent')!!}</th>
 	                              <th style="width:25%; text-align:right">{!!trans('messages.Amount')!!}</th>
+	                              <th style="width:25%; text-align:right">{!!trans('menu.Orders')!!}</th>
 	                              <th style="width:45%">{!!trans('messages.Activity')!!}</th>
 	                           </tr>
 	                       </thead>
@@ -120,25 +121,13 @@
 	                               <td style="text-align:right"><strong>
 	                               	{!!number_format(\App\Order::where('user_id', $agent->id)->sum('total'), 2, ',','.') !!} €
 	                               </strong></td>
+                              	<td style="text-align:right"><strong>
+                              	{!! \App\Order::where('user_id', $agent->id)->count() !!}
+                              	</strong></td>
 	                               <td>
-	                               {{--*/ 
-	                               $percent = \App\EneaHelper::percentage(
-	                                       		\App\Order::where('user_id', $agent->id)->sum('total'), 
-	                                       		\App\Order::sum('total'));
-	                                 if($percent == 0)
-	                                 	$barColor = '';
-	                              	if($percent >= 1 && $percent < 20)
-	                              		$barColor = 'danger';
-	                              	else if ($percent >= 20 && $percent < 50)
-	                              		$barColor = 'warning';
-	                              	else if ($percent >= 50 && $percent < 75)
-	                              		$barColor = 'info';
-	                              	else if ($percent >= 75)
-	                              		$barColor = 'success';
-	                               /*--}}
-	                                   <div class="progress progress-small progress-striped active">
-	                                       <div class="progress-bar progress-bar-{!!$barColor!!}" role="progressbar" aria-valuenow="{!!$percent!!}" aria-valuemin="0" aria-valuemax="100" style="width: {!!$percent!!}%;">{!!$percent!!}%</div>
-	                                   </div>
+                                   <div class="progress progress-small progress-striped active">
+                                       <div class="progress-bar progress-bar-{!!$barColor!!}" role="progressbar" aria-valuenow="{!!$percent!!}" aria-valuemin="0" aria-valuemax="100" style="width: {!!$percent!!}%;">{!!$percent!!}%</div>
+                                   </div>
 	                               </td>
 	                           </tr>
 	                           @endforeach
