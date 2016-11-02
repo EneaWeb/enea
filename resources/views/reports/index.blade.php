@@ -33,7 +33,7 @@
                                                 <th class="sum export">{!!$size->name!!}</th>
                                             @endforeach
                                             <th class="sum export">{!!trans('auth.Qty')!!}</th>
-                                            <th class="sum export">{!!trans('auth.Total')!!}</th>
+                                            <th class="sum export">{!!trans('auth.Undiscounted')!!}</th>
                                         </tr>
                                     </thead>
                                     <tfoot>

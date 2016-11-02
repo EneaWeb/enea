@@ -22,6 +22,7 @@ return [
     'Sign Out' => 'Sign Out',
     'Type' => 'Type',
     'Name' => 'Name',
+    'Undiscounted' => 'Undiscounted',
     'First Name' => 'First Name',
     'Bio' => 'Bio',
     'Select' => 'Select',
