@@ -223,6 +223,7 @@ Route::group([
 	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
 	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
 	Route::get('/report', 'ReportController@index');
+	Route::get('/report/stats', 'ReportController@stats');
 	Route::get('/report/variations', 'ReportController@sold_variations');
 	Route::get('/report/delivery', 'ReportController@sold_delivery');
 	Route::get('/report/time-interval', 'ReportController@time_interval');

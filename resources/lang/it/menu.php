@@ -15,6 +15,7 @@ return [
 	'Close' => 'Chiudi',
 	'Invite now' => 'Invita ora',
 	'Catalogue' => 'Catalogo',
+	'Stats' => 'Statistiche',
 	'Products List' => 'Lista Prodotti',
 	'Product Attributes' => 'Attributi Prodotto',
 	'Manage Products' => 'Gestisci gli Articoli',

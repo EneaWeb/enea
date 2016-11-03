@@ -59,6 +59,18 @@ class ReportController extends Controller
 		return view('reports.variations', compact('order_details', 'variation_ids'));
 	}
 
+	public function stats()
+	{
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
+		}
+
+		return view('reports.stats', compact('supportedLocales'));
+	}
+
 	public function time_interval()
 	{
 		$dates = array();

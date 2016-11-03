@@ -14,6 +14,7 @@ return [
 	'Send' => 'Send',
 	'Close' => 'Close',
 	'Invite Now' => 'Invite Now',
+	'Stats' => 'Stats',
 	'Catalogue' => 'Catalogue',
 	'Products List' => 'Products List',
 	'Product Attributes' => 'Product Attributes',

@@ -46,6 +46,7 @@
     <li class="xn-openable">
         <a href="#"><span class="fa fa-table"></span> <span class="xn-text">{!!trans('menu.Report')!!}</span></a>
         <ul>
+            <li><a href="/report/stats"><span class="fa fa-line-chart"></span>{!!trans('menu.Stats')!!}</a></li>
             <li><a href="/report"><span class="fa fa-table"></span>{!!trans('menu.Sold')!!}</a></li>
             <li><a href="/report/variations"><span class="fa fa-table"></span>{!!trans('menu.Sold per Variations')!!}</a></li>
             <li><a href="/report/delivery"><span class="fa fa-table"></span>{!!trans('menu.Sold per Delivery Date')!!}</a></li>

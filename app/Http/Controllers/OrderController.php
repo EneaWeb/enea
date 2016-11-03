@@ -147,9 +147,9 @@ class OrderController extends Controller
 
 		$type_id = Auth::user()->options->active_type;
 		if ($type_id == 1) {
-			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(200);
+			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'asc')->paginate(200);
 		} else {
-			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'desc')->paginate(200);
+			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'asc')->paginate(200);
 		}
 
 		if (Session::has('order.items')){
