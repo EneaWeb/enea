@@ -22,16 +22,16 @@ class ProductController extends Controller
 
 		if (Input::has('active')) {
 			if ($type_id == 1 || $type_id == 0) {
-				$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
+				$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'asc')->paginate(32);
 			} else {
-				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->orderBy('name', 'desc')->paginate(32);
+				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->orderBy('name', 'asc')->paginate(32);
 			}
 		}
 		else {
 			if ($type_id == 1 || $type_id == 0) {
-				$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
+				$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'asc')->paginate(32);
 			} else {
-				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'desc')->paginate(32);
+				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'asc')->paginate(32);
 			}
 			
 		}
