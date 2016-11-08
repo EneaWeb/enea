@@ -160,14 +160,15 @@ class ReportController extends Controller
 	
 	public function zero_sold()
 	{
-		$all_variations = ProductVariation::lists('id');
 		$type_id = Auth::user()->options->active_type;
 
 		if ($type_id == 1) {
+			$all_variations = ProductVariation::lists('id');
 			$sold_variations = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
 			$variation_ids = $all_variations->diff($sold_variations);
 			$order_details = OrderDetail::all();
 		} else {
+			$all_variations = ProductVariation::where('type_id', $type_id)->lists('id');
 			$sold_variations = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
 			})->groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
