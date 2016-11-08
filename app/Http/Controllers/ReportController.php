@@ -168,7 +168,9 @@ class ReportController extends Controller
 			$variation_ids = $all_variations->diff($sold_variations);
 			$order_details = OrderDetail::all();
 		} else {
-			$all_variations = ProductVariation::where('type_id', $type_id)->lists('id');
+			$all_variations = ProductVariation::whereHas('product', function($q) use ($type_id) {
+				$q->where('type_id', $type_id);
+			}->lists('id');
 			$sold_variations = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
 			})->groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
