@@ -46,7 +46,6 @@
     <li class="xn-openable">
         <a href="#"><span class="fa fa-table"></span> <span class="xn-text">{!!trans('menu.Report')!!}</span></a>
         <ul>
-            <li><a href="/report/stats"><span class="fa fa-line-chart"></span>{!!trans('menu.Stats')!!}</a></li>
             <li><a href="/report"><span class="fa fa-table"></span>{!!trans('menu.Sold')!!}</a></li>
             <li><a href="/report/variations"><span class="fa fa-table"></span>{!!trans('menu.Sold per Variations')!!}</a></li>
             <li><a href="/report/delivery"><span class="fa fa-table"></span>{!!trans('menu.Sold per Delivery Date')!!}</a></li>
@@ -61,27 +60,29 @@
         <li class="xn-openable">
             <a href="#"><span class="fa fa-barcode"></span> <span class="xn-text">{!!trans('menu.Manage Catalogue')!!}</span></a>
             <ul>
-                {{-- <li><a href="/catalogue/variations"><span class="fa fa-code-fork"></span> {!!trans('menu.Product Variations')!!}</a></li> --}}
                 <li><a href="/admin/products"><span class="fa fa-tags"></span>{!!trans('menu.Products')!!}</a></li>
                 <li><a href="/catalogue/models"><span class="fa fa-sitemap"></span> {!!trans('menu.Models')!!}</a></li>
                 <li><a href="/admin/types"><span class="fa fa-female"></span>{!!trans('menu.Types')!!}</a></li>
                 <li><a href="/catalogue/colors"><span class="fa fa-chrome"></span>{!!trans('menu.Colors')!!}</a></li>
                 <li><a href="/catalogue/sizes"><span class="fa fa-arrows"></span>{!!trans('menu.Sizes')!!}</a></li>
-                <li><a href="/catalogue/seasons"><span class="fa fa-calendar"></span> <span class="xn-text">{!!trans('menu.Seasons')!!}</span></a></li>
             </ul>
         </li>    
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-usd"></span> <span class="xn-text">{!!trans('menu.Selling Tools')!!}</span></a>
-        <ul>
-            <li><a href="/admin/payments"><span class="fa fa-credit-card"></span> {!!trans('menu.Payment Options')!!}</a></li>
-        </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">{!!trans('menu.Administration')!!}</span></a>
-        <ul>
-            <li><a href="/admin/users"><span class="fa fa-user"></span> {!!trans('menu.Manage Users')!!}</a></li>
-        </ul>
-    </li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">{!!trans('menu.Administration')!!}</span></a>
+            <ul>
+                <li><a href="/catalogue/seasons"><span class="fa fa-calendar"></span> <span class="xn-text">{!!trans('menu.Manage Seasons')!!}</span></a></li>
+                <li><a href="/admin/payments"><span class="fa fa-credit-card"></span> {!!trans('menu.Payment Options')!!}</a></li>
+                <li><a href="/admin/users"><span class="fa fa-user"></span> {!!trans('menu.Manage Users')!!}</a></li>
+                <li><a href="/stats/customize"><span class="fa fa-line-chart"></span> {!!trans('menu.Customize Stats')!!}</a></li>
+            </ul>
+        </li>
     @endif
+
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Superuser</span></a>
+            <ul>
+                <li><a href="/superuser/manage-permissions"><span class="fa fa-cogs"></span> <span class="xn-text">Permissions</span></a></li>
+            </ul>
+        </li>
        
 </ul>

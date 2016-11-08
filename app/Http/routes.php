@@ -1,142 +1,8 @@
 <?php
-Route::get('/cust', 'CustomerController@add');
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('size', function(){
-	$product = \App\Product::find(5);
-	return \App\Size::sizes_for_type($product);
-});
-
-Route::get('action', function() {
-	foreach (\App\ProductVariation::get() as $product_variation) {
-		
-		if ($product_variation->product->type_id == '4') {
-			
-			$item = new \App\Item;
-			$item->product_id = $product_variation->product_id;
-			$item->product_variation_id = $product_variation->id;
-			$item->size_id = '27';
-			$item->active = '1';
-			$item->save();
-			
-			foreach (\App\SeasonList::all() as $season_list) {
-				
-				$similar_item = \App\Item::where('product_variation_id', $product_variation->id)
-												->where('size_id', '30')
-												->first();
-												
-				$similar_price = \App\ItemPrice::where('item_id', $similar_item->id)
-														->where('season_list_id', $season_list->id)
-														->value('price');
-				
-				$item_price = new \App\ItemPrice;
-				$item_price->item_id = $item->id;
-				$item_price->season_list_id = $season_list->id;
-				$item_price->price = $similar_price;
-				$item_price->save();
-			}
-			
-		}
-	}
-	
-	return 'ok';
-});
-
-/*
-Route::get('profile', function(){
-	$profile = new \App\Profile;
-	$profile->user_id = Auth::user()->id;
-	$profile->name = 'Giovanni';
-	$profile->surname= 'Cellie';
-	$profile->avatar = 'avatar.jpg';
-	$profile->save();
-});
-*/
-/*
-Route::get('customer-work', function(){
-	$customers = \App\Customer::all();
-	$log = '';
-	$brand = \App\Brand::find('3');
-	foreach ($customers as $customer) {
-		if ($customer->brands->first()['slug'] != 'cinziaaraia') {
-			$brand->customers()->attach($customer->id);
-		}
-	}
-	return 'ok';
-});
-*/
-Route::get('1', function(){
-	return \App\EneaHelper::percentage('50', '200');
-});
-Route::get('/createuser', function(){
-	$user = new \App\User;
-	$user->username = '88showroom';
-	$user->email = 'milano@88showroom.com';
-	$user->password = bcrypt('milano88');
-	$user->active = 1;
-	$user->save();
-	
-	$user_profile = new \App\Profile;
-	$user_profile->name = 'Francesca';
-	$user_profile->user_id = $user->id;
-	$user_profile->companyname = '88 Showroom';
-	$user_profile->surname = 'Quadrelli';
-	$user_profile->avatar = '88showroom.jpg';
-	$user_profile->save();
-	
-	$user->assignRole('agent');
-	
-	$brand_user = new \App\Brand_User;
-	$brand_user->user_id = $user->id;
-	$brand_user->brand_id = \App\Option::where('name', 'active_brand')->first()->value;
-	$brand_user->save();
-	
-	$options = new \App\UserOption;
-	$option->user_id = $user->id;
-	$option->active_brand = \App\Option::where('name', 'active_brand')->first()->value;
-	$option->save();
-	
-	return 'User created.';
-});
-
-
-
-/*
-
-Route::get('/create-roles', function(){
-	$superuser = Spatie\Permission\Models\Role::create(['name' => 'superuser']);
-	$admin = Spatie\Permission\Models\Role::create(['name' => 'admin']);
-	$manager = Spatie\Permission\Models\Role::create(['name' => 'manager']);
-	$agent = Spatie\Permission\Models\Role::create(['name' => 'agent']);
-	
-	$manage_brands = Spatie\Permission\Models\Permission::create(['name' => 'manage brands']);	
-	
-	$superuser->givePermissionTo('manage brands');
-	$admin->givePermissionTo('manage brands');
-	$manager->givePermissionTo('manage brands');
-});
-
-*/
 
 /*
 *	AUTH // 
 */
-
-Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
-Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
-Route::get('/email/confirmation/{id}', function($id) {
-   $confirm = \App\EneaMail::order_confirmation($id);
-});;
-
 
 Route::group([
 	'prefix'     => Localization::setLocale(),
@@ -149,68 +15,96 @@ Route::group([
 	],
 ], function() {
 	
-	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/	
-	Route::get('/session/clear', function()
-	{
-		Session::forget('order');
-	});
-	
-	/*
-		API
-	*/
-	Route::get('/api1/stats/orders', 'ApiController@orders');
-	Route::get('/api1/stats/orders-seasonlist-n', 'ApiController@orders_seasonlist_n');
-	Route::get('/api1/stats/orders-seasonlist-tot', 'ApiController@orders_seasonlist_tot');
-	Route::get('/api1/stats/orders-types', 'ApiController@orders_type');
-	
-	Route::get('/session', function(){ return dd(Session::all()); });
-	Route::get('/logout', 'Auth\AuthController@logout');
+	/** LOCALIZED ROUTES + AUTH ROUTES **/
+
+	// root
 	Route::get('/dashboard', 'DashboardController@index');
-	Route::get('/profile/edit', 'ProfileController@edit');
+	Route::get('/', function(){ return redirect('/dashboard'); });
+
+	// Working stuff
+	Route::get('/session/clear', function() {	Session::forget('order'); });
+	Route::get('/session', function(){ return dd(Session::all()); });
+	
+	// Stats
+	Route::get('/api1/stats/orders', 'StatsController@orders');
+	Route::get('/api1/stats/orders-seasonlist-n', 'StatsController@orders_seasonlist_n');
+	Route::get('/api1/stats/orders-seasonlist-tot', 'StatsController@orders_seasonlist_tot');
+	Route::get('/api1/stats/orders-types', 'StatsController@orders_type');
+	Route::get('/stats/customize', 'StatsController@customize');
+	
+	// User Experience
 	Route::get('/set-locale/{locale_key}', 'DashboardController@set_locale');
+	Route::get('/logout', 'Auth\AuthController@logout');
+	Route::get('/profile/edit', 'ProfileController@edit');
+
+	// Customer
+	Route::get('/customers', 'CustomerController@index');
+	Route::get('/customer/show/{id}', 'CustomerController@show');
+	Route::get('/customer/delete-delivery/{id}', 'CustomerController@delete_delivery');
+
+	// Options
+	Route::get('/set-current-brand/{brand_id}', 'ProfileController@set_current_brand');
+	Route::get('/set-current-type/{type_id}', 'ProfileController@set_current_type');
+
+	// Superuser
+	Route::get('/superuser/manage-permissions', 'SuperuserController@manage_permissions');
+
+	// Admin
 	Route::get('/admin/users', 'ManageUsersController@index');
 	Route::get('/admin/products', 'ProductController@manage');
 	Route::get('/admin/types', 'TypeController@index');
 	Route::get('/admin/types/update', 'TypeController@update');
-	Route::get('/', function(){
-		return redirect('/dashboard');
-	});
-	Route::get('/customers', 'CustomerController@index');
-	Route::get('/customer/show/{id}', 'CustomerController@show');
-	Route::get('/customer/delete-delivery/{id}', 'CustomerController@delete_delivery');
-	Route::get('/set-current-brand/{brand_id}', 'ProfileController@set_current_brand');
-	Route::get('/set-current-type/{type_id}', 'ProfileController@set_current_type');
 	Route::get('/admin/unlink-user-from-brand/{user_id}', 'ManageUsersController@unlink_user_from_brand');
 	Route::get('/admin/payments', 'PaymentController@index');
 	Route::get('/admin/payment/edit', 'PaymentController@edit');
 	Route::get('/admin/payment/delete/{id}', 'PaymentController@delete');
-	Route::get('/catalogue/variations', 'VariationController@index');
+
+	// Models
+	Route::get('/catalogue/models/', 'ProdModelController@index');
+	Route::get('/catalogue/model/edit', 'ProdModelController@edit');
+	Route::get('/catalogue/model/delete/{id}', 'ProdModelController@delete');
+
+	// Products
+	Route::get('/catalogue/products/', 'ProductController@index');
+	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
+	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
+	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
+	Route::get('/catalogue/product/{id}', 'ProductController@show');
+	Route::get('/catalogue/product/edit/{id}', 'ProductController@manage_single');
+	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
+	Route::get('/catalogue/product/delete-picture/{id}', 'ProductController@delete_product_picture');
+	Route::get('/catalogue/product/delete-variation-picture/{id}', 'ProductController@delete_variation_picture');
+
+	// Attribute Value
 	Route::get('/catalogue/attribute-value/delete/{id}', 'AttributeValueController@delete');
+
+	// Colors
+	Route::get('/catalogue/colors/', 'ColorController@index');
+	Route::get('/catalogue/color/delete/{id}', 'ColorController@delete');
+	Route::get('/catalogue/color/edit', 'ColorController@edit');
+
+	// Sizes
+	Route::get('/catalogue/sizes/', 'SizeController@index');
+	Route::get('/catalogue/size/delete/{id}', 'SizeController@delete');
+	Route::get('/catalogue/size/edit', 'SizeController@edit');
+
+	// Variations
+	Route::get('/catalogue/variations', 'VariationController@index');
+	Route::get('/catalogue/variation/edit', 'VariationController@edit');
+
+	// Linesheet
+	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
+	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
+
+	// Seasons
 	Route::get('/catalogue/seasons', 'SeasonController@index');
-	Route::get('/catalogue/season/{id}', 'SeasonController@getSeason');
 	Route::get('/catalogue/seasons/delivery/delete-delivery/{id}', 'SeasonDeliveryController@delete');
 	Route::get('/catalogue/seasons/delivery/edit', 'SeasonDeliveryController@edit');
 	Route::get('/catalogue/seasons/list/delete-list/{id}', 'SeasonListController@delete');
 	Route::get('/catalogue/seasons/list/edit', 'SeasonListController@edit');
-	Route::get('/catalogue/models/', 'ProdModelController@index');
-	Route::get('/catalogue/model/edit', 'ProdModelController@edit');
-	Route::get('/catalogue/variation/edit', 'VariationController@edit');
-	Route::get('/catalogue/model/delete/{id}', 'ProdModelController@delete');
-	Route::get('/catalogue/products/', 'ProductController@index');
-	Route::get('/catalogue/product/{id}', 'ProductController@show');
-	Route::get('/catalogue/product/edit/{id}', 'ProductController@manage_single');
-	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
-	Route::get('/catalogue/colors/', 'ColorController@index');
-	Route::get('/catalogue/color/delete/{id}', 'ColorController@delete');
-	Route::get('/catalogue/color/edit', 'ColorController@edit');
-	Route::get('/catalogue/sizes/', 'SizeController@index');
-	Route::get('/catalogue/size/delete/{id}', 'SizeController@delete');
-	Route::get('/catalogue/size/edit', 'SizeController@edit');
-	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
-	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
-	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
-	Route::get('/catalogue/product/delete-picture/{id}', 'ProductController@delete_product_picture');
-	Route::get('/catalogue/product/delete-variation-picture/{id}', 'ProductController@delete_variation_picture');
+	Route::get('/catalogue/season/{id}', 'SeasonController@getSeason');
+
+	// Orders
 	Route::get('/order/new', 'OrderController@create');
 	Route::get('/order/new/step2', 'OrderController@step2');
 	Route::get('/order/new/step3', 'OrderController@step3');
@@ -220,24 +114,21 @@ Route::group([
 	Route::get('/order/edit/{id}', 'OrderController@edit');
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
-	Route::get('/catalogue/linesheet/{id}', 'PDFController@linesheet');
-	Route::get('/catalogue/linesheet/test/{id}', 'PDFController@linesheet_test');
+	Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
+	Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
+
+	// Report
 	Route::get('/report', 'ReportController@index');
 	Route::get('/report/stats', 'ReportController@stats');
 	Route::get('/report/variations', 'ReportController@sold_variations');
 	Route::get('/report/delivery', 'ReportController@sold_delivery');
 	Route::get('/report/time-interval', 'ReportController@time_interval');
 	Route::get('/report/zero-sold', 'ReportController@zero_sold');
-	/*
-	Route::get('/proforma/pdf/download/{id}', 'PDFController@proforma');
-	Route::get('/invoice/pdf/download/{id}', 'PDFController@invoice');
-	Route::get('/waybill/pdf/download/{id}', 'PDFController@waybill');
-	*/
 
+	// Customizer
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
 	Route::get('/order/pdf/download/{id}', 'PDFController@order_confirmation_download');
-	
-	// end localization middleware
+
 });
 
 
@@ -250,12 +141,15 @@ Route::group([
 	  	'localization-redirect',
 	],
 ], function() {
+
+	/** LOCALIZED ROUTES - NO AUTH **/
 	
 	Route::get('/login', 'Auth\AuthController@login');
 	Route::get('/registration/confirm', 'ManageUsersController@register');
 	
-	
 });
+
+	/** POST ROUTES **/
 
 	Route::post('/authenticate', 'Auth\AuthController@authenticate');
 	Route::post('/profile/edit/save', 'Auth\AuthController@profile_edit_save');
@@ -286,7 +180,9 @@ Route::group([
 	Route::post('/proforma/pdf/download/{id}', 'PDFController@proforma');
 	Route::post('/invoice/pdf/download/{id}', 'PDFController@invoice');
 	Route::post('/waybill/pdf/download/{id}', 'PDFController@waybill');
-	
+	Route::post('/save-manage-permissions', 'SuperuserController@save_manage_permissions');
+	Route::post('/stats/add-chart', 'StatsController@add_chart');
+
 	
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	

@@ -227,5 +227,5 @@
 	   </div>
 	</div>
 
-@include('pages.customers._modal_add_customer');
+@include('pages.customers._modal_add_customer')
 @stop

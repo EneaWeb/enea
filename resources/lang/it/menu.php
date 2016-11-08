@@ -19,6 +19,8 @@ return [
 	'Products List' => 'Lista Prodotti',
 	'Product Attributes' => 'Attributi Prodotto',
 	'Manage Products' => 'Gestisci gli Articoli',
+	'Manage Seasons' => 'Gestione Stagioni',
+	'Customize Stats' => 'Personalizza Statistiche',
 	'Description' => 'Descrizione',
 	'Submit' => 'Salva',
 	'New Attribute' => 'Nuovo Attributo',

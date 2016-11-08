@@ -8,9 +8,22 @@ use App\Http\Requests;
 use Auth;
 use Input;
 use DB;
+use \App\Alert as Alert;
 
-class ApiController extends Controller
+class StatsController extends Controller
 {
+
+	public function customize()
+	{
+		return view('stats.customize_stats');
+	}
+
+	public function add_chart()
+	{
+		Alert::success('Impostazioni aggiornate');
+		return redirect()->back();
+	}
+
 	public function orders()
 	{
 		//$days = Input::get('days', 7);

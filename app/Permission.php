@@ -10,14 +10,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Permission extends Model
 {
 
     public function __construct()
     {
         $this->connection = 'mysql';
     }
-    protected $table = 'roles';
+    protected $table = 'permissions';
 
     /**
      * The attributes that are mass assignable.

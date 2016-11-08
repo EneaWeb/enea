@@ -1,3 +1,26 @@
+############################################
+############### TEST STACK #################
+############################################
+
+
+
+REPORT
+
+- Comparazione tra il venduto della stagione in corso e quello delle stagioni precedenti nello stesso giorno per:
+	- qta pezzi venduti
+	- n. ordini
+	- fatturato
+
+ORDINI
+
+- Selettori di data (inizio / fine) per la tabella ordini
+
+
+
+Verifica lingua testo al cliente
+
+
+
 C'è un MODEL che serve solo a raggruppare gli articoli.
 ATTRIBUTES sono attributi creabili/modificabili (es colore, pelo)
 ATTRIBUTE_VALUES definiscono gli attributi della singola variation (es colore=>nero, bianco, rosa, ecc);
