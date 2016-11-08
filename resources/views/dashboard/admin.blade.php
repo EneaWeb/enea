@@ -126,6 +126,7 @@
                               	</strong></td>
 	                               <td>
 	                               {{--*/ 
+	                               $barColor= '';
 	                               $percent = \App\EneaHelper::percentage(
 	                                       		\App\Order::where('user_id', $agent->id)->sum('total'), 
 	                                       		\App\Order::sum('total'));

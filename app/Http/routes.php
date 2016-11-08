@@ -17,6 +17,10 @@ Route::group([
 	
 	/** LOCALIZED ROUTES + AUTH ROUTES **/
 
+	Route::get('pass', function() {
+		return bcrypt('test');
+	});
+
 	// root
 	Route::get('/dashboard', 'DashboardController@index');
 	Route::get('/', function(){ return redirect('/dashboard'); });
