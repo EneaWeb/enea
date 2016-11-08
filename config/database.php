@@ -46,9 +46,9 @@ return [
 
     'connections' => [
 
-        'test' => [
+        'demo' => [
             'driver' => 'sqlite',
-            'database' => database_path('test.sqlite'),
+            'database' => database_path('demo.sqlite'),
             'prefix' => '',
         ],
 
