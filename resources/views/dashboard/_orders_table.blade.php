@@ -66,7 +66,8 @@
 
 @foreach ($orders as $order)
 
-@if (Auth::user()->hasRole('accountant'))
+@if (Auth::user()->can('make invoices') )
+
 <div class="modal animated fadeIn" id="modal_proforma_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none; z-index:999999">
 
     <div class="modal-dialog animated zoomIn" style="width:600px">
@@ -177,6 +178,10 @@
         </div>
     </div>
 </div>
+@endif
+
+@if (Auth::user()->can('make waybills') )
+
 <div class="modal animated fadeIn" id="modal_waybill_{!!$order->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none; z-index:999999">
 
     <div class="modal-dialog animated zoomIn" style="width:600px">
