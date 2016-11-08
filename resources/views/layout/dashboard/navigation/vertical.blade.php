@@ -77,12 +77,12 @@
             </ul>
         </li>
     @endif
-
+    @if (Auth::user()->hasRole('superuser'))
         <li class="xn-openable">
             <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Superuser</span></a>
             <ul>
                 <li><a href="/superuser/manage-permissions"><span class="fa fa-cogs"></span> <span class="xn-text">Permissions</span></a></li>
             </ul>
         </li>
-       
+    @endif
 </ul>
