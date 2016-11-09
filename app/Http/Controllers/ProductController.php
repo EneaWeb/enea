@@ -54,7 +54,7 @@ class ProductController extends Controller
 		//	$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->get();
 		//else 
 			
-		$products = Product::where('season_id', $active_season)->where('type_id', $type_id->where('active', 1)->get();
+		$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->get();
 		
 		// return view
 		return view('pages.admin.manage_products', compact('products'));
