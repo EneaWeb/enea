@@ -45,12 +45,16 @@ class ProductController extends Controller
 		
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
+		// get active type
+		$type_id = Auth::user()->options->active_type;
+
 		// query all products for active season
 		
-		if (Input::has('active'))
-			$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->get();
-		else 
-			$products = Product::where('season_id', $active_season)->where('active', 1)->get();
+		//if (Input::has('active'))
+		//	$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->get();
+		//else 
+			
+		$products = Product::where('season_id', $active_season)->where('type_id', $type_id->where('active', 1)->get();
 		
 		// return view
 		return view('pages.admin.manage_products', compact('products'));
