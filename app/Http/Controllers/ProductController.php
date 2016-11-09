@@ -54,7 +54,8 @@ class ProductController extends Controller
 		//	$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->get();
 		//else 
 		if ($type_id == 1) {
-			$products = Product::where('season_id', $active_season)->where('active', 1)->get();
+			$type_id = '*';
+			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->get();
 		} else {
 			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->get();
 		}
