@@ -21,7 +21,7 @@
     
     {{ HTML::style('/assets/css/morris-0.4.3.min.css') }}
     
-    {{ HTML::style('/assets/css/theme-default.css') }}
+    {{ HTML::style('/assets/css/theme-default.css?v=1.1') }}
     {{ HTML::style('/assets/css/style.css') }}
     {{ HTML::style('/assets/css/buttons.bootstrap.min.css') }}
     
