@@ -5757,7 +5757,8 @@ td.dataTables_empty {
 .dataTables_paginate a.paginate_button,
 .paginate_enabled_next,
 .paginate_active,
-.paginate_enabled_previous {
+.paginate_enabled_previous,
+span.ellipsis {
   padding: 5px 10px;
   font-size: 12px;
   -moz-border-radius: 3px;
