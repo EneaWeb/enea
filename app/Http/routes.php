@@ -4,6 +4,10 @@
 *	AUTH // 
 */
 
+Route::get('test-quantita-totali', function(){
+	return dd(\App\Orders::sum('items_qty'));
+});
+
 Route::group([
 	'prefix'     => Localization::setLocale(),
 	'middleware' => [
