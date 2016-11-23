@@ -9,7 +9,7 @@ Route::get('test-quantita-totali', function(){
 		'items_qty = '.\App\Order::sum('items_qty').'<br>'.
 		'products_qty = '.\App\Order::sum('products_qty').'<br>'.
 		'subtotal = '.\App\Order::sum('subtotal').'<br>'.
-		'total = '.\App\Order::sum('total').'<br>';
+		'total = '.\App\Order::sum('total').'<br>'
 	);
 });
 
