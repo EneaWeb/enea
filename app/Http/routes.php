@@ -14,10 +14,9 @@ Route::get('test-quantita-totali', function(){
 
 Route::get('test-quantita-totali-details', function(){
 	return 
-		'items_qty = '.\App\OrderDetail::sum('items_qty').'<br>'.
-		'products_qty = '.\App\OrderDetail::sum('products_qty').'<br>'.
-		'subtotal = '.\App\OrderDetail::sum('subtotal').'<br>'.
-		'total = '.\App\OrderDetail::sum('total').'<br>';
+		'items_qty = '.\App\OrderDetail::sum('qty').'<br>'.
+		'subtotal = '.\App\OrderDetail::sum('price').'<br>'.
+		'total = '.\App\OrderDetail::sum('total_price').'<br>';
 });
 
 Route::group([
