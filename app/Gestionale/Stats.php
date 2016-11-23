@@ -5,7 +5,6 @@ use Session;
 
 class Stats
 {
-	;
 	
 	
 }
