@@ -12,6 +12,12 @@ Route::get('test-quantita-totali', function(){
 		'total = '.\App\Order::sum('total').'<br>';
 });
 
+Route::get('test-functions', function(){
+	return dd($order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
+		$q->where('type_id', $type_id);
+	})->groupBy('product_id')->sum('total'));
+});
+
 Route::group([
 	'prefix'     => Localization::setLocale(),
 	'middleware' => [
