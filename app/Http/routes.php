@@ -5,7 +5,7 @@
 */
 
 Route::get('test-quantita-totali', function(){
-	return dd(\App\Orders::sum('items_qty'));
+	return dd(\App\Order::sum('items_qty'));
 });
 
 Route::group([
