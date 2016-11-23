@@ -57,6 +57,7 @@ return [
     'Add Size' => 'Add Size',
     'Add Color' => 'Add Color',
     'Save' => 'Save',
+    'Pieces' => 'Pezzi',
     'Add/replace Main Picture' => 'Add/replace Main Picture',
     'Add more gallery images' => 'Add more gallery images',
     'Vat' => 'Vat',

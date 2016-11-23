@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>{!!trans('auth.Id')!!}</th>
+                    <th>{!!trans('auth.Pieces')!!}</th>
                     <th>{!!trans('auth.Customer')!!}</th>
                     <th>{!!trans('messages.Agent')!!}</th>
                     <th>{!!trans('auth.Options')!!}</th>

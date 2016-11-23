@@ -211,11 +211,12 @@ Route::group([
 		$array = Session::get('all_variations');
 		$export = '';
 		$variation_id = array_search(Input::get('name'), $array);
-		foreach (\App\OrderDetail::where('product_variation_id', $variation_id)->groupBy('order_id')->get() as $detail) {
-			$export .= '<tr><td><a href="/order/pdf/'.$detail->order_id.'" target="_blank">'.$detail->order_id.'</td>'.
-							'<td>'.$detail->order->customer->companyname.'</td>'.
-							'<td>'.$detail->order->user->profile->companyname.'</td>'.
-							'<td><a href="#" data-toggle="modal" data-target="#modal_edit_'.$detail->order_id.'" class="btn btn-danger btn-rounded btn-condensed btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
+		foreach (\App\OrderDetail::where('product_variation_id', $variation_id)->groupBy('order_id')->get() as $details) {
+			$export .= '<tr><td><a href="/order/pdf/'.$details->order_id.'" target="_blank">'.$details->order_id.'</td>'.
+							'<td>'.\App\OrderDetail::where('order_id', $details->order_id)->where('product_variation_id', $variation_id)->sum('qty').'</td>'.
+							'<td>'.$details->order->customer->companyname.'</td>'.
+							'<td>'.$details->order->user->profile->companyname.'</td>'.
+							'<td><a href="#" data-toggle="modal" data-target="#modal_edit_'.$details->order_id.'" class="btn btn-danger btn-rounded btn-condensed btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
 		}
 		return $export;
 	});
