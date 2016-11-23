@@ -12,10 +12,12 @@ Route::get('test-quantita-totali', function(){
 		'total = '.\App\Order::sum('total').'<br>';
 });
 
-Route::get('test-functions', function(){
-	return dd(\App\OrderDetail::whereHas('product', function($q) use ($type_id) {
-		$q->where('type_id', $type_id);
-	})->groupBy('product_id')->sum('total'));
+Route::get('test-quantita-totali-details', function(){
+	return 
+		'items_qty = '.\App\OrderDetail::sum('items_qty').'<br>'.
+		'products_qty = '.\App\OrderDetail::sum('products_qty').'<br>'.
+		'subtotal = '.\App\OrderDetail::sum('subtotal').'<br>'.
+		'total = '.\App\OrderDetail::sum('total').'<br>';
 });
 
 Route::group([
