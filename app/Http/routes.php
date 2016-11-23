@@ -218,7 +218,7 @@ Route::group([
 							'<td>'.$details->order->user->profile->companyname.'</td>'.
 							'<td><a href="#" data-toggle="modal" data-target="#modal_edit_'.$details->order_id.'" class="btn btn-danger btn-rounded btn-condensed btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
 		}
-		$export .= '<tr><td></td><td>'.\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty').'</td>'.
+		$export .= '<tr><td></td><td><b>'.\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty').' Tot. </b></td>'.
 						'<td></td><td></td><td></td>';
 		return $export;
 	});
