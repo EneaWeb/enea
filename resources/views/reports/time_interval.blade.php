@@ -150,11 +150,11 @@
                                            b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
                                            if(isNaN(b)){ b = 0; }
 
-                                           return (a + b).toLocaleString('it');
+                                           return new Number (a + b);
                                         }, 0 );
 
                                     // Update footer
-                                    $( api.column( this ).footer() ).html( total );
+                                    $( api.column( this ).footer() ).html( total.toLocaleString('it') );
 
                                 });
                             }

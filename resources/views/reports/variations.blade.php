@@ -152,15 +152,15 @@
                                    b = parseFloat(b.toString().replace('€ ','').replace('.',''), 10);
                                    if(isNaN(b)){ b = 0; }
 
-                                   return (a + b).toLocaleString('it');
+                                   return new Number (a + b);
                                 }, 0 );
 
                             // Update footer
                             // Se è l'ultima colonna, aggiungo il simbolo Euro prima
                             if ( this.index() == api.column(-1).index() ) {
-                                $( api.column( this ).footer() ).html('€ '+total); 
+                                $( api.column( this ).footer() ).html('€ '+total.toLocaleString('it')); 
                            } else {
-                                $( api.column( this ).footer() ).html( total );
+                                $( api.column( this ).footer() ).html( total.toLocaleString('it') );
                            }
 
                         });
