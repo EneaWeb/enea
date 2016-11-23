@@ -13,7 +13,7 @@ Route::get('test-quantita-totali', function(){
 });
 
 Route::get('test-functions', function(){
-	return dd($order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
+	return dd(\App\OrderDetail::whereHas('product', function($q) use ($type_id) {
 		$q->where('type_id', $type_id);
 	})->groupBy('product_id')->sum('total'));
 });
