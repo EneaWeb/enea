@@ -28,10 +28,10 @@ class ReportController extends Controller
 			$order_details = OrderDetail::all();
 		} else {
 			$product_ids = OrderDetail::whereHas('product', function($q) use ($type_id) {
-			    $q->where('type_id', '=', $type_id);
+			    $q->where('type_id', $type_id);
 			})->groupBy('product_id')->lists('product_id');
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
-			    $q->where('type_id', '=', $type_id);
+			    $q->where('type_id', $type_id);
 			})->groupBy('product_id')->get();
 		}
 		
