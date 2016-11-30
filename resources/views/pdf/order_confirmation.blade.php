@@ -82,7 +82,7 @@
         </tr>
     </table>
 
-    <br><br><br>
+    <br>
     <p>
         {!!trans('messages.The delivery of goods will be done at the following address:')!!} 
 
