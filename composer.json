@@ -20,7 +20,8 @@
         "willdurand/geocoder": "2.8.2",
         "geocoder-php/geocoder-extra": "1.4.0",
         "intervention/image": "^2.3",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "maatwebsite/excel": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

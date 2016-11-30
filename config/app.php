@@ -164,6 +164,8 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         // image
         Intervention\Image\ImageServiceProvider::class,
+        // Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class
     ],
 
     /*
@@ -214,6 +216,7 @@ return [
         'Input' => Illuminate\Support\Facades\Input::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

@@ -134,6 +134,7 @@ Route::group([
 	Route::get('/order/delete-order/{id}', 'OrderController@delete');
 	Route::get('/order/email/{id}', 'OrderController@send_mail');
 	Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
+	Route::get('/order/excel/{id}', 'ExcelController@order_confirmation_download');
 	Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
 
 	// Report

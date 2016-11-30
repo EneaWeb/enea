@@ -293,6 +293,17 @@
                     <br> 
                     <div class="form-group">
                         <label  class="col-xs-8 col-md-8 control-label">
+                           {!!trans('messages.Download Excel')!!} 
+                        </label>
+                        <div class="col-xs-4 col-md-4">   
+                            <a href="/order/excel/{!!$order->id!!}" target="_blank" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
+                                <span class="fa fa-download" style="font-size:40px"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label  class="col-xs-8 col-md-8 control-label">
                            {!!trans('messages.Send by email')!!} 
                         </label>
                         <div class="col-xs-4 col-md-4">   
@@ -336,6 +347,8 @@
                                 </button>
                             </div>
                         </div>
+                        <br> 
+
                     @endif
                     @if (Auth::user()->can('make invoices'))
                         <div class="form-group">
