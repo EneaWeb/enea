@@ -4,4 +4,5 @@ Homestead.json
 .env
 /database/*
 /config/cache.php
+/config/app.php
 /public/assets/images/*
