@@ -223,7 +223,7 @@
                             {!!Form::hidden('id', $product->id)!!}
                             {!!Form::label('color_id', trans('x.Add Color'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('color_id', \App\Color::orderBy('name')->lists('name', 'id'), '', ['class'=>'form-control', 'placeholder'=>trans('x.Select')])!!}
+                                {!!Form::select('color_id', \App\Color::orderBy('name')->pluck('name', 'id'), '', ['class'=>'form-control', 'placeholder'=>trans('x.Select')])!!}
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -242,7 +242,7 @@
                             {!!Form::hidden('product_id', $product->id)!!}
                             {!!Form::label('size_id', trans('x.Add Size'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('size_id', \App\Size::orderBy('name')->lists('name', 'id'), '', ['class'=>'form-control', 'placeholder'=>trans('x.Select')])!!}
+                                {!!Form::select('size_id', \App\Size::orderBy('name')->pluck('name', 'id'), '', ['class'=>'form-control', 'placeholder'=>trans('x.Select')])!!}
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -261,7 +261,7 @@
                         {{-- */ $i = 1 /* --}}
                         @foreach(\App\ProductVariation::where('product_id', $product->id)
                                                         ->where('active', 1)
-                                                        ->lists('color_id') as $color_id)
+                                                        ->pluck('color_id') as $color_id)
                             <li @if($i==1) class="active" @endif>
                                 <a href="#tab-{!!$color_id!!}" role="tab" data-toggle="tab" style="border:3px solid {!!\App\Color::find($color_id)->hex!!}">
                                     {!!\App\Color::find($color_id)->name!!}
@@ -287,7 +287,7 @@
                                     <table class="table-condensed table-bordered">
                                         <tr>
                                             <th>Size /</th>
-                                            @foreach (\App\Item::where('product_variation_id', $variation->id)->orderBy('size_id')->lists('size_id') as $size_id)
+                                            @foreach (\App\Item::where('product_variation_id', $variation->id)->orderBy('size_id')->pluck('size_id') as $size_id)
                                                 <th>{!!\App\Size::find($size_id)->name!!}</th>
                                             @endforeach
                                         </tr>

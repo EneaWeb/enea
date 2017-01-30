@@ -17,6 +17,12 @@ class Brand extends Model
      *
      * @var array
      */
+
+    public function __construct()
+	{
+		$this->connection = 'mysql';
+	}
+
     protected $fillable = [
         'name', 'description',
     ];

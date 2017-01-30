@@ -98,7 +98,7 @@ class Product extends Model
     
     public static function product_colors($product_id)
     {
-        return \App\Item::where('product_id', $product_id)->groupBy('color_id')->lists('color_id');
+        return \App\Item::where('product_id', $product_id)->groupBy('color_id')->pluck('color_id');
     }
 
     public static function availColors($product_id)

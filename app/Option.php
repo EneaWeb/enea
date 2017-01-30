@@ -19,6 +19,7 @@ class Option extends Model
 	{
 		$this->connection = Auth::user()->options->brand_in_use->slug;
 	}
+    
 	protected $table = 'options';
 
 	protected $fillable = [

@@ -12,6 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+
+    public function __construct()
+	{
+		$this->connection = 'mysql';
+	}
+    
     /**
      * The attributes that are mass assignable.
      *

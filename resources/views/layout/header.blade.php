@@ -90,13 +90,6 @@
                             @endforeach
                         </ul>
                     </div>
-
-                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                    <button type="button" class="quick-sidebar-toggler md-skip">
-                        <span class="sr-only">Toggle Quick Sidebar</span>
-                        <i class="icon-logout"></i>
-                    </button>
-                    <!-- END QUICK SIDEBAR TOGGLER -->
                 </div>
                 <!-- END TOPBAR ACTIONS -->
             </div>

@@ -135,6 +135,7 @@
 'First Name' => 'Nome',
 'Forgot your password?' => 'Hai perso la password?',
 'for' => 'per',
+'Orders' => 'Ordini',
 'Orders made with this Price List' => 'Ordini effettuati con questo listino prezzi',
 'Orders made with this Delivery Date' => 'Ordini effettuati con questa data di consegna',
 'From now on you will able to select the network just clicking on the brand name on top-right' => 'Da questo momento potrai selezionare il network semplicemente cliccando sul nome del brand in alto a destra',

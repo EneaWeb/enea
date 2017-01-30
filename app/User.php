@@ -12,6 +12,11 @@ class User extends Authenticatable
     use HasRoles;
     protected $role;
 
+	public function __construct()
+	{
+		$this->connection = 'mysql';
+	}
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +28,8 @@ class User extends Authenticatable
         'password', 
         'active',
     ];
+
+    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for arrays.

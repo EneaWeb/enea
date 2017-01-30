@@ -43,7 +43,7 @@
                   <div data-filter="*" class="cbp-filter-item-active cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.All')!!}
                      <div class="cbp-filter-counter"></div>
                   </div>
-                  @foreach (\App\Product::groupBy('type_id')->lists('type_id') as $type_id)
+                  @foreach (\App\Product::groupBy('type_id')->pluck('type_id') as $type_id)
                      <div data-filter=".{!!$type_id!!}" class="cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.'.\App\Type::find($type_id)->slug)!!}
                         <div class="cbp-filter-counter"></div>
                      </div>

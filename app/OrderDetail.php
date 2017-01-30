@@ -19,6 +19,7 @@ class OrderDetail extends Model
     {
         $this->connection = Auth::user()->options->brand_in_use->slug;
     }
+    
     protected $table = 'order_details';
     
     protected $fillable = [

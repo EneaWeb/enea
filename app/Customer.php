@@ -19,6 +19,7 @@ class Customer extends Model
 	{
 		$this->connection = 'mysql';
 	}
+    
 	protected $table = 'customers';
 
 	protected $fillable = [

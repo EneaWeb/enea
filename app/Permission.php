@@ -17,6 +17,7 @@ class Permission extends Model
     {
         $this->connection = 'mysql';
     }
+    
     protected $table = 'permissions';
 
     /**

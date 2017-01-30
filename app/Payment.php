@@ -19,6 +19,7 @@ class Payment extends Model
 	{
 		$this->connection = Auth::user()->options->brand_in_use->slug;
 	}
+    
 	protected $table = 'payments';
 
 	protected $fillable = [

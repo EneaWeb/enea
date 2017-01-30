@@ -24,12 +24,12 @@ class ReportController extends Controller
 		$type_id = Auth::user()->options->active_type;
 
 		if ($type_id == 1) {
-			$product_ids = OrderDetail::groupBy('product_id')->lists('product_id');
+			$product_ids = OrderDetail::groupBy('product_id')->pluck('product_id');
 			$order_details = OrderDetail::all();
 		} else {
 			$product_ids = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', $type_id);
-			})->groupBy('product_id')->lists('product_id');
+			})->groupBy('product_id')->pluck('product_id');
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', $type_id);
 			})->groupBy('product_id')->get();
@@ -43,14 +43,14 @@ class ReportController extends Controller
 		$type_id = Auth::user()->options->active_type;
 
 		if ($type_id == 1) {
-			$variation_ids = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
+			$variation_ids = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->pluck('product_variation_id');
 			$order_details = OrderDetail::all();
 		} else {
 			$variation_ids = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
 			})->groupBy('product_variation_id')
 			->orderBy('product_id')
-			->lists('product_variation_id');
+			->pluck('product_variation_id');
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
 			})->get();
@@ -90,7 +90,7 @@ class ReportController extends Controller
 	
 	public function sold_delivery()
 	{
-		$season_delivery_ids = Order::groupBy('season_delivery_id')->lists('season_delivery_id');
+		$season_delivery_ids = Order::groupBy('season_delivery_id')->pluck('season_delivery_id');
 		return view('reports.delivery', compact('season_delivery_ids'));
 	}
 	
@@ -103,7 +103,7 @@ class ReportController extends Controller
 
 			$variation_ids = OrderDetail::whereHas('order', function($q) use ($season_delivery_id) {
 				$q->where('season_delivery_id', $season_delivery_id);
-			})->groupBy('product_variation_id')->lists('product_variation_id');
+			})->groupBy('product_variation_id')->pluck('product_variation_id');
 			
 			$order_details = OrderDetail::whereHas('order', function($q) use ($season_delivery_id) {
 				$q->where('season_delivery_id', $season_delivery_id);
@@ -114,7 +114,7 @@ class ReportController extends Controller
 			    $q->where('type_id', '=', $type_id);
 			})->whereHas('order', function($q) use ($season_delivery_id) {
 				$q->where('season_delivery_id', $season_delivery_id);
-			})->groupBy('product_variation_id')->lists('product_variation_id');
+			})->groupBy('product_variation_id')->pluck('product_variation_id');
 			
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
@@ -135,7 +135,7 @@ class ReportController extends Controller
 
 			$variation_ids = OrderDetail::whereHas('order', function($q) use ($date) {
 				$q->where('created_at', '>=', $date);
-			})->groupBy('product_variation_id')->lists('product_variation_id');
+			})->groupBy('product_variation_id')->pluck('product_variation_id');
 			
 			$order_details = OrderDetail::whereHas('order', function($q) use ($date) {
 				$q->where('created_at', '>=', $date);
@@ -146,7 +146,7 @@ class ReportController extends Controller
 			    $q->where('type_id', '=', $type_id);
 			})->whereHas('order', function($q) use ($date) {
 				$q->where('created_at', '>=', $date);
-			})->groupBy('product_variation_id')->lists('product_variation_id');
+			})->groupBy('product_variation_id')->pluck('product_variation_id');
 			
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
@@ -164,16 +164,16 @@ class ReportController extends Controller
 
 		if ($type_id == 1) {
 			$all_variations = ProductVariation::lists('id');
-			$sold_variations = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
+			$sold_variations = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->pluck('product_variation_id');
 			$variation_ids = $all_variations->diff($sold_variations);
 			$order_details = OrderDetail::all();
 		} else {
 			$all_variations = ProductVariation::whereHas('product', function($q) use ($type_id) {
 				$q->where('type_id', $type_id);
-			})->lists('id');
+			})->pluck('id');
 			$sold_variations = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);
-			})->groupBy('product_variation_id')->orderBy('product_id')->lists('product_variation_id');
+			})->groupBy('product_variation_id')->orderBy('product_id')->pluck('product_variation_id');
 			$variation_ids = $all_variations->diff($sold_variations);
 			$order_details = OrderDetail::whereHas('product', function($q) use ($type_id) {
 			    $q->where('type_id', '=', $type_id);

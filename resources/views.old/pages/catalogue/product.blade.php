@@ -103,7 +103,7 @@
                     {{-- */ $i = 1 /* --}}
                     @foreach(\App\ProductVariation::where('product_id', $product->id)
                                                     ->where('active', 1)
-                                                    ->lists('color_id') as $color_id)
+                                                    ->pluck('color_id') as $color_id)
                         <li @if($i==1) class="active" @endif>
                             <a href="#tab-{!!$color_id!!}" role="tab" data-toggle="tab" style="border:3px solid {!!\App\Color::find($color_id)->hex!!}">
                                 {!!\App\Color::find($color_id)->name!!}

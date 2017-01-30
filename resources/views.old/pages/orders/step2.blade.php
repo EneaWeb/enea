@@ -107,7 +107,7 @@
                                 <div class="form-group">
                                     {!!Form::label('payment_id', trans('x.Select a payment method').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">
-                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->lists('name', 'id'), 
+                                        {!!Form::select('payment_id', \App\Payment::where('active', '1')->pluck('name', 'id'), 
                                         (Session::has('order.payment_id')) ? 
                                             Session::get('order.payment_id') : 
                                             '',
@@ -118,7 +118,7 @@
                                 <div class="form-group">
                                     {!!Form::label('season_delivery_id', trans('x.Select a delivery date').'*', ['class' => 'col-md-3 control-label'])!!}
                                     <div class="col-md-6 col-xs-12">   
-                                        {!!Form::select('season_delivery_id', \App\SeasonDelivery::where('active', '1')->lists('name', 'id'), '', ['class'=>'form-control'])!!}
+                                        {!!Form::select('season_delivery_id', \App\SeasonDelivery::where('active', '1')->pluck('name', 'id'), '', ['class'=>'form-control'])!!}
                                     </div>
                                     <div class="clearfix"></div><br>
                                 </div>

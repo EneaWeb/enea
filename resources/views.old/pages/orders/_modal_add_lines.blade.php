@@ -35,7 +35,7 @@
                     <tr>
                         <th></th>
                         <th></th>
-                       @foreach (\App\Item::where('product_variation_id', $product->variations()->first()->id)->orderBy('size_id')->lists('size_id') as $size_id)
+                       @foreach (\App\Item::where('product_variation_id', $product->variations()->first()->id)->orderBy('size_id')->pluck('size_id') as $size_id)
                             <th>{!!\App\Size::find($size_id)->name!!}</th>
                         @endforeach
                     </tr>

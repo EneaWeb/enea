@@ -17,6 +17,7 @@ class PermissionRole extends Model
     {
         $this->connection = 'mysql';
     }
+    
     protected $table = 'permission_role';
     public $timestamps = false;
 

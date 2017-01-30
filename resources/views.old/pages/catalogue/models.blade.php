@@ -106,7 +106,7 @@
                     <div class="form-group">
                         {!!Form::label('type_id', trans('x.Type'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::select('type_id', \App\Type::where('active', 1)->lists('slug', 'id'),  '', ['class' => 'form-control', 'placeholder' => trans('x.Select')])!!}
+                            {!!Form::select('type_id', \App\Type::where('active', 1)->pluck('slug', 'id'),  '', ['class' => 'form-control', 'placeholder' => trans('x.Select')])!!}
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                         <div class="form-group">
                             {!!Form::label('type_id', trans('x.Type'), ['class' => 'col-md-3 control-label'])!!}
                             <div class="col-md-8">
-                                {!!Form::select('type_id', \App\Type::where('active', 1)->lists('slug', 'id'), $model->type_id, ['class' => 'form-control', 'placeholder' => trans('x.Select')])!!}
+                                {!!Form::select('type_id', \App\Type::where('active', 1)->pluck('slug', 'id'), $model->type_id, ['class' => 'form-control', 'placeholder' => trans('x.Select')])!!}
                             </div>
                         </div>
                     </div>

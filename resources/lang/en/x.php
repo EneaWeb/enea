@@ -132,6 +132,7 @@
 'First Informations' => 'First Informations',
 'First Name' => 'First Name',
 'for' => 'for',
+'Orders' => 'Orders',
 'Orders made with this Price List' => 'Orders made with this Price List',
 'Orders made with this Delivery Date' => 'Orders made with this Delivery Date',
 'Forgot your password?' => 'Forgot your password?',

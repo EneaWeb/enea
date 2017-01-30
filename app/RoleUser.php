@@ -12,6 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoleUser extends Model
 {
+
+    public function __construct()
+	{
+		$this->connection = 'mysql';
+	}
+    
     protected $table = 'role_user';
     
     /**

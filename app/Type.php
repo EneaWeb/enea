@@ -17,6 +17,11 @@ use Auth;
 class Type extends Model
 {
 
+    public function __construct()
+	{
+		$this->connection = 'mysql';
+	}
+
 	protected $table = 'types';
 
 	protected $fillable = [
