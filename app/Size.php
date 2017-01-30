@@ -20,10 +20,13 @@ class Size extends Model
 	{
 	  	$this->connection = Auth::user()->options->brand_in_use->slug;
 	}
-	protected $table = 'sizes';
+	
+    protected $table = 'sizes';
+    
+    // id is varchar and not to increment
+    public $incrementing = false;
 
 	protected $fillable = [
-		'slug',
 		'name',
 	];
 
@@ -38,13 +41,13 @@ class Size extends Model
 	public static function validate( $input ) {
 
 		$rules = array(
-		   'name' => 'required',
-		   'slug' => 'required',
+		   'id' => 'required',
+		   'name' => 'required'
 		);
 
 		$messages = array(
-		   'name.required' => trans('x.required-size-name'),
-		   'slug.required' => trans('x.required-size-slug'),
+		   'id.required' => trans('x.required-size-slug'),
+		   'name.required' => trans('x.required-size-name')
 		);
 
 	  	return Validator::make($input, $rules, $messages);
