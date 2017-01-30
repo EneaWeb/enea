@@ -1,5 +1,3 @@
-
-
 PRODMODEL
 
 PRODUCT
@@ -10,6 +8,8 @@ PRODUCT VARIATION
 id
 slug
 name
+composition
+timestamps
 
 ATTRIBUTES
 id
@@ -28,20 +28,40 @@ ITEMS
 id
 variation_id
 size_id
+timestamps
+
 
 product {
     id: 123
+    name : ciccio,
+    composition : {
+        999 : {
+            color: red,
+            fur: yes
+        },
+        1000 : {
+            color: red,
+            fur: no,
+        }
+    }
 }
 
-
-
-
 variation {
-    id : 999,
-    product_id = 123,
-    composition: {
-        color: red,
-        fur : yes
+    {
+        id : 999,
+        product_id: 123,
+        composition: {
+            color: red,
+            fur: yes
+        }
+    },
+    {
+        id : 1000,
+        product_id : 123,
+        composition: {
+            color: red,
+            fur: no
+        }
     }
 }
 
