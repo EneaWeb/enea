@@ -1,0 +1,19 @@
+# MODIFICHE DB
+
+
+tabella (global) TYPES
+=> modificare nome della colonna "description" in "name"
+
+tabella (brand) SIZES
+=> eliminare colonna "slug" e colonna "id"
+=> aggiungere colonna "id" non incrementale VARCHAR
+=> verificare che abbia la colonna "active" INT default 1
+
+
+
+
+#####################################################################################
+#####################################################################################
+
+
+

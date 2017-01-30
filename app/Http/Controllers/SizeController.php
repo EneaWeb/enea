@@ -17,22 +17,24 @@ class SizeController extends Controller
 		return view('pages.catalogue.sizes', compact('sizes'));
 	}
 	
-	public function create()
+	public function create(Request $request)
 	{
+
 		// try to validate the Input
-		$v = Size::validate(Input::all());
+		$v = Size::validate($request->all());
 		
 		// if everything ok...
 		if ( $v->passes() ) {
-			
+
 			// create a new instance
 			$size = new Size();
 			// populate 
-			$size->name = Input::get('name');
-			$size->slug = trim(Input::get('slug'));
+			$size->name = $request->get('name');
+            $size->id = strtolower(trim(str_replace(' ','-',$request->get('id'))));
+            $size->types = serialize($request->get('types'));
 			$size->active = 1;
 			// setConnection -required- for BRAND DB
-			$size->setConnection(Auth::user()->options->brand_in_use->slug);
+			$size->setConnection(\App\X::brandInUseSlug());
 			// save the line(s)
 			$size->save();
 
@@ -94,6 +96,31 @@ class SizeController extends Controller
 		// redirect back
 		return redirect()->back();
 	}
+
+    public function reorder(Request $request)
+    {
+        $sizes = \App\Size::all();
+        $ids = json_decode($request->get('ids'), true);
+        $newSizes = array();
+
+        foreach ($ids as $id) {
+            $oldSize = \App\Size::find($id);
+            $size = new \App\Size;
+            $size->id = $id;
+            $size->active = 1;
+            $size->name = $oldSize->name;
+            $size->types = $oldSize->types;
+
+            $newSizes[] = $size;
+        }
+
+        \App\Size::truncate();
+
+        foreach ($newSizes as $size) {
+            $size->save();
+        }
+        
+    }
 	
 	
 }

@@ -41,7 +41,7 @@ var TableDatatablesButtons = function() {
         });
     }
 
-var customersList = function() {
+    var customersList = function() {
         var table = $('#customers-list');
 
         var oTable = table.dataTable({
@@ -111,7 +111,6 @@ var customersList = function() {
 
         });
     }
-
 
     return {
 

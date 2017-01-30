@@ -5,7 +5,7 @@ return [
      |  Settings
      | ------------------------------------------------------------------------------------------------
      */
-    'supported-locales'      => ['en', 'es', 'fr'],
+    'supported-locales'      => ['it', 'en'],
 
     'accept-language-header' => true,
 
@@ -17,7 +17,7 @@ return [
      |  Route
      | ------------------------------------------------------------------------------------------------
      */
-    'route'                  => [
+    'route' => [
         'middleware' => [
             'localization-session-redirect' => true,
             'localization-cookie-redirect'  => false,

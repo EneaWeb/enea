@@ -80,6 +80,7 @@
 <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-buttons.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/table-datatables-rowreorder.js" type="text/javascript"></script>
 
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="/assets/layouts/layout5/scripts/layout.min.js"z type="text/javascript"></script>

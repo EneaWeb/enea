@@ -208,13 +208,14 @@ Route::group([
 	Route::post('/catalogue/seasons/change', 'SeasonController@change');
 	Route::post('/catalogue/seasons/delivery/new', 'SeasonDeliveryController@create');
 	Route::post('/catalogue/seasons/list/new', 'SeasonListController@create');
+	Route::post('/catalogue/size/new', 'SizeController@create');
+	Route::get('/catalogue/size/reorder', 'SizeController@reorder');
 	Route::post('/admin/payment/new', 'PaymentController@create');
 	Route::post('/admin/add-user', 'ManageUsersController@add_user');
 	Route::post('/customers/new', 'CustomerController@create');
 	Route::post('/customer-delivery/new', 'CustomerDeliveryController@create');
 	Route::post('/catalogue/models/new', 'ProdModelController@create');
 	Route::post('/catalogue/products/new', 'ProductController@create');
-	Route::post('/catalogue/size/new', 'SizeController@create');
 	Route::post('/catalogue/colors/new', 'ColorController@create');
 	Route::post('/catalogue/product/edit-product', 'ProductController@edit');
 	/*

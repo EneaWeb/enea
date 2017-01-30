@@ -26,7 +26,7 @@ class Type extends Model
 
 	protected $fillable = [
 		'slug',
-		'description',
+		'name',
 		'active'
 	];
 

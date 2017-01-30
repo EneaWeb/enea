@@ -29,6 +29,11 @@
                     </a>
                 </li>
                 <li>
+                    <a class="menulink" href="/catalogue/sizes">
+                        <i class="fa fa-tags"></i> {!!trans('x.Sizes')!!} 
+                    </a>
+                </li>
+                <li>
                     <a class="menulink" href="/catalogue/seasons">
                         <i class="fa fa-umbrella"></i> {!!trans('x.Seasons')!!} 
                     </a>

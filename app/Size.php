@@ -27,7 +27,10 @@ class Size extends Model
     public $incrementing = false;
 
 	protected $fillable = [
+        'id',
 		'name',
+        'types',
+        'active'
 	];
 
 	protected $hidden = [
@@ -68,5 +71,15 @@ class Size extends Model
 		}
 		return $sizes;
 	}
+
+    public function renderTypes()
+    {
+        $a = unserialize($this->types);
+        $b = array();
+        foreach ($a as $k => $v) {
+            $b[] = trans('x.'.\App\Type::find($v)->name).''; 
+        }
+        return implode(', ',$b);
+    }
 
 }
