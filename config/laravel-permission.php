@@ -63,6 +63,7 @@ return [
         */
         'users' => 'users',
 
+
         /*
         |--------------------------------------------------------------------------
         | Roles Table
@@ -100,7 +101,7 @@ return [
         |
         */
 
-        'user_has_permissions' => 'user_has_permissions',
+        'user_has_permissions' => 'user_permission',
 
         /*
         |--------------------------------------------------------------------------
@@ -113,7 +114,7 @@ return [
         |
         */
 
-        'user_has_roles' => 'user_has_roles',
+        'user_has_roles' => 'user_role',
 
         /*
         |--------------------------------------------------------------------------
@@ -126,7 +127,7 @@ return [
         |
         */
 
-        'role_has_permissions' => 'role_has_permissions',
+        'role_has_permissions' => 'permission_role',
 
     ],
 
