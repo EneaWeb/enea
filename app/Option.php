@@ -42,8 +42,8 @@ class Option extends Model
 		);
 
 		$messages = array(
-		   'name.required' => trans('validation.required-option-name'),
-		   'value.required' => trans('validation.required-option-slug'),
+		   'name.required' => trans('x.required-option-name'),
+		   'value.required' => trans('x.required-option-slug'),
 		);
 
 		return Validator::make($input, $rules, $messages);

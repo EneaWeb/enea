@@ -14,10 +14,10 @@ class SeasonController extends Controller
 	public function index()
 	{
 		// get active season
-		$season_id = \App\Option::getOption('active_season');
-		$season = Season::find($season_id);
+        $active_season = \App\X::activeSeason();
+        $seasons = \App\Season::all();
 		// return view with season object
-		return view('pages.catalogue.seasons', compact('season'));
+		return view('pages.catalogue.seasons', compact('active_season', 'seasons'));
 		
 	}
 	
@@ -51,12 +51,12 @@ class SeasonController extends Controller
 			$season->description = Input::get('description');
 			$season->active = 1;
 			// setConnection -required- for BRAND DB
-			$season->setConnection(Auth::user()->options->brand_in_use->slug);
+			$season->setConnection(\App\X::brandInUseSlug());
 			// save the line(s)
 			$season->save();
 
 			// success message
-			Alert::success(trans('messages.Season saved'));
+			Alert::success(trans('x.Season saved'));
 		
 		// if not ok...
 		} else {

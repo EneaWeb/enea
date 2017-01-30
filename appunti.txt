@@ -1,0 +1,55 @@
+
+
+PRODMODEL
+
+PRODUCT
+
+ATTRIBUTES
+
+PRODUCT VARIATION
+id
+slug
+name
+
+ATTRIBUTES
+id
+slug UNIQUE
+name
+timestamps
+
+TERMS
+id
+attribute_id
+slug UNIQUE
+name
+timestamps
+
+ITEMS
+id
+variation_id
+size_id
+
+product {
+    id: 123
+}
+
+
+
+
+variation {
+    id : 999,
+    product_id = 123,
+    composition: {
+        color: red,
+        fur : yes
+    }
+}
+
+sizes . . .
+
+item {
+    id : 9999..,
+    product_id = (ridondanza),
+    variation_id = 999,
+    size_id = 
+}

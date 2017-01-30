@@ -38,7 +38,7 @@ class ColorController extends Controller
 			$color->save();
 
 			// success message
-			Alert::success(trans('messages.Color saved.'));
+			Alert::success(trans('x.Color saved.'));
 		
 		// if not ok...
 		} else {
@@ -59,7 +59,7 @@ class ColorController extends Controller
 		// delete it
 		$color->delete();
 		// success message
-		Alert::success(trans('messages.Color deleted'));
+		Alert::success(trans('x.Color deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -84,7 +84,7 @@ class ColorController extends Controller
 			$color->save();
 
 			// success message
-			Alert::success(trans('messages.Color updated'));
+			Alert::success(trans('x.Color updated'));
 		
 		// if not ok...
 		} else {

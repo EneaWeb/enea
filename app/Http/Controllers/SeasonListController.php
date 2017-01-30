@@ -32,7 +32,7 @@ class SeasonListController extends Controller
 			$season_list->save();
 
 			// success message
-			Alert::success(trans('messages.Price List saved'));
+			Alert::success(trans('x.Price List saved'));
 		
 		// if not ok...
 		} else {
@@ -52,7 +52,7 @@ class SeasonListController extends Controller
 		// delete it
 		$season_list->delete();
 		// success message
-		Alert::success(trans('messages.Price List deleted'));
+		Alert::success(trans('x.Price List deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -76,7 +76,7 @@ class SeasonListController extends Controller
 			$season_list->save();
 
 			// success message
-			Alert::success(trans('messages.Price List updated'));
+			Alert::success(trans('x.Price List updated'));
 		
 		// if not ok...
 		} else {

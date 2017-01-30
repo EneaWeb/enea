@@ -142,7 +142,7 @@ class OrderController extends Controller
 		$items_color_grouped = array();
 		
 		// get active season value
-		$active_season = \App\Option::where('name', 'active_season')->first()->value;
+		$active_season = \App\Helper::activeSeason();
 		// query all products for active season
 
 		$type_id = Auth::user()->options->active_type;
@@ -473,6 +473,12 @@ class OrderController extends Controller
 		
 		Alert::success('Mail inviata');
 		return redirect()->back();
+	}
+
+	public function modalEdit(Request $request)
+	{
+		$order = \App\Order::find($request->get('order_id'));
+		return view('modals.order.edit', compact('order'));
 	}
 	
 }

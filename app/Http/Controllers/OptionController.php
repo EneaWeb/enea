@@ -24,7 +24,7 @@ class OptionController extends Controller
 		// update row
 		$option->save();
 		// return a success message
-		Alert::success(trans('messages.Active Season updated'));
+		Alert::success(trans('x.Active Season updated'));
 		// return back
 		return redirect()->back();
 	}

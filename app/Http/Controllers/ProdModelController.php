@@ -39,7 +39,7 @@ class ProdModelController extends Controller
 			$prodmodel->save();
 
 			// success message
-			Alert::success(trans('messages.Model saved.'));
+			Alert::success(trans('x.Model saved.'));
 		
 		// if not ok...
 		} else {
@@ -60,7 +60,7 @@ class ProdModelController extends Controller
 		// delete it
 		$payment->delete();
 		// success message
-		Alert::success(trans('messages.Model deleted'));
+		Alert::success(trans('x.Model deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -86,7 +86,7 @@ class ProdModelController extends Controller
 			$prodmodel->save();
 
 			// success message
-			Alert::success(trans('messages.Model updated'));
+			Alert::success(trans('x.Model updated'));
 		
 		// if not ok...
 		} else {

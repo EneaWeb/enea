@@ -44,8 +44,8 @@ class SeasonDelivery extends Model
 		);
 
 		$messages = array(
-		   'season_id.required' => trans('validation.required-season_delivery-season_id'),
-		   'name.required' => trans('validation.required-season_delivery-name'),
+		   'season_id.required' => trans('x.required-season_delivery-season_id'),
+		   'name.required' => trans('x.required-season_delivery-name'),
 		);
 
 		return Validator::make($input, $rules, $messages);

@@ -36,7 +36,7 @@ class CustomerController extends Controller
 		*/
 		
 		// retrieve all customers
-		$customers = \App\Brand::find(Auth::user()->options->active_brand)->customers;
+        $customers = \App\Brand::find(Auth::user()->options->active_brand)->customers;
 		
 		$autocomplete = new Autocomplete();
 		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
@@ -66,6 +66,19 @@ class CustomerController extends Controller
 	{
 		// get customer profile
 		$customer = Customer::find($id);
+
+		if ( (Auth::user()->can('manage orders')) || (Auth::user()->hasRole('accountant')))
+			$orders = \App\Order::where('customer_id', $id)
+										->where('season_id', \App\X::activeSeason())
+										->orderBy('id', 'desc')
+										->get();
+		else
+			$orders = \App\Order::where('customer_id', $id)
+										->where('user_id', Auth::user()->id)
+										->where('season_id', \App\X::activeSeason())
+										->orderBy('id', 'desc')
+										->get();
+
 		$address = $customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country;
 		
 		/*
@@ -104,7 +117,8 @@ class CustomerController extends Controller
 		                                            'autocomplete', 
 		                                            'autocomplete2', 
 		                                            'autocompleteHelper',
-		                                            'supportedLocales'));
+		                                            'supportedLocales',
+																  'orders'));
 	}
 	
 	public function create()
@@ -162,7 +176,7 @@ class CustomerController extends Controller
 			$brand->customers()->attach($customer->id);
 
 			// success message
-			Alert::success(trans('messages.New Customer saved'));
+			Alert::success(trans('x.New Customer saved'));
 		
 		// if not ok...
 		} else {
@@ -182,7 +196,7 @@ class CustomerController extends Controller
 		// delete it
 		$customer->delete();
 		// success message
-		Alert::success(trans('messages.Customer deleted'));
+		Alert::success(trans('x.Customer deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -194,7 +208,7 @@ class CustomerController extends Controller
 		// delete it
 		$customer_delivery->delete();
 		// success message
-		Alert::success(trans('messages.Option deleted'));
+		Alert::success(trans('x.Option deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -248,7 +262,7 @@ class CustomerController extends Controller
 			$customer->save();
 
 			// success message
-			Alert::success(trans('messages.Customer updated'));
+			Alert::success(trans('x.Customer updated'));
 		
 		// if not ok...
 		} else {

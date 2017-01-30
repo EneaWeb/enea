@@ -46,9 +46,9 @@ class EneaMail extends Model
 		if ($edited == TRUE) {
       	// EDITED ORDER
 			$data = [
-			   'title' => trans('messages.Order Update').' #'.$order->id,
-			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
-			                  trans('messages.As attached you can find a copy of your Order').' '.
+			   'title' => trans('x.Order Update').' #'.$order->id,
+			   'content' => trans('x.Dear').' '.$customer->companyname.',<br><br>'.
+			                  trans('x.As attached you can find a copy of your Order').' '.
 			                  Auth::user()->options->brand_in_use->name.' #'.
 			                  $order->id.'.<br><br>'.
 			                  trans("messages.This is a full update of the order, so consider this as definitive. If you previously received a confirmation email please ignore it").'.',
@@ -56,9 +56,9 @@ class EneaMail extends Model
       } else {
       	// NEW ORDER -- NOT EDITED
 			$data = [
-			   'title' => trans('messages.New Order').' #'.$order->id,
-			   'content' => trans('messages.Dear').' '.$customer->companyname.',<br><br>'.
-			                  trans('messages.As attached you can find a copy of your Order').' '.
+			   'title' => trans('x.New Order').' #'.$order->id,
+			   'content' => trans('x.Dear').' '.$customer->companyname.',<br><br>'.
+			                  trans('x.As attached you can find a copy of your Order').' '.
 			                  Auth::user()->options->brand_in_use->name.' #'.
 			                  $order->id,
 			]; 
@@ -66,8 +66,8 @@ class EneaMail extends Model
 
 		Mail::send('email.order_confirmation', $data, function($message) use ($data, $order, $sender_mail, $customer, $cc, $reply_to, $brand, $pdf)
 		{
-			$message->subject(Auth::user()->options->brand_in_use->name.' - '.trans('messages.New Order'));
-			$message->attachData($pdf->output(), trans('messages.Order').' '.$brand->name.' #'.$order->id.'.pdf');
+			$message->subject(Auth::user()->options->brand_in_use->name.' - '.trans('x.New Order'));
+			$message->attachData($pdf->output(), trans('x.Order').' '.$brand->name.' #'.$order->id.'.pdf');
 			$message->from($sender_mail);
 			$message->to($customer->email);
 			$message->bcc($cc);
@@ -92,16 +92,16 @@ class EneaMail extends Model
 
       // INVIO ALL'UTENTE
 		$data = [
-		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$user_to_link->profile->companyname.',<br><br>'.
-		                  $user->profile->companyname.' '.trans('messages.requested your join to the network').' '.
+		   'title' => trans('x.Join the network'),
+		   'content' => trans('x.Dear').' '.$user_to_link->profile->companyname.',<br><br>'.
+		                  $user->profile->companyname.' '.trans('x.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
-		                  trans('messages.From now on you will able to select the network just clicking on the brand name on top-right').'.<br>'.
+		                  trans('x.From now on you will able to select the network just clicking on the brand name on top-right').'.<br>'.
 		                  '<hr>'.$custom_message.'<hr>',
 			]; 
 		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $brand, $custom_message, $user_to_link, $sender_mail, $reply_to)
 		{
-			$message->subject(trans('messages.Join the network').' - '.$brand->name);
+			$message->subject(trans('x.Join the network').' - '.$brand->name);
 			$message->from($sender_mail);
 			$message->to($user_to_link->email);
 			$message->replyTo($reply_to);
@@ -120,11 +120,11 @@ class EneaMail extends Model
 
       // INVIO ALL'UTENTE
 		$data = [
-		   'title' => trans('messages.Join the network'),
-		   'content' => trans('messages.Dear').' '.$new_user->profile->companyname.',<br><br>'.
-		                  $user->profile->companyname.' '.trans('messages.requested your join to the network').' '.
+		   'title' => trans('x.Join the network'),
+		   'content' => trans('x.Dear').' '.$new_user->profile->companyname.',<br><br>'.
+		                  $user->profile->companyname.' '.trans('x.requested your join to the network').' '.
 		                  $brand->name.'.<br><br>'.
-		                  trans('messages.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
+		                  trans('x.In order to activate your account, you will need to login and change your personal informations').'.<br><br>'.
 		                  'Activation Link: <i><a href="http://ordini.eneaweb.com/registration/confirm?pas=provvisoria&mail='.$new_user->email.'">http://ordini.eneaweb.com/registration/confirm?pas=provvisoria&mail='.$new_user->email.'</a></i><br><br>'.
 		                  'Email: <i>'.$new_user->email.'</i><br>'.
 		                  'Password: <i>provvisoria</i><br><br>'.
@@ -132,7 +132,7 @@ class EneaMail extends Model
 			]; 
 		Mail::send('email.order_confirmation', $data, function($message) use ($data, $user, $new_user, $brand, $custom_message, $sender_mail, $reply_to)
 		{
-			$message->subject(trans('messages.Join the network').' - '.$brand->name);
+			$message->subject(trans('x.Join the network').' - '.$brand->name);
 			$message->from($sender_mail);
 			$message->to($new_user->email);
 			$message->replyTo($reply_to);

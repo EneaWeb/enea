@@ -56,16 +56,18 @@ class Customer extends Model
 		   'address' => 'required',
 		   'telephone' => 'required',
 		   'email' => 'required',
-		   'language' => 'required'
+		   'language' => 'required',
+		   'country' => 'required',
 		);
 
 		$messages = array(
-		   'companyname.required' => trans('validation.required-customer-companyname'),
-		   'name.required' => trans('validation.required-customer-name'),
-		   'address.required' => trans('validation.required-customer-address'),
-		   'telephone.required' => trans('validation.required-customer-telephone'),
-		   'email.required' => trans('validation.required-customer-email'),
-		   'language.required' => trans('validation.required-customer-language'),
+		   'companyname.required' => trans('x.required-customer-companyname'),
+		   'name.required' => trans('x.required-customer-name'),
+		   'address.required' => trans('x.required-customer-address'),
+		   'telephone.required' => trans('x.required-customer-telephone'),
+		   'email.required' => trans('x.required-customer-email'),
+		   'language.required' => trans('x.required-customer-language'),
+		   'country.required' => trans('x.required-customer-country'),
 		);
 
 		return Validator::make($input, $rules, $messages);

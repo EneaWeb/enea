@@ -32,7 +32,7 @@ class AttributeValueController extends Controller
 			$attribute_value->save();
 
 			// success message
-			Alert::success(trans('messages.Attribute Value saved'));
+			Alert::success(trans('x.Attribute Value saved'));
 		
 		// if not ok...
 		} else {
@@ -52,7 +52,7 @@ class AttributeValueController extends Controller
 		// delete it
 		$attribute_value->delete();
 		// show success message
-		Alert::success(trans('messages.Attribute Value deleted'));
+		Alert::success(trans('x.Attribute Value deleted'));
 		// redirect back
 		return redirect()->back();
 	}

@@ -47,8 +47,8 @@ class ProdModel extends Model
         );
 
         $messages = array(
-            'name.required' => trans('validation.required-prodmodel-name'),
-            'slug.required' => trans('validation.required-prodmodel-slug'),
+            'name.required' => trans('x.required-prodmodel-name'),
+            'slug.required' => trans('x.required-prodmodel-slug'),
         );
 
         return Validator::make($input, $rules, $messages);

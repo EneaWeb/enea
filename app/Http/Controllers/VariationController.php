@@ -40,7 +40,7 @@ class VariationController extends Controller
 			$variation->save();
 
 			// success message
-			Alert::success(trans('messages.Variation saved.'));
+			Alert::success(trans('x.Variation saved.'));
 		
 		// if not ok...
 		} else {

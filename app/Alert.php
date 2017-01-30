@@ -3,34 +3,54 @@
 namespace App;
 use Session;
 
+/*
+|--------------------------------------------------------------------------
+|   Notification
+|--------------------------------------------------------------------------
+|
+| calls toastr notifications
+|
+*/
+
 class Alert
 {
+    protected $name;
+    protected $value;
 
-    //protected $message;
-    //protected $type;
+    private function __construct($name, $value)
+    {
+        $this->name = $name;
+        $this->value = $value;
+    }
 
-    public static function error($message)
+    private function run()
     {
-        $type = 'error';
-        Alert::send($type, $message);
+        Session::put('_notification.name', $this->name);
+        Session::put('_notification.value', $this->value);
     }
-    
-    public static function success($message)
+
+    public static function info($value)
     {
-        $type = 'success';
-        Alert::send($type, $message);
+        $a = new self('info', $value);
+        $a->run();
     }
-    
-    public static function message($message)
+
+    public static function success($value)
     {
-        $type = 'message';
-        Alert::send($type, $message);
+        $a = new self('success', $value);
+        $a->run();
     }
-    
-    public static function send($type, $message)
+
+    public static function warning($value)
     {
-        $type_name = 'alert_'.$type;
-        Session::put($type_name, $message);
+        $a = new self('warning', $value);
+        $a->run();
+    }
+
+    public static function error($value)
+    {
+        $a = new self('error', $value);
+        $a->run();
     }
 
 }

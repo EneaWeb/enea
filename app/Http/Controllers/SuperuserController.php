@@ -21,24 +21,24 @@ class SuperuserController extends Controller
 
 		$table = '<tr><th></th>';
 		foreach (\App\Permission::all() as $permission) {
-			$table .= '<th style="text-align:center">'.ucwords($permission->name).'</th>';
+			$table .= '<th style="text-align:center">'.$permission->name.'</th>';
 		}
 		$table .= '</tr>';
 		foreach (\Spatie\Permission\Models\Role::all() as $role) {
-			$table .= '<tr><th>'.ucwords($role->name).'</th>';
+			$table .= '<tr><th>'.$role->name.'</th>';
 			foreach (\App\Permission::all() as $permission) {
-				$table .= '<td style="text-align:center">';
+				$table .= '<td style="text-align:center"><div class="mt-checkbox-list">';
 				if ($role->hasPermissionTo($permission->name)) 
 					$checked = 'checked="checked"';
 				else
 					$checked = '';
 
-				$permission_name = str_replace(' ', '_', $permission->name);
-				$table .= '<input type="checkbox" class="icheckbox" name="'.$role->id.'-'.$permission_name.'" value="to_activate" '.$checked.'></td>';
+				//$permission_name = str_replace(' ', '_', $permission->name);
+				$table .= '<label class="mt-checkbox mt-checkbox-outline"><input type="checkbox" name="'.$role->id.'-'.$permission->name.'" value="to_activate" '.$checked.'><span></span></label></div></td>';
 			}
 		}
 
-		return view('superuser.permissions', compact('table'));
+		return view('pages.settings.permissions', compact('table'));
 	}
 
 	public function save_manage_permissions()

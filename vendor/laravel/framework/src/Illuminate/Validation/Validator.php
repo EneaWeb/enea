@@ -2034,7 +2034,7 @@ class Validator implements ValidatorContract
         $shortKey = preg_replace('/^validation\.custom\./', '', $customKey);
 
         $customMessages = Arr::dot(
-            (array) $this->translator->trans('validation.custom')
+            (array) $this->translator->trans('x.custom')
         );
 
         foreach ($customMessages as $key => $message) {

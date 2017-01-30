@@ -13,7 +13,7 @@ use App\Http\Requests;
 
 class ProductController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
 		// get active season value
 		$active_season = \App\Option::where('name', 'active_season')->first()->value;
@@ -21,21 +21,23 @@ class ProductController extends Controller
 		$type_id = Auth::user()->options->active_type;
 
 		if (Input::has('active')) {
-			if ($type_id == 1 || $type_id == 0) {
-				$products = Product::where('season_id', $active_season)->where('active', Input::get('active'))->orderBy('name', 'asc')->paginate(32);
-			} else {
-				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', Input::get('active'))->orderBy('name', 'asc')->paginate(32);
-			}
+			$products = Product::where('season_id', $active_season)
+								->where('active', Input::get('active'))
+								->orderBy('type_id', 'asc')
+								->orderBy('name', 'asc')
+								->get();
+		} else {
+			$products = Product::where('season_id', $active_season)
+								->where('active', 1)
+								->orderBy('type_id', 'asc')
+								->orderBy('name', 'asc')
+								->get();
 		}
-		else {
-			if ($type_id == 1 || $type_id == 0) {
-				$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'asc')->paginate(32);
-			} else {
-				$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'asc')->paginate(32);
-			}
-			
-		}
-		
+
+        // if List is requested, return list view
+        if ($request->has('show') && $request->get('show') == 'list')
+            return view('pages.catalogue.products_list', compact('products'));
+
 		// return view
 		return view('pages.catalogue.products', compact('products'));
 	}
@@ -89,7 +91,7 @@ class ProductController extends Controller
 			$product->save();
 
 			// success message
-			Alert::success(trans('messages.Product saved.'));
+			Alert::success(trans('x.Product saved.'));
 			
 			return redirect('/catalogue/product/edit/'.$product->id);
 		
@@ -107,7 +109,44 @@ class ProductController extends Controller
 	public function show($id)
 	{
 		$product = Product::find($id);
-		return view('pages.catalogue.product', compact('product'));
+		foreach($product->variations as $variation) {
+			$pictures_count = $variation->pictures->count();
+		}
+		$pictures_count += $product->pictures->count();
+		$orders = \App\Order::whereHas('order_details', function($q) use ($id) {
+			$q->where('product_id', $id);
+		})->get();
+
+        $deletable = false;
+        
+        $orders = \App\Order::whereHas('order_details', function($a) use ($id) {
+            $a->whereHas('item', function($q) use($id) {
+                $q->where('product_id', $id);
+            });
+        })->get();
+
+        if ($orders->isEmpty())
+            $deletable = true;
+
+
+		return view('pages.catalogue.product', compact( 'product', 
+                                                        'pictures_count', 
+                                                        'orders', 
+                                                        'orders',
+                                                        'deletable'));
+	}
+
+	public function preview($id)
+	{
+		$product = Product::find($id);
+		foreach($product->variations as $variation) {
+			$pictures_count = $variation->pictures->count();
+		}
+		$pictures_count += $product->pictures->count();
+		$orders = \App\Order::whereHas('order_details', function($q) use ($id) {
+			$q->where('product_id', $id);
+		})->get();
+		return view('pages.catalogue.product_preview', compact('product', 'pictures_count', 'orders'));
 	}
 	
 	public function manage_single($id)
@@ -159,7 +198,7 @@ class ProductController extends Controller
 		$product->delete();
 		
 		// success message
-		Alert::success(trans('messages.Product deleted'));
+		Alert::success(trans('x.Product deleted'));
 		
 		return redirect()->back();
 	}
@@ -188,7 +227,7 @@ class ProductController extends Controller
 		$product->save();
 
 			// success message
-			Alert::success(trans('messages.Product updated'));
+			Alert::success(trans('x.Product updated'));
 		
 		// if not ok...
 		} else {
@@ -236,7 +275,7 @@ class ProductController extends Controller
 		}
 
 		// success message
-		Alert::success(trans('messages.Color added'));
+		Alert::success(trans('x.Color added'));
 		
 		return redirect()->back();
 	}
@@ -262,12 +301,12 @@ class ProductController extends Controller
 				$newItem->save();
 			}
 			// success message
-			Alert::success(trans('messages.Size added'));
+			Alert::success(trans('x.Size added'));
 			return redirect()->back();
 		}
 
 		// success message
-		Alert::error(trans('messages.Size already exhists'));
+		Alert::error(trans('x.Size already exhists'));
 		return redirect()->back();
 
 	}
@@ -331,141 +370,108 @@ class ProductController extends Controller
 		}
 
 		// success message
-		Alert::success(trans('messages.Price updated'));
+		Alert::success(trans('x.Price updated'));
 		// redirect back
 		return redirect()->back();
 	}
 	
-	public function add_main_picture()
+	public function upload_picture(Request $request)
 	{
 		// reminder: fare controllo su $size = Input::file('picture')->getSize();
-		
-		$product_id = Input::get('id');
-		
-		if (Input::hasFile('picture')) {
-			
-			$imageFullName = 	$product_id.
-									'-'.str_random(4).
-									'-'.Input::file('picture')->getClientOriginalName();
-									
-			$imageUrl = base_path().'/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/';
-			// move the original image
-			Input::file('picture')->move(	$imageUrl, $imageFullName );
-			// make a copy
-			$img300 = Image::make($imageUrl.$imageFullName);
-			// resize with aspect ration and prevent possible upsizing
-			$img300->resize(null, 400, function ($constraint) {
-			    $constraint->aspectRatio();
-			    $constraint->upsize();
-			});
-			//save the image as a new file
-			$img300->save($imageUrl.'300/'.$imageFullName);
-			
-			if (Input::get('product_variation_id') == 0) {
-				$product = Product::find($product_id);
-				$product->picture = $imageFullName;
-				//
-				$product->setConnection(Auth::user()->options->brand_in_use->slug);
-				// save
-				$product->save();
-			} else {
-				$product_variation = ProductVariation::find(Input::get('product_variation_id'));
-				$product_variation->picture = $imageFullName;
-				//
-				$product_variation->setConnection(Auth::user()->options->brand_in_use->slug);
-				// save
-				$product_variation->save();
-			}
-			
-			// success message
-			Alert::success(trans('messages.Picture added'));
-		
-		} else {
-			
-			Alert::error(trans('Uploading error. Please contact staff'));
-			
-		}
-		
-		// redirect back
-		return redirect()->back();
-	}
-	
-	public function add_product_picture()
-	{
-		// reminder: fare controllo su $size = Input::file('picture')->getSize();
-		
-		$product_id = Input::get('id');
-		
-		if (Input::hasFile('picture')) {
-			
-			$imageFullName = 	$product_id.
-									'-'.str_random(4).
-									'-'.Input::file('picture')->getClientOriginalName();
 
-			$imageUrl = base_path().'/public/assets/images/products/'.Auth::user()->options->brand_in_use->slug.'/';
-			// move the original image
-			Input::file('picture')->move(	$imageUrl, $imageFullName );
-			// make a copy
-			$img300 = Image::make($imageUrl.$imageFullName);
-			// resize with aspect ration and prevent possible upsizing
-			$img300->resize(null, 400, function ($constraint) {
-			    $constraint->aspectRatio();
-			    $constraint->upsize();
-			});
-			//save the image as a new file
-			$img300->save($imageUrl.'300/'.$imageFullName);
-			
-			if (Input::get('product_variation_id') == 0) {
-				$product_picture = new \App\ProductPicture;
-				$product_picture->product_id = Input::get('id');
-				$product_picture->picture = $imageFullName;
-				//
-				$product_picture->setConnection(Auth::user()->options->brand_in_use->slug);
-				// save
-				$product_picture->save();
-				// success message
-			} else {
-				$product_variation_picture = new \App\ProductVariationPicture;
-				$product_variation_picture->product_variation_id = Input::get('product_variation_id');
-				$product_variation_picture->picture = $imageFullName;
-				//
-				$product_variation_picture->setConnection(Auth::user()->options->brand_in_use->slug);
-				// save
-				$product_variation_picture->save();
-				// success message
-			}
-			
-			Alert::success(trans('messages.Picture added'));
-		
-		} else {
-			Alert::error(trans('Uploading error. Please contact staff'));
-		}
+		$product_id = $request->get('product_id');
+		$variation_id = $request->get('variation_id');
+        $type = $request->get('type');
+        $picture = $request->file('picture');
+        $imageFullName = $product_id.
+                            '-'.str_random(4).
+                            '-'.str_replace(' ','-',$picture->getClientOriginalName());
+
+        if ($picture == NULL) {
+            Alert::error(trans('x.No picture selected'));
+            return redirect()->back();
+        }
+
+        $imageUrl = base_path().'/public/assets/images/products/'.\App\X::brandInUseSlug().'/';
+        // move the original image
+        $picture->move(	$imageUrl, $imageFullName );
+        // make a copy
+        $img300 = Image::make($imageUrl.$imageFullName);
+        // resize with aspect ration and prevent possible upsizing
+        $img300->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        //save the image as a new file
+        $img300->save($imageUrl.'300/'.$imageFullName);
+        
+        if ($type == 'product') {
+
+            $product = \App\Product::find($product_id);
+            $product->setConnection(\App\X::brandInUseSlug());
+            $product->picture = $imageFullName;
+            $product->save();
+
+        } else if ($type == 'variation') {
+
+            $variation = \App\Variation::find($variation_id);
+            $variation->setConnection(\App\X::brandInUseSlug());
+            $picName = $product->picture;
+            $variation->picture = $imageFullName;
+            $variation->save();
+
+        } else if ($type == 'variation_picture') {
+
+            $pVarPicture = new \App\ProductVariationPicture;
+            $pVarPicture->product_variation_id = $variation_id;
+            $pVarPicture->picture = $imageFullName;
+            $pVarPicture->setConnection(\App\X::brandInUseSlug());
+            $pVarPicture->save();
+
+        }
+        
+        Alert::success(trans('x.Picture saved'));
 		
 		// redirect back
 		return redirect()->back();
 	}
 	
-	public function delete_product_picture($id)
+	public function delete_product_picture(Request $request)
 	{
-		$picture = \App\ProductPicture::find($id);
-		$picture->setConnection(Auth::user()->options->brand_in_use->slug);
-		$picture->delete();
-		
+
+        $id = $request->get('id');
+        $type = $request->get('type');
+
+        if ($type == 'product') {
+
+            $product = \App\Product::find($id);
+            $product->setConnection(\App\X::brandInUseSlug());
+            $picName = $product->picture;
+            $product->picture = 'default.jpg';
+            $product->save();
+
+        } else if ($type == 'variation') {
+
+            $variation = \App\Variation::find($id);
+            $variation->setConnection(\App\X::brandInUseSlug());
+            $picName = $variation->picture;
+            $variation->picture = 'default.jpg';
+            $variation->save();
+
+        } else if ($type == 'variation_picture') {
+
+            $pVarPicture = \App\ProductVariationPicture::find($id);
+            $picName = $pVarPicture->picture;
+            $pVarPicture->setConnection(\App\X::brandInUseSlug());
+            $pVarPicture->delete();
+
+        }
+
+        $fullUrl = base_path().'/public/assets/images/products/'.\App\X::brandInUseSlug().'/'.$picName;
+        unset($fullUrl);
+
 		// success message
-		Alert::success(trans('messages.Picture deleted'));
-		return redirect()->back();
-		
-	}
-	
-	public function delete_variation_picture($id)
-	{
-		$picture = \App\ProductVariationPicture::find($id);
-		$picture->setConnection(Auth::user()->options->brand_in_use->slug);
-		$picture->delete();
-		
-		// success message
-		Alert::success(trans('messages.Picture deleted'));
-		return redirect()->back();
+		return 'ok';
 		
 	}
 	

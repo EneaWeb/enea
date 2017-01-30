@@ -45,9 +45,9 @@ class Item extends Model
 	  );
 
 	  	$messages = array(
-	      'product_id.required' => trans('validation.required-item-product_id'),
-	      'size_id.required' => trans('validation.required-item-size_id'),
-	      'active.required' => trans('validation.required-item-active'),
+	      'product_id.required' => trans('x.required-item-product_id'),
+	      'size_id.required' => trans('x.required-item-size_id'),
+	      'active.required' => trans('x.required-item-active'),
 	  );
 
 	  	return Validator::make($input, $rules, $messages);

@@ -30,7 +30,7 @@ class PDFController extends Controller
 		$pdf->setPaper('A4');
 		$pdf->setOrientation('landscape');
 		
-		return $pdf->download(trans('messages.Order').' '.$brand->name.' #'.$order->id.'.pdf');
+		return $pdf->download(trans('x.Order').' '.$brand->name.' #'.$order->id.'.pdf');
 	}
 	
 	public function order_confirmation_view($id)
@@ -136,7 +136,7 @@ class PDFController extends Controller
 		
 		Localization::setLocale($user_locale);
 		return $pdf->stream();
-		//return $pdf->download(trans('messages.Proforma').' '.$brand->name.' '.$number.'.pdf');
+		//return $pdf->download(trans('x.Proforma').' '.$brand->name.' '.$number.'.pdf');
 	}
 
 	public function invoice($id)
@@ -169,7 +169,7 @@ class PDFController extends Controller
 		
 		Localization::setLocale($user_locale);
 		return $pdf->stream();
-		//return $pdf->download(trans('messages.Invoice').' '.$brand->name.' '.$number.'.pdf');
+		//return $pdf->download(trans('x.Invoice').' '.$brand->name.' '.$number.'.pdf');
 	}
 	
 	public function waybill($id)
@@ -212,7 +212,7 @@ class PDFController extends Controller
 		
 		Localization::setLocale($user_locale);
 		return $pdf->stream();
-		//return $pdf->download(trans('messages.Invoice').' '.$brand->name.' '.$number.'.pdf');
+		//return $pdf->download(trans('x.Invoice').' '.$brand->name.' '.$number.'.pdf');
 	}
 
 }

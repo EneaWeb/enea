@@ -35,7 +35,7 @@ class ProfileController extends Controller
         $user_options->active_brand = $brand_id;
         $user_options->save();
         
-        \App\Alert::success(trans('messages.Brand in use changed'));
+        \App\Alert::success(trans('x.Brand in use changed'));
         return redirect('/');
     }
 
@@ -48,7 +48,7 @@ class ProfileController extends Controller
         $user_options->active_type = $type_id;
         $user_options->save();
         
-        \App\Alert::success(trans('messages.Type in use changed'));
+        \App\Alert::success(trans('x.Type in use changed'));
         return redirect()->back();
     }
 }

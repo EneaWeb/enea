@@ -46,8 +46,8 @@ class CustomerDelivery extends Model
 		);
 
 		$messages = array(
-		   'customer_id.required' => trans('validation.required-customer_delivery-customer_id'),
-		   'address.required' => trans('validation.required-customer_delivery-address'),
+		   'customer_id.required' => trans('x.required-customer_delivery-customer_id'),
+		   'address.required' => trans('x.required-customer_delivery-address'),
 		);
 
 		return Validator::make($input, $rules, $messages);

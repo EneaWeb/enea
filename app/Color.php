@@ -42,8 +42,8 @@ class Color extends Model
 		);
 
 		$messages = array(
-		   'name.required' => trans('validation.required-color-name'),
-		   'slug.required' => trans('validation.required-color-slug'),
+		   'name.required' => trans('x.required-color-name'),
+		   'slug.required' => trans('x.required-color-slug'),
 		);
 
 	  	return Validator::make($input, $rules, $messages);

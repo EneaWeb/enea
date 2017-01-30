@@ -45,8 +45,8 @@ class ProductVariation extends Model
         );
 
         $messages = array(
-            'product_id.required' => trans('validation.required-product_variation-product_id'),
-            'active.required' => trans('validation.required-product_variation-active'),
+            'product_id.required' => trans('x.required-product_variation-product_id'),
+            'active.required' => trans('x.required-product_variation-active'),
         );
 
         return Validator::make($input, $rules, $messages);
@@ -74,6 +74,11 @@ class ProductVariation extends Model
     public function color()
     {
         return $this->belongsTo('\App\Color');
+    }
+
+    public function fullName()
+    {
+        return $this->product->name.' '.$this->color->name;
     }
 
 }

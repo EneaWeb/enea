@@ -35,7 +35,7 @@ class TypeController extends Controller
 		}
 		
 		// success message
-		Alert::success(trans('messages.Types updated'));
+		Alert::success(trans('x.Types updated'));
 		
 		// redirect back
 		return redirect()->back();

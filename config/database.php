@@ -46,9 +46,9 @@ return [
 
     'connections' => [
 
-        'demo' => [
+        'test' => [
             'driver' => 'sqlite',
-            'database' => database_path('demo.sqlite'),
+            'database' => database_path('test.sqlite'),
             'prefix' => '',
         ],
 
@@ -74,27 +74,15 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
+            'database' => env('DB_DATABASE', 'gestionale'),
+            'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => false,
             'engine' => null,
-        ],
-
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-        ],
+        ]
 
     ],
 

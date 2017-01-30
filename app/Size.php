@@ -43,8 +43,8 @@ class Size extends Model
 		);
 
 		$messages = array(
-		   'name.required' => trans('validation.required-size-name'),
-		   'slug.required' => trans('validation.required-size-slug'),
+		   'name.required' => trans('x.required-size-name'),
+		   'slug.required' => trans('x.required-size-slug'),
 		);
 
 	  	return Validator::make($input, $rules, $messages);

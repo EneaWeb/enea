@@ -43,8 +43,8 @@ class ProductPicture extends Model
         );
 
         $messages = array(
-            'product_id.required' => trans('validation.required-product_pictures-product_id'),
-            'image.required' => trans('validation.required-product_pictures-image'),
+            'product_id.required' => trans('x.required-product_pictures-product_id'),
+            'image.required' => trans('x.required-product_pictures-image'),
         );
 
         return Validator::make($input, $rules, $messages);

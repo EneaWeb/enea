@@ -43,8 +43,8 @@ class Season extends Model
         );
 
         $messages = array(
-            'name.required' => trans('validation.required-season-name'),
-            'slug.required' => trans('validation.required-season-slug'),
+            'name.required' => trans('x.required-season-name'),
+            'slug.required' => trans('x.required-season-slug'),
         );
 
         return Validator::make($input, $rules, $messages);

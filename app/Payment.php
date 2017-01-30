@@ -26,8 +26,9 @@ class Payment extends Model
 		'name',
 		'description',
 		'action', //   '', '+', '-''
-					// => nessuno, maggiorazione, sconto
+				// => nessuno, maggiorazione, sconto
 		'amount',
+        'days',
 		'active'
 	];
 
@@ -42,11 +43,13 @@ class Payment extends Model
 	public static function validate( $input ) {
 
 		$rules = array(
-		   'name' => 'required'
+		   'name' => 'required',
+		   'days' => 'required',
 		);
 
 		$messages = array(
-		   'name.required' => trans('validation.required-payment-name'),
+		   'name.required' => trans('x.required-payment-name'),
+		   'days.required' => trans('x.required-payment-days'),
 		);
 
 		return Validator::make($input, $rules, $messages);

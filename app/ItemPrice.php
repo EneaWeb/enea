@@ -42,7 +42,7 @@ class ItemPrice extends Model
 	  );
 
 	  	$messages = array(
-	      //'item_id.required' => trans('validation.required-item_prices-item_id'),
+	      //'item_id.required' => trans('x.required-item_prices-item_id'),
 	  );
 
 	  	return Validator::make($input, $rules, $messages);

@@ -1,45 +1,48 @@
+<!-- BEGIN HEAD -->
 <head>
-    {{-- META SECTION --}}
-    <title>{!! Config::get('general.sitename') !!}{!!(isset($page_title)) ? '- '.$page_title : '' !!}</title>  
-    <meta charset="UTF-8">          
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
-    {{-- END META SECTION --}}
-    {{-- CSS INCLUDE --}}
-    {{ HTML::style('/assets/css/alertify.min.css') }}
-    {{ HTML::style('/assets/css/bootstrap/bootstrap.min.css') }}
-    {{ HTML::style('/assets/css/themes/default.min.css') }}
-    {{ HTML::style('/assets/css/flag-icon.min.css') }}
-    {{-- {{ HTML::style('/assets/css/dropzone/dropzone.css') }} --}}
-    {{ HTML::style('https://fonts.googleapis.com/icon?family=Material+Icons')}}  {{-- material icons font --}}
-    {{ HTML::style('/assets/css/galleria.classic.css') }}
-    {{ HTML::style('/assets/css/bootstrap-select.css') }}
-    {{ HTML::style('/assets/css/lightbox/ekko-lightbox.min.css') }}
-    {{ HTML::style('/assets/css/fontawesome/font-awesome.min.css') }}
-    
-    {{ HTML::style('/assets/css/morris-0.4.3.min.css') }}
-    
-    {{ HTML::style('/assets/css/theme-default.css?v=1.1') }}
-    {{ HTML::style('/assets/css/style.css') }}
-    {{ HTML::style('/assets/css/buttons.bootstrap.min.css') }}
-    
-    {{-- EOF CSS INCLUDE --}}
-    {{-- START PLUGINS --}}
-    {{ HTML::script('/assets/js/plugins/jquery/jquery.min.js') }}
-    {{ HTML::script('/assets/js/plugins/jquery/jquery-ui.min.js') }}
-    {{ HTML::script('/assets/js/plugins/bootstrap/bootstrap.min.js') }}
-    {{ HTML::script('/assets/js/plugins/lightbox/ekko-lightbox.min.js') }}
-    {{ HTML::script('/assets/js/pdfobject.min.js') }} 
-    {{ HTML::script('/assets/js/alertify.min.js') }} 
-    
-    {{ HTML::script('/assets/js/plugins/morris/raphael-min.js') }}
-    {{ HTML::script('/assets/js/plugins/morris/morris.min.js') }}
+   <meta charset="utf-8" />
+   <title>{!! Config::get('general.sitename') !!}{!!(isset($pageTitle)) ? '- '.$pageTitle : '' !!}</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta content="width=device-width, initial-scale=1" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <!-- BEGIN LAYOUT FIRST STYLES -->
+   <link href="/assets/css/oswald.css" rel="stylesheet" type="text/css" />
+   <!-- END LAYOUT FIRST STYLES -->
+   <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
-    @include('components.alerts')
-    
-    {{-- END PLUGINS --}}
-    @yield('more_head')
-    
+   <link href="/assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+   
+   <link href="/assets/css/open-sans.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+   <!-- END GLOBAL MANDATORY STYLES -->
+
+   <link href="/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+   {{ HTML::style('/assets/css/flag-icon.min.css') }}
+   <link href="/assets/global/plugins/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/pages/css/portfolio.min.css" rel="stylesheet" type="text/css" />
+   <!-- BEGIN THEME GLOBAL STYLES -->
+   <link href="/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
+   <link href="/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
+   <!-- END THEME GLOBAL STYLES -->
+   <!-- BEGIN THEME LAYOUT STYLES -->
+   <link href="/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+   {{ HTML::style('/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}
+
+   {{ HTML::style('/assets/css/alertify.min.css') }}
+   <!-- END THEME LAYOUT STYLES -->
+   <link rel="shortcut icon" href="/favicon.ico" /> 
 </head>
+<!-- END HEAD -->

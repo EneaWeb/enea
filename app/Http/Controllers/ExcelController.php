@@ -16,12 +16,12 @@ class ExcelController extends Controller
 		$order_details = \App\OrderDetail::where('order_id', $order->id)->get();
 		$brand = \App\Brand::find(Auth::user()->options->brand_in_use->id);
 
-		Excel::create(trans('messages.Order').' '.$brand->name.' #'.$order->id, function($excel) use ($order, $order_details, $brand) {
-	    	$excel->sheet(trans('messages.Order'), function($sheet) use ($order, $order_details, $brand) {
+		Excel::create(trans('x.Order').' '.$brand->name.' #'.$order->id, function($excel) use ($order, $order_details, $brand) {
+	    	$excel->sheet(trans('x.Order'), function($sheet) use ($order, $order_details, $brand) {
 		        $sheet->loadView('excel.order_detail', compact('order_details', 'order', 'brand'));
 	    	});
        	// Set the title
- 			$excel->setTitle(trans('messages.Order').' '.$brand->name.' #'.$order->id);
+ 			$excel->setTitle(trans('x.Order').' '.$brand->name.' #'.$order->id);
 	    	// Chain the setters
 	    	$excel->setCreator('EneaWeb System')
        		->setCompany('EneaWeb');

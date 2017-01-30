@@ -52,11 +52,11 @@ class Product extends Model
         );
 
         $messages = array(
-            'name.required' => trans('validation.required-product-name'),
-            'slug.required' => trans('validation.required-product-slug'),
-            'season_id.required' => trans('validation.required-product-season'),
-            'prodmodel_id.required' => trans('validation.required-product-prodmodel'),
-            'type_id.required' => trans('validation.required-product-type_id'),
+            'name.required' => trans('x.required-product-name'),
+            'slug.required' => trans('x.required-product-slug'),
+            'season_id.required' => trans('x.required-product-season'),
+            'prodmodel_id.required' => trans('x.required-product-prodmodel'),
+            'type_id.required' => trans('x.required-product-type_id'),
         );
 
         return Validator::make($input, $rules, $messages);
@@ -99,5 +99,33 @@ class Product extends Model
     public static function product_colors($product_id)
     {
         return \App\Item::where('product_id', $product_id)->groupBy('color_id')->lists('color_id');
+    }
+
+    public static function availColors($product_id)
+    {
+        $str = array();
+        foreach (\App\ProductVariation::where('product_id', $product_id)->get() as $prodVar)
+        {
+            $str[] = $prodVar->color->name;
+        }
+        return implode($str, ', ');
+    }
+
+    public static function availSizes($product_id)
+    {
+        $str = array();
+        foreach (\App\Item::where('product_id', $product_id)->get() as $item)
+        {
+            $str[] = $item->size->name;
+        }
+        return implode(array_unique($str), ', ');
+    }
+
+    public static function renderSizes($product_id) {
+        $arr = array();
+        foreach (\App\Item::where('product_id', $product_id)->get() as $item) {
+            $arr[] = $item->size->name;
+        }
+        return \App\X::rangeNumbers($arr);
     }
 }

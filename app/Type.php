@@ -40,7 +40,7 @@ class Type extends Model
 	  	);
 
 	  	$messages = array(
-	      	'slug.required' => trans('validation.required-type-slug'),
+	      	'slug.required' => trans('x.required-type-slug'),
 	  	);
 
 	  	return Validator::make($input, $rules, $messages);

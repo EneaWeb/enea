@@ -50,11 +50,11 @@ class OrderDetail extends Model
         );
 
         $messages = array(
-            'order_id.required' => trans('validation.required-order_detail-order_id'),
-            'item_id.required' => trans('validation.required-order_detail-item_id'),
-            'qty.required' => trans('validation.required-order_detail-qty'),
-            'price.required' => trans('validation.required-order_detail-price'),
-            'total_price.required' => trans('validation.required-order_detail-total_price'),
+            'order_id.required' => trans('x.required-order_detail-order_id'),
+            'item_id.required' => trans('x.required-order_detail-item_id'),
+            'qty.required' => trans('x.required-order_detail-qty'),
+            'price.required' => trans('x.required-order_detail-price'),
+            'total_price.required' => trans('x.required-order_detail-total_price'),
         );
 
         return Validator::make($input, $rules, $messages);

@@ -42,8 +42,8 @@ class OrderImage extends Model
         );
 
         $messages = array(
-            'order_id.required' => trans('validation.required-order_image-order_id'),
-            'image.required' => trans('validation.required-order_image-image'),
+            'order_id.required' => trans('x.required-order_image-order_id'),
+            'image.required' => trans('x.required-order_image-image'),
         );
 
         return Validator::make($input, $rules, $messages);

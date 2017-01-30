@@ -15,8 +15,16 @@ class PaymentController extends Controller
 	public function index()
 	{
 		$payments = Payment::all();
-		return view('pages.admin.payments', compact('payments'));
+		return view('pages.settings.payments', compact('payments'));
 	}
+
+    public function modalEdit(Request $request)
+    {
+        $payment_id = $request->get('payment_id');
+        $payment = \App\Payment::find($payment_id);
+        
+        return view('modals.settings.edit_payment', compact('payment'));
+    }
 	
 	public function create()
 	{
@@ -40,7 +48,7 @@ class PaymentController extends Controller
 			$payment->save();
 
 			// success message
-			Alert::success(trans('messages.Payment Option saved'));
+			Alert::success(trans('x.Payment Option saved'));
 		
 		// if not ok...
 		} else {
@@ -60,7 +68,7 @@ class PaymentController extends Controller
 		// delete it
 		$payment->delete();
 		// success message
-		Alert::success(trans('messages.Payment Option deleted'));
+		Alert::success(trans('x.Payment Option deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -86,7 +94,7 @@ class PaymentController extends Controller
 			$payment->save();
 
 			// success message
-			Alert::success(trans('messages.Payment Option updated'));
+			Alert::success(trans('x.Payment Option updated'));
 		
 		// if not ok...
 		} else {

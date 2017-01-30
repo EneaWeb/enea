@@ -28,7 +28,7 @@ class ManageUsersController extends Controller
 			    $q->where('brand_id', $active_brand);
 			})->get();
 		
-		return view('pages.admin.manage_users', compact('users'));
+		return view('pages.settings.users', compact('users'));
 	}
 	
 	public function unlink_user_from_brand($userid)
@@ -36,7 +36,7 @@ class ManageUsersController extends Controller
 		$active_brand = Auth::user()->options->active_brand;
 		\App\Brand::find($active_brand)->users()->detach($userid);
 		
-		Alert::success(trans('messages.User unlinked from your network'));
+		Alert::success(trans('x.User unlinked from your network'));
 		return redirect()->back();
 	}
 	
@@ -59,7 +59,7 @@ class ManageUsersController extends Controller
 		   // if user already linked to brand
 		   if (\App\Brand::find($active_brand)->users->contains($user_id)) {
 		   	// throw error
-		   	Alert::error(trans('messages.User already linked to your network'));
+		   	Alert::error(trans('x.User already linked to your network'));
 		   	// redirect back
 		   	return redirect()->back();
 		   }
@@ -75,7 +75,7 @@ class ManageUsersController extends Controller
 			}
 		   
 		   // success message
-		   Alert::success(trans('messages.User correctly linked to your network'));
+		   Alert::success(trans('x.User correctly linked to your network'));
 		   // send email to user
 		   $mail = EneaMail::user_linked_to_network($user_id, $active_brand, $custom_message);
 		   // redirect back
@@ -128,7 +128,7 @@ class ManageUsersController extends Controller
 		   // send email to user
 		   $mail = EneaMail::user_invited_to_register($user, $active_brand, $custom_message);
 		   // success message
-		   Alert::success(trans('messages.User invited to confirm the registration'));
+		   Alert::success(trans('x.User invited to confirm the registration'));
 		   // redirect back
 		   return redirect()->back();
 		}
@@ -164,16 +164,16 @@ class ManageUsersController extends Controller
 				   Auth::attempt(['username' => Input::get('new_username'), 'password' => Input::get('new_password'), 'active' => '1' ], true) ) {
 						// auth success
 						// throw confirmation message
-				      Alert::success(trans('messages.Welcome').', '.Auth::user()->username.'.');
+				      Alert::success(trans('x.Welcome').', '.Auth::user()->username.'.');
 				   	// redirect on dashboard
 				      return redirect()->intended('dashboard');
 				} else {
 				   // Authentication fails...
-				   Alert::error(trans('auth.failed'));
+				   Alert::error(trans('x.failed'));
 				   return redirect('/login');
 				}
 			} else {
-				Alert::error(trans('messages.Check and fill all the required fields'));
+				Alert::error(trans('x.Check and fill all the required fields'));
 				return redirect()->back();
 			}
 		} else {

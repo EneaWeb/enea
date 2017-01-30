@@ -19,7 +19,7 @@ class Variation extends Model
 	{
 	  	$this->connection = Auth::user()->options->brand_in_use->slug;
 	}
-	protected $table = 'variations';
+	protected $table = 'product_variations';
 
 	protected $fillable = [
 		'slug',
@@ -46,9 +46,9 @@ class Variation extends Model
 		);
 
 		$messages = array(
-		   'name.required' => trans('validation.required-variation-name'),
-		   'slug.required' => trans('validation.required-variation-slug'),
-		   'season_id.required' => trans('validation.required-variation-season_id'),
+		   'name.required' => trans('x.required-variation-name'),
+		   'slug.required' => trans('x.required-variation-slug'),
+		   'season_id.required' => trans('x.required-variation-season_id'),
 		);
 
 	  	return Validator::make($input, $rules, $messages);
@@ -62,5 +62,19 @@ class Variation extends Model
 	{
 	  return $this->belongsTo('\App\Season');
 	}
+
+   public function items()
+   {
+      return $this->hasMany('\App\Item');
+   }
+
+   public static function renderSizes($variation)
+   {
+        $arr = array();
+        foreach ($variation->items as $item) {
+            $arr[] = $item->size->name;
+        }
+        return \App\X::rangeNumbers($arr);
+    }
 
 }

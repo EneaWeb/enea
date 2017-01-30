@@ -55,7 +55,7 @@ Nel MODEL:
 	  );
 
 	  $messages = array(
-	      'name.required' => trans('validation.required-attribute-name'),
+	      'name.required' => trans('x.required-attribute-name'),
 	  );
 
 	  return Validator::make($input, $rules, $messages);
@@ -81,7 +81,7 @@ Nel CONTROLLER:
 			$stuff->save();
 
 			// success message
-			Alert::success(trans('messages.Success Message'));
+			Alert::success(trans('x.Success Message'));
 		
 		// if not ok...
 		} else {

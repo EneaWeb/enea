@@ -34,7 +34,7 @@ class SeasonDeliveryController extends Controller
 			$season_delivery->save();
 
 			// success message
-			Alert::success(trans('messages.Delivery Date saved'));
+			Alert::success(trans('x.Delivery Date saved'));
 		
 		// if not ok...
 		} else {
@@ -54,7 +54,7 @@ class SeasonDeliveryController extends Controller
 		// delete it
 		$season_delivery->delete();
 		// success message
-		Alert::success(trans('messages.Delivery Date deleted'));
+		Alert::success(trans('x.Delivery Date deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -79,7 +79,7 @@ class SeasonDeliveryController extends Controller
 			$season_delivery->save();
 
 			// success message
-			Alert::success(trans('messages.Delivery Date updated'));
+			Alert::success(trans('x.Delivery Date updated'));
 		
 		// if not ok...
 		} else {

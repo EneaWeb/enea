@@ -91,7 +91,7 @@ class StatsController extends Controller
    
    $better_stats = array();
    foreach ($stats as $stat) {
-   	$type_slug = trans('messages.'.\App\Type::find($stat->label)->slug);
+   	$type_slug = trans('x.'.\App\Type::find($stat->label)->slug);
    	$stat->label = $type_slug;
    }
 		// return json stats

@@ -37,7 +37,7 @@ class SizeController extends Controller
 			$size->save();
 
 			// success message
-			Alert::success(trans('messages.Size saved.'));
+			Alert::success(trans('x.Size saved.'));
 		
 		// if not ok...
 		} else {
@@ -58,7 +58,7 @@ class SizeController extends Controller
 		// delete it
 		$size->delete();
 		// success message
-		Alert::success(trans('messages.Size deleted'));
+		Alert::success(trans('x.Size deleted'));
 		// redirect back
 		return redirect()->back();
 	}
@@ -82,7 +82,7 @@ class SizeController extends Controller
 			$size->save();
 
 			// success message
-			Alert::success(trans('messages.Size updated'));
+			Alert::success(trans('x.Size updated'));
 		
 		// if not ok...
 		} else {

@@ -37,7 +37,7 @@ class AttributeController extends Controller
 			$attribute->save();
 
 			// success message
-			Alert::success(trans('messages.Attribute saved.'));
+			Alert::success(trans('x.Attribute saved.'));
 		
 		// if not ok...
 		} else {

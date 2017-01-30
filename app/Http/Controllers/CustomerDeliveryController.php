@@ -70,7 +70,7 @@ class CustomerDeliveryController extends Controller
 			$customer_delivery->save();
 
 			// success message
-			Alert::success(trans('messages.New Address saved'));
+			Alert::success(trans('x.New Address saved'));
 		
 		// if not ok...
 		} else {
@@ -90,7 +90,7 @@ class CustomerDeliveryController extends Controller
 		// delete it
 		$customer_delivery->delete();
 		// success message
-		Alert::success(trans('messages.Customer deleted'));
+		Alert::success(trans('x.Customer deleted'));
 		// redirect back
 		return redirect()->back();
 	}

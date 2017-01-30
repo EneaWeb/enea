@@ -4,6 +4,23 @@
 *	AUTH // 
 */
 
+Route::get('total-sold-by-size', function(){
+
+	$sizesIds = \App\Size::lists('id');
+	$sizesArray = array();
+	foreach ($sizesIds as $k => $v) {
+		$sizesArray[$v] = 0;
+	}
+
+	foreach(\App\OrderDetail::whereHas('order', function($x){ $x->where('season_id', \App\X::activeSeason()); })->get() as $orderDetail) {
+			$sizeId = $orderDetail->item->size_id;
+			$qty = $orderDetail->qty;
+			$sizesArray[$sizeId] += $qty; 
+	}
+
+	return dd($sizesArray);
+});
+
 Route::get('test-quantita-totali', function(){
 	return 
 		'items_qty = '.\App\Order::sum('items_qty').'<br>'.
@@ -36,6 +53,12 @@ Route::group([
 		return bcrypt('test');
 	});
 
+	Route::get('/api/order/modal-edit', 'OrderController@modalEdit');
+	Route::get('/api/settings/modal-edit', 'PaymentController@modalEdit');
+
+	// changelog
+	Route::get('/changelog', function(){ return view('pages.changelog');});
+
 	// root
 	Route::get('/dashboard', 'DashboardController@index');
 	Route::get('/', function(){ return redirect('/dashboard'); });
@@ -65,18 +88,17 @@ Route::group([
 	Route::get('/set-current-brand/{brand_id}', 'ProfileController@set_current_brand');
 	Route::get('/set-current-type/{type_id}', 'ProfileController@set_current_type');
 
-	// Superuser
-	Route::get('/superuser/manage-permissions', 'SuperuserController@manage_permissions');
+	// Settings
+	Route::get('/settings/users', 'ManageUsersController@index');
+	Route::get('/settings/permissions', 'SuperuserController@manage_permissions');
+	Route::get('/settings/payments', 'PaymentController@index');
+	Route::get('/settings/payment/edit', 'PaymentController@edit');
+	Route::get('/settings/payment/delete/{id}', 'PaymentController@delete');
 
-	// Admin
-	Route::get('/admin/users', 'ManageUsersController@index');
 	Route::get('/admin/products', 'ProductController@manage');
 	Route::get('/admin/types', 'TypeController@index');
 	Route::get('/admin/types/update', 'TypeController@update');
 	Route::get('/admin/unlink-user-from-brand/{user_id}', 'ManageUsersController@unlink_user_from_brand');
-	Route::get('/admin/payments', 'PaymentController@index');
-	Route::get('/admin/payment/edit', 'PaymentController@edit');
-	Route::get('/admin/payment/delete/{id}', 'PaymentController@delete');
 
 	// Models
 	Route::get('/catalogue/models/', 'ProdModelController@index');
@@ -88,11 +110,11 @@ Route::group([
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
 	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
 	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
-	Route::get('/catalogue/product/{id}', 'ProductController@show');
+	Route::get('/catalogue/products/{id}', 'ProductController@show');
+	Route::get('/catalogue/product-preview/{id}', 'ProductController@preview');
 	Route::get('/catalogue/product/edit/{id}', 'ProductController@manage_single');
 	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
-	Route::get('/catalogue/product/delete-picture/{id}', 'ProductController@delete_product_picture');
-	Route::get('/catalogue/product/delete-variation-picture/{id}', 'ProductController@delete_variation_picture');
+	Route::get('/catalogue/product/delete-picture', 'ProductController@delete_product_picture');
 
 	// Attribute Value
 	Route::get('/catalogue/attribute-value/delete/{id}', 'AttributeValueController@delete');
@@ -138,12 +160,12 @@ Route::group([
 	Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
 
 	// Report
-	Route::get('/report', 'ReportController@index');
-	Route::get('/report/stats', 'ReportController@stats');
+	Route::get('/report/products', 'ReportController@index');
 	Route::get('/report/variations', 'ReportController@sold_variations');
 	Route::get('/report/delivery', 'ReportController@sold_delivery');
 	Route::get('/report/time-interval', 'ReportController@time_interval');
 	Route::get('/report/zero-sold', 'ReportController@zero_sold');
+	Route::get('/report/stats', 'ReportController@stats');
 
 	// Customizer
 	Route::get('/customizer/cinziaaraia', 'CustomizerController@cinziaaraia_index');
@@ -190,8 +212,12 @@ Route::group([
 	Route::post('/catalogue/size/new', 'SizeController@create');
 	Route::post('/catalogue/colors/new', 'ColorController@create');
 	Route::post('/catalogue/product/edit-product', 'ProductController@edit');
-	Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
+	/*
+    Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
+    */
+    Route::post('/catalogue/products/upload-picture', 'ProductController@upload_picture');
+    
 	Route::post('/catalogue/products/edit-single-prices', 'ProductController@edit_single_prices');
 	Route::post('/order/new/save-line', 'OrderController@save_line');
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
@@ -227,12 +253,12 @@ Route::group([
 		$array = Session::get('all_variations');
 		$export = '';
 		$variation_id = array_search(Input::get('name'), $array);
-		foreach (\App\OrderDetail::where('product_variation_id', $variation_id)->groupBy('order_id')->get() as $details) {
+		foreach (\App\OrderDetail::where('product_variation_id', $variation_id)->groupBy('order_id')->orderBy('order_id', 'desc')->get() as $details) {
 			$export .= '<tr><td><a href="/order/pdf/'.$details->order_id.'" target="_blank">'.$details->order_id.'</td>'.
 							'<td>'.\App\OrderDetail::where('order_id', $details->order_id)->where('product_variation_id', $variation_id)->sum('qty').'</td>'.
-							'<td>'.$details->order->customer->companyname.'</td>'.
+							'<td><a href="/customer/show/'.$details->order->customer_id.'" >'.$details->order->customer->companyname.'</a></td>'.
 							'<td>'.$details->order->user->profile->companyname.'</td>'.
-							'<td><a href="#" data-toggle="modal" data-target="#modal_edit_'.$details->order_id.'" class="btn btn-danger btn-rounded btn-condensed btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
+							'<td><a href="#" data-toggle="modal" data-target="#modal_edit" data-order_id="'.$details->order_id.'" class="btn btn-sm"><span class="fa fa-cogs"></span></a></td></tr>';
 		}
 		$export .= '<tr><td></td><td><b>'.\App\OrderDetail::where('product_variation_id', $variation_id)->sum('qty').' Tot. </b></td>'.
 						'<td></td><td></td><td></td>';
