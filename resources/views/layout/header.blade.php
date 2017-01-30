@@ -30,11 +30,11 @@
 
                     <div class="btn-group-red btn-group" style="margin: 0 15px 0 15px">
                         <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="width:auto;">
-                            <i class="fa fa-university" style="font-size:1.2em"></i>	{!!strtoupper(Auth::user()->options->brand_in_use->name)!!}					
+                            <i class="fa fa-university" style="font-size:1.2em"></i>	{!!strtoupper(\App\X::brandInUseName())!!}					
                         </button>
                         <ul class="dropdown-menu-v2" role="menu">
                             @foreach (Auth::user()->brands as $brand)
-                            @if( $brand->name != Auth::user()->options->brand_in_use->name)
+                            @if( $brand->name != \App\X::brandInUseName())
                                 <li><a href="/set-current-brand/{!!$brand->id!!}"><span class="glyphicon glyphicon-play"></span>{!!strtoupper($brand->name)!!}</a></li>
                             @endif
                             @endforeach
@@ -43,7 +43,7 @@
 
                     <div class="btn-group-red btn-group">
                         <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="width:auto; background:grey">
-                            <i class="fa fa-venus-mars" style="font-size:1.2em"></i>	{!!ucfirst(trans('x.'.Auth::user()->options->type_in_use->slug))!!}
+                            <i class="fa fa-venus-mars" style="font-size:1.2em"></i>	{!!ucfirst(trans('x.'.\App\X::typeInUseSlug()))!!}
                         </button>
                         <ul class="dropdown-menu-v2" role="menu">
                             <li><a href="/set-current-type/1">- {!!ucfirst(trans('x.all'))!!}</a></li>

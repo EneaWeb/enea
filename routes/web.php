@@ -4,6 +4,10 @@
 *	AUTH // 
 */
 
+Route::get('test', function(){
+    return dd(\App\Option::where('name', 'active_season')->value('value'));
+});
+
 Route::get('total-sold-by-size', function(){
 
 	$sizesIds = \App\Size::lists('id');
@@ -181,6 +185,9 @@ Route::group([
 	  	'localization-redirect',
 	],
 ], function() {
+
+    // License 
+    Route::get('/license', function(){ return view('pages.license');});
 
 	/** LOCALIZED ROUTES - NO AUTH **/
 	

@@ -11,9 +11,19 @@ class X
         return \App\Option::getOption('active_season');
     }
 
+    public static function typeInUseSlug()
+    {
+        return Auth::user()->options->type_in_use->slug;
+    }
+
     public static function brandInUseSlug()
     {
         return Auth::user()->options->brand_in_use->slug;
+    }
+
+    public static function brandInUseName()
+    {
+        return Auth::user()->options->brand_in_use->name;
     }
 
     public static function thisSeasonOrders()

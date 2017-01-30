@@ -41,7 +41,11 @@ class DashboardController extends Controller
 		})->groupBy('product_variation_id')
 		->selectRaw('*, sum(qty) as totQty')
 		->first();
-		$mostReqItem = [ 'name'=>$mostReqItem->product_variation->fullName(), 'qty' => $mostReqItem->totQty ];
+
+        if ($mostReqItem !== NULL)
+		    $mostReqItem = [ 'name'=>$mostReqItem->product_variation->fullName(), 'qty' => $mostReqItem->totQty ];
+        else
+            $mostReqItem = ['name'=>'none', 'qty'=>'0'];
 
 		$mostReqSize = DB::connection(Auth::user()->options->brand_in_use->slug)->select("
 			SELECT i.size_id, sum(d.qty) as totQty
@@ -54,9 +58,12 @@ class DashboardController extends Controller
 			GROUP BY i.size_id
 			ORDER BY totQty desc
 			LIMIT 1
-		")[0];
-		
-		$mostReqSize = [ 'name'=> \App\Size::find($mostReqSize->size_id)->name, 'qty' => $mostReqSize->totQty ];
+		");
+
+        if (!empty($mostReqSize))
+            $mostReqSize = [ 'name'=> \App\Size::find($mostReqSize[0]->size_id)->name, 'qty' => $mostReqSize[0]->totQty ];
+        else
+            $mostReqSize = ['name'=>'none', 'qty'=>'0'];
 
 		//$mainOrder = 
 
