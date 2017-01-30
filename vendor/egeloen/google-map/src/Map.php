@@ -119,9 +119,6 @@ class Map extends AbstractJavascriptVariableAsset
 
     /** @var string */
     protected $language;
-    
-    /** @var string */
-    protected $apiKey;
 
     /**
      * Creates a map.
@@ -139,6 +136,7 @@ class Map extends AbstractJavascriptVariableAsset
         $this->eventManager = new EventManager();
 
         $this->mapOptions = array(
+            'mapTypeId' => MapTypeId::ROADMAP,
             'zoom'      => 3,
         );
 
@@ -157,6 +155,7 @@ class Map extends AbstractJavascriptVariableAsset
         $this->circles = array();
         $this->groundOverlays = array();
         $this->kmlLayers = array();
+
         $this->libraries = array();
         $this->language = 'en';
     }
@@ -444,26 +443,6 @@ class Map extends AbstractJavascriptVariableAsset
         }
 
         return isset($this->stylesheetOptions[$stylesheetOption]);
-    }
-
-    /**
-     * Get the apiKey option.
-     *
-     * @return array The apiKey option.
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * Set the apiKey option.
-     *
-     * @return array The apiKey option.
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
     }
 
     /**

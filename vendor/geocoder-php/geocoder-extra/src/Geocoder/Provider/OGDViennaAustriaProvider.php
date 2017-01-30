@@ -10,29 +10,30 @@
 
 namespace Geocoder\Provider;
 
-use Geocoder\Exception\UnsupportedException;
-use Geocoder\Exception\NoResultException;
+use Geocoder\Exception\NoResult;
+use Geocoder\Exception\UnsupportedOperation;
 
 /**
  * Data source: City of Vienna, http://data.wien.gv.at
  *
  * @author Robert Harm <www.harm.co.at>
  */
-class OGDViennaAustriaProvider extends AbstractProvider implements ProviderInterface
+class OGDViennaAustriaProvider extends AbstractHttpProvider implements Provider
 {
     /**
      * @var string
      */
     const ENDPOINT_URL = 'http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?CRS=EPSG:4326&Address=%s';
+    const REVERSE_ENDPOINT_URL = 'http://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?crs=EPSG:4326&location=%F,%F';
 
     /**
      * {@inheritDoc}
      */
-    public function getGeocodedData($address)
+    public function geocode($address)
     {
         // This API doesn't handle IPs
         if (filter_var($address, FILTER_VALIDATE_IP)) {
-            throw new UnsupportedException('The OGDViennaAustriaProvider does not support IP addresses.');
+            throw new UnsupportedOperation('The OGDViennaAustria provider does not support IP addresses.');
         }
 
         $query = sprintf(self::ENDPOINT_URL, urlencode($address));
@@ -43,9 +44,11 @@ class OGDViennaAustriaProvider extends AbstractProvider implements ProviderInter
     /**
      * {@inheritDoc}
      */
-    public function getReversedData(array $coordinates)
+    public function reverse($latitude, $longitude)
     {
-        throw new UnsupportedException('The OGDViennaAustriaProvider is not able to do reverse geocoding.');
+        $query = sprintf(self::REVERSE_ENDPOINT_URL, $longitude, $latitude);
+
+        return $this->executeQuery($query);
     }
 
     /**
@@ -63,18 +66,25 @@ class OGDViennaAustriaProvider extends AbstractProvider implements ProviderInter
      */
     protected function executeQuery($query)
     {
-        $content = $this->getAdapter()->getContent($query);
+        $content = (string) $this->getAdapter()->get($query)->getBody();
 
         if (empty($content)) {
-            throw new NoResultException(sprintf('Could not execute query %s', $query));
+            throw new NoResult(sprintf('Could not execute query %s', $query));
         }
 
         $data = json_decode($content, true);
 
         if (empty($data) || false === $data) {
-            throw new NoResultException(sprintf('Could not execute query %s', $query));
+            throw new NoResult(sprintf('Could not execute query %s', $query));
         }
 
+        if (isset($data['features'][0]['properties']['DistanceUnit'])
+            && $data['features'][0]['properties']['DistanceUnit'] == 'meter'
+            && $data['features'][0]['properties']['Distance'] > 1000
+        ) {
+            throw new NoResult(sprintf('Result distance to far away'));
+        }
+        
         $bounds = array(
             'south' => isset($data['features'][0]['bbox'][0]) ? $data['features'][0]['bbox'][0] : null,
             'west'  => isset($data['features'][0]['bbox'][1]) ? $data['features'][0]['bbox'][1] : null,

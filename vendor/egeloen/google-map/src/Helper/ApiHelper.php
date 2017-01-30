@@ -51,7 +51,6 @@ class ApiHelper extends AbstractHelper
      * Renders the API.
      *
      * @param string  $language  The language.
-     * @param string  $apiKey  The Api Key.
      * @param array   $libraries Additionnal libraries.
      * @param string  $callback  A JS callback.
      * @param boolean $sensor    The sensor flag.
@@ -60,22 +59,18 @@ class ApiHelper extends AbstractHelper
      */
     public function render(
         $language = 'en',
-        $apiKey = NULL,
-        $libraries = null,
+        array $libraries = array(),
         $callback = null,
         $sensor = false
     )
     {
         $otherParameters = array();
-        
-        /*
+
         if (!empty($libraries)) {
             $otherParameters['libraries'] = implode(',', $libraries);
         }
-        */
-        
+
         $otherParameters['language'] = $language;
-        $otherParameters['apiKey'] = $apiKey;
         $otherParameters['sensor'] = json_encode((bool) $sensor);
 
         $this->jsonBuilder

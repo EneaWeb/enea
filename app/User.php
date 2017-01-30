@@ -1,21 +1,17 @@
 <?php
 
-/*
-==================
-    GENERAL DB
-==================
-*/
-
 namespace App;
-use Spatie\Permission\Traits\HasRoles;
+
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    // spatie
+    use Notifiable;
     use HasRoles;
     protected $role;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -76,5 +72,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('\App\SeasonList', 'user_season_list');
     }
-
 }

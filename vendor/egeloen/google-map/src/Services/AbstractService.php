@@ -31,9 +31,6 @@ abstract class AbstractService
     /** @var boolean */
     protected $https;
 
-    /** @var  string */
-    protected $apiKey;
-
     /** @var string */
     protected $format;
 
@@ -193,25 +190,6 @@ abstract class AbstractService
     public function setXmlParser(XmlParser $xmlParser)
     {
         $this->xmlParser = $xmlParser;
-    }
-
-    /**
-     * Get the application's API Key
-     *
-     * @return string|boolean
-     */
-    public function getApiKey()
-    {
-        return empty($this->apiKey)? false: $this->apiKey;
-    }
-
-    /**
-     * Set the application's API Key
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
     }
 
     /**

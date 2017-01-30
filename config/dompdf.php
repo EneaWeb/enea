@@ -87,7 +87,7 @@ return array(
         /**
          * Whether to enable font subsetting or not.
          */
-        "DOMPDF_ENABLE_FONTSUBSETTING" => false,
+        "DOMPDF_ENABLE_FONT_SUBSETTING" => false,
 
         /**
          * The PDF rendering backend to use
@@ -152,7 +152,7 @@ return array(
          *
          * @see CPDF_Adapter::PAPER_SIZES for valid sizes ('letter', 'legal', 'A4', etc.)
          */
-        "DOMPDF_DEFAULT_PAPER_SIZE" => "A4",
+        "DOMPDF_DEFAULT_PAPER_SIZE" => "a4",
 
         /**
          * The default font family
@@ -160,7 +160,7 @@ return array(
          * Used if no suitable fonts can be found. This must exist in the font folder.
          * @var string
          */
-        "DOMPDF_DEFAULT_FONT" => "sans-serif",
+        "DOMPDF_DEFAULT_FONT" => "serif",
 
         /**
          * Image DPI setting
@@ -219,7 +219,7 @@ return array(
          *
          * @var bool
          */
-        "DOMPDF_ENABLE_JAVASCRIPT" => false,
+        "DOMPDF_ENABLE_JAVASCRIPT" => true,
 
         /**
          * Enable remote file access
@@ -238,7 +238,7 @@ return array(
          *
          * @var bool
          */
-        "DOMPDF_ENABLE_REMOTE" => false,
+        "DOMPDF_ENABLE_REMOTE" => true,
 
         /**
          * A ratio applied to the fonts height to be more like browsers' line height

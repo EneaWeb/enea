@@ -8,6 +8,7 @@
         {{-- Start changelog --}}
         <strong>2017.02.01 Ver. 2.0a</strong><br><br>
         <ul>
+            <li>Updated Laravel framework from v. 5.2.0 to 5.4.3</li>
             <li>Added 'attributes' and 'terms' models, opening to any possible product variation</li>
             <li>Primary key for sizes is now a varchar slug value (es. 14 or xxl)</li>
             <li>Created an unique file per language (x.php) for faster translations</li>

@@ -1,4 +1,4 @@
-<?php return [
+<?php $en = [
 
 'Action' => 'Action',
 'Active' => 'Active',
@@ -355,6 +355,7 @@
 'Vat' => 'Vat',
 'Waybill' => 'Waybill',
 'Weight' => 'Weight',
+'Welcome. Please login' => 'Welcome. Please login',
 'Welcome back' => 'Welcome back',
 'With Variations' => 'With Variations',
 'woman' => 'Woman',
@@ -364,3 +365,5 @@
 'Zero Sold' => 'Zero Sold',
 
 ];
+
+return $en;

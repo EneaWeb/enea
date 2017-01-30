@@ -165,7 +165,7 @@ class AutocompleteHelper extends AbstractHelper
         $output = array();
 
         if (!$this->apiHelper->isLoaded() && !$autocomplete->isAsync()) {
-            $output[] = $this->apiHelper->render($autocomplete->getLanguage(), $autocomplete->getApiKey(), array('places'));
+            $output[] = $this->apiHelper->render($autocomplete->getLanguage(), array('places'));
         }
 
         $output[] = '<script type="text/javascript">'.PHP_EOL;
@@ -195,7 +195,6 @@ class AutocompleteHelper extends AbstractHelper
         if (!$this->apiHelper->isLoaded() && $autocomplete->isAsync()) {
             $output[] = $this->apiHelper->render(
                 $autocomplete->getLanguage(),
-                $autocomplete->getApiKey(),
                 array('places'),
                 'load_ivory_google_place'
             );

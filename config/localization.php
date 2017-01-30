@@ -5,7 +5,7 @@ return [
      |  Settings
      | ------------------------------------------------------------------------------------------------
      */
-    'supported-locales'      => ['en', 'it'],
+    'supported-locales'      => ['en', 'es', 'fr'],
 
     'accept-language-header' => true,
 
@@ -1766,7 +1766,7 @@ return [
             'script'   => 'Latn',
             'dir'      => 'ltr',
             'native'   => 'Svenska',
-            'regional' => 'sv_FI',
+            'regional' => 'sv_SE',
         ],
         'sw'          => [
             'name'     => 'Swahili',

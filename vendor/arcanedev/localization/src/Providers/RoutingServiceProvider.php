@@ -82,7 +82,7 @@ class RoutingServiceProvider extends ServiceProvider
      */
     private function registerMiddleware(Router $router, $name, $class)
     {
-        $router->middleware($name, $class);
+        $router->aliasMiddleware($name, $class);
 
         if ($this->getMiddleware($name)) {
             $this->middleware[] = $name;
@@ -98,9 +98,9 @@ class RoutingServiceProvider extends ServiceProvider
      */
     private function getMiddleware($name)
     {
-        /** @var \Illuminate\Config\Repository $config */
+        /** @var  \Illuminate\Contracts\Config\Repository  $config */
         $config = $this->app['config'];
 
-        return (bool) $config->get('localization.route.middleware.' . $name, false);
+        return (bool) $config->get("localization.route.middleware.{$name}", false);
     }
 }

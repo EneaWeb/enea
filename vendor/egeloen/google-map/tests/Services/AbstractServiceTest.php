@@ -52,7 +52,6 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->httpAdapter, $this->service->getHttpAdapter());
         $this->assertSame('http://foo', $this->service->getUrl());
         $this->assertFalse($this->service->isHttps());
-        $this->assertSame(false, $this->service->getApiKey());
         $this->assertSame('json', $this->service->getFormat());
         $this->assertInstanceOf('Ivory\GoogleMap\Services\Utils\XmlParser', $this->service->getXmlParser());
         $this->assertFalse($this->service->hasBusinessAccount());
@@ -108,12 +107,6 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->service->setHttps(true);
         $this->assertSame('https://foo', $this->service->getUrl());
-    }
-
-    public function testApiKey()
-    {
-        $this->service->setApiKey('123321123321');
-        $this->assertSame('123321123321', $this->service->getApiKey());
     }
 
     /**

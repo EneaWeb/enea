@@ -45,7 +45,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             {{Form::open(['url'=>'/authenticate', 'method'=>'POST', 'class'=>''])}}
-                <h3 class="form-title">{!!trans('x.Welcome')!!}. {!!trans('x.Please login')!!}.</h3>
+                <h3 class="form-title">{!!trans('x.Welcome. Please login')!!}.</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span> Enter any username and password. </span>
