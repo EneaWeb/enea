@@ -11,7 +11,7 @@ class TermsController extends Controller
 
         $attributeId = $request->get('attribute_id');
         $name = $request->get('name');
-        $id = $request->get('id');
+        $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
         $hex = $request->get('hex');
 
         $term = new \App\Term;
@@ -30,7 +30,7 @@ class TermsController extends Controller
         $termId = $request->get('term_id');
         $term = \App\Term::find($termId);
 
-        $id = $request->get('id');
+        $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
         $name = $request->get('name');
         $hex = $request->get('hex');
 
@@ -43,5 +43,12 @@ class TermsController extends Controller
         Alert::success(trans('x.Attribute Changed'));
         return redirect()->back();
 
+    }
+
+    public function delete($id) {
+        \App\Term::destroy($id);
+
+        Alert::success(trans('x.Attribute Deleted'));
+        return redirect()->back();
     }
 }

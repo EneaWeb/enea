@@ -167,4 +167,40 @@
         );
     };
 
+    function confirm_delete_term(id){
+        alertify.confirm( "{!!trans('x.Please Confirm')!!}", "{!!trans('x.Are you sure you want to delete this term?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/catalogue/terms/delete/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
+
+    function confirm_delete_list(id){
+        alertify.confirm( "{!!trans('x.Please Confirm')!!}", "{!!trans('x.Are you sure you want to delete this list?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/catalogue/seasons/list/delete/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
+
+    function confirm_delete_delivery(id){
+        alertify.confirm( "{!!trans('x.Please Confirm')!!}", "{!!trans('x.Are you sure you want to delete this delivery date?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/catalogue/seasons/delivery/delete/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
+
 </script>

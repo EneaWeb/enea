@@ -70,8 +70,14 @@
 
                                                         <li class="task-list-item done">
                                                             <div class="task-icon">
+                                                                <i class="fa fa-thumb-tack"></i>
+                                                            </div>
+                                                            <div class="task-status">
                                                                 <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_term{!!$term->id!!}">
                                                                     <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a class="pending" href="#" onclick="confirm_delete_term('{!!$term->id!!}')">
+                                                                    <i class="fa fa-trash"></i>
                                                                 </a>
                                                             </div>
                                                             <div class="task-content">

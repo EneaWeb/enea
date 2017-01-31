@@ -47,6 +47,14 @@ class SeasonListController extends Controller
 	
 	public function delete($id)
 	{
+
+        // check if it has been used previously in some orders
+        $orders = \App\Order::where('season_list_id', $id)->count();
+        if ($orders >= 1) {
+            Alert::error(trans('x.This list can\'t be deleted as it has been used in '.orders.' orders'));
+            return redirect()->back();
+        }
+
 		// get the delivery from ID
 		$season_list = SeasonList::find($id);
 		// delete it

@@ -85,8 +85,14 @@
                                                                     @foreach ($season->season_lists as $list)
                                                                     <li class="task-list-item done">
                                                                         <div class="task-icon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </div>
+                                                                        <div class="task-status">
                                                                             <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_list{!!$list->id!!}">
                                                                                 <i class="fa fa-pencil"></i>
+                                                                            </a>
+                                                                            <a class="pending" href="#" onclick="confirm_delete_list('{!!$list->id!!}')">
+                                                                                <i class="fa fa-trash"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="task-content">
@@ -140,9 +146,12 @@
                                                                 <ul>
                                                                     @foreach ($season->season_deliveries as $delivery)
                                                                     <li class="task-list-item done">
-                                                                        <div class="task-icon">
+                                                                        <div class="task-status">
                                                                             <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_delivery{!!$delivery->id!!}">
                                                                                 <i class="fa fa-pencil"></i>
+                                                                            </a>
+                                                                            <a class="pending" href="#" onclick="confirm_delete_delivery('{!!$delivery->id!!}')">
+                                                                                <i class="fa fa-trash"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="task-content">

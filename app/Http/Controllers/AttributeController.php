@@ -28,7 +28,7 @@ class AttributeController extends Controller
 			// create a new instance
 			$attribute = new Attribute();
 			// populate 
-			$attribute->id = $request->get('id');
+            $attribute->id = trim(str_replace(' ','-',strtolower($request->get('id'))));
 			$attribute->name = $request->get('name');
 			$attribute->description = $request->get('description');
 			$attribute->active = 1;
@@ -56,7 +56,7 @@ class AttributeController extends Controller
 		$attributeId = $request->get('attribute_id');
         $attr = \App\Attribute::find($attributeId);
         
-        $id = $request->get('id');
+        $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
         $name = $request->get('name');
         $description = $request->get('description');
         

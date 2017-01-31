@@ -145,9 +145,12 @@ Route::group([
 	Route::get('/catalogue/seasons', 'SeasonController@index');
 	Route::get('/catalogue/seasons/delivery/delete-delivery/{id}', 'SeasonDeliveryController@delete');
 	Route::get('/catalogue/seasons/delivery/edit', 'SeasonDeliveryController@edit');
-	Route::get('/catalogue/seasons/list/delete-list/{id}', 'SeasonListController@delete');
+	Route::get('/catalogue/seasons/delivery/delete/{id}', 'SeasonDeliveryController@delete');
+	Route::get('/catalogue/seasons/list/delete/{id}', 'SeasonListController@delete');
 	Route::get('/catalogue/seasons/list/edit', 'SeasonListController@edit');
 	Route::get('/catalogue/season/{id}', 'SeasonController@getSeason');
+	Route::get('/catalogue/terms/delete/{id}', 'TermsController@delete');
+    
 
 	// Orders
 	Route::get('/order/new', 'OrderController@create');

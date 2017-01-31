@@ -25,7 +25,8 @@ class SeasonDelivery extends Model
 		'season_id',
 		'slug',
 		'name',
-		'date'
+		'date',
+        'active'
 	];
 
 	protected $hidden = [
