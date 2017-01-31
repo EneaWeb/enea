@@ -1,4 +1,4 @@
-<div class="modal animated fadeIn" id="modal_add_size" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
+<div class="modal animated fadeIn" id="modal_edit_size{!!$size->id!!}" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
     <div class="modal-dialog animated zoomIn">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,26 +7,29 @@
             </div>
             <div class="modal-body">
 
-                {!!Form::open(array('url' => '/catalogue/size/new', 'method'=>'POST'))!!}
+                {!!Form::open(array('url' => '/catalogue/size/edit', 'method'=>'POST'))!!}
+
+                {!!Form::hidden('size_id', $size->id)!!}
+
                 <div class="modal-body form-horizontal form-group-separated">         
                     <div class="form-group">
                     </div>             
                     <div class="form-group">
                         {!!Form::label('companyname', trans('x.ID').'*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::input('text', 'id', '', ['class' => 'form-control', 'placeholder' => trans('x.ID')])!!}
+                            {!!Form::input('text', 'id', $size->id, ['class' => 'form-control', 'placeholder' => trans('x.ID')])!!}
                         </div>
                     </div>
                     <div class="form-group">
                         {!!Form::label('text', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::input('text', 'name', '', ['class' => 'form-control', 'placeholder' => trans('x.Name')])!!}
+                            {!!Form::input('text', 'name', $size->name, ['class' => 'form-control', 'placeholder' => trans('x.Name')])!!}
                         </div>
                     </div>
                     <div class="form-group">
                         {!!Form::label('types', trans('x.Types').' (default)*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::select('types', \App\Type::pluck('name', 'id'), '', ['class'=>'selectpicker form-control', 'multiple'=>'multiple', 'name'=>'types[]'])!!}
+                            {!!Form::select('types', \App\Type::pluck('name', 'id'), unserialize($size->types), ['class'=>'selectpicker form-control', 'multiple'=>'multiple', 'name'=>'types[]'])!!}
                         </div>
                     </div>
                 </div>

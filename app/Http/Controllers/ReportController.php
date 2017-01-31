@@ -6,7 +6,7 @@ use Config;
 use DB;
 use \App\Order as Order;
 use \App\User as User;
-use \App\ProductVariation as ProductVariation;
+use \App\Variation as Variation;
 use \App\OrderDetail as OrderDetail;
 use \App\Customer as Customer;
 use \App\Option as Option;
@@ -163,12 +163,12 @@ class ReportController extends Controller
 		$type_id = Auth::user()->options->active_type;
 
 		if ($type_id == 1) {
-			$all_variations = ProductVariation::lists('id');
+			$all_variations = Variation::lists('id');
 			$sold_variations = OrderDetail::groupBy('product_variation_id')->orderBy('product_id')->pluck('product_variation_id');
 			$variation_ids = $all_variations->diff($sold_variations);
 			$order_details = OrderDetail::all();
 		} else {
-			$all_variations = ProductVariation::whereHas('product', function($q) use ($type_id) {
+			$all_variations = Variation::whereHas('product', function($q) use ($type_id) {
 				$q->where('type_id', $type_id);
 			})->pluck('id');
 			$sold_variations = OrderDetail::whereHas('product', function($q) use ($type_id) {

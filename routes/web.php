@@ -118,6 +118,7 @@ Route::group([
 	Route::get('/catalogue/product/edit/{id}', 'ProductController@manage_single');
 	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
 	Route::get('/catalogue/product/delete-picture', 'ProductController@delete_product_picture');
+	Route::get('/catalogue/attributes', 'AttributeController@index');
 
 	// Attribute Value
 	Route::get('/catalogue/attribute-value/delete/{id}', 'AttributeValueController@delete');
@@ -200,16 +201,19 @@ Route::group([
 
 	Route::post('/authenticate', 'Auth\LoginController@authenticate');
 	Route::post('/profile/edit/save', 'Auth\LoginController@profile_edit_save');
-	Route::post('/catalogue/attributes/new', 'AttributeController@create');
 	Route::post('/catalogue/variations/new', 'VariationController@create');
-	Route::post('/catalogue/attribute-values/new', 'AttributeValueController@create');
-	Route::post('/catalogue/season/new', 'SeasonController@create');
+	Route::post('/catalogue/attributes/new', 'AttributeController@create');
+	Route::post('/catalogue/attributes/edit', 'AttributeController@edit');
+	Route::post('/catalogue/terms/new', 'TermsController@create');
+	Route::post('/catalogue/terms/edit', 'TermsController@edit');
+	Route::post('/catalogue/seasons/new', 'SeasonController@create');
 	Route::post('/catalogue/season/select', 'OptionController@set_active_season');
 	Route::post('/catalogue/seasons/change', 'SeasonController@change');
 	Route::post('/catalogue/seasons/delivery/new', 'SeasonDeliveryController@create');
 	Route::post('/catalogue/seasons/list/new', 'SeasonListController@create');
 	Route::post('/catalogue/size/new', 'SizeController@create');
-	Route::get('/catalogue/size/reorder', 'SizeController@reorder');
+	Route::post('/catalogue/size/edit', 'SizeController@edit');
+	Route::post('/catalogue/size/reorder', 'SizeController@reorder');
 	Route::post('/admin/payment/new', 'PaymentController@create');
 	Route::post('/admin/add-user', 'ManageUsersController@add_user');
 	Route::post('/customers/new', 'CustomerController@create');
@@ -247,7 +251,7 @@ Route::group([
 
 	Route::get('/customers/api-products', function(){
 		$export = array();
-		foreach (\App\ProductVariation::all() as $var) {
+		foreach (\App\Variation::all() as $var) {
 			$export[$var->id] = $var->product->prodmodel->name.' '.$var->product->name.' '.$var->color->name;
 		}
 		Session::put('all_variations', $export);

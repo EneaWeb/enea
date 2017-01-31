@@ -12,18 +12,23 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
 
-class Season extends Model
+class Attribute extends Model
 {
     
     public function __construct()
     {
         $this->connection = Auth::user()->options->brand_in_use->slug;
     }
-    protected $table = 'seasons';
+    protected $table = 'attributes';
+
+    // id is varchar and not to increment
+    public $incrementing = false;
     
     protected $fillable = [
-    	'slug',
-    	'name'
+        'id',
+        'name',
+        'description',
+        'active'
     ];
 
     protected $hidden = [
@@ -37,13 +42,13 @@ class Season extends Model
     public static function validate( $input ) {
 
         $rules = array(
+            'id' => 'required',
             'name' => 'required',
-            'slug' => 'required',
         );
 
         $messages = array(
-            'name.required' => trans('x.required-season-name'),
-            'slug.required' => trans('x.required-season-slug'),
+            'id.required' => trans('x.required-attribute-id'),
+            'name.required' => trans('x.required-attribute-name'),
         );
 
         return Validator::make($input, $rules, $messages);
@@ -52,15 +57,10 @@ class Season extends Model
     /**
      * Relations
      */
-    
-    public function season_deliveries()
-    {
-        return $this->hasMany('\App\SeasonDelivery');
-    }
-    
-    public function season_lists()
-    {
-        return $this->hasMany('\App\SeasonList');
-    }
 
+    public function terms()
+    {
+        return $this->hasMany('\App\Term');
+    }
+    
 }

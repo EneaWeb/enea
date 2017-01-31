@@ -19,9 +19,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('slug', trans('x.Slug'), ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('slug', 'Slug', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::input('text', 'slug', '', ['class' => 'form-control', 'placeholder' => trans('x.Slug')])!!}
+                        {!!Form::input('text', 'slug', '', ['class' => 'form-control', 'placeholder' => 'Slug'])!!}
                     </div>
                 </div>
                 <div class="form-group">

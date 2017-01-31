@@ -31,7 +31,7 @@
                             <span class="caption-subject bold uppercase"> {!!trans('x.Seasons')!!}</span>
                         </div>
                         <div class="btn-group" style="margin-left:20px">
-                            <a id="modal_add_customer_button" href="#" data-toggle="modal" data-target="#" class="btn sbold green"> 
+                            <a href="#" data-toggle="modal" data-target="#modal_add_season" class="btn sbold green"> 
                                 {!!trans('x.Add New')!!} <i class="fa fa-plus"></i>
                             </a>
                         </div>
@@ -85,11 +85,6 @@
                                                                     @foreach ($season->season_lists as $list)
                                                                     <li class="task-list-item done">
                                                                         <div class="task-icon">
-                                                                            <a href="javascript:;">
-                                                                                <i class="fa fa-credit-card"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="task-status">
                                                                             <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_list{!!$list->id!!}">
                                                                                 <i class="fa fa-pencil"></i>
                                                                             </a>
@@ -111,6 +106,17 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
+                                                            <a class="task-trash" href="javascript:;">
+                                                                <div class="task-footer bg-grey">
+                                                                    <div class="row">
+                                                                        <a href="#" data-toggle="modal" data-target="#modal_add_list">
+                                                                            <div class="col-xs-12">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
                                                         </li>
 
                                                         {{-- OPZIONI DI PAGAMENTO --}}
@@ -135,12 +141,7 @@
                                                                     @foreach ($season->season_deliveries as $delivery)
                                                                     <li class="task-list-item done">
                                                                         <div class="task-icon">
-                                                                            <a href="javascript:;">
-                                                                                <i class="fa fa-calendar"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="task-status">
-                                                                            <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_delivery{!!$list->id!!}">
+                                                                            <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_delivery{!!$delivery->id!!}">
                                                                                 <i class="fa fa-pencil"></i>
                                                                             </a>
                                                                         </div>
@@ -161,6 +162,17 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
+                                                            <a class="task-trash" href="javascript:;">
+                                                                <div class="task-footer bg-grey">
+                                                                    <div class="row">
+                                                                        <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
+                                                                            <div class="col-xs-12">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
                                                         </li>
 
                                                     </ul>
@@ -193,6 +205,7 @@
 
 {{-- add MODALS --}}
 
+@include('modals.seasons.add_season')
 @include('modals.seasons.add_list')
 @include('modals.seasons.add_delivery')
 

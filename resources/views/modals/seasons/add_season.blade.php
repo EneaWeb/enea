@@ -1,14 +1,14 @@
-<div class="modal animated fadeIn" id="modal_add_list" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
+<div class="modal animated fadeIn" id="modal_add_season" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
     <div class="modal-dialog animated zoomIn">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="smallModalHead">{!! trans('x.New price list for this Season') !!}</h4>
+                <h4 class="modal-title" id="smallModalHead">{!! trans('x.New Season') !!}</h4>
             </div>
             <div class="modal-body">
                 
             </div>
-            {!!Form::open(array('url' => '/catalogue/seasons/list/new', 'method'=>'POST'))!!}
+            {!!Form::open(array('url' => '/catalogue/seasons/new', 'method'=>'POST'))!!}
             
             {!!Form::hidden('season_id', $season->id)!!}
             <div class="modal-body form-horizontal form-group-separated">                        

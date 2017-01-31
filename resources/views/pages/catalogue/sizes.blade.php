@@ -31,7 +31,7 @@
                             <span class="caption-subject bold uppercase"> {!!trans('x.Sizes')!!}</span>
                         </div>
                         <div class="btn-group" style="margin-left:20px">
-                            <a id="modal_add_customer_button" href="#" data-toggle="modal" data-target="#modal_add_size" class="btn sbold green"> 
+                            <a href="#" data-toggle="modal" data-target="#modal_add_size" class="btn sbold green"> 
                                 {!!trans('x.Add New')!!} <i class="fa fa-plus"></i>
                             </a>
                         </div>
@@ -56,6 +56,9 @@
                                         <td>{!!$size->name!!}</td>
                                         <td>{!!$size->renderTypes()!!}</td>
                                         <td>
+                                            <a href="#" data-toggle="modal" data-target="#modal_edit_size{!!$size->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -72,6 +75,10 @@
 
 {{-- MODALS --}}
 @include('modals.catalogue.add_size')
+
+@foreach ($sizes as $size)
+    @include('modals.catalogue.edit_size')
+@endforeach
 
 @stop
 
@@ -99,7 +106,7 @@
         });
 
         $.ajax({
-            method : "GET",
+            method : "POST",
             url : "/catalogue/size/reorder",
             data : {
                 _token : '{!!csrf_token()!!}',

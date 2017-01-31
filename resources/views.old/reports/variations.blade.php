@@ -54,12 +54,12 @@
                                         @foreach($variation_ids as $variation_id)
                                             <tr>
                                                 <td>
-                                                    <a href="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!\App\ProductVariation::find($variation_id)->picture!!}" data-toggle="lightbox">
-                                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\ProductVariation::find($variation_id)->picture!!}" style="max-height:50px"/>
+                                                    <a href="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/{!!\App\Variation::find($variation_id)->picture!!}" data-toggle="lightbox">
+                                                        <img src="/assets/images/products/{!!Auth::user()->options->brand_in_use->slug!!}/300/{!!\App\Variation::find($variation_id)->picture!!}" style="max-height:50px"/>
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <strong>{!!\App\ProductVariation::find($variation_id)->product->prodmodel->name!!}<br> {!!\App\ProductVariation::find($variation_id)->product->name!!}<br> <span style="color:{!!(\App\ProductVariation::find($variation_id)->color->hex == '#ffffff') ? '#ffffff; background-color:#D9D9D9; padding:2px' : \App\ProductVariation::find($variation_id)->color->hex !!};">{!!\App\ProductVariation::find($variation_id)->color->name!!}</span> </strong>
+                                                    <strong>{!!\App\Variation::find($variation_id)->product->prodmodel->name!!}<br> {!!\App\Variation::find($variation_id)->product->name!!}<br> <span style="color:{!!(\App\Variation::find($variation_id)->color->hex == '#ffffff') ? '#ffffff; background-color:#D9D9D9; padding:2px' : \App\Variation::find($variation_id)->color->hex !!};">{!!\App\Variation::find($variation_id)->color->name!!}</span> </strong>
                                                 </td>
                                                 @foreach (\App\Size::orderBy('name')->get() as $size)
                                                     <td style="text-align:center">{!!

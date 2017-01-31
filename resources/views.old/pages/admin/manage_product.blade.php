@@ -145,7 +145,7 @@
                             <div class="col-md-8">
                                 <select name="product_variation_id" class="form-control">
                                         <option value="0">Articolo principale</option>
-                                    @foreach (\App\ProductVariation::where('product_id', $product->id)
+                                    @foreach (\App\Variation::where('product_id', $product->id)
                                                                     ->where('active', 1)
                                                                     ->get() as $variation)
                                         <option value="{!!$variation->id!!}">
@@ -180,7 +180,7 @@
                                         @if ($product->has_variations != 1)
                                             <option value="0">Articolo principale</option>
                                         @endif
-                                        @foreach (\App\ProductVariation::where('product_id', $product->id)
+                                        @foreach (\App\Variation::where('product_id', $product->id)
                                                                         ->where('active', 1)
                                                                         ->get() as $variation)
                                             <option value="{!!$variation->id!!}">
@@ -259,7 +259,7 @@
 
                     <ul class="nav nav-tabs" role="tablist">
                         {{-- */ $i = 1 /* --}}
-                        @foreach(\App\ProductVariation::where('product_id', $product->id)
+                        @foreach(\App\Variation::where('product_id', $product->id)
                                                         ->where('active', 1)
                                                         ->pluck('color_id') as $color_id)
                             <li @if($i==1) class="active" @endif>
@@ -272,7 +272,7 @@
                     </ul>
                     <div class="panel-body tab-content">
                         {{-- */ $i2 = 1 /* --}}
-                        @foreach(\App\ProductVariation::where('product_id', $product->id)
+                        @foreach(\App\Variation::where('product_id', $product->id)
                                                         ->where('active', 1)
                                                         ->get() as $variation)
                             <div class="tab-pane @if($i2==1) active @endif" id="tab-{!!$variation->color_id!!}">

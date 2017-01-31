@@ -15,7 +15,7 @@ class SeasonController extends Controller
 	{
 		// get active season
         $active_season = \App\X::activeSeason();
-        $seasons = \App\Season::all();
+        $seasons = \App\Season::orderBy('id', 'desc')->get();
 		// return view with season object
 		return view('pages.catalogue.seasons', compact('active_season', 'seasons'));
 		
@@ -48,7 +48,6 @@ class SeasonController extends Controller
 			// populate 
 			$season->name = Input::get('name');
 			$season->slug = trim(Input::get('slug'));
-			$season->description = Input::get('description');
 			$season->active = 1;
 			// setConnection -required- for BRAND DB
 			$season->setConnection(\App\X::brandInUseSlug());

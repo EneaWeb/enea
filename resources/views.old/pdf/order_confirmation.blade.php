@@ -195,10 +195,10 @@
         @foreach (unserialize($order->products_array) as $product_id => $product_variations)
         @foreach ($product_variations as $key => $product_variation_id)
             <tr>
-                <td style="border-left:5px solid {!!\App\Color::find(\App\ProductVariation::find($product_variation_id)->color_id)->hex!!}; width:200px">
-                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->prodmodel->name!!}
-                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->name!!} - 
-                    {!!\App\Color::find(\App\ProductVariation::find($product_variation_id)->color_id)->name!!}
+                <td style="border-left:5px solid {!!\App\Color::find(\App\Variation::find($product_variation_id)->color_id)->hex!!}; width:200px">
+                    {!!\App\Product::find(\App\Variation::find($product_variation_id)->product_id)->prodmodel->name!!}
+                    {!!\App\Product::find(\App\Variation::find($product_variation_id)->product_id)->name!!} - 
+                    {!!\App\Color::find(\App\Variation::find($product_variation_id)->color_id)->name!!}
                 </td>
                 {{--*/ $totprice = 0 /* --}}
                 {{--*/ $qty = 0 /* --}}

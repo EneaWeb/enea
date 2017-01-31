@@ -77,7 +77,7 @@ class OrderDetail extends Model
     
     public function product_variation()
     {
-        return $this->belongsTo('\App\ProductVariation');
+        return $this->belongsTo('\App\Variation');
     }
     
     public function item()

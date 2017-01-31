@@ -134,11 +134,11 @@
         @foreach ($product_variations as $key => $product_variation_id)
             <tr>
                 <td style="padding:4px; border-left:2px solid black;">
-                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->prodmodel->name!!}
-                    {!!\App\Product::find(\App\ProductVariation::find($product_variation_id)->product_id)->name!!}
+                    {!!\App\Product::find(\App\Variation::find($product_variation_id)->product_id)->prodmodel->name!!}
+                    {!!\App\Product::find(\App\Variation::find($product_variation_id)->product_id)->name!!}
                 </td>
                 <td style="padding:4px; border-left:2px solid black;">
-                    {!!\App\Color::find(\App\ProductVariation::find($product_variation_id)->color_id)->name!!}
+                    {!!\App\Color::find(\App\Variation::find($product_variation_id)->color_id)->name!!}
                 </td>
                 <td style="padding:4px; border-left:2px solid black; text-align:center">
                     {!!\Carbon\Carbon::parse($date)->format('d/m/Y')!!}

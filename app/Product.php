@@ -30,7 +30,8 @@ class Product extends Model
         'season_id',
         'type_id',
         'has_variations',
-        'active'
+        'active',
+        'composition'
     ];
 
     protected $hidden = [
@@ -93,7 +94,7 @@ class Product extends Model
     
     public function variations()
     {
-        return $this->hasMany('\App\ProductVariation');
+        return $this->hasMany('\App\Variation');
     }
     
     public static function product_colors($product_id)
@@ -104,7 +105,7 @@ class Product extends Model
     public static function availColors($product_id)
     {
         $str = array();
-        foreach (\App\ProductVariation::where('product_id', $product_id)->get() as $prodVar)
+        foreach (\App\Variation::where('product_id', $product_id)->get() as $prodVar)
         {
             $str[] = $prodVar->color->name;
         }

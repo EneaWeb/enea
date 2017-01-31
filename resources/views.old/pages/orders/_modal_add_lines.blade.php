@@ -39,7 +39,7 @@
                             <th>{!!\App\Size::find($size_id)->name!!}</th>
                         @endforeach
                     </tr>
-                    @foreach(\App\ProductVariation::where('product_id', $product->id)
+                    @foreach(\App\Variation::where('product_id', $product->id)
                                                     ->where('active', 1)->get() as $product_variation)
                         <tr>
                             <th style="padding:1px">

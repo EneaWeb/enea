@@ -85,7 +85,7 @@
                         @if ($variation->picture != 'default.jpg')
                             <img style="max-width:138px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation->picture!!}"/>
                         @endif
-                        @foreach (array_slice(\App\ProductVariationPicture::where('product_variation_id', $variation->id)->get()->toArray(), 0, 2) as $variation_picture)
+                        @foreach (array_slice(\App\VariationPicture::where('product_variation_id', $variation->id)->get()->toArray(), 0, 2) as $variation_picture)
                             <img style="max-width:138px" src="{!!public_path()!!}/assets/images/products/{!!$brand->slug!!}/300/{!!$variation_picture['picture']!!}"/>
                             &nbsp;
                         @endforeach

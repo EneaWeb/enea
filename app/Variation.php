@@ -14,67 +14,69 @@ use Auth;
 
 class Variation extends Model
 {
-
-	public function __construct()
-	{
-	  	$this->connection = Auth::user()->options->brand_in_use->slug;
-	}
-	protected $table = 'product_variations';
-
-	protected $fillable = [
-		'slug',
-		'name',
-		'description',
-		'season_id',
+    
+    public function __construct()
+    {
+        $this->connection = Auth::user()->options->brand_in_use->slug;
+    }
+    protected $table = 'variations';
+    
+    protected $fillable = [
+		'product_id',
+		'picture',
 		'active'
-	];
+    ];
 
-	protected $hidden = [
-
-	];
+    protected $hidden = [
+    
+    ];
     
     /* 
     Validation
     */
     
-	public static function validate( $input ) {
+    public static function validate( $input ) {
 
-		$rules = array(
-		   'name' => 'required',
-		   'slug' => 'required',
-		   'season_id' => 'required',
-		);
+        $rules = array(
+            'product_id' => 'required',
+            'active' => 'required',
+        );
 
-		$messages = array(
-		   'name.required' => trans('x.required-variation-name'),
-		   'slug.required' => trans('x.required-variation-slug'),
-		   'season_id.required' => trans('x.required-variation-season_id'),
-		);
+        $messages = array(
+            'product_id.required' => trans('x.required-product_variation-product_id'),
+            'active.required' => trans('x.required-product_variation-active'),
+        );
 
-	  	return Validator::make($input, $rules, $messages);
-	}
-
-	/**
-	* Relations
-	*/
-
-	public function season()
+        return Validator::make($input, $rules, $messages);
+    }
+    
+    /**
+     * Relations
+     */
+    
+	public function product()
 	{
-	  return $this->belongsTo('\App\Season');
+	  return $this->belongsTo('\App\Product');
 	}
+    
+	public function items()
+	{
+	  	return $this->hasMany('\App\Item');
+	}
+    
+	public function pictures()
+	{
+	  return $this->hasMany('\App\VariationPicture');
+	}
+    
+    public function color()
+    {
+        return $this->belongsTo('\App\Color');
+    }
 
-   public function items()
-   {
-      return $this->hasMany('\App\Item');
-   }
-
-   public static function renderSizes($variation)
-   {
-        $arr = array();
-        foreach ($variation->items as $item) {
-            $arr[] = $item->size->name;
-        }
-        return \App\X::rangeNumbers($arr);
+    public function fullName()
+    {
+        return $this->product->name.' '.$this->color->name;
     }
 
 }

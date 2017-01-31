@@ -1,7 +1,7 @@
 <!-- BEGIN HEAD -->
 <head>
    <meta charset="utf-8" />
-   <title>{!! Config::get('general.sitename') !!}{!!(isset($pageTitle)) ? '- '.$pageTitle : '' !!}</title>
+   <title>{!! Config::get('app.name') !!}{!!(isset($pageTitle)) ? ' | '.$pageTitle : '' !!}</title>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta content="width=device-width, initial-scale=1" name="viewport" />
    <meta content="" name="description" />
@@ -28,6 +28,7 @@
    <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
    <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
    <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+   <link href="/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css" />
    {{ HTML::style('/assets/css/flag-icon.min.css') }}
    <link href="/assets/global/plugins/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css" />
    <link href="/assets/pages/css/portfolio.min.css" rel="stylesheet" type="text/css" />

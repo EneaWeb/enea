@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
 
-class ProductVariationPicture extends Model
+class VariationPicture extends Model
 {
     
     public function __construct()
@@ -56,7 +56,7 @@ class ProductVariationPicture extends Model
     
 	public function product_variation()
 	{
-	  return $this->belongsTo('\App\ProductVariation');
+	  return $this->belongsTo('\App\Variation');
 	}
 
     

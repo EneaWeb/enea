@@ -65,23 +65,23 @@ class SizeController extends Controller
 		return redirect()->back();
 	}
 	
-	public function edit()
+	public function edit(Request $request)
 	{
 		// try to validate the Input
-		$v = Size::validate(Input::all());
+		$v = Size::validate($request->all());
 		
 		// if everything ok...
 		if ( $v->passes() ) {
 				
-			// get the delivery from ID
-			$size = Size::find(Input::get('id'));
-			// edit the informations 
-			$size->name = Input::get('name');
-			$size->slug = trim(Input::get('slug'));
-			// setConnection -required- for BRAND DB
-			$size->setConnection(Auth::user()->options->brand_in_use->slug);
-			// save the line(s)
-			$size->save();
+			$size = \App\Size::find($request->get('size_id'));
+            $id = $request->get('id');
+            $name = $request->get('name');
+            $types = serialize($request->get('types'));
+
+            $size->id = $id;
+            $size->name = $name;
+            $size->types = $types;
+            $size->save();
 
 			// success message
 			Alert::success(trans('x.Size updated'));
@@ -107,8 +107,8 @@ class SizeController extends Controller
             $oldSize = \App\Size::find($id);
             $size = new \App\Size;
             $size->id = $id;
-            $size->active = 1;
             $size->name = $oldSize->name;
+            $size->active = 1;
             $size->types = $oldSize->types;
 
             $newSizes[] = $size;

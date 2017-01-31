@@ -157,13 +157,13 @@
                                             
                                                 <tr>
                                                     <th style="border-left:5px solid {!!\App\Color::find(
-                                                                    \App\ProductVariation::find($product_variation_id)
+                                                                    \App\Variation::find($product_variation_id)
                                                                         ->color_id)->hex!!}">
                                                                     
                                                         {!!\App\Product::find($product_id)->prodmodel->name!!} / 
                                                         {!!\App\Product::find($product_id)->name!!} - 
                                                         {!!\App\Color::find(
-                                                                    \App\ProductVariation::find($product_variation_id)
+                                                                    \App\Variation::find($product_variation_id)
                                                                         ->color_id)->name!!}
                                                     </th>
                                                     @foreach (\App\Size::orderBy('name')->get() as $size)

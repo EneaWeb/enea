@@ -9,11 +9,50 @@ tabella (brand) SIZES
 => aggiungere colonna "id" non incrementale VARCHAR
 => verificare che abbia la colonna "active" INT default 1
 
+tabella (brand) ATTRIBUTES
+=> creare così:
+    - id (text)
+    - name (text)
+    - description (text)
+    - active (int)
+    - timestmaps..
+
+tabella (brand) TERMS
+=> creare così:
+    - id (text)
+    - name (text)
+    - attribute_id (text)
+    - hex (text)
+    - timestamps
+
+tabella (brand) PRODUCT_VARIATIONS
+=> eliminare colonne: "attributes" , "name" e "color_id"
+=> rename "variations"
+
+tabella (brand) COLORS
+=> drop table
+
+tabella (brand) SEASON
+=> eliminare colonna: "description"
 
 
 
 #####################################################################################
 #####################################################################################
 
+DA FARE:
 
+Quando faccio UPDATES SU:
+
+- Sizes
+- attributes
+- Variations 
+
+ecc
+
+verificare di modificare anche tutti i relativi ID negli ordini e dettagli ordini.
+;)
+
+#####################################################################################
+#####################################################################################
 

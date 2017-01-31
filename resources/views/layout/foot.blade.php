@@ -79,6 +79,7 @@
 <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-buttons.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-rowreorder.js" type="text/javascript"></script>
 
@@ -99,6 +100,11 @@
 @yield('pages-scripts')
 
 <script>
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    });
+    
     $('body').on('show.bs.modal', '#modal_edit', function (event) {
 
       var button = $(event.relatedTarget) // Button that triggered the modal

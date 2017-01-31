@@ -7,7 +7,7 @@ use \App\Product as Product;
 use Input;
 use Auth;
 use Image;
-use \App\ProductVariation as ProductVariation;
+use \App\Variation as Variation;
 use \App\Alert as Alert;
 use App\Http\Requests;
 
@@ -248,7 +248,7 @@ class ProductController extends Controller
 		// se bisogna creare delle varianti per ogni prodotto
 		if ($product->has_variations == 1){
 			// ad ogni colore corrisponde una product_variation
-			$product_variation = new ProductVariation;
+			$product_variation = new Variation;
 			$product_variation->product_id = $product->id;
 			$product_variation->active = 1;
 			$product_variation->picture = 'default.jpg';
@@ -422,7 +422,7 @@ class ProductController extends Controller
 
         } else if ($type == 'variation_picture') {
 
-            $pVarPicture = new \App\ProductVariationPicture;
+            $pVarPicture = new \App\VariationPicture;
             $pVarPicture->product_variation_id = $variation_id;
             $pVarPicture->picture = $imageFullName;
             $pVarPicture->setConnection(\App\X::brandInUseSlug());
@@ -460,7 +460,7 @@ class ProductController extends Controller
 
         } else if ($type == 'variation_picture') {
 
-            $pVarPicture = \App\ProductVariationPicture::find($id);
+            $pVarPicture = \App\VariationPicture::find($id);
             $picName = $pVarPicture->picture;
             $pVarPicture->setConnection(\App\X::brandInUseSlug());
             $pVarPicture->delete();
