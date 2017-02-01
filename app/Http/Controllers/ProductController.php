@@ -64,8 +64,204 @@ class ProductController extends Controller
 		// return view
 		return view('pages.admin.manage_products', compact('products'));
 	}
+
+    public function creationMask()
+    {
+        return view('pages.catalogue.new_product');
+    }
 	
-	public function create()
+    public function create(Request $request)
+    {
+
+        extract($request->all());
+
+        //return dd($request->all());
+
+        /*
+        *
+        $variations = [
+            0 => [
+                terms_id => [
+                    0 => {term_id},
+                    1 => {term_id}
+                    ....
+                ],
+                sku => (str),
+                prices => [
+                    {listId} => {price},
+                    {listId} => {price},
+                    ....
+                ],
+                sizes => [
+                    0 => {sizeId},
+                    1 => {sizeId},
+                    2 => {sizeId},
+                    ....
+                ],
+            ]
+            ..... 
+        ]
+        *
+        */
+
+        $product = new \App\Product;
+        $product->prodmodel_id = $prodmodel_id;
+        $product->season_id = $season_id;
+        $product->type_id = $type_id;
+        $product->name = $name;
+        $product->sku = $sku;
+        $product->description = $description;
+        $product->has_variations = $has_variations;
+        $product->pictures = 'a:1:{i:0;s:11:"default.jpg";}';
+        $product->save();
+
+        foreach ($variations as $v) {
+            $variation = new \App\Variation;
+            $variation->product_id = $product->id;
+            $variation->sku = $v['sku'];
+            $variation->pictures = 'a:1:{i:0;s:11:"default.jpg";}';
+            $variation->save();
+
+            foreach ($v['terms_id'] as $termId) {
+                $termVar = new \App\TermVariation;
+                $termVar->variation_id = $variation->id;
+                $termVar->term_id = $termId;
+                $termVar->save();
+            }
+
+            foreach ($v['sizes'] as $k => $size) {
+                $item = new \App\Item;
+                $item->product_id = $product->id;
+                $item->variation_id = $variation->id;
+                $item->size_id = $size;
+                $item->active = 1;
+                $item->save();
+                
+                foreach ($v['prices'] as $listId => $price) {
+                    $itemPrice = new \App\ItemPrice;
+                    $itemPrice->item_id = $item->id;
+                    $itemPrice->price_list_id = $listId;
+                    $itemPrice->price = number_format($price, 2);
+                    $itemPrice->save();
+                }
+            }
+
+        }
+
+        Alert::success(trans('x.Product created'));
+        return redirect('/catalogue/products/'.$product->id);
+
+    }
+
+    public function update(Request $request)
+    {
+
+        extract($request->all());
+
+        return dd($request->all());
+
+        /*
+        *
+        $variations = [
+            0 => [
+                edit => 'true', // or false, if is a new variation
+                terms_id => [
+                    0 => {term_id},
+                    1 => {term_id}
+                    ....
+                ],
+                sku => (str),
+                prices => [
+                    {listId} => {price},
+                    {listId} => {price},
+                    ....
+                ],
+                sizes => [
+                    0 => {sizeId},
+                    1 => {sizeId},
+                    2 => {sizeId},
+                    ....
+                ],
+            ]
+            ..... 
+        ]
+        *
+        */
+
+        $product = \App\Product::find($product_id);
+        $product->prodmodel_id = $prodmodel_id;
+        $product->season_id = $season_id;
+        $product->type_id = $type_id;
+        $product->name = $name;
+        $product->sku = $sku;
+        $product->description = $description;
+        $product->has_variations = $has_variations;
+        $product->pictures = 'a:1:{i:0;s:11:"default.jpg";}';
+        $product->save();
+
+        foreach ($variations as $k => $v) {
+
+            if ($v['edit'] !== 'true') {
+                $variation = \App\Variation::find($k);
+                $variation->sku = $v['sku'];
+                $variation->save();
+            } else {
+                $variation = new \App\Variation;
+                $variation->product_id = $product->id;
+                $variation->sku = $v['sku'];
+                $variation->save();
+            }
+
+            foreach ($v['terms_id'] as $termId) {
+                
+                if ($v['edit'] !== 'true') {
+                    $termVar = new \App\TermVariation;
+                    $termVar->variation_id = $variation->id;
+                    $termVar->term_id = $termId;
+                    $termVar->save();
+                }
+            }
+
+            foreach ($v['sizes'] as $k => $size) {
+
+                if ($v['edit'] !== 'true') {
+                    $item = \App\Item::where('variation_id', $variation->id)
+                                    ->where('size_id', $size)
+                                    ->first();
+                } else {
+                    $item = new \App\Item;
+                    $item->product_id = $product->id;
+                    $item->variation_id = $variation->id;
+                    $item->size_id = $size;
+                    $item->active = 1;
+                    $item->save();
+                }
+                
+                foreach ($v['prices'] as $listId => $price) {
+
+                    if ($v['edit'] !== 'true') {
+                        $itemPrice = \App\ItemPrice::where('price_list_id', $listId)
+                                    ->where('item_id', $item->id)->first();
+                        $itemPrice->price = number_format($price, 2);
+                        $itemPrice->save();
+                    } else {
+                        $itemPrice = new \App\ItemPrice;
+                        $itemPrice->item_id = $item->id;
+                        $itemPrice->price_list_id = $listId;
+                        $itemPrice->price = number_format($price, 2);
+                        $itemPrice->save();
+                    }
+                }
+            }
+
+        }
+
+        Alert::success(trans('x.Product modified'));
+        return redirect('/catalogue/products/'.$product->id);  
+    }
+
+
+	public function xCreate()
 	{
 		// try to validate the Input
 		$v = Product::validate(Input::all());
@@ -109,16 +305,12 @@ class ProductController extends Controller
 	public function show($id)
 	{
 		$product = Product::find($id);
-		foreach($product->variations as $variation) {
-			$pictures_count = $variation->pictures->count();
-		}
-		$pictures_count += $product->pictures->count();
-		$orders = \App\Order::whereHas('order_details', function($q) use ($id) {
-			$q->where('product_id', $id);
-		})->get();
+
+        /*
+        * start check if is deletable
+        */
 
         $deletable = false;
-        
         $orders = \App\Order::whereHas('order_details', function($a) use ($id) {
             $a->whereHas('item', function($q) use($id) {
                 $q->where('product_id', $id);
@@ -128,9 +320,11 @@ class ProductController extends Controller
         if ($orders->isEmpty())
             $deletable = true;
 
-
+        /*
+        * end check if is deletable
+        */
+        
 		return view('pages.catalogue.product', compact( 'product', 
-                                                        'pictures_count', 
                                                         'orders', 
                                                         'orders',
                                                         'deletable'));
@@ -486,5 +680,25 @@ class ProductController extends Controller
 		return view('pages.orders._modal_add_lines', compact('product'));
 		
 	}
+
+    public function createVariations(Request $request)
+    {
+        $input = $request->get('attributes');
+        $attributes = array();
+        foreach ($input as $a => $attr) {
+            $attributes[] = [ $attr['attribute'] =>  $attr['term'] ];
+        }
+
+        $arr = array();
+        foreach ($attributes as $k => $v) {
+            foreach ($v as $k => $v) {
+                $arr[$k][] = $v;
+            }
+        }
+
+        $variations = \App\X::arrayCartesianProduct($arr);
+
+        return view('pages.catalogue._variations_create', compact('variations'));
+    }
 	
 }

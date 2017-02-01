@@ -13,8 +13,13 @@
                 <ul class="nav navbar-nav margin-bottom-35">
                     <li class="active">
                         <a href="#">
-                            <i class="icon-home"></i> Product 
+                            <i class="icon-home"></i> {!!trans('x.Product')!!}
                         </a>
+                        <li>
+                            <a href="/catalogue/products/new">
+                            <i class="fa fa-plus"></i> {!!trans('x.New Product')!!} 
+                            </a>
+                        </li>
                     </li>
                 </ul>
             </nav>
@@ -28,7 +33,7 @@
                     <div class="portlet">
                         <div class="portlet-title">
                             <div class="caption">
-                                {!!trans('x.Edit Product')!!}: {!!$product->name!!} [{!!$product->slug!!}]
+                                {!!trans('x.Edit Product')!!}: {!!$product->name!!} [ {!!$product->variations->count()!!} {!!trans('x.Variations')!!} ]
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -65,6 +70,7 @@
 
                                         <div id="grid-container">
                                         <ul>
+                                        {{--
                                         @foreach($product->variations as $variation)
                                             <li class="cbp-item">
                                                 <a class="cbp-lightbox" href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$variation->picture!!}" data-cbp-lightbox="myCustomLightbox" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}">
@@ -79,6 +85,7 @@
                                                 </li>
                                             @endforeach
                                         @endforeach
+                                        --}}
                                         </ul>
                                         </div>
 
@@ -105,13 +112,14 @@
                                                     </tr>
                                                     <tr>
                                                         <td>{!!trans('x.Variations')!!}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             @foreach ($product->variations as $variation)
                                                                 {!!$variation->color->name!!} 
                                                                 [ {!!trans('x.Sizes')!!} {!!\App\Variation::renderSizes($variation) !!} ]
                                                                 <br>
                                                             @endforeach
                                                         </td>
+                                                        --}}
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -150,59 +158,136 @@
                                     </div>
                                     <div class="tab-pane portlet-body flip-scroll" id="tab_edit">
                                         
+                                        {!!Form::open(['url'=>'/catalogue/products/update', 'method'=>'GET', 'class'=>'form-horizontal'])!!}
+                                        {!!Form::hidden('product_id', $product->id)!!}
+
                                         <div class="row">
-                                        <div class="col-md-12 col-lg-7">
+                                        
+                                            <div class="col-md-6 col-lg-5 form-horizontal">
 
-                                            {!!Form::open(['url'=>'/catalogue/product/edit-product', 'method'=>'POST'])!!}
-                                            {!!Form::hidden('id', $product->id)!!}
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Season')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::select('season_id', \App\Season::pluck('name', 'id'), $product->season_id, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Type')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::select('type_id', \App\Type::pluck('name', 'id'), $product->type_id, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
                                                 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Type')!!}</label>
-                                                    {!!Form::select('season_id', \App\Season::lists('name', 'id'), $product->season_id, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Model')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::select('prodmodel_id', \App\ProdModel::pluck('name', 'id'), $product->prodmodel_id, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Type')!!}</label>
-                                                    {!!Form::select('type_id', \App\Type::lists('description', 'id'), $product->type_id, ['class'=>'form-control'])!!}
-                                                </div>
-                                            
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Model')!!}</label>
-                                                    {!!Form::select('prodmodel_id', \App\Prodmodel::lists('name', 'id'), $product->prodmodel_id, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Name')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::text('name', $product->name, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Name')!!}</label>
-                                                    {!!Form::text('name', $product->name, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">SKU</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::text('sku', $product->sku, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Slug')!!}</label>
-                                                    {!!Form::text('slug', $product->slug, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Description')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::textarea('description', $product->description, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Description')!!}</label>
-                                                    {!!Form::textarea('description', $product->description, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Has variations')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::select('has_variations', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], $product->has_variations, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Has variations')!!}</label>
-                                                    {!!Form::select('has_variations', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], $product->has_variations, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">{!!trans('x.Active')!!}</label>
+                                                        <div class="col-md-9">
+                                                            {!!Form::select('active', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], $product->active, ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label">{!!trans('x.Active')!!}</label>
-                                                    {!!Form::select('active', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], $product->active, ['class'=>'form-control'])!!}
-                                                </div>
+                                                    <div class="form-group" style="text-align:right">
+                                                    <br><br>
+                                                        {!!Form::submit(trans('x.Save'), ['class'=>'btn btn-danger btn-lg'])!!}
+                                                    </div>
+                                                    
+                                            </div>
 
-                                                <div class="form-group">
-                                                <br><br>
-                                                    {!!Form::submit(trans('x.Save'), ['class'=>'btn btn-danger'])!!}
+                                            <div class="col-md-6 col-lg-7">
+
+                                                <div class="portlet light bordered">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="icon-settings font-dark"></i>
+                                                            <span class="caption-subject font-dark sbold uppercase">{!!trans('x.Variations Creation')!!}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body form-horizontal">
+
+                                                        <div class="form-group">
+
+                                                            <label for="multiple" class="col-md-3 control-label">{!!trans('x.Attributes')!!}</label>
+                                                            <div class="col-md-9">
+                                                                <select id="variations" class="form-control select2-multiple" multiple>
+                                                                    @foreach(\App\Attribute::all() as $attribute)
+                                                                        <optgroup label="{!!$attribute->name!!}">
+                                                                        @foreach ($attribute->terms as $term)
+                                                                            <option value="{!!$term->id!!}" data-attribute="{!!$term->attribute->id!!}">{!!$term->name!!}</option>
+                                                                        @endforeach
+                                                                        </optgroup>
+                                                                    @endforeach
+                                                                </select>
+
+                                                                <br>
+
+                                                                <button type="button" class="btn btn-info" id="create-variations">
+                                                                    {!!trans('x.Create variations from attributes')!!}
+                                                                </button>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 
-                                            {!!Form::close()!!}
-                                        </div>
+                                                <div class="portlet light bordered">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="icon-settings font-dark"></i>
+                                                            <span class="caption-subject font-dark sbold uppercase">{!!trans('x.Variations')!!}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body fEditorm-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                @foreach ($product->variations as $variation)
+                                                                    @include('pages.catalogue._variations_edit')
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="col-md-12" id="variations-container">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        {!!Form::close()!!}
+
                                         </div>
                                     </div>
                                     <div class="tab-pane portlet-body flip-scroll" id="tab_images">
@@ -230,12 +315,13 @@
                                                         <img class="img-responsive" style="max-height:100px; width:auto;" src="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/300/{!!$product->picture!!}" alt="" />
                                                     </td>
                                                     <td style="vertical-align:middle;">{!!trans('x.Main Picture')!!}</td>
-                                                    <td style="vertical-align:middle;">{!!$product->picture!!}</td>
+                                                    <td style="vertical-align:middle;">{!!$product->pictures!!}</td>
                                                     <td style="vertical-align:middle;">
                                                         <button class="btn btn-danger delete-picture" data-type="product" data-id="{!!$product->id!!}"><i class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr>
                                                 @endif
+                                                {{--
                                                 @foreach ($product->variations as $variation)
                                                     @if ($variation->picture !== '')
                                                     <tr style="background-color:#ffe">
@@ -262,6 +348,7 @@
                                                     </tr>
                                                     @endforeach
                                                 @endforeach
+                                                --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -274,56 +361,7 @@
                                     </div>
                                     <div class="tab-pane" id="tab_history">
                                         <div class="table-container">
-                                            <table class="table table-striped table-bordered table-hover" id="datatable_history">
-                                                <thead>
-                                                    <tr role="row" class="heading">
-                                                        <th width="25%"> Datetime </th>
-                                                        <th width="55%"> Description </th>
-                                                        <th width="10%"> Notification </th>
-                                                        <th width="10%"> Actions </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr role="row" class="filter">
-                                                        <td>
-                                                            <div class="input-group date datetime-picker margin-bottom-5" data-date-format="dd/mm/yyyy hh:ii">
-                                                                <input type="text" class="form-control form-filter input-sm" readonly name="product_history_date_from" placeholder="From">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-sm default date-set" type="button">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </button>
-                                                                </span>
-                                                            </div>
-                                                            <div class="input-group date datetime-picker" data-date-format="dd/mm/yyyy hh:ii">
-                                                                <input type="text" class="form-control form-filter input-sm" readonly name="product_history_date_to" placeholder="To">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-sm default date-set" type="button">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </button>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control form-filter input-sm" name="product_history_desc" placeholder="To" /> </td>
-                                                        <td>
-                                                            <select name="product_history_notification" class="form-control form-filter input-sm">
-                                                                <option value="">Select...</option>
-                                                                <option value="pending">Pending</option>
-                                                                <option value="notified">Notified</option>
-                                                                <option value="failed">Failed</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <div class="margin-bottom-5">
-                                                                <button class="btn btn-sm btn-default filter-submit margin-bottom">
-                                                                    <i class="fa fa-search"></i> Search</button>
-                                                            </div>
-                                                            <button class="btn btn-sm btn-danger-outline filter-cancel">
-                                                                <i class="fa fa-times"></i> Reset</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            (funzione in lavorazione)
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +377,7 @@
 </div>
 <!-- END SIDEBAR CONTENT LAYOUT -->
 
-@include('modals.products.upload_picture')
+{{-- @include('modals.products.upload_picture') --}}
 
 @stop
 

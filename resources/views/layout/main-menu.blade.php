@@ -48,18 +48,18 @@
                             </a>
                         </li>
                         @if (Auth::user()->can('manage lists'))
-                            @foreach(\App\SeasonList::where('season_id', \App\X::activeSeason())->get() as $seasonlist)
+                            @foreach(\App\PriceList::all() as $list)
                                 <li>
-                                    <a class="menulink" href="/catalogue/linesheet/{!!$seasonlist->id!!}">
-                                        {!!$seasonlist->name!!}
+                                    <a class="menulink" href="/catalogue/linesheet/{!!$list->id!!}">
+                                        {!!$list->name!!}
                                     </a>
                                 </li>
                             @endforeach
                         @else
-                            @foreach(Auth::user()->season_lists()->where('season_id', \App\X::activeSeason())->get() as $seasonlist)
+                            @foreach(Auth::user()->priceLists() as $list)
                                 <li>
-                                    <a class="menulink" href="/catalogue/linesheet/{!!$seasonlist->id!!}">
-                                        {!!$seasonlist->name!!}
+                                    <a class="menulink" href="/catalogue/linesheet/{!!$list->id!!}">
+                                        {!!$list->name!!}
                                     </a>
                                 </li>
                             @endforeach

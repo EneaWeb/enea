@@ -24,7 +24,7 @@ class ItemPrice extends Model
 
 	protected $fillable = [
 		'item_id',
-		'season_list_id',
+		'price_list_id',
 		'price'
 	];
 

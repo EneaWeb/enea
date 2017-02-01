@@ -64,5 +64,15 @@ class Term extends Model
     {
         return $this->belongsTo('\App\Attribute');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany('\App\Product', 'term_product');
+    }
+
+    public function variations()
+    {
+        return $this->belongsToMany('\App\Variation', 'term_product');
+    }
     
 }

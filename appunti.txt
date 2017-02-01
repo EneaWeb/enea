@@ -15,7 +15,7 @@ tabella (brand) ATTRIBUTES
     - name (text)
     - description (text)
     - active (int)
-    - timestmaps..
+    - timestamps..
 
 tabella (brand) TERMS
 => creare così:
@@ -23,18 +23,48 @@ tabella (brand) TERMS
     - name (text)
     - attribute_id (text)
     - hex (text)
-    - timestamps
+    - timestamps..
 
 tabella (brand) PRODUCT_VARIATIONS
-=> eliminare colonne: "attributes" , "name" e "color_id"
-=> rename "variations"
+=> drop table
+
+tabell (brand) VARIATIONS
+=> create table:
+    id
+    product_id
+    sku
+    description
+    pictures' // default: a:1:{i:0;s:11:"default.jpg";}
+    timestamps..
 
 tabella (brand) COLORS
 => drop table
 
-tabella (brand) SEASON
+tabella (brand) SEASONS
 => eliminare colonna: "description"
 
+tabella (brand) PRODUCTS
+=> modificare "slug" in "sku"
+=> modificare "picture" in "pictures" default: a:1:{i:0;s:11:"default.jpg";}
+
+tabella (brand) SEASON LISTS
+=> drop table
+
+tabella (brand) PRICE_LISTS
+=> create table:
+    id (text)
+    name
+    active
+    timestamps..
+
+tabella (brand) USER_SEASON_LIST
+=> rename table USER_PRICE_LIST
+
+tabella (brand) ITEMS
+=> rename colonna "product_variation_id" in "variation_id"
+
+tabella (brand) ITEM_PRICES
+=> rename colonna "season_list_id" in "price_list_id"
 
 
 #####################################################################################
@@ -51,7 +81,9 @@ Quando faccio UPDATES SU:
 ecc
 
 verificare di modificare anche tutti i relativi ID negli ordini e dettagli ordini.
-;)
+
+
+- Tirare fuori i prices list sono quando sono "attivi" nelle varie liste (ad eccezione di quelle per gli users)
 
 #####################################################################################
 #####################################################################################

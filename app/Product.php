@@ -22,16 +22,15 @@ class Product extends Model
     protected $table = 'products';
     
     protected $fillable = [
-        'slug',
+        'sku',
         'name',
         'description',
-        'picture',
-        'prodmodel_id',
+        'pictures', // default: a:1:{i:0;s:11:"default.jpg";}
+        'prodmodel_id', 
         'season_id',
         'type_id',
         'has_variations',
-        'active',
-        'composition'
+        'active' // default: 1
     ];
 
     protected $hidden = [
@@ -129,4 +128,11 @@ class Product extends Model
         }
         return \App\X::rangeNumbers($arr);
     }
+
+    // use: $product->terms()->associate($term);
+    public function terms()
+    {
+        return $this->belongsToMany('\App\Term', 'term_product');
+    }
+    
 }

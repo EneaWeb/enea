@@ -63,68 +63,6 @@
                                                 <div class="task-list panel-collapse collapse in" id="task-season-{!!$season->id!!}">
                                                     <ul>
 
-                                                        {{-- LISTINI PREZZI --}}
-
-                                                        <li class="mt-list-item">
-                                                            <div class="list-todo-icon bg-white">
-                                                                <i class="fa fa-euro"></i>
-                                                            </div>
-                                                            <div class="list-todo-item yellow">
-                                                                <a class="list-toggle-container" data-toggle="collapse" data-parent="#accordion1" onclick=" " href="#task-lists" aria-expanded="false">
-                                                                    <div class="list-toggle done">
-                                                                        <div class="list-toggle-title bold">
-                                                                            {!!trans('x.Price Lists')!!}
-                                                                        </div>
-                                                                        <div class="badge badge-default pull-right bold">
-                                                                            {!!$season->season_lists->count()!!}
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                                <div class="task-list panel-collapse collapse in" id="task-lists">
-                                                                <ul>
-                                                                    @foreach ($season->season_lists as $list)
-                                                                    <li class="task-list-item done">
-                                                                        <div class="task-icon">
-                                                                            <i class="fa fa-calendar"></i>
-                                                                        </div>
-                                                                        <div class="task-status">
-                                                                            <a class="pending" href="#" data-toggle="modal" data-target="#modal_edit_list{!!$list->id!!}">
-                                                                                <i class="fa fa-pencil"></i>
-                                                                            </a>
-                                                                            <a class="pending" href="#" onclick="confirm_delete_list('{!!$list->id!!}')">
-                                                                                <i class="fa fa-trash"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="task-content">
-                                                                            <h4>
-                                                                                <b>{!!$list->name!!}</b> [ {!!$list->slug!!} ]
-                                                                            </h4>
-                                                                            <p>
-                                                                                <strong>
-                                                                                    {!!\App\Order::where('season_id', $season->id)
-                                                                                                ->where('season_list_id', $list->id)
-                                                                                                ->count()!!} 
-                                                                                </strong>
-                                                                                {!!trans('x.Orders made with this Price List')!!}
-                                                                            </p>
-                                                                        </div>
-                                                                    </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                            <a class="task-trash" href="javascript:;">
-                                                                <div class="task-footer bg-grey">
-                                                                    <div class="row">
-                                                                        <a href="#" data-toggle="modal" data-target="#modal_add_list">
-                                                                            <div class="col-xs-12">
-                                                                                <i class="fa fa-plus"></i>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-
                                                         {{-- OPZIONI DI PAGAMENTO --}}
 
                                                         <li class="mt-list-item">
@@ -215,12 +153,7 @@
 {{-- add MODALS --}}
 
 @include('modals.seasons.add_season')
-@include('modals.seasons.add_list')
 @include('modals.seasons.add_delivery')
-
-@foreach (\App\SeasonList::all() as $list)
-    @include('modals.seasons.edit_list')
-@endforeach
 
 @foreach (\App\SeasonDelivery::all() as $delivery)
     @include('modals.seasons.edit_delivery')

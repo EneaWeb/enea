@@ -23,7 +23,7 @@ class Item extends Model
 
 	protected $fillable = [
 		'product_id',
-		'product_variation_id',
+		'variation_id',
 		'size_id',
 		'active'
 	];
@@ -62,14 +62,14 @@ class Item extends Model
 	  return $this->belongsTo('\App\Product');
 	}
 	
-	public function product_variation()
+	public function variation()
 	{
-		return $this->belongsTo('\App\ProducVariation');
+		return $this->belongsTo('\App\Variation');
 	}
 	
-	public function price()
+	public function prices()
 	{
-		return $this->hasMany('\App\Price');
+		return $this->hasMany('\App\ItemPrice');
 	}
 	
 	public function size()

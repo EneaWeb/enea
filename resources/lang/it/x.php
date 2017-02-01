@@ -51,7 +51,7 @@
 'Attribute Value deleted' => 'Valore Attributo eliminato',
 'Attribute Value saved' => 'Valore Attributo creato',
 'Avail. Sizes' => 'Taglie dispon.',
-'Avail. Variations' => 'Variazioni dispon.',
+'Avail. Variations' => 'Varianti dispon.',
 'Back' => 'Indietro',
 'Billing Address' => 'Indirizzo di Fatturazione',
 'Billing Informations' => 'Dati di fatturazione',
@@ -206,6 +206,7 @@
 'New Delivery Address' => 'Nuovo Indirizzo di Consegna',
 'New delivery date for this Season' => 'Nuova data di consegna per questa Stagione',
 'New Password' => 'Nuova Password',
+'New Product' => 'Nuovo Articolo',
 'New Username'=> 'Nuovo Username',
 'New Value' => 'Nuovo Valore',
 'New Size' => 'Nuova Taglia',
@@ -309,6 +310,7 @@
 'Search for a model in all the orders' => 'Cerca un modello in tutti gli ordini',
 'Season Lists' => 'Listini',
 'Season saved' => 'Stagione salvata',
+'Season' => 'Stagione',
 'Seasons' => 'Stagioni',
 'Select a Delivery address' => 'Seleziona una indirizzo di consegna',
 'Select a delivery date' => 'Seleziona una data di consegna',
@@ -388,7 +390,17 @@
 "You don't have the permission to edit this order" => "Non hai i permessi per modificare questo ordine",
 'Your order reference' => "Riferimento ordine",
 'Zero Sold' => 'Zero Venduto',
-
+'Model' => 'Modello',
+'Product' => 'Articolo',
+'Variations N.' => 'N. Varianti',
+'Variations' => 'Varianti',
+'Slug' => 'Slug',
+'Type' => 'Tipologia',
+'Picture' => 'Immagine',
+'Create variations from attributes' => 'Crea varianti da attributi',
+'Variations Creation' => 'Creazione Varianti',
+'Multiple selection' => 'Selezione multipla',
+'Product Modified' => 'Articolo Modificato',
 ];
 
 return $it;

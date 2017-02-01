@@ -23,8 +23,9 @@ class Variation extends Model
     
     protected $fillable = [
 		'product_id',
-		'picture',
-		'active'
+		'sku',
+		'description',
+        'pictures' // default: a:1:{i:0;s:11:"default.jpg";}
     ];
 
     protected $hidden = [
@@ -38,13 +39,11 @@ class Variation extends Model
     public static function validate( $input ) {
 
         $rules = array(
-            'product_id' => 'required',
-            'active' => 'required',
+            'product_id' => 'required'
         );
 
         $messages = array(
-            'product_id.required' => trans('x.required-product_variation-product_id'),
-            'active.required' => trans('x.required-product_variation-active'),
+            'product_id.required' => trans('x.required-product_variation-product_id')
         );
 
         return Validator::make($input, $rules, $messages);
@@ -66,17 +65,13 @@ class Variation extends Model
     
 	public function pictures()
 	{
-	  return $this->hasMany('\App\VariationPicture');
+	  return unserialize($this->pictures);
 	}
     
-    public function color()
+    // use: $variation->terms()->associate($term);
+    public function terms()
     {
-        return $this->belongsTo('\App\Color');
-    }
-
-    public function fullName()
-    {
-        return $this->product->name.' '.$this->color->name;
+        return $this->belongsToMany('\App\Term', 'term_variation');
     }
 
 }

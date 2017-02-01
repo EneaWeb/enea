@@ -203,6 +203,7 @@
 'New Delivery Address' => 'New Delivery Address',
 'New delivery date for this Season' => 'New delivery date for this Season',	
 'New Password' => 'New Password',
+'New Product' => 'New Product',
 'New Username' => 'New Username',
 'New Value' => 'New Value',
 'New Size' => 'New Size',
@@ -309,6 +310,7 @@
 'Search' => 'Search',
 'Season Lists' => 'Lists',
 'Season saved' => 'Season saved',
+'Season' => 'Season',
 'Seasons' => 'Seasons',
 'Select a Delivery address' => 'Select a Delivery address',
 'Select a delivery date' => 'Select a delivery date',
@@ -386,6 +388,17 @@
 "You don't have the permission to edit this order" => "You don't have the permission to edit this order",
 'Your order reference' => 'Your order reference',
 'Zero Sold' => 'Zero Sold',
+'Model' => 'Model',
+'Product' => 'Product',
+'Variations N.' => 'Variations N.',
+'Variations' => 'Variations',
+'Slug' => 'Slug',
+'Type' => 'Type',
+'Picture' => 'Picture',
+'Create variations from attributes' => 'Create variations from attributes',
+'Variations Creation' => 'Variations Creation',
+'Multiple selection' => 'Multiple selection',
+'Product Modified' => 'Product Modified',
 
 ];
 

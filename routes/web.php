@@ -4,8 +4,9 @@
 *	AUTH // 
 */
 
+
 Route::get('test', function(){
-    return dd(\App\Option::where('name', 'active_season')->value('value'));
+    return serialize(array('default.jpg'));
 });
 
 Route::get('total-sold-by-size', function(){
@@ -110,6 +111,9 @@ Route::group([
 
 	// Products
 	Route::get('/catalogue/products/', 'ProductController@index');
+    Route::get('/catalogue/products/new', 'ProductController@creationMask');
+    Route::get('/catalogue/products/update', 'ProductController@update');
+    Route::get('/catalogue/products/create-variations', 'ProductController@createVariations');
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
 	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
 	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
