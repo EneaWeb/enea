@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "48fe3dfc5f3a9dc003843534155cde03",
+    "content-hash": "c47be1fdc75fdc698785a5093877f546",
     "packages": [
         {
             "name": "arcanedev/localization",
@@ -70,16 +70,16 @@
         },
         {
             "name": "arcanedev/support",
-            "version": "3.21.2",
+            "version": "3.21.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/Support.git",
-                "reference": "a9daddf937429ee12e09e919dc80ed059061b252"
+                "reference": "e0b1dc0fb1aa2498a12e9d0bb13bcc529d5a334d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/a9daddf937429ee12e09e919dc80ed059061b252",
-                "reference": "a9daddf937429ee12e09e919dc80ed059061b252",
+                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/e0b1dc0fb1aa2498a12e9d0bb13bcc529d5a334d",
+                "reference": "e0b1dc0fb1aa2498a12e9d0bb13bcc529d5a334d",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
                 "laravel",
                 "support"
             ],
-            "time": "2016-12-28T17:13:24+00:00"
+            "time": "2017-01-30T18:22:14+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
@@ -418,17 +418,11 @@
         },
         {
             "name": "egeloen/google-map",
-            "version": "1.4.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/egeloen/ivory-google-map.git",
-                "reference": "9770a3f47888494e9f2d449144508bc805af124f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/egeloen/ivory-google-map/zipball/9770a3f47888494e9f2d449144508bc805af124f",
-                "reference": "9770a3f47888494e9f2d449144508bc805af124f",
-                "shasum": ""
+                "url": "https://github.com/EneaWeb/ivory-google-map.git",
+                "reference": "43dc1d98959cfce0f4ab4105fcbeeba8c587cb92"
             },
             "require": {
                 "egeloen/json-builder": "~1.0.0",
@@ -455,7 +449,6 @@
                     "Ivory\\GoogleMap\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -469,7 +462,7 @@
             "keywords": [
                 "google map"
             ],
-            "time": "2014-10-30T19:30:44+00:00"
+            "time": "2016-07-07 21:14:59"
         },
         {
             "name": "egeloen/http-adapter",
@@ -1056,16 +1049,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.6",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5913b960656d7f978605ff9c1513ffbfd190c173"
+                "reference": "3e226e3481aabe835626739a1507c8af17b76082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5913b960656d7f978605ff9c1513ffbfd190c173",
-                "reference": "5913b960656d7f978605ff9c1513ffbfd190c173",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3e226e3481aabe835626739a1507c8af17b76082",
+                "reference": "3e226e3481aabe835626739a1507c8af17b76082",
                 "shasum": ""
             },
             "require": {
@@ -1181,7 +1174,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-01-27T19:27:15+00:00"
+            "time": "2017-02-01T14:45:01+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1300,16 +1293,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.33",
+            "version": "1.0.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c"
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5c7f98498b12d47f9de90ec9186a90000125777c",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
                 "shasum": ""
             },
             "require": {
@@ -1379,7 +1372,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-23T10:32:09+00:00"
+            "time": "2017-01-30T17:41:17+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -4773,6 +4766,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "egeloen/google-map": 20,
         "laravelcollective/html": 20
     },
     "prefer-stable": false,

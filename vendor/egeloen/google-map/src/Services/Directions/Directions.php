@@ -127,6 +127,10 @@ class Directions extends AbstractService
             $httpQuery['waypoints'] = implode('|', $waypoints);
         }
 
+        if ($apiKey = $this->getApiKey()) {
+            $httpQuery['key'] = $apiKey;
+        }
+
         if ($directionsRequest->hasTravelMode()) {
             $httpQuery['mode'] = strtolower($directionsRequest->getTravelMode());
         }

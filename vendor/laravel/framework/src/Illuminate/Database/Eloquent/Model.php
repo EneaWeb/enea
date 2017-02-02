@@ -14,7 +14,6 @@ use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
-use Auth;
 
 abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
 {
@@ -569,7 +568,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // First we need to create a fresh query instance and touch the creation and
         // update timestamp on the model which are maintained by us for developer
         // convenience. Then we will just continue saving the model instances.
-        if ($this->timestamps) {
+        if ($this->usesTimestamps()) {
             $this->updateTimestamps();
         }
 
@@ -627,7 +626,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // First we'll need to create a fresh query instance and touch the creation and
         // update timestamps on this model, which are maintained by us for developer
         // convenience. After, we will just continue saving these model instances.
-        if ($this->timestamps) {
+        if ($this->usesTimestamps()) {
             $this->updateTimestamps();
         }
 
@@ -1347,17 +1346,5 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     public function __wakeup()
     {
         $this->bootIfNotBooted();
-    }
-
-    /**
-     * X X X X X X X X X X
-     * Prepare for updating, deleting, etc.. 
-     * made for BRAND SQLITE DBS
-     *
-     * @return void
-     */
-    public function prepare()
-    {
-        $this->setConnection(Auth::user()->options->brand_in_use->slug);
     }
 }

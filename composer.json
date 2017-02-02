@@ -8,7 +8,7 @@
         "php": ">=5.6.4",
         "arcanedev/localization": "^1.0",
         "barryvdh/laravel-dompdf": "^0.7.1",
-        "egeloen/google-map": "^1.4",
+        "egeloen/google-map": "dev-master",
         "geocoder-php/geocoder-extra": "^2.1",
         "intervention/image": "^2.3",
         "laravel/framework": "5.4.*",
@@ -17,7 +17,7 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "maatwebsite/excel": "^2.1",
         "spatie/laravel-permission": "^1.7",
-        "willdurand/geocoder": "^3.3"
+        "willdurand/geocoder": "2.8.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -62,6 +62,10 @@
         "laravelcollective": {
             "type": "vcs",
             "url": "https://github.com/maddhatter/html.git"
+        },
+        "egeloen": {
+            "type": "git",
+            "url": "https://github.com/EneaWeb/ivory-google-map.git"
         }
     }
 }
