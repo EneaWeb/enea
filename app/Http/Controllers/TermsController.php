@@ -12,14 +12,18 @@ class TermsController extends Controller
         $attributeId = $request->get('attribute_id');
         $name = $request->get('name');
         $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
-        $hex = $request->get('hex');
+        $color = $request->get('color');
 
         $term = new \App\Term;
         $term->id = $id;
         $term->name = $name;
-        $term->hex = $hex;
+        $term->color = $color;
         $term->attribute_id = $attributeId;
         $term->save();
+
+        if ($request->has('noreturn') && $request->get('noreturn') == 'true') {
+            return 'ok';
+        }
 
         Alert::success(trans('x.Attribute Created'));
         return redirect()->back();
@@ -32,11 +36,11 @@ class TermsController extends Controller
 
         $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
         $name = $request->get('name');
-        $hex = $request->get('hex');
+        $color = $request->get('color');
 
         $term->id = $id;
         $term->name = $name;
-        $term->hex = $hex;
+        $term->color = $color;
 
         $term->save();
 

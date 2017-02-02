@@ -28,7 +28,7 @@
     <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/jquery-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
     {{ HTML::style('/assets/css/flag-icon.min.css') }}
@@ -42,12 +42,14 @@
     <link href="/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
 
+    <link href="/assets/global/plugins/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/dropzone/basic.min.css" rel="stylesheet" type="text/css" />
+
     {{ HTML::style('/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}
 
     {{ HTML::style('/assets/css/alertify.min.css') }}
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="/favicon.ico" /> 
-    </head>
     <!-- END HEAD -->
 
     <style>
@@ -62,4 +64,34 @@
         padding-left:0px!important;
     }
 
+    .boxclose {
+        background-color:#d41515;
+        font-size:10px;
+        line-height:1;
+        padding: 1px 6px 3px 6px;
+        border-radius:50%;
+        color:white;
+        position:absolute;
+        right:-4px;
+        top:-4px;
+        cursor:pointer;
+        opacity:0.5;
+    }
+
+    .boxclose:hover,
+    .boxclose:focus {
+        opacity:1;
+    }
+
+    .deletable-pictures .deletable-picture {
+        max-width:100px;
+        display:inline-block;
+        position:relative;
+        margin:6px;
+    }
+
     </style>
+
+    <script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
+    </head>

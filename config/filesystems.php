@@ -29,6 +29,62 @@ return [
     'cloud' => 's3',
 
     /*
+    +   S3 Structure:
+
+    +   /brands/
+    +   /users/
+    +   /products/
+    +       |
+    +       |___{brand_slug}/
+    +               |
+    +               |___ 400/
+
+    +       |___{brand_slug}/
+    +               |
+    +               |___ 400/
+
+    +       .  .  .  .  
+
+    */
+
+    /*
+    +
+    +   #################################
+    +   STORAGE METHODS
+    +   #################################
+
+    +   always define Storage::disk('s3')
+    
+
+    +   About files:
+
+    +   files($dir) - lists all files in a dir
+    +   allFiles($dir) - lists all files in a dir, recursively
+    +   get($file) - Retrieve a file
+    +   exists($file) - Return if file exists or not
+    +   url($file) - Get the full qualified URL to the file
+    +   size($file) - get file size
+    +   lastModified($file) - get UNIX timestamp of upload
+    +   copy($oldFile, $newFile) - copy a file
+    +   move($oldSpace, $newSpace) - move a file
+    +   delete($file) or delete($filesArray[]) - delete file(s)
+    
+    +   upload a file on S3:
+    +
+    +   $path = $request->file('image')->store(
+            '/{dirs}/{filename}', 's3'
+        );
+
+    +   About directories:
+
+    +   directories($di) - lists all dirs in a dir
+    *   allDirectories($dir) - lists all dirs in a dir, recursively
+    +   makeDirectory($dir) - create directory and needed subdirectories
+    +   deleteDirectory($dir) - delete directory and subdirectories
+    +
+    */
+
+    /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
@@ -57,10 +113,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET'),
-            'region' => env('AWS_REGION'),
-            'bucket' => env('AWS_BUCKET'),
+            'key' => env('AWS_KEY', 'AKIAJX5TP7TCMW6WNZJQ'),
+            'secret' => env('AWS_SECRET', '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'),
+            'region' => env('AWS_REGION', 'eu-central-1'),
+            'bucket' => env('AWS_BUCKET', 'enea-gestionale'),
         ],
 
     ],

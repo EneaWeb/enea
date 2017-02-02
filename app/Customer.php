@@ -93,4 +93,12 @@ class Customer extends Model
         return $this->belongsToMany('\App\Brand');
     }
 
+    public function log($action)
+    {
+        $log = new \App\Log;
+        $log->product_id = $this->id;
+        $log->action = $action;
+        $log->save();
+    }
+
 }

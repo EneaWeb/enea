@@ -69,5 +69,11 @@ class AttributeController extends Controller
         Alert::success(trans('x.Attribute updated'));
         return redirect()->back();
 	}
+
+    public function renderSelector()
+    {
+        return view('components.attributes_selector');
+    }
 	
 }
+

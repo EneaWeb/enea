@@ -25,7 +25,7 @@ class OrderDetail extends Model
     protected $fillable = [
         'order_id',
         'product_id',
-        'product_variation_id',
+        'variation_id',
         'item_id',
         'qty',
         'price',
@@ -75,7 +75,7 @@ class OrderDetail extends Model
         return $this->belongsTo('\App\Product');
     }
     
-    public function product_variation()
+    public function variation()
     {
         return $this->belongsTo('\App\Variation');
     }

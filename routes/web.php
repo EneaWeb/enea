@@ -5,8 +5,33 @@
 */
 
 
+Route::get('clears3', function(){
+    $pictures = Storage::disk('s3')->allFiles('products/test');
+
+    $arr = ['default.jpg'];
+    foreach (\App\Product::all() as $product) {
+        $arr = array_merge($arr, unserialize($product->pictures) );
+        foreach ($product->variations()->get() as $variation) {
+            $arr = array_merge($arr, unserialize($variation->pictures) );
+        }
+    }
+    $arr = array_unique($arr);
+    $brandSlug = \App\X::brandInUseSlug();
+
+    $usedPictures = array();
+    foreach ($arr as $fileName) {
+        $usedPictures[] = 'products/'.$brandSlug.'/'.$fileName;
+        $usedPictures[] = 'products/'.$brandSlug.'/400/'.$fileName;
+    }
+
+    $picturesToDelete = array_diff($pictures, $usedPictures);
+
+    Storage::disk('s3')->delete($picturesToDelete);
+    return 'Deleted '.count($picturesToDelete).' files';
+});
+
 Route::get('test', function(){
-    return serialize(array('default.jpg'));
+    return '<img src="'.Storage::disk('s3')->url('products/test/400/default.jpg').'" />';
 });
 
 Route::get('total-sold-by-size', function(){
@@ -98,6 +123,8 @@ Route::group([
 	Route::get('/settings/payments', 'PaymentController@index');
 	Route::get('/settings/payment/edit', 'PaymentController@edit');
 	Route::get('/settings/payment/delete/{id}', 'PaymentController@delete');
+    Route::get('/settings/lists/', 'ListController@index');
+    Route::get('/Settings/lists/delete/{id}', 'ListController@delete');
 
 	Route::get('/admin/products', 'ProductController@manage');
 	Route::get('/admin/types', 'TypeController@index');
@@ -123,6 +150,7 @@ Route::group([
 	Route::get('/catalogue/product/delete/{id}', 'ProductController@delete');
 	Route::get('/catalogue/product/delete-picture', 'ProductController@delete_product_picture');
 	Route::get('/catalogue/attributes', 'AttributeController@index');
+	Route::get('/catalogue/attributes/selector', 'AttributeController@renderSelector');
 
 	// Attribute Value
 	Route::get('/catalogue/attribute-value/delete/{id}', 'AttributeValueController@delete');
@@ -150,8 +178,6 @@ Route::group([
 	Route::get('/catalogue/seasons/delivery/delete-delivery/{id}', 'SeasonDeliveryController@delete');
 	Route::get('/catalogue/seasons/delivery/edit', 'SeasonDeliveryController@edit');
 	Route::get('/catalogue/seasons/delivery/delete/{id}', 'SeasonDeliveryController@delete');
-	Route::get('/catalogue/seasons/list/delete/{id}', 'SeasonListController@delete');
-	Route::get('/catalogue/seasons/list/edit', 'SeasonListController@edit');
 	Route::get('/catalogue/season/{id}', 'SeasonController@getSeason');
 	Route::get('/catalogue/terms/delete/{id}', 'TermsController@delete');
     
@@ -217,7 +243,8 @@ Route::group([
 	Route::post('/catalogue/season/select', 'OptionController@set_active_season');
 	Route::post('/catalogue/seasons/change', 'SeasonController@change');
 	Route::post('/catalogue/seasons/delivery/new', 'SeasonDeliveryController@create');
-	Route::post('/catalogue/seasons/list/new', 'SeasonListController@create');
+	Route::post('/settings/lists/new', 'ListController@create');
+	Route::post('/settings/lists/edit', 'ListController@edit');
 	Route::post('/catalogue/size/new', 'SizeController@create');
 	Route::post('/catalogue/size/edit', 'SizeController@edit');
 	Route::post('/catalogue/size/reorder', 'SizeController@reorder');
@@ -233,7 +260,7 @@ Route::group([
     Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
     */
-    Route::post('/catalogue/products/upload-picture', 'ProductController@upload_picture');
+    Route::post('/catalogue/upload-picture', 'ProductController@upload_picture');
     
 	Route::post('/catalogue/products/edit-single-prices', 'ProductController@edit_single_prices');
 	Route::post('/order/new/save-line', 'OrderController@save_line');

@@ -6,19 +6,9 @@
 	<div class="page-content-row">
 
         <!-- BEGIN PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav margin-bottom-35">
-                    <li class="active">
-                        <a href="#">
-                            <i class="icon-home"></i> {!!trans('x.Permissions')!!} 
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
+            @include('sidebars.settings')
+
         <!-- END PAGE SIDEBAR -->
         <div class="page-content-col">
 

@@ -6,29 +6,9 @@
 <div class="page-content-container">
    <div class="page-content-row">
         <!-- BEGIN PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav margin-bottom-35">
-                    <li class="active">
-                        <a href="/catalogue/products?show=gallery">
-                        <i class="icon-home"></i> Gallery 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/catalogue/products?show=list">
-                        <i class="icon-note"></i> {!!trans('x.List')!!} 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/catalogue/products/new">
-                        <i class="fa fa-plus"></i> {!!trans('x.New Product')!!} 
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-         </div>
+
+            @include('sidebars.catalogue')
+
          <!-- END PAGE SIDEBAR -->
          <div class="page-content-col">
 

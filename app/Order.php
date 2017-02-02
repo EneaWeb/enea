@@ -103,4 +103,12 @@ class Order extends Model
         return $this->belongsTo('\App\CustomerDelivery');
     }
 
+    public function log($action)
+    {
+        $log = new \App\Log;
+        $log->product_id = $this->id;
+        $log->action = $action;
+        $log->save();
+    }
+
 }

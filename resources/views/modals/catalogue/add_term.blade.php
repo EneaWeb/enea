@@ -7,21 +7,19 @@
             </div>
             <div class="modal-body">
 
-                {!!Form::open(array('url' => '/catalogue/terms/new', 'method'=>'POST'))!!}
-
-                {!!Form::hidden('attribute_id', '', ['id'=>'set_attr_id'])!!}
+                {!!Form::open(array('url' => '/catalogue/terms/new', 'method'=>'POST', 'id'=>'term-form'))!!}
 
                 <div class="modal-body form-horizontal form-group-separated">         
                     <div class="form-group">
                     </div>             
                     <div class="form-group">
-                        {!!Form::label('attribute_show', trans('x.Attribute'), ['class' => 'col-md-3 control-label'])!!}
-                        <div class="col-md-8" style="color:grey; padding-top:7px">
-                            <span id="attribute_show"></span>
+                        {!!Form::label('attribute_id', 'Attribute*', ['class' => 'col-md-3 control-label'])!!}
+                        <div class="col-md-8">
+                            {!!Form::select('attribute_id', \App\Attribute::pluck('name', 'id'),'', ['class' => 'form-control', 'id'=>'set_attr_id'])!!}
                         </div>
                     </div>
                     <div class="form-group">
-                        {!!Form::label('id', 'Slug*', ['class' => 'col-md-3 control-label'])!!}
+                        {!!Form::label('id', 'ID*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
                             {!!Form::input('text', 'id', '', ['class' => 'form-control', 'placeholder' => trans('x.Value')])!!}
                         </div>
@@ -33,9 +31,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!!Form::label('hex', trans('x.Color'), ['class' => 'col-md-3 control-label'])!!}
+                        {!!Form::label('color', trans('x.Color'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::input('text', 'hex', '', ['class' => 'form-control color-selector', 'placeholder' => trans('x.Value')])!!}
+                            {!!Form::input('text', 'color', '', ['class' => 'form-control jq-colorpicker'])!!}
                         </div>
                     </div>
                 </div>

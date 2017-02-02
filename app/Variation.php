@@ -74,4 +74,19 @@ class Variation extends Model
         return $this->belongsToMany('\App\Term', 'term_variation');
     }
 
+    public function getPictures()
+    {
+        return unserialize($this->pictures);
+    }
+
+    public function renderTerms()
+    {
+        return implode(' + ',$this->terms()->pluck('name')->toArray());
+    }
+
+    public function getSizesArray()
+    {
+        return \App\Item::where('variation_id', $this->id)->pluck('size_id')->toArray();
+    }
+
 }

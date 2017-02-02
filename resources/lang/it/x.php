@@ -401,6 +401,20 @@
 'Variations Creation' => 'Creazione Varianti',
 'Multiple selection' => 'Selezione multipla',
 'Product Modified' => 'Articolo Modificato',
+'Models' => 'Modelli',
+'Lists' => 'Listini',
+'Products' => 'Articoli',
+'Customer' => 'Cliente',
+'Payments' => 'Pagamenti',
+'Apply to all' => 'Applica a tutti',
+'Product created' => 'Articolo creato',
+'Delete' => 'Cancella',
+'Remove' => 'Cancella',
+'New' => 'Nuovo',
+'Drop files here or click to upload pictures' => 'Trascina qui o clicca per caricare le immagini',
+'+ Attr' => '+ Attr',
+'Attribute Created' => 'Attributo creato',
+'Cancel' => 'Annulla', 
 ];
 
 return $it;

@@ -6,19 +6,9 @@
 	<div class="page-content-row">
 
         <!-- BEGIN PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav margin-bottom-35">
-                    <li class="active">
-                        <a href="#">
-                            <i class="icon-home"></i> {!!trans('x.Seasons')!!} 
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
+             @include('sidebars.catalogue')
+
         <!-- END PAGE SIDEBAR -->
         <div class="page-content-col">
 
@@ -82,8 +72,8 @@
                                                             </div>
                                                             <div class="task-content">
                                                                 <h4>
-                                                                    @if ($term->hex !== '' && $term->hex !== NULL)
-                                                                        <div style="width:20px; height:18px; display:inline-block; float:left; margin-right:10px; background-color:{!!$term->hex!!}"></div>
+                                                                    @if ($term->color !== '' && $term->color !== NULL)
+                                                                        <div style="width:20px; height:18px; display:inline-block; float:left; margin-right:10px; background-color:{!!$term->color!!}"></div>
                                                                     @endif
                                                                     <b>{!!$term->name!!}</b> [ {!!$term->id!!} ]
                                                                 </h4>
@@ -149,11 +139,8 @@
         attrIdField = $('#set_attr_id');
         $('.addterm').on('click', function(){
             attrId = $(this).data('attribute_id');
-            attrIdField.val(attrId);
-            $('#attribute_show').html(attrId);
+            attrIdField.val(attrId).change();
         });
-
-        $('.color-selector').colorpicker({ /*options...*/ });
 
     </script>
 

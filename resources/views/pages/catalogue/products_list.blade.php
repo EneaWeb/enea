@@ -4,28 +4,13 @@
 
 <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
 <div class="page-content-container">
-   <div class="page-content-row">
-         <!-- BEGIN PAGE SIDEBAR -->
-         <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-               <!-- Brand and toggle get grouped for better mobile display -->
-               <!-- Collect the nav links, forms, and other content for toggling -->
-               <ul class="nav navbar-nav margin-bottom-35">
-                     <li>
-                        <a href="/catalogue/products?show=gallery">
-                           <i class="icon-home"></i> Gallery 
-                        </a>
-                     </li>
-                     <li class="active">
-                        <a href="/catalogue/products?show=list">
-                           <i class="icon-note "></i> {!!trans('x.List')!!} 
-                        </a>
-                     </li>
-               </ul>
-            </nav>
-         </div>
-         <!-- END PAGE SIDEBAR -->
-         <div class="page-content-col">
+    <div class="page-content-row">
+        <!-- BEGIN PAGE SIDEBAR -->
+
+            @include('sidebars.catalogue')
+            
+        <!-- END PAGE SIDEBAR -->
+        <div class="page-content-col">
 
             <!-- BEGIN PAGE BASE CONTENT -->
             <div class="portfolio-content portfolio-1">
@@ -39,16 +24,16 @@
                     </a>
                 </div>
 
-               <div id="js-filters-juicy-projects" class="cbp-l-filters-button" style="display:inline-block; float:left">
-                  <div data-filter="*" class="cbp-filter-item-active cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.All')!!}
-                     <div class="cbp-filter-counter"></div>
-                  </div>
-                  @foreach (\App\Product::groupBy('type_id')->pluck('type_id') as $type_id)
-                     <div data-filter=".{!!$type_id!!}" class="cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.'.\App\Type::find($type_id)->slug)!!}
+            <div id="js-filters-juicy-projects" class="cbp-l-filters-button" style="display:inline-block; float:left">
+                <div data-filter="*" class="cbp-filter-item-active cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.All')!!}
+                    <div class="cbp-filter-counter"></div>
+                </div>
+                @foreach (\App\Product::groupBy('type_id')->pluck('type_id') as $type_id)
+                    <div data-filter=".{!!$type_id!!}" class="cbp-filter-item btn dark btn-outline uppercase"> {!!trans('x.'.\App\Type::find($type_id)->slug)!!}
                         <div class="cbp-filter-counter"></div>
-                     </div>
-                  @endforeach
-               </div>
+                    </div>
+                @endforeach
+            </div>
 
 
                 <div>
@@ -107,8 +92,8 @@
 
             </div>
             <!-- END PAGE BASE CONTENT -->
-         </div>
-   </div>
+        </div>
+    </div>
 </div>
 <!-- END SIDEBAR CONTENT LAYOUT -->
 

@@ -22,7 +22,7 @@ tabella (brand) TERMS
     - id (text)
     - name (text)
     - attribute_id (text)
-    - hex (text)
+    - color (text)
     - timestamps..
 
 tabella (brand) PRODUCT_VARIATIONS
@@ -59,12 +59,25 @@ tabella (brand) PRICE_LISTS
 
 tabella (brand) USER_SEASON_LIST
 => rename table USER_PRICE_LIST
+=> rename column "season_list_id" in "price_list_id"
 
 tabella (brand) ITEMS
 => rename colonna "product_variation_id" in "variation_id"
 
 tabella (brand) ITEM_PRICES
 => rename colonna "season_list_id" in "price_list_id"
+
+tabella (brand) ORDER_DETAILS
+=> rename colonna "product_variation_id" in "variation_id"
+
+tabella (brand) LOGS
+=> create table:
+    id (increment)
+    product_id
+    customer_id
+    order_id
+    action
+    timestamps..
 
 
 #####################################################################################
@@ -81,6 +94,8 @@ Quando faccio UPDATES SU:
 ecc
 
 verificare di modificare anche tutti i relativi ID negli ordini e dettagli ordini.
+
+Verificare che tutte le url di delete (es product/delete ecc) siano accessibili solo da utenti LOGGATI e BRAND MANAGER
 
 
 - Tirare fuori i prices list sono quando sono "attivi" nelle varie liste (ad eccezione di quelle per gli users)

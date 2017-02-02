@@ -8,6 +8,7 @@
         {{-- Start changelog --}}
         <strong>2017.02.01 Ver. 2.0a</strong><br><br>
         <ul>
+            <li>Moved all the pictures storage to Amazon AWS S3</li>
             <li>Error logging improved with Sentry.io real time mail alerts</li>
             <li>Updated Laravel framework from v. 5.2.0 to 5.4.6</li>
             <li>Added 'attributes' and 'terms' models, opening to any possible product variation</li>

@@ -8,7 +8,7 @@
             <div class="modal-body">
                 
             </div>
-            {!!Form::open(array('url' => '/catalogue/seasons/list/edit', 'method'=>'GET'))!!}
+            {!!Form::open(array('url' => '/settings/lists/edit', 'method'=>'GET'))!!}
             
             {!!Form::hidden('id', $list->id)!!}
             {!!Form::hidden('season_id', $list->season_id)!!}

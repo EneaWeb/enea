@@ -19,8 +19,18 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-fw">
                 <li>
-                    <a class="menulink" href="/catalogue/products">
-                        <i class="fa fa-table"></i> {!!trans('x.Catalogue')!!} 
+                    <a class="menulink" href="/catalogue/products?show=gallery">
+                        <i class="fa fa-table"></i> {!!trans('x.Products')!!} 
+                    </a>
+                </li>
+                <li>
+                    <a class="menulink" href="/catalogue/products/new">
+                        <i class="fa fa-plus"></i> {!!trans('x.New')!!} 
+                    </a>
+                </li>
+                <li>
+                    <a class="menulink" href="/catalogue/models">
+                        <i class="fa fa-table"></i> {!!trans('x.Models')!!} 
                     </a>
                 </li>
                 <li>
@@ -76,10 +86,6 @@
                 <li>
                     <a class="menulink" href="/customers">
                     <i class="fa fa-table"></i> {!!trans('x.List')!!} </a>
-                </li>
-                <li>
-                    <a href="#" onclick="document.getElementById('modal_add_customer_button').click();">
-                    <i class="fa fa-plus"></i> {!!trans('x.Add Customer')!!} </a>
                 </li>
             </ul>
         </li>
@@ -138,6 +144,10 @@
                 <li>
                     <a href="/settings/permissions" class="menulink">
                     <i class="fa fa-users"></i> {!!trans('x.Permissions')!!} </a>
+                </li>
+                <li>
+                    <a href="/settings/lists" class="menulink">
+                    <i class="fa fa-dollar"></i> {!!trans('x.Price Lists')!!} </a>
                 </li>
                 <li>
                     <a href="/settings/payments" class="menulink">

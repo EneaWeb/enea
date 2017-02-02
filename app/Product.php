@@ -101,6 +101,16 @@ class Product extends Model
         return \App\Item::where('product_id', $product_id)->groupBy('color_id')->pluck('color_id');
     }
 
+    public function renderVariations()
+    {
+        $msg = '';
+        foreach ($this->variations as $variation) {
+            //return dd($variation->terms()->pluck('name')->toArray());
+            $msg .= implode(' + ',$variation->terms()->pluck('name')->toArray()).'<br>';
+        }
+        return $msg;
+    }
+
     public static function availColors($product_id)
     {
         $str = array();
@@ -134,5 +144,23 @@ class Product extends Model
     {
         return $this->belongsToMany('\App\Term', 'term_product');
     }
-    
+
+    public function log($action)
+    {
+        $log = new \App\Log;
+        $log->product_id = $this->id;
+        $log->action = $action;
+        $log->save();
+    }
+
+    public function getPictures()
+    {
+        return unserialize($this->pictures);
+    }
+
+    public function featuredPicture()
+    {
+        return unserialize($this->pictures)[0];
+    }
+
 }

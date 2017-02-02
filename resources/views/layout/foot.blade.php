@@ -6,25 +6,38 @@
 <script src="/assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
-<script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 
 <!-- MENU coloration for active links -->
 <script>
-   links  = $('.menulink')
-   for(ind in links){
-      link = links[ind];
-      if (link.href !== undefined) {
-         //if (window.location.href.split('/').pop() == link.href.split('/').pop()) {
-            winLocation = window.location.href.replace('it/', '');
-            winLocation = winLocation.replace('en/', '');
-            winLocation = winLocation.replace('es/', '');
-         if (winLocation.indexOf(link.href) !== -1) {
-            $(link).parent('li').addClass('active');
-            $('.dropdown-fw.dropdown-fw-disabled').removeClass('active open selected');
-            $(link).parent('li').parent('ul').parent('li').addClass('active open selected');
-         }
-      }
-   }
+
+    var winLocation = window.location.href.replace('it/', '')
+                                        .replace('en/', '')
+                                        .replace('es/', '')
+                                        .replace('fr/', '');
+    links  = $('.menulink');
+    for(ind in links)
+    {
+        link = links[ind];
+        if (link.href !== undefined) {
+            //if (window.location.href.split('/').pop() == link.href.split('/').pop()) {
+            if (winLocation.indexOf(link.href) !== -1) {
+                $(link).parent('li').addClass('active');
+                $('.dropdown-fw.dropdown-fw-disabled').removeClass('active open selected');
+                $(link).parent('li').parent('ul').parent('li').addClass('active open selected');
+            }
+        }
+    }
+
+    sidebarLinks = $('.sidebarlink');
+    for (ind in sidebarLinks) 
+    {
+        link = sidebarLinks[ind];
+        if (link.href !== undefined) {
+            if (winLocation.indexOf(link.href) !== -1) {
+                $(link).parent('li').addClass('active');
+            }
+        }
+    }
 </script>
 <!-- end MENU coloration for active links -->
 
@@ -69,6 +82,9 @@
 <script src="/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+
+<script src="/assets/global/plugins/jquery-colorpicker/js/colorpicker.js" type="text/javascript"></script>
+
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="/assets/global/scripts/app.min.js" type="text/javascript"></script>
@@ -81,12 +97,13 @@
 <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-buttons.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-rowreorder.js" type="text/javascript"></script>
 
 <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
+
+<script src="/assets/global/plugins/dropzone/dropzone.min.js" type="text/javascript"></script>
 
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="/assets/layouts/layout5/scripts/layout.min.js"z type="text/javascript"></script>
@@ -110,6 +127,19 @@
         format: 'dd/mm/yyyy'
     });
     
+    $('.jq-colorpicker').ColorPicker({
+        onSubmit: function(hsb, hex, rgb, el) {
+            $(el).val('#'+hex).css('background-color', '#'+hex);
+            $(el).ColorPickerHide();
+        },
+        onBeforeShow: function () {
+            $(this).ColorPickerSetColor(this.value);
+        }
+    })
+    .bind('keyup', function(){
+        $(this).ColorPickerSetColor(this.value);
+    });
+
     $('body').on('show.bs.modal', '#modal_edit', function (event) {
 
       var button = $(event.relatedTarget) // Button that triggered the modal

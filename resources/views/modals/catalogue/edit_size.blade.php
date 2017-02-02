@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {!!Form::submit(trans('x.Invite now'), ['class' => 'btn btn-danger'])!!}
+                    {!!Form::submit(trans('x.Save'), ['class' => 'btn btn-danger'])!!}
                     <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('x.Close')!!}</button>
                 </div>
                 {!!Form::close()!!}

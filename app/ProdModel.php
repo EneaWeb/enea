@@ -67,5 +67,10 @@ class ProdModel extends Model
     {
         return $this->belongsTo('\App\Type');
     }
+
+    public function products()
+    {
+        return $this->hasMany('\App\Product', 'prodmodel_id', 'id');
+    }
     
 }

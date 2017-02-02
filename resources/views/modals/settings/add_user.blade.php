@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('season_list_id', trans('x.Season Lists').'*', ['class' => 'col-md-3 control-label'])!!}
+                    {!!Form::label('season_list_id', trans('x.Price Lists').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::select('season_list_id', \App\SeasonList::return_user_lists(), '', ['class'=>'selectpicker form-control', 'multiple'=>'multiple', 'name'=>'season_list_id[]'])!!}
+                        {!!Form::select('price_list_id', \App\PriceList::return_user_lists(), '', ['class'=>'selectpicker form-control', 'multiple'=>'multiple', 'name'=>'price_list_id[]'])!!}
                     </div>
                 </div>
                 <div class="form-group">

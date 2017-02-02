@@ -6,19 +6,9 @@
 <div class="page-content-container">
    <div class="page-content-row">
         <!-- BEGIN PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav margin-bottom-35">
-                    <li class="active">
-                        <a href="#">
-                            <i class="icon-home"></i> {!!trans('x.Product')!!}
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
+            @include('sidebars.catalogue')
+
         <!-- END PAGE SIDEBAR -->
                   
         <div class="page-content-col">
@@ -94,7 +84,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">{!!trans('x.Has variations')!!}</label>
                                                         <div class="col-md-9">
-                                                            {!!Form::select('has_variations', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], '', ['class'=>'form-control'])!!}
+                                                            {!!Form::select('has_variations', ['1'=>trans('x.Yes')], '', ['class'=>'form-control'])!!}
                                                         </div>
                                                     </div>
 
@@ -102,6 +92,12 @@
                                                         <label class="col-md-3 control-label">{!!trans('x.Active')!!}</label>
                                                         <div class="col-md-9">
                                                             {!!Form::select('active', ['1'=>trans('x.Yes'), '0'=>trans('x.No')], '', ['class'=>'form-control'])!!}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" style="margin-botton: 40px;">
+                                                        <div class="dropzone dropzone-file-area" id="dropzone" style="margin: 16px;">
+                                                            <h4 class="sbold">{{trans('x.Drop files here or click to upload pictures')}}</h4>
                                                         </div>
                                                     </div>
 
@@ -142,6 +138,9 @@
                                                                 <button type="button" class="btn btn-info" id="create-variations">
                                                                     {!!trans('x.Create variations from attributes')!!}
                                                                 </button>
+                                                                <a href="#" data-toggle="modal" data-target="#modal_add_term" class="btn btn-danger">
+                                                                    {!!trans('x.+ Attr')!!}
+                                                                </a>
 
                                                             </div>
 
@@ -184,40 +183,128 @@
 </div>
 <!-- END SIDEBAR CONTENT LAYOUT -->
 
+@include('modals.catalogue.add_term')
+
 @stop
 
 {{-- file script form multi select2 : [..]/component-selec2.min.js --}}
 
 @section('pages-scripts')
 
-    <script>
+<script>
 
-        $('#create-variations').on('click', function(){
+    // initiate dropzone
+    Dropzone.autoDiscover = false;
+    $("#dropzone").dropzone({
+        dictDefaultMessage: "",
+        init: function() {
+            this.on("addedfile", function(e) {
+                $('.dz-success-mark, .dz-error-message, .dz-error-mark, .dz-remove').remove();
+                var n = Dropzone.createElement("<a href='javascript:;'' class='btn red btn-sm'>{{trans('x.Delete')}}</a>"),
+                    t = this;
+                n.addEventListener("click", function(n) {
+                    n.preventDefault(), 
+                    n.stopPropagation(), 
+                    t.removeFile(e)
+                }), e.previewElement.appendChild(n)
+            })
+        },
+        url: "/catalogue/upload-picture",
+        addRemoveLinks: true,
+        success: function (file, response) {
+            // debug
+            console.log("Uploaded Product image : " + imgName);
+            // 
+            if (response !== 'not an image') {
+                file.previewElement.classList.add("dz-success");
+                var imgName = response;
+                // create input to populate array of images
+                $('<input>').attr({
+                    type : 'hidden',
+                    name : 'pictures[]',
+                    value : imgName
+                }).appendTo(file.previewElement);
+            }
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        }
+    });
 
-            priceLists = JSON.parse('{!!\App\PriceList::pluck('id')->toJSON()!!}');
+    // make dropzone elements sortable
+    $("#dropzone").sortable({
+        items: '.dz-preview',
+        cursor: 'move',
+        opacity: 0.5,
+        containment: '#dropzone',
+        distance: 20,
+        tolerance: 'pointer'
+    });
 
-            var content = '';
-            var attributes = new Array();
-            $('#variations :selected').each(function(i, selected){ 
-                thisTerm = $(selected).val();
-                thisAttribute = $(selected).data('attribute');
-                attributes.push({ attribute: thisAttribute, term: thisTerm });
+    // apply to all button function
+    $(document).on('click', '.apply-to-all', function(){
+        // get variation container to duplicate (where the click was done)
+        containerId = '#'+$(this).data('container');
+
+        console.log(containerId);
+        // get price for each list and size values
+        prices = $(containerId+' .price');
+        sizes = $(containerId+' .sizes').val();
+
+        // put prices in an array
+        pricesArr = new Array();
+        $.each( prices, function( key, val ) {
+            pricesArr.push( $(prices[key]).val() );
+        });
+
+        // find all other variation containers and loop
+        varContainers = $('.variation-container');
+        $.each( varContainers, function( key, val ) 
+        {
+            // find all prices in variation containers and loop
+            varPrices = $(varContainers[key]).find('.price');
+            $.each( varPrices, function( key, val ) 
+            {   // apply prices
+                $(varPrices[key]).val(pricesArr[key]);
             });
+            // apply sizes
+            $(varContainers[key]).find('.sizes').val(sizes);
+        });
+    });
 
-            $.ajax({
-                url : '/catalogue/products/create-variations',
-                method : 'GET',
-                data: { _token: '{!!csrf_token()!!}', attributes : attributes }
-            })
-            .success(function(msg){
-                 $('#variations-container').empty().hide().html(msg).fadeIn();
-            })
-            .error(function(){
-                alert('ajax error');
-            })
+    // on delete variation (created on the fly) click
+    $(document).on('click', '.delete-variation-otf', function(e){
+        e.preventDefault();
+        // just remove variation portlet
+        $(this).parent().parent().parent().parent().remove();
+    });
 
+    $('#create-variations').on('click', function(){
+
+        priceLists = JSON.parse('{!!\App\PriceList::pluck('id')->toJSON()!!}');
+
+        var content = '';
+        var attributes = new Array();
+        $('#variations :selected').each(function(i, selected){ 
+            thisTerm = $(selected).val();
+            thisAttribute = $(selected).data('attribute');
+            attributes.push({ attribute: thisAttribute, term: thisTerm });
+        });
+
+        $.ajax({
+            url : '/catalogue/products/create-variations',
+            method : 'GET',
+            data: { _token: '{!!csrf_token()!!}', attributes : attributes }
+        })
+        .success(function(msg){
+                $('#variations-container').empty().hide().html(msg).fadeIn();
+        })
+        .error(function(){
+            alert('ajax error');
         })
 
-    </script>
+    })
+
+</script>
 
 @stop

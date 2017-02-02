@@ -34,9 +34,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!!Form::label('hex', trans('x.Color'), ['class' => 'col-md-3 control-label'])!!}
+                        {!!Form::label('color', trans('x.Color'), ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::input('text', 'hex', $term->hex, ['class' => 'form-control color-selector', 'placeholder' => trans('x.Value')])!!}
+                            {!!Form::input('text', 'color', $term->color, ['class' => 'form-control jq-colorpicker', 'style'=>'background-color:'.$term->color.''])!!}
                         </div>
                     </div>
                 </div>

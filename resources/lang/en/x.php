@@ -399,6 +399,19 @@
 'Variations Creation' => 'Variations Creation',
 'Multiple selection' => 'Multiple selection',
 'Product Modified' => 'Product Modified',
+'Models' => 'Models',
+'Lists' => 'Lists',
+'Products' => 'Products',
+'Customer' => 'Customer',
+'Payments' => 'Payments',
+'Apply to all' => 'Apply to all',
+'Product created' => 'Product create',
+'Remove' => 'Remove',
+'New' => 'New',
+'Drop files here or click to upload pictures' => 'Drop files here or click to upload',
+'+ Attr' => '+ Attr',
+'Attribute Created' => 'Attribute Created',
+'Cancel' => 'Cancel', 
 
 ];
 

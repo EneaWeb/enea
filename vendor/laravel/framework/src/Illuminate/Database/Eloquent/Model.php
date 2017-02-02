@@ -14,6 +14,7 @@ use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
+use Auth;
 
 abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
 {
@@ -1346,5 +1347,17 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     public function __wakeup()
     {
         $this->bootIfNotBooted();
+    }
+
+    /**
+     * X X X X X X X X X X
+     * Prepare for updating, deleting, etc.. 
+     * made for BRAND SQLITE DBS
+     *
+     * @return void
+     */
+    public function prepare()
+    {
+        $this->setConnection(Auth::user()->options->brand_in_use->slug);
     }
 }

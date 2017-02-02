@@ -2,6 +2,7 @@
 
 namespace App;
 use Auth;
+use Storage;
 
 class X
 {
@@ -84,6 +85,16 @@ class X
             }
         }
         return $result;
+    }
+
+    public static function s3_products($fileName)
+    {
+        return Storage::disk('s3')->url('products/'.\App\X::brandInUseSlug().'/'.$fileName);
+    }
+
+    public static function s3_products_thumb($fileName)
+    {
+        return Storage::disk('s3')->url('products/'.\App\X::brandInUseSlug().'/400/'.$fileName);
     }
 
 }

@@ -203,4 +203,16 @@
         );
     };
 
+    function confirm_delete_list(id){
+        alertify.confirm( "{!!trans('x.Please Confirm')!!}", "{!!trans('x.Are you sure you want to delete this price list?')!!}", 
+            function () {
+                // positive
+                window.location.href = "/settings/lists/delete/"+id;
+            }, 
+            function() {
+                ; // negative// do nothing 
+            }
+        );
+    };
+
 </script>

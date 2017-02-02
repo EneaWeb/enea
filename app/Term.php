@@ -28,7 +28,7 @@ class Term extends Model
         'id',
         'name',
         'attribute_id',
-        'hex'
+        'color'
     ];
 
     protected $hidden = [
