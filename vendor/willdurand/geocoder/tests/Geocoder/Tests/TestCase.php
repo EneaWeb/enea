@@ -2,9 +2,8 @@
 
 namespace Geocoder\Tests;
 
-use Geocoder\Model\AddressFactory;
-use Ivory\HttpAdapter\HttpAdapterInterface;
-use Ivory\HttpAdapter\CurlHttpAdapter;
+use Geocoder\HttpAdapter\CurlHttpAdapter;
+use Geocoder\HttpAdapter\HttpAdapterInterface;
 
 /**
  * @author William Durand <william.durand1@gmail.com>
@@ -21,25 +20,13 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             $expects = $this->once();
         }
 
-        $stream = $this->getMock('Psr\Http\Message\StreamInterface');
-        $stream
-            ->expects($this->any())
-            ->method('__toString')
-            ->will($this->returnValue(''));
-
-        $response = $this->getMock('Psr\Http\Message\MessageInterface');
-        $response
-            ->expects($this->any())
-            ->method('getBody')
-            ->will($this->returnValue($stream));
-
-        $adapter = $this->getMock('Ivory\HttpAdapter\HttpAdapterInterface');
-        $adapter
+        $mock = $this->getMock('Geocoder\HttpAdapter\HttpAdapterInterface');
+        $mock
             ->expects($expects)
-            ->method('get')
-            ->will($this->returnValue($response));
+            ->method('getContent')
+            ->will($this->returnArgument(0));
 
-        return $adapter;
+        return $mock;
     }
 
     /**
@@ -48,25 +35,13 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getMockAdapterReturns($returnValue)
     {
-        $body = $this->getMock('Psr\Http\Message\StreamInterface');
-        $body
+        $mock = $this->getMock('Geocoder\HttpAdapter\HttpAdapterInterface');
+        $mock
             ->expects($this->once())
-            ->method('__toString')
-            ->will($this->returnValue((string) $returnValue));
+            ->method('getContent')
+            ->will($this->returnValue($returnValue));
 
-        $response = $this->getMock('Psr\Http\Message\MessageInterface');
-        $response
-            ->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue($body));
-
-        $adapter = $this->getMock('Ivory\HttpAdapter\HttpAdapterInterface');
-        $adapter
-            ->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($response));
-
-        return $adapter;
+        return $mock;
     }
 
     /**
@@ -75,9 +50,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      *
      * @return HttpAdapterInterface
      */
-    protected function getAdapter($apiKey = null)
+    protected function getAdapter()
     {
-        return new CachedResponseAdapter(new CurlHttpAdapter(), $this->useCache(), $apiKey);
+        return new CachedResponseAdapter(new CurlHttpAdapter(), $this->useCache());
     }
 
     /**
@@ -86,17 +61,5 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     protected function useCache()
     {
         return isset($_SERVER['USE_CACHED_RESPONSES']) && true === $_SERVER['USE_CACHED_RESPONSES'];
-    }
-
-    protected function createAddress(array $data)
-    {
-        $addresses = (new AddressFactory())->createFromArray([ $data ]);
-
-        return 0 === count($addresses) ? null : $addresses->first();
-    }
-
-    protected function createEmptyAddress()
-    {
-        return $this->createAddress([]);
     }
 }

@@ -10,18 +10,16 @@
 
 namespace Geocoder\Provider;
 
-use Geocoder\Exception\InvalidCredentials as InvalidCredentials;
-use Geocoder\Exception\NoResult as NoResult;
-use Geocoder\Exception\UnsupportedOperation as UnsupportedOperation;
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Geocoder\Exception\InvalidCredentialsException;
+use Geocoder\Exception\NoResultException;
+use Geocoder\Exception\UnsupportedException;
+use Geocoder\HttpAdapter\HttpAdapterInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class HereProvider extends AbstractHttpProvider implements Provider, LocaleAwareProvider
+class HereProvider extends AbstractProvider implements ProviderInterface
 {
-    use LocaleTrait;
-
     /**
      * @var string
      */
@@ -50,11 +48,7 @@ class HereProvider extends AbstractHttpProvider implements Provider, LocaleAware
      */
     public function __construct(HttpAdapterInterface $adapter, $appId, $appCode, $locale = null)
     {
-        parent::__construct($adapter);
-
-        if ($locale) {
-            $this->setLocale($locale);
-        }
+        parent::__construct($adapter, $locale);
 
         $this->appId   = $appId;
         $this->appCode = $appCode;
@@ -71,20 +65,20 @@ class HereProvider extends AbstractHttpProvider implements Provider, LocaleAware
     /**
      * {@inheritDoc}
      */
-    public function geocode($value)
+    public function getGeocodedData($address)
     {
         // This API doesn't handle IPs
-        if (filter_var($value, FILTER_VALIDATE_IP)) {
-            throw new UnsupportedOperation('The HereProvider does not support IP addresses.');
+        if (filter_var($address, FILTER_VALIDATE_IP)) {
+            throw new UnsupportedException('The HereProvider does not support IP addresses.');
         }
 
         if (null === $this->appId || null === $this->appCode) {
-            throw new InvalidCredentials('No App ID or code provided.');
+            throw new InvalidCredentialsException('No App ID or code provided.');
         }
 
         $query = sprintf(
             self::GEOCODE_ENDPOINT_URL,
-            $this->appId, $this->appCode, $this->getLimit(), urlencode($value), $this->getLocale()
+            $this->appId, $this->appCode, $this->getMaxResults(), urlencode($address), $this->getLocale()
         );
 
         return $this->executeQuery($query);
@@ -93,15 +87,15 @@ class HereProvider extends AbstractHttpProvider implements Provider, LocaleAware
     /**
      * {@inheritDoc}
      */
-    public function reverse($latitude, $longitude)
+    public function getReversedData(array $coordinates)
     {
         if (null === $this->appId || null === $this->appCode) {
-            throw new InvalidCredentials('No App ID or code provided.');
+            throw new InvalidCredentialsException('No App ID or code provided.');
         }
 
         $query = sprintf(
             self::REVERSE_ENDPOINT_URL,
-            $this->appId, $this->appCode, $this->getLimit(), $latitude, $longitude
+            $this->appId, $this->appCode, $this->getMaxResults(), $coordinates[0], $coordinates[1]
         );
 
         return $this->executeQuery($query);
@@ -115,22 +109,22 @@ class HereProvider extends AbstractHttpProvider implements Provider, LocaleAware
     protected function executeQuery($query)
     {
         $query   = null !== $this->getLocale() ? sprintf('%s&language=%s', $query, $this->getLocale()) : $query;
-        $content = $this->getAdapter()->get($query)->getBody();
+        $content = $this->getAdapter()->getContent($query);
 
         if (!$data = json_decode($content, true)) {
-            throw new NoResult(sprintf('Could not execute query: %s', $query));
+            throw new NoResultException(sprintf('Could not execute query: %s', $query));
         }
 
         if (!isset($data['Response']) && 'InvalidCredentials' === $data['subtype']) {
-            throw new InvalidCredentials(sprintf('Invalid credentials: %s', $data['details']));
+            throw new InvalidCredentialsException(sprintf('Invalid credentials: %s', $data['details']));
         } elseif (!isset($data['Response'])) {
-            throw new NoResult(
+            throw new NoResultException(
                 sprintf('Error type `%s` returned from api `%s`', $data['subtype'], $data['Details'])
             );
         }
 
         if (empty($data['Response']['View'])) {
-            throw new NoResult(sprintf('Could not find results for given query: %s', $query));
+            throw new NoResultException(sprintf('Could not find results for given query: %s', $query));
         }
 
         $locations = $data['Response']['View'][0]['Result'];
@@ -162,7 +156,6 @@ class HereProvider extends AbstractHttpProvider implements Provider, LocaleAware
                 'countryCode'  => isset($address['Country'])     ? $address['Country']     : null,
                 'region'       => $this->findByKey('StateName', $additionalData),
                 'country'      => $this->findByKey('CountryName', $additionalData),
-                'countyCode'   => null,
             ));
         }
 

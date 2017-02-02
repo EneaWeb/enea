@@ -19,24 +19,24 @@ class HereProviderTest extends TestCase
     /**
      * @expectedException \RuntimeException
      */
-    public function testGeocodeWithNullAppIdAndAppCode()
+    public function testGetGeocodedDataWithNullAppIdAndAppCode()
     {
         $provider = new HereProvider($this->getMockAdapter($this->never()), null, null);
-        $provider->geocode('foo');
+        $provider->getGeocodedData('foo');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
+     * @expectedException \Geocoder\Exception\NoResultException
      * @expectedExceptionMessage http://geocoder.api.here.com/6.2/geocode.json?app_id=app_id&app_code=app_code&maxresults=5&searchtext=bar&gen=6
      */
-    public function testGeocodeWithAddress()
+    public function testGetGeocodedDataWithAddress()
     {
         $provider = new HereProvider($this->getMockAdapter(), 'app_id', 'app_code');
-        $provider->geocode('bar');
+        $provider->getGeocodedData('bar');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\InvalidCredentials
+     * @expectedException \Geocoder\Exception\InvalidCredentialsException
      * @expectedExceptionMessage Invalid credentials: invalid credentials for app_id
      */
     public function testGetInvalidCredentials()
@@ -44,11 +44,11 @@ class HereProviderTest extends TestCase
         $json = '{"details":"invalid credentials for app_id","additionalData":[],"type":"PermissionError","subtype":"InvalidCredentials"}';
 
         $provider = new HereProvider($this->getMockAdapterReturns($json), 'app_id', 'app_code', 'fr-FR');
-        $provider->geocode('foo');
+        $provider->getGeocodedData('foo');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
+     * @expectedException \Geocoder\Exception\NoResultException
      * @expectedExceptionMessage Error type `CustomError` returned from api `custom text`
      */
     public function testGetCustomError()
@@ -56,11 +56,11 @@ class HereProviderTest extends TestCase
         $json = '{"Details":"custom text","additionalData":[],"type":"PermissionError","subtype":"CustomError"}';
 
         $provider = new HereProvider($this->getMockAdapterReturns($json), 'app_id', 'app_code');
-        $provider->geocode('foo');
+        $provider->getGeocodedData('foo');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
+     * @expectedException \Geocoder\Exception\NoResultException
      * @expectedExceptionMessage Could not find results for given query: http://geocoder.api.here.com/6.2/geocode.json?app_id=app_id&app_code=app_code&maxresults=5&searchtext=foobarbaz&gen=6
      */
     public function testGetEmptyResultsWithWrongAddress()
@@ -68,10 +68,10 @@ class HereProviderTest extends TestCase
         $json = '{"Response":{"MetaInfo":{"Timestamp":"2014-09-13T12:32:57.201+0000"},"View":[]}}';
 
         $provider = new HereProvider($this->getMockAdapterReturns($json), 'app_id', 'app_code');
-        $provider->geocode('foobarbaz');
+        $provider->getGeocodedData('foobarbaz');
     }
 
-    public function testGeocodeWithRealAddress()
+    public function testGetGeocodedDataWithRealAddress()
     {
         if (isset($_SERVER['HERE_APP_ID']) && isset($_SERVER['HERE_APP_CODE'])) {
             $provider = new HereProvider($this->getAdapter(), $_SERVER['HERE_APP_ID'], $_SERVER['HERE_APP_CODE']);
@@ -81,7 +81,7 @@ class HereProviderTest extends TestCase
             $provider = new HereProvider($this->getMockAdapterReturns($json), 'app_id', 'app_code');
         }
 
-        $results  = $provider->geocode('Copenhagen');
+        $results  = $provider->getGeocodedData('Copenhagen');
 
         $this->assertInternalType('array', $results);
         $this->assertCount(1, $results);
@@ -107,26 +107,26 @@ class HereProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
+     * @expectedException \Geocoder\Exception\UnsupportedException
      * @expectedExceptionMessage The HereProvider does not support IP addresses.
      */
-    public function testGeocodeWithIPv4()
+    public function testGetGeocodedDataWithIPv4()
     {
         $provider = new HereProvider($this->getAdapter(), 'app_id', 'app_code');
-        $provider->geocode('74.200.247.59');
+        $provider->getGeocodedData('74.200.247.59');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
+     * @expectedException \Geocoder\Exception\UnsupportedException
      * @expectedExceptionMessage The HereProvider does not support IP addresses.
      */
-    public function testGeocodeWithIPv6()
+    public function testGetGeocodedDataWithIPv6()
     {
         $provider = new HereProvider($this->getAdapter(), 'app_id', 'app_code');
-        $provider->geocode('::ffff:74.200.247.59');
+        $provider->getGeocodedData('::ffff:74.200.247.59');
     }
 
-    public function testReverseWithRealCoordinates()
+    public function testGetReversedDataWithRealCoordinates()
     {
         if (isset($_SERVER['HERE_APP_ID']) && isset($_SERVER['HERE_APP_CODE'])) {
             $provider = new HereProvider($this->getAdapter(), $_SERVER['HERE_APP_ID'], $_SERVER['HERE_APP_CODE']);
@@ -136,7 +136,7 @@ class HereProviderTest extends TestCase
             $provider = new HereProvider($this->getMockAdapterReturns($json), 'app_id', 'app_code');
         }
 
-        $results = $provider->reverse(60.4539471768582, 22.2567842183875);
+        $results = $provider->getReversedData(array(60.4539471768582, 22.2567842183875));
 
         $this->assertInternalType('array', $results);
         $this->assertCount(5, $results);

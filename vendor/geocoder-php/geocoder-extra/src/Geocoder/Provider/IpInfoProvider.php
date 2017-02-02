@@ -10,13 +10,13 @@
 
 namespace Geocoder\Provider;
 
-use Geocoder\Exception\UnsupportedOperation;
-use Geocoder\Exception\NoResult;
+use Geocoder\Exception\UnsupportedException;
+use Geocoder\Exception\NoResultException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class IpInfoProvider extends AbstractHttpProvider implements Provider
+class IpInfoProvider extends AbstractProvider implements ProviderInterface
 {
     /**
      * @var string
@@ -26,10 +26,10 @@ class IpInfoProvider extends AbstractHttpProvider implements Provider
     /**
      * {@inheritDoc}
      */
-    public function geocode($address)
+    public function getGeocodedData($address)
     {
         if (!filter_var($address, FILTER_VALIDATE_IP)) {
-            throw new UnsupportedOperation('The IpInfo provider does not support Street addresses.');
+            throw new UnsupportedException('The IpInfoProvider does not support Street addresses.');
         }
 
         if (in_array($address, array('127.0.0.1', '::1'))) {
@@ -37,11 +37,11 @@ class IpInfoProvider extends AbstractHttpProvider implements Provider
         }
 
         $query   = sprintf(self::ENDPOINT_URL, $address);
-        $content = $this->getAdapter()->get($query)->getBody();
+        $content = $this->getAdapter()->getContent($query);
         $data    = json_decode($content, true);
 
-        if (empty($data) || !isset($data['loc']) || '' === $data['loc']) {
-            throw new NoResult(sprintf('Could not execute query %s', $query));
+        if (empty($data) || '' === $data['loc']) {
+            throw new NoResultException(sprintf('Could not execute query %s', $query));
         }
 
         $location = explode(',', $data['loc']);
@@ -59,9 +59,9 @@ class IpInfoProvider extends AbstractHttpProvider implements Provider
     /**
      * {@inheritDoc}
      */
-    public function reverse($latitude, $longitude)
+    public function getReversedData(array $coordinates)
     {
-        throw new UnsupportedOperation('The IpInfo provider is not able to do reverse geocoding.');
+        throw new UnsupportedException('The IpInfoProvider is not able to do reverse geocoding.');
     }
 
     /**

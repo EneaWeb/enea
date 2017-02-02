@@ -10,15 +10,15 @@
 
 namespace Geocoder\Provider;
 
-use Geocoder\Exception\InvalidCredentials;
-use Geocoder\Exception\NoResult;
-use Geocoder\Exception\UnsupportedOperation;
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Geocoder\Exception\InvalidCredentialsException;
+use Geocoder\HttpAdapter\HttpAdapterInterface;
+use Geocoder\Exception\NoResultException;
+use Geocoder\Exception\UnsupportedException;
 
 /**
  * @author Josh Moody <jgmoody@gmail.com>
  */
-class GeocodioProvider extends AbstractHttpProvider implements Provider
+class GeocodioProvider extends AbstractProvider implements ProviderInterface
 {
     /**
      * @var string
@@ -58,15 +58,15 @@ class GeocodioProvider extends AbstractHttpProvider implements Provider
     /**
      * {@inheritDoc}
      */
-    public function geocode($address)
+    public function getGeocodedData($address)
     {
         // This API doesn't handle IPs
         if (filter_var($address, FILTER_VALIDATE_IP)) {
-            throw new UnsupportedOperation('The GeocodioProvider does not support IP addresses.');
+            throw new UnsupportedException('The GeocodioProvider does not support IP addresses.');
         }
 
         if (null === $this->apiKey) {
-            throw new InvalidCredentials('No API Key provided.');
+            throw new InvalidCredentialsException('No API Key provided.');
         }
 
         $query = sprintf(self::GEOCODE_ENDPOINT_URL, urlencode($address), $this->apiKey);
@@ -77,13 +77,13 @@ class GeocodioProvider extends AbstractHttpProvider implements Provider
     /**
      * {@inheritDoc}
      */
-    public function reverse($latitude, $longitude)
+    public function getReversedData(array $coordinates)
     {
         if (null === $this->apiKey) {
-            throw new InvalidCredentials('No API Key provided.');
+            throw new InvalidCredentialsException('No API Key provided.');
         }
 
-        $query = sprintf(self::REVERSE_ENDPOINT_URL, $latitude, $longitude, $this->apiKey);
+        $query = sprintf(self::REVERSE_ENDPOINT_URL, $coordinates[0], $coordinates[1], $this->apiKey);
 
         return $this->executeQuery($query);
     }
@@ -95,22 +95,22 @@ class GeocodioProvider extends AbstractHttpProvider implements Provider
      */
     protected function executeQuery($query)
     {
-        $content = $this->getAdapter()->get($query)->getBody();
+        $content = $this->getAdapter()->getContent($query);
 
         if (null === $content) {
-            throw new NoResult(sprintf('Could not execute query: %s', $query));
+            throw new NoResultException(sprintf('Could not execute query: %s', $query));
         }
 
         $json = json_decode($content, true);
 
         if (!empty($json['error']) && strtolower($json['error']) == 'invalid api key') {
-            throw new InvalidCredentials('Invalid API Key');
+            throw new InvalidCredentialsException('Invalid API Key');
         } elseif (!empty($json['error'])) {
-            throw new NoResult(sprintf('Error returned from api: %s', $json['error']));
+            throw new NoResultException(sprintf('Error returned from api: %s', $json['error']));
         }
 
         if (empty($json['results'])) {
-            throw new NoResult(sprintf('Could not find results for given query: %s', $query));
+            throw new NoResultException(sprintf('Could not find results for given query: %s', $query));
         }
 
         $locations = $json['results'];
@@ -122,23 +122,11 @@ class GeocodioProvider extends AbstractHttpProvider implements Provider
         foreach ($locations as $location) {
             $ctr++;
 
-            if ($ctr <= $this->getLimit()) {
+            if ($ctr <= $this->getMaxResults()) {
 
                 $coordinates = $location['location'];
                 $address = $location['address_components'];
-
-                //Geocodio does not always return a street, number, or suffix
-                if (!isset($address['street']) && isset($json['input']['address_components']['street'])) {
-                    //Sometimes Geocodio returns parsed information in the input
-                    $addressInput = $json['input']['address_components'];
-                    $address['street'] = $addressInput['street'];
-                    $address['number'] = $addressInput['number'];
-                    $address['suffix'] = $addressInput['suffix'];
-                } elseif (!isset($address['street'])) {
-                    $address['street'] = '';
-                    $address['number'] = ''; // No Street = No Number
-                    $address['suffix'] = '';
-                }
+                $street = $address['street'] ?: null;
 
                 if (!empty($address['suffix'])) {
                     $address['street'] .= ' ' . $address['suffix'];

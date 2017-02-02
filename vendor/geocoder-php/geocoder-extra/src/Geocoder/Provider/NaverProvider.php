@@ -10,15 +10,15 @@
 
 namespace Geocoder\Provider;
 
-use Geocoder\Exception\UnsupportedOperation;
-use Geocoder\Exception\InvalidCredentials;
-use Geocoder\Exception\NoResult;
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Geocoder\HttpAdapter\HttpAdapterInterface;
+use Geocoder\Exception\InvalidCredentialsException;
+use Geocoder\Exception\UnsupportedException;
+use Geocoder\Exception\NoResultException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class NaverProvider extends AbstractHttpProvider implements Provider
+class NaverProvider extends AbstractProvider implements ProviderInterface
 {
     /**
      * @var string
@@ -44,27 +44,27 @@ class NaverProvider extends AbstractHttpProvider implements Provider
     /**
      * {@inheritDoc}
      */
-    public function geocode($address)
+    public function getGeocodedData($address)
     {
         if (null === $this->apiKey) {
-            throw new InvalidCredentials('No API Key provided');
+            throw new InvalidCredentialsException('No API Key provided');
         }
 
         // This API doesn't handle IPs
         if (filter_var($address, FILTER_VALIDATE_IP)) {
-            throw new UnsupportedOperation('The NaverProvider does not support IP addresses.');
+            throw new UnsupportedException('The NaverProvider does not support IP addresses.');
         }
 
         $query = sprintf(self::ENDPOINT_URL, $this->apiKey, rawurlencode($address));
 
         try {
-            $result = new \SimpleXmlElement($this->getAdapter()->get($query)->getBody());
+            $result = new \SimpleXmlElement($this->getAdapter()->getContent($query));
         } catch (\Exception $e) {
-            throw new NoResult(sprintf('Could not execute query %s', $query));
+            throw new NoResultException(sprintf('Could not execute query %s', $query));
         }
 
         if (0 === (int) $result->total) {
-            throw new NoResult(sprintf('Could not execute query %s', $query));
+            throw new NoResultException(sprintf('Could not execute query %s', $query));
         }
 
         return array(array_merge($this->getDefaults(), array(
@@ -78,17 +78,15 @@ class NaverProvider extends AbstractHttpProvider implements Provider
                 ? trim((string) $result->item->addrdetail->sido->sigugun->dongmyun) : null,
             'streetNumber' => isset($result->item->addrdetail->sido->sigugun->dongmyun->rest)
                 ? (string) $result->item->addrdetail->sido->sigugun->dongmyun->rest : null,
-            'zipcode'      => null,
-            'cityDistrict' => null,
         )));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function reverse($latitude, $longitude)
+    public function getReversedData(array $coordinates)
     {
-        throw new UnsupportedOperation('The NaverProvider is not able to do reverse geocoding.');
+        throw new UnsupportedException('The NaverProvider is not able to do reverse geocoding.');
     }
 
     /**

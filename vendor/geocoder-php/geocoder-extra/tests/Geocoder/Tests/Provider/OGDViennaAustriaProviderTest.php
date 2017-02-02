@@ -18,29 +18,29 @@ class OGDViennaAustriaProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
+     * @expectedException \Geocoder\Exception\NoResultException
      * @expectedExceptionMessage Could not execute query http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?CRS=EPSG:4326&Address=Stephansplatz
      */
-    public function testGeocodeWithAddress()
+    public function testGetGeocodedDataWithAddress()
     {
         $provider = new OGDViennaAustriaProvider($this->getMockAdapter());
-        $provider->geocode('Stephansplatz');
+        $provider->getGeocodedData('Stephansplatz');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
+     * @expectedException \Geocoder\Exception\NoResultException
      * @expectedExceptionMessage Could not execute query http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?CRS=EPSG:4326&Address=yyyyyyy
      */
-    public function testGeocodeWithWrongAddress()
+    public function testGetGeocodedDataWithWrongAddress()
     {
         $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $provider->geocode('yyyyyyy');
+        $provider->getGeocodedData('yyyyyyy');
     }
 
-    public function testGeocodeWithRealAddress()
+    public function testGetGeocodedDataWithRealAddress()
     {
         $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $result   = $provider->geocode('Stephansplatz');
+        $result   = $provider->getGeocodedData('Stephansplatz');
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
@@ -63,78 +63,52 @@ class OGDViennaAustriaProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
-     * @expectedExceptionMessage The OGDViennaAustria provider does not support IP addresses.
+     * @expectedException \Geocoder\Exception\UnsupportedException
+     * @expectedExceptionMessage The OGDViennaAustriaProvider does not support IP addresses.
      */
-    public function testGeocodeWithLocalhostIPv4()
+    public function testGetGeocodedDataWithLocalhostIPv4()
     {
         $provider = new OGDViennaAustriaProvider($this->getMockAdapter($this->never()));
-        $provider->geocode('127.0.0.1');
+        $provider->getGeocodedData('127.0.0.1');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
-     * @expectedExceptionMessage The OGDViennaAustria provider does not support IP addresses.
+     * @expectedException \Geocoder\Exception\UnsupportedException
+     * @expectedExceptionMessage The OGDViennaAustriaProvider does not support IP addresses.
      */
-    public function testGeocodeWithLocalhostIPv6()
+    public function testGetGeocodedDataWithLocalhostIPv6()
     {
         $provider = new OGDViennaAustriaProvider($this->getMockAdapter($this->never()));
-        $provider->geocode('::1');
+        $provider->getGeocodedData('::1');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
-     * @expectedExceptionMessage The OGDViennaAustria provider does not support IP addresses.
+     * @expectedException \Geocoder\Exception\UnsupportedException
+     * @expectedExceptionMessage The OGDViennaAustriaProvider does not support IP addresses.
      */
-    public function testGeocodeWithIPv4()
+    public function testGetGeocodedDataWithIPv4()
     {
         $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $provider->geocode('74.200.247.59');
+        $provider->getGeocodedData('74.200.247.59');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\UnsupportedOperation
-     * @expectedExceptionMessage The OGDViennaAustria provider does not support IP addresses.
+     * @expectedException \Geocoder\Exception\UnsupportedException
+     * @expectedExceptionMessage The OGDViennaAustriaProvider does not support IP addresses.
      */
-    public function testGeocodeWithIPv6()
+    public function testGetGeocodedDataWithIPv6()
     {
         $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $provider->geocode('::ffff:74.200.247.59');
-    }
-
-    public function testReverse()
-    {
-        $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $result = $provider->reverse(48.230149, 16.350108);
-
-        $this->assertInternalType('array', $result);
-        $this->assertCount(1, $result);
-
-        $result = $result[0];
-        $this->assertInternalType('array', $result);
-        $this->assertEquals(48.230149, $result['latitude'], '', 0.0001);
-        $this->assertEquals(16.350108, $result['longitude'], '', 0.0001);
-        $this->assertArrayHasKey('south', $result['bounds']);
-        $this->assertArrayHasKey('north', $result['bounds']);
-        $this->assertArrayHasKey('east', $result['bounds']);
-        $this->assertArrayHasKey('west', $result['bounds']);
-        $this->assertEquals('Währinger Gürtel', $result['streetName']);
-        $this->assertEquals('121', $result['streetNumber']);
-        $this->assertEquals('1180', $result['zipcode']);
-        $this->assertEquals('Wien', $result['city']);
-        $this->assertEquals('Vienna', $result['region']);
-        $this->assertEquals('Vienna', $result['regionCode']);
-        $this->assertEquals('AT', $result['countryCode']);
-        $this->assertEquals('Europe/Vienna', $result['timezone']);
+        $provider->getGeocodedData('::ffff:74.200.247.59');
     }
 
     /**
-     * @expectedException \Geocoder\Exception\NoResult
-     * @expectedExceptionMessage Result distance to far away
+     * @expectedException \Geocoder\Exception\UnsupportedException
+     * @expectedExceptionMessage The OGDViennaAustriaProvider is not able to do reverse geocoding.
      */
-    public function testReverseWithInvalidCoordinates()
+    public function testGetReverseData()
     {
-        $provider = new OGDViennaAustriaProvider($this->getAdapter());
-        $provider->reverse(16.35, 48.23);
+        $provider = new OGDViennaAustriaProvider($this->getMockAdapter($this->never()));
+        $provider->getReversedData(array(1, 2));
     }
 }
