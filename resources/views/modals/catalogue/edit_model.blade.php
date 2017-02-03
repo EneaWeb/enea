@@ -3,11 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="smallModalHead">{!! trans('x.Invite an user to work with you') !!}!</h4>
+                <h4 class="modal-title" id="smallModalHead">{!! trans('x.Edit Model') !!}</h4>
             </div>
             <div class="modal-body">
 
-                {!!Form::open(array('url' => '/catalogue/model/edit', 'method'=>'POST'))!!}
+                {!!Form::open(array('url' => '/catalogue/models/edit', 'method'=>'POST'))!!}
 
                 {!!Form::hidden('model_id', $model->id)!!}
 
@@ -15,21 +15,27 @@
                     <div class="form-group">
                     </div>             
                     <div class="form-group">
-                        {!!Form::label('companyname', trans('x.ID').'*', ['class' => 'col-md-3 control-label'])!!}
-                        <div class="col-md-8">
-                            {!!Form::input('text', 'id', $model->id, ['class' => 'form-control', 'placeholder' => trans('x.ID')])!!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {!!Form::label('text', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}
+                        {!!Form::label('name', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
                             {!!Form::input('text', 'name', $model->name, ['class' => 'form-control', 'placeholder' => trans('x.Name')])!!}
                         </div>
                     </div>
                     <div class="form-group">
-                        {!!Form::label('text', trans('x.Slug').'*', ['class' => 'col-md-3 control-label'])!!}
+                        {!!Form::label('slug', trans('x.Slug').'*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
-                            {!!Form::input('text', 'name', $model->slug, ['class' => 'form-control', 'placeholder' => trans('x.Name')])!!}
+                            {!!Form::input('text', 'slug', $model->slug, ['class' => 'form-control', 'placeholder' => trans('x.Name')])!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!!Form::label('type_id', trans('x.Type').'*', ['class' => 'col-md-3 control-label'])!!}
+                        <div class="col-md-8">
+                            {!!Form::select('type_id', \App\Type::pluck('name', 'id'), $model->type_id, ['class' => 'form-control'])!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!!Form::label('active', trans('x.Active').'*', ['class' => 'col-md-3 control-label'])!!}
+                        <div class="col-md-8">
+                            {!!Form::select('active', ['1'=>trans('x.Active'), '0'=>trans('x.Inactive')], $model->active, ['class' => 'form-control'])!!}
                         </div>
                     </div>
                 </div>

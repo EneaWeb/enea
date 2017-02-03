@@ -3,19 +3,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="smallModalHead">{!! trans('x.Invite an user to work with you') !!}!</h4>
+                <h4 class="modal-title" id="smallModalHead">{!! trans('x.Create Model') !!}</h4>
             </div>
             <div class="modal-body">
 
-                {!!Form::open(array('url' => '/catalogue/model/new', 'method'=>'POST'))!!}
+                {!!Form::open(array('url' => '/catalogue/models/new', 'method'=>'POST'))!!}
                 <div class="modal-body form-horizontal form-group-separated">         
                     <div class="form-group">
-                    </div>             
-                    <div class="form-group">
-                        {!!Form::label('companyname', trans('x.ID').'*', ['class' => 'col-md-3 control-label'])!!}
-                        <div class="col-md-8">
-                            {!!Form::input('text', 'id', '', ['class' => 'form-control', 'placeholder' => trans('x.ID')])!!}
-                        </div>
                     </div>
                     <div class="form-group">
                         {!!Form::label('name', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}
@@ -27,6 +21,12 @@
                         {!!Form::label('slug', trans('x.Slug').'*', ['class' => 'col-md-3 control-label'])!!}
                         <div class="col-md-8">
                             {!!Form::input('text', 'slug', '', ['class' => 'form-control', 'placeholder' => trans('x.Slug')])!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!!Form::label('type_id', trans('x.Type').'*', ['class' => 'col-md-3 control-label'])!!}
+                        <div class="col-md-8">
+                            {!!Form::select('type_id', \App\Type::pluck('name', 'id'),'', ['class' => 'form-control'])!!}
                         </div>
                     </div>
                 </div>

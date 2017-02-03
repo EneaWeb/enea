@@ -76,10 +76,12 @@ class SizeController extends Controller
 			$size = \App\Size::find($request->get('size_id'));
             $id = $request->get('id');
             $name = $request->get('name');
+            $active = $request->get('active');
             $types = serialize($request->get('types'));
 
             $size->id = $id;
             $size->name = $name;
+            $size->active = $active;
             $size->types = $types;
             $size->save();
 

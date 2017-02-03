@@ -6,7 +6,9 @@
 
 
 Route::get('clears3', function(){
-    $pictures = Storage::disk('s3')->allFiles('products/test');
+    $brandSlug = \App\X::brandInUseSlug();
+
+    $pictures = Storage::disk('s3')->allFiles('products/'.$brandSlug);
 
     $arr = ['default.jpg'];
     foreach (\App\Product::all() as $product) {
@@ -16,7 +18,6 @@ Route::get('clears3', function(){
         }
     }
     $arr = array_unique($arr);
-    $brandSlug = \App\X::brandInUseSlug();
 
     $usedPictures = array();
     foreach ($arr as $fileName) {
@@ -133,13 +134,11 @@ Route::group([
 
 	// Models
 	Route::get('/catalogue/models/', 'ProdModelController@index');
-	Route::get('/catalogue/model/edit', 'ProdModelController@edit');
 	Route::get('/catalogue/model/delete/{id}', 'ProdModelController@delete');
 
 	// Products
 	Route::get('/catalogue/products/', 'ProductController@index');
     Route::get('/catalogue/products/new', 'ProductController@creationMask');
-    Route::get('/catalogue/products/update', 'ProductController@update');
     Route::get('/catalogue/products/create-variations', 'ProductController@createVariations');
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
 	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
@@ -253,9 +252,12 @@ Route::group([
 	Route::post('/customers/new', 'CustomerController@create');
 	Route::post('/customer-delivery/new', 'CustomerDeliveryController@create');
 	Route::post('/catalogue/models/new', 'ProdModelController@create');
+	Route::post('/catalogue/models/edit', 'ProdModelController@edit');
 	Route::post('/catalogue/products/new', 'ProductController@create');
 	Route::post('/catalogue/colors/new', 'ColorController@create');
 	Route::post('/catalogue/product/edit-product', 'ProductController@edit');
+    Route::post('/catalogue/products/update', 'ProductController@update');
+
 	/*
     Route::post('/catalogue/products/add-main-picture', 'ProductController@add_main_picture');
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');

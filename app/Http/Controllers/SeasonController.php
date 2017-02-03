@@ -21,12 +21,18 @@ class SeasonController extends Controller
 		
 	}
 	
-	public function change()
+	public function change(Request $request)
 	{
-		if (Input::has('season_id'))
-			$season_id = Input::get('season_id');
+		if ($request->has('season_id')) 
+        {
+            $option = \App\Option::where('name', 'active_season')->first();
+            $option->value = $request->get('season_id');
+            $option->setConnection(\App\X::brandInUseSlug());
+            $option->save();
+            \App\Alert::success(trans('x.Season changed'));
+        }
 		
-		return redirect('/catalogue/season/'.$season_id);
+		return redirect('/catalogue/seasons');
 	}
 	
 	public function getSeason($id)

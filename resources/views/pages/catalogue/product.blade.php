@@ -6,24 +6,9 @@
 <div class="page-content-container">
    <div class="page-content-row">
         <!-- BEGIN PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            <nav class="navbar" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav margin-bottom-35">
-                    <li class="active">
-                        <a href="#">
-                            <i class="icon-home"></i> {!!trans('x.Product')!!}
-                        </a>
-                        <li>
-                            <a href="/catalogue/products/new">
-                            <i class="fa fa-plus"></i> {!!trans('x.New Product')!!} 
-                            </a>
-                        </li>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
+            @include('sidebars.catalogue')
+
         <!-- END PAGE SIDEBAR -->
                   
         <div class="page-content-col">
@@ -58,7 +43,7 @@
 
                                         <div class="row">
                                             
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                     
                                                 <style>
                                                 .cbp-lightbox img {
@@ -92,7 +77,7 @@
                                             
                                             </div>
                                             
-                                            <div class="col-md-9 profile-info">
+                                            <div class="col-md-8 profile-info">
                                             <br>
                                                 <table class="table">
                                                     <tr>
@@ -106,6 +91,10 @@
                                                     <tr>
                                                         <td>{!!trans('x.Product')!!}</td>
                                                         <td><strong>{!!$product->name!!}</strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{!!trans('x.Type')!!}</td>
+                                                        <td>{!!trans('x.'.$product->type->name)!!}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>{!!trans('x.Description')!!}</td>
@@ -157,7 +146,7 @@
                                     </div>
                                     <div class="tab-pane portlet-body flip-scroll" id="tab_edit">
                                         
-                                        {!!Form::open(['url'=>'/catalogue/products/update', 'method'=>'GET', 'class'=>'form-horizontal', 'id'=>'product-form'])!!}
+                                        {!!Form::open(['url'=>'/catalogue/products/update', 'method'=>'POST', 'class'=>'form-horizontal', 'id'=>'product-form'])!!}
                                         {!!Form::hidden('product_id', $product->id)!!}
 
                                         <div class="row">
@@ -320,9 +309,9 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab_history">
-                                        <div class="table-container">
-                                            (funzione in lavorazione)
-                                        </div>
+                                    
+                                        @include('components.log_lines')
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -371,7 +360,7 @@
         addRemoveLinks: true,
         success: function (file, response) {
             // debug
-            console.log("Uploaded Product image : " + imgName);
+            console.log("Uploaded Product image : " + response);
             // 
             if (response !== 'not an image') {
                 file.previewElement.classList.add("dz-success");

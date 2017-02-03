@@ -51,7 +51,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <div class="task-list panel-collapse collapse in" id="task-attr-{!!$attr->id!!}">
+                                                <div class="task-list panel-collapse collapse" id="task-attr-{!!$attr->id!!}">
                                                     <ul>
 
                                                         {{-- TERMS --}}

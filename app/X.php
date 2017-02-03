@@ -22,6 +22,11 @@ class X
         return Auth::user()->options->brand_in_use->slug;
     }
 
+    public static function brandInUseId()
+    {
+        return Auth::user()->options->brand_in_use->value;
+    }
+
     public static function brandInUseName()
     {
         return Auth::user()->options->brand_in_use->name;

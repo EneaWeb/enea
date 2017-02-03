@@ -40,6 +40,16 @@
                                                 <i class="fa fa-umbrella"></i>
                                             </div>
                                             <div class="list-todo-item dark">
+                                                <div class="btn-group" style="float:right; margin:7px 6px 0px 12px;">
+                                                    @if (\App\X::activeSeason() == $season->id)
+                                                        <span class="btn" style="color:white!important;" disabled>{{trans('x.Already active')}}</span>
+                                                    @else
+                                                        {!!Form::open(['method'=>'POST', 'url'=>'/catalogue/seasons/change'])!!}
+                                                        {!!Form::hidden('season_id', $season->id, ['class'=>'form-control'])!!}
+                                                        {!!Form::submit(trans('x.Activate now'), ['class'=>'btn btn-info btn-md'])!!}
+                                                        {!!Form::close()!!}
+                                                    @endif
+                                                </div>
                                                 <a class="list-toggle-container" data-toggle="collapse" data-parent="#accordion1" onclick=" " href="#task-season-{!!$season->id!!}" aria-expanded="false">
                                                     <div class="list-toggle done">
                                                         <div class="list-toggle-title">
@@ -102,7 +112,7 @@
                                                             <a class="task-trash" href="javascript:;">
                                                                 <div class="task-footer bg-grey">
                                                                     <div class="row">
-                                                                        <a href="#" data-toggle="modal" data-target="#modal_add_delivery">
+                                                                        <a href="#" data-toggle="modal" id="button-add-delivery" data-season_id="{!!$season->id!!}" data-target="#modal_add_delivery">
                                                                             <div class="col-xs-12">
                                                                                 <i class="fa fa-plus"></i>
                                                                             </div>
@@ -149,5 +159,15 @@
     @include('modals.seasons.edit_delivery')
 @endforeach
 
+@stop
+
+@section('pages-scripts')
+
+    <script>
+        $('#button-add-delivery').on('click', function(){
+            seasonId = $(this).data('season_id');
+            $('#select-season').val(seasonId);
+        });
+    </script>
 
 @stop

@@ -42,7 +42,7 @@
                                 </label>
                                 <div class="col-md-9">
                                     <select class="form-control sizes" name="variations[{!!$k!!}][sizes][]" multiple>
-                                        @foreach(\App\Size::all() as $size)
+                                        @foreach(\App\Size::where('active', '1')->get() as $size)
                                             <option value="{!!$size->id!!}">{!!$size->name!!}</option>
                                         @endforeach
                                     </select>

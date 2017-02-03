@@ -42,7 +42,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">{!!trans('x.Season')!!}</label>
                                                         <div class="col-md-9">
-                                                            {!!Form::select('season_id', \App\Season::pluck('name', 'id'), '', ['class'=>'form-control'])!!}
+                                                            {!!Form::select('season_id', \App\Season::pluck('name', 'id'), \App\X::activeSeason(), ['class'=>'form-control'])!!}
                                                         </div>
                                                     </div>
 
@@ -124,10 +124,10 @@
                                                             <label for="multiple" class="col-md-3 control-label">{!!trans('x.Attributes')!!}</label>
                                                             <div class="col-md-9">
                                                                 <select id="variations" class="form-control select2-multiple" multiple>
-                                                                    @foreach(\App\Attribute::all() as $attribute)
+                                                                    @foreach(\App\Attribute::where('active', '1')->get() as $attribute)
                                                                         <optgroup label="{!!$attribute->name!!}">
-                                                                        @foreach ($attribute->terms as $term)
-                                                                            <option value="{!!$term->id!!}" data-attribute="{!!$term->attribute->id!!}">{!!$term->name!!}</option>
+                                                                        @foreach (\App\Term::where('attribute_id', $attribute->id)->where('active', '1')->orderBy('id')->get() as $term)
+                                                                            <option value="{!!$term->id!!}" data-attribute="{!!$term->attribute->id!!}">{!!$term->id!!} {!!$term->name!!}</option>
                                                                         @endforeach
                                                                         </optgroup>
                                                                     @endforeach
@@ -213,7 +213,7 @@
         addRemoveLinks: true,
         success: function (file, response) {
             // debug
-            console.log("Uploaded Product image : " + imgName);
+            console.log("Uploaded Product image : " + response);
             // 
             if (response !== 'not an image') {
                 file.previewElement.classList.add("dz-success");

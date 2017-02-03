@@ -63,14 +63,14 @@
 																<a href="#tab_1_22" data-toggle="tab"> {!!trans('x.Delivery Addresses')!!}  </a>
 															</li>
 															<li>
-																<a href="#tab_1_23" data-toggle="tab"> History </a>
+                                                                <a href="#tab_1_23" data-toggle="tab"> {!!trans('x.History')!!} </a>
 															</li>
 													</ul>
 													<div class="tab-content">
 															<div class="tab-pane active" id="tab_1_11">
 																<div class="portlet-body">
 																	
-																	 @include('components.orders_table')
+																	@include('components.orders_table')
 
 																</div>
 															</div>
@@ -123,26 +123,9 @@
 															<div class="tab-pane" id="tab_1_23">
 																<div class="tab-pane active" id="tab_1_2_3">
 																	<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-																			<ul class="feeds">
-																				<li>
-																					<div class="col1">
-																							<div class="cont">
-																								<div class="cont-col1">
-																									<div class="label label-success">
-																											<i class="fa fa-bell-o"></i>
-																									</div>
-																								</div>
-																								<div class="cont-col2">
-																									<div class="desc"> funzione in lavorazione
-																									</div>
-																								</div>
-																							</div>
-																					</div>
-																					<div class="col2">
-																							<div class="date"> .. </div>
-																					</div>
-																				</li>
-																			</ul>
+																		
+                                                                        @include('components.log_lines')
+
 																	</div>
 																</div>
 															</div>

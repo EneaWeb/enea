@@ -79,6 +79,8 @@ class CustomerController extends Controller
 										->orderBy('id', 'desc')
 										->get();
 
+        $logs = \App\Log::where('customer_id', $customer->id);
+
 		$address = $customer->address.' - '.$customer->postcode.' '.$customer->city.' ('.$customer->province.') - '.$customer->country;
 		
 		/*
@@ -118,7 +120,8 @@ class CustomerController extends Controller
 		                                            'autocomplete2', 
 		                                            'autocompleteHelper',
 		                                            'supportedLocales',
-																  'orders'));
+												    'orders',
+                                                    'logs'));
 	}
 	
 	public function create()

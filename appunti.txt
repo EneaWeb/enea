@@ -1,3 +1,9 @@
+->setConnection(\App\X::brandInUseSlug());
+
+
+
+
+
 # MODIFICHE DB
 
 
@@ -73,6 +79,7 @@ tabella (brand) ORDER_DETAILS
 tabella (brand) LOGS
 => create table:
     id (increment)
+    user_id
     product_id
     customer_id
     order_id

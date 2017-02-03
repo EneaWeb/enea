@@ -2,6 +2,10 @@
     
 'Action' => 'Azione',
 'Active' => 'Attivo',
+'Inactive' => 'Non attivo',
+'Activate now' => 'Attiva ora',
+'Deactivate' => 'Disattiva',
+'Already active' => 'Già attiva',
 'Active Season updated' => 'Stagione attiva aggiornata',
 'Active stats list' => 'Lista dei grafici attivi',
 'Active Users for brand' => 'Utenti attivi per il brand',
@@ -415,6 +419,16 @@
 '+ Attr' => '+ Attr',
 'Attribute Created' => 'Attributo creato',
 'Cancel' => 'Annulla', 
+'updated' => 'ha modificato',
+'created' => 'ha creato',
+'deleted' => 'ha eliminato',
+'Create Model' => 'Crea Modello',
+'Edit Model' => 'Modifica Modello',
+'Model updated' => 'Modello aggiornato',
+'Add Price List' => 'Aggiungi Listino Prezzi',
+'Edit Price List' => 'Modifica Listino Prezzi',
+'New season' => 'Nuova stagione',
+
 ];
 
 return $it;

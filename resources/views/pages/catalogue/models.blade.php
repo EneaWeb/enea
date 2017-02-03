@@ -34,6 +34,8 @@
                                     <th>{!!trans('x.ID')!!}</th>
                                     <th>{!!trans('x.Name')!!}</th>
                                     <th>{!!trans('x.Slug')!!}</th>
+                                    <th>{!!trans('x.Type')!!}</th>
+                                    <th>{!!trans('x.Active')!!}</th>
                                     <th>{!!trans('x.Options')!!}</th>
                                 </tr>
                             </thead>
@@ -43,6 +45,8 @@
                                         <td class="id">{!!$model->id!!}</td>
                                         <td>{!!$model->name!!}</td>
                                         <td>{!!$model->slug!!}</td>
+                                        <td>{!!trans('x.'.$model->type->name)!!}</td>
+                                        <td>{!!$model->active == 1 ? trans('x.Active') : trans('x.Inactive')!!}</td>
                                         <td>
                                             <a href="#" data-toggle="modal" data-target="#modal_edit_model{!!$model->id!!}" class="btn btn-rounded btn-condensed btn-sm">
                                                 <i class="fa fa-pencil"></i>

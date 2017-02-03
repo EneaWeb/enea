@@ -46,7 +46,7 @@
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control sizes" name="variations[{!!$variation->id!!}][sizes][]" style="height:200px" multiple>
-                                    @foreach(\App\Size::all() as $size)
+                                    @foreach(\App\Size::where('active', '1')->get() as $size)
                                         @if (!\App\Item::where('variation_id', $variation->id)->where('size_id', $size->id)->get()->isEmpty() )
                                             <option value="{!!$size->id!!}" selected="selected">{!!$size->name!!}</option>
                                         @else

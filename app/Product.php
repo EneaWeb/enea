@@ -140,16 +140,17 @@ class Product extends Model
     }
 
     // use: $product->terms()->associate($term);
-    public function terms()
-    {
-        return $this->belongsToMany('\App\Term', 'term_product');
-    }
+    // public function terms()
+    // {
+    //     return $this->belongsToMany('\App\Term', 'term_product');
+    // }
 
     public function log($action)
     {
         $log = new \App\Log;
         $log->product_id = $this->id;
         $log->action = $action;
+        $log->user_id = Auth::user()->id;
         $log->save();
     }
 

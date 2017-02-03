@@ -11,7 +11,7 @@ class TermsController extends Controller
 
         $attributeId = $request->get('attribute_id');
         $name = $request->get('name');
-        $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
+        $id = trim(str_replace('/','-', str_replace(' ','-',strtolower($request->get('id')))));
         $color = $request->get('color');
 
         $term = new \App\Term;
@@ -34,7 +34,7 @@ class TermsController extends Controller
         $termId = $request->get('term_id');
         $term = \App\Term::find($termId);
 
-        $id = trim(str_replace(' ','-',strtolower($request->get('id'))));
+        $id = trim(str_replace('/','-', str_replace(' ','-',strtolower($request->get('id')))));
         $name = $request->get('name');
         $color = $request->get('color');
 

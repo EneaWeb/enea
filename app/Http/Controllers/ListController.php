@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Input;
 use Auth;
 use \App\PriceList as PriceList;
 use \App\Alert as Alert;
@@ -18,10 +17,10 @@ class ListController extends Controller
         return view('pages.settings.lists', compact('lists'));
     }
 
-	public function create()
+	public function create(Request $request)
 	{
 		// try to validate the Input
-		$v = PriceList::validate(Input::all());
+		$v = PriceList::validate($request->all());
 		
 		// if everything ok...
 		if ( $v->passes() ) {
@@ -29,10 +28,10 @@ class ListController extends Controller
 			// create a new instance
 			$season_list = new PriceList();
 			// populate 
-            $season_list->id = Inpue::get('id');
-			$season_list->name = Input::get('name');
+            $season_list->id = $request->get('id');
+			$season_list->name = $request->get('name');
 			// setConnection -required- for BRAND DB
-			$season_list->setConnection(Auth::user()->options->brand_in_use->slug);
+			$season_list->setConnection(\App\X::brandInUseSlug());
 			// save the line(s)
 			$season_list->save();
 
@@ -70,20 +69,20 @@ class ListController extends Controller
 		return redirect()->back();
 	}
 	
-	public function edit()
+	public function edit(Request $request)
 	{
 		// try to validate the Input
-		$v = PriceList::validate(Input::all());
+		$v = PriceList::validate($request->all());
 		
 		// if everything ok...
 		if ( $v->passes() ) {
 				
 			// get the delivery from ID
-			$season_list = PriceList::find(Input::get('id'));
+			$season_list = PriceList::find($request->get('id'));
 			// edit the informations
-			$season_list->name = Input::get('name');
+			$season_list->name = $request->get('name');
 			// setConnection -required- for BRAND DB
-			$season_list->setConnection(Auth::user()->options->brand_in_use->slug);
+			$season_list->setConnection(\App\X::brandInUseSlug());
 			// save the line(s)
 			$season_list->save();
 

@@ -311,6 +311,10 @@
 'Season Lists' => 'Lists',
 'Season saved' => 'Season saved',
 'Season' => 'Season',
+'Inactive' => 'Inactive',
+'Activate now' => 'Activate now',
+'Deactivate' => 'Deactivate',
+'Already active' => 'Already active',
 'Seasons' => 'Seasons',
 'Select a Delivery address' => 'Select a Delivery address',
 'Select a delivery date' => 'Select a delivery date',
@@ -412,6 +416,15 @@
 '+ Attr' => '+ Attr',
 'Attribute Created' => 'Attribute Created',
 'Cancel' => 'Cancel', 
+'updated' => 'updated',
+'created' => 'created',
+'deleted' => 'deleted',
+'Create Model' => 'Create Model',
+'Edit Model' => 'Edit Model',
+'Model updated' => 'Model updated',
+'Add Price List' => 'Add Price List',
+'Edit Price List' => 'Edit Price List',
+'New season' => 'New Season',
 
 ];
 

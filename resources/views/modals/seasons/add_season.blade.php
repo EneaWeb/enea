@@ -9,8 +9,7 @@
                 
             </div>
             {!!Form::open(array('url' => '/catalogue/seasons/new', 'method'=>'POST'))!!}
-            
-            {!!Form::hidden('season_id', $season->id)!!}
+
             <div class="modal-body form-horizontal form-group-separated">                        
                 <div class="form-group">
                     {!!Form::label('name', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}

@@ -46,7 +46,7 @@ class Autocomplete extends AbstractJavascriptVariableAsset
 
     /** @var string */
     protected $language;
-    
+
     /** @var string */
     protected $apiKey;
 

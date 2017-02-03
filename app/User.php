@@ -26,7 +26,7 @@ class User extends Authenticatable
         'username', 
         'email', 
         'password', 
-        'active',
+        'active'
     ];
 
     protected $table = 'users';
@@ -59,7 +59,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('\App\Role');
     }
-    
+
     public function role()
     {
         return \App\Role::find(\App\RoleUser::where('user_id', $this->id)->first()['role_id'])->name;

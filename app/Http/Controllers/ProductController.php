@@ -129,7 +129,7 @@ class ProductController extends Controller
         $pictures = $request->get('pictures');
         $product->pictures = ($pictures == NULL || empty($pictures)) ? 'a:1:{i:0;s:11:"default.jpg";}' : serialize($pictures);
         // prepare and save
-        $product->prepare();
+        $product->setConnection(\App\X::brandInUseSlug());
         $product->save();
 
         foreach ($variations as $v) {
@@ -137,17 +137,16 @@ class ProductController extends Controller
             $variation->product_id = $product->id;
             $variation->sku = $v['sku'];
             // get pictures
-            $pictures = $v['pictures'];
-            $variation->pictures = ($pictures == NULL || empty($pictures)) ? 'a:1:{i:0;s:11:"default.jpg";}' : serialize($pictures);
+            $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
             // prepare and save
-            $variation->prepare();
+            $variation->setConnection(\App\X::brandInUseSlug());
             $variation->save();
 
             foreach ($v['terms_id'] as $termId) {
                 $termVar = new \App\TermVariation;
                 $termVar->variation_id = $variation->id;
                 $termVar->term_id = $termId;
-                $termVar->prepare();
+                $termVar->setConnection(\App\X::brandInUseSlug());
                 $termVar->save();
             }
 
@@ -157,7 +156,7 @@ class ProductController extends Controller
                 $item->variation_id = $variation->id;
                 $item->size_id = $size;
                 $item->active = 1;
-                $item->prepare();
+                $item->setConnection(\App\X::brandInUseSlug());
                 $item->save();
                 
                 foreach ($v['prices'] as $listId => $price) {
@@ -165,7 +164,7 @@ class ProductController extends Controller
                     $itemPrice->item_id = $item->id;
                     $itemPrice->price_list_id = $listId;
                     $itemPrice->price = number_format($price, 2);
-                    $itemPrice->prepare();
+                    $itemPrice->setConnection(\App\X::brandInUseSlug());
                     $itemPrice->save();
                 }
             }
@@ -245,7 +244,7 @@ class ProductController extends Controller
         $pictures = $request->get('pictures');
         $product->pictures = ($pictures == NULL || empty($pictures)) ? 'a:1:{i:0;s:11:"default.jpg";}' : serialize($pictures);
         // save
-        $product->prepare();
+        $product->setConnection(\App\X::brandInUseSlug());
         $product->save();
 
         // if we have to delete variations
@@ -261,10 +260,10 @@ class ProductController extends Controller
                     foreach (\App\Item::where('variation_id', $variationId)->first() as $varItem) {
                         // delete all item prices
                         foreach ($varItem->prices() as $varItemPrice) {
-                            $varItemPrice->prepare();
+                            $varItemPrice->setConnection(\App\X::brandInUseSlug());
                             $varItemPrice->delete();
                         }
-                        $varItem->prepare();
+                        $varItem->setConnection(\App\X::brandInUseSlug());
                         $varItem->delete();
                     }
                 }
@@ -274,17 +273,16 @@ class ProductController extends Controller
         foreach ($variations as $k => $v) {
 
             // if is edited
-            if ($v['edit'] === 'true') {
+            if (isset($v['edit']) && $v['edit'] === 'true') {
                 // get variation object
                 $variation = \App\Variation::find($k);
                 // update SKU
                 $variation->sku = $v['sku'];
                 // get pictures
-                $pictures = $v['pictures'];
-                $variation->pictures = ($pictures == NULL || empty($pictures)) ? 'a:1:{i:0;s:11:"default.jpg";}' : serialize($pictures);
+                $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
                 
                 // save
-                $variation->prepare();
+                $variation->setConnection(\App\X::brandInUseSlug());
                 $variation->save();
 
             // if is a new variation
@@ -295,10 +293,9 @@ class ProductController extends Controller
                 $variation->product_id = $product->id;
                 $variation->sku = $v['sku'];
                 // get pictures
-                $pictures = $v['pictures'];
-                $variation->pictures = ($pictures == NULL || empty($pictures)) ? 'a:1:{i:0;s:11:"default.jpg";}' : serialize($pictures);
+                $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
                 // save
-                $variation->prepare();
+                $variation->setConnection(\App\X::brandInUseSlug());
                 $variation->save();
 
                 // for each variation term
@@ -307,7 +304,7 @@ class ProductController extends Controller
                     $termVar = new \App\TermVariation;
                     $termVar->variation_id = $variation->id;
                     $termVar->term_id = $termId;
-                    $termVar->prepare();
+                    $termVar->setConnection(\App\X::brandInUseSlug());
                     $termVar->save();
                 }
             }
@@ -320,14 +317,14 @@ class ProductController extends Controller
                                     ->where('size_id', $size)->get()->isEmpty();
 
                 // if is a new size, or we are creating a brand new variation
-                if ($noSize || $v['edit'] !== 'true') {
+                if ($noSize || !isset($v['edit']) ) {
                     // create item object and store to db
                     $item = new \App\Item;
                     $item->product_id = $product->id;
                     $item->variation_id = $variation->id;
                     $item->size_id = $size;
                     $item->active = 1;
-                    $item->prepare();
+                    $item->setConnection(\App\X::brandInUseSlug());
                     $item->save();
 
                     // for each price list (so for each price to store)
@@ -337,7 +334,7 @@ class ProductController extends Controller
                         $itemPrice->item_id = $item->id;
                         $itemPrice->price_list_id = $listId;
                         $itemPrice->price = number_format($price, 2);
-                        $itemPrice->prepare();
+                        $itemPrice->setConnection(\App\X::brandInUseSlug());
                         $itemPrice->save();
                     }
                 
@@ -351,7 +348,7 @@ class ProductController extends Controller
                         $itemPrice = \App\ItemPrice::where('price_list_id', $listId)
                                     ->where('item_id', $item->id)->first();
                         $itemPrice->price = number_format($price, 2);
-                        $itemPrice->prepare();
+                        $itemPrice->setConnection(\App\X::brandInUseSlug());
                         $itemPrice->save();
                     }
                 }
@@ -371,11 +368,11 @@ class ProductController extends Controller
                     if (\App\OrderDetail::where('item_id', $itemToDelete->id)->get()->isEmpty()) {
                         // delete orrespondent prices
                         foreach ($itemToDelete->prices() as $varItemPrice) {
-                            $varItemPrice->prepare();
+                            $varItemPrice->setConnection(\App\X::brandInUseSlug());
                             $varItemPrice->delete();
                         }
                         // delete item
-                        $itemToDelete->prepare();
+                        $itemToDelete->setConnection(\App\X::brandInUseSlug());
                         $itemToDelete->delete();
                     }
                 }
@@ -413,7 +410,7 @@ class ProductController extends Controller
 			// setConnection -required- for BRAND DB
 			$product->setConnection(Auth::user()->options->brand_in_use->slug);
 			// save the line(s)
-			$product->prepare();
+			$product->setConnection(\App\X::brandInUseSlug());
 			$product->save();
 
 			// success message
@@ -448,16 +445,18 @@ class ProductController extends Controller
         })->get();
 
         if ($orders->isEmpty())
-            $deletable = true;
-
+            $deletable = true;        
         /*
         * end check if is deletable
         */
+
+        $logs = \App\Log::where('product_id', $product->id)->get();        
         
 		return view('pages.catalogue.product', compact( 'product', 
                                                         'orders', 
                                                         'orders',
-                                                        'deletable'));
+                                                        'deletable',
+                                                        'logs'));
 	}
 
 	public function preview($id)
@@ -498,7 +497,7 @@ class ProductController extends Controller
 				$itemprice->item_id = $k;
 				$itemprice->season_list_id = $season_list_id;
 				$itemprice->price = str_replace(',','.',$val);
-				$itemprice->prepare();
+				$itemprice->setConnection(\App\X::brandInUseSlug());
 				$itemprice->save();
 				//return 'case 1 itemprice '.$itemprice;
 				// se esiste
@@ -506,7 +505,7 @@ class ProductController extends Controller
 				// recupero la linea e aggiorno i dati. salvo.
 				$itemprice = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first();
 				$itemprice->price = str_replace(',','.',$val);
-				$itemprice->prepare();
+				$itemprice->setConnection(\App\X::brandInUseSlug());
 				$itemprice->save();
 				//return 'case 2 itemprice '.$itemprice;
 
@@ -521,7 +520,7 @@ class ProductController extends Controller
 	public function delete($id)
 	{
 		$product = Product::find($id);
-		$product->prepare();
+		$product->setConnection(\App\X::brandInUseSlug());
 		$product->delete();
 		
 		// success message
@@ -549,7 +548,7 @@ class ProductController extends Controller
 		$product->has_variations = Input::get('has_variations');
 		$product->active = 1;
 		// setConnection -required- for BRAND DB
-		$product->prepare();
+		$product->setConnection(\App\X::brandInUseSlug());
 		// save the line(s)
 		$product->save();
 
@@ -581,7 +580,7 @@ class ProductController extends Controller
 			$product_variation->picture = 'default.jpg';
 			$product_variation->color_id = Input::get('color_id');
 			// setConnection -required- for BRAND DB
-			$product_variation->prepare();
+			$product_variation->setConnection(\App\X::brandInUseSlug());
 			// save
 			$product_variation->save();
 
@@ -595,9 +594,9 @@ class ProductController extends Controller
 				$item->size_id = $size->id;
 				$item->active = 1;
 				// setConnection -required- for BRAND DB
-				$product_variation->prepare();
+				$product_variation->setConnection(\App\X::brandInUseSlug());
 				// save
-				$item->prepare();
+				$item->setConnection(\App\X::brandInUseSlug());
 				$item->save();
 			}
 		}
@@ -625,7 +624,7 @@ class ProductController extends Controller
 				$newItem->size_id = $size_id;
 				$newItem->active = 1;
 				// setConnection -required- for BRAND DB
-				$newItem->prepare();
+				$newItem->setConnection(\App\X::brandInUseSlug());
 				$newItem->save();
 			}
 			// success message
@@ -678,7 +677,7 @@ class ProductController extends Controller
 						$itemprice->season_list_id = $seasonlist_id;
 						$itemprice->price = number_format($price, 2);
 						// setConnection -required- for BRAND DB
-						$itemprice->prepare();
+						$itemprice->setConnection(\App\X::brandInUseSlug());
 						// save
 						$itemprice->save();
 					// se esiste già la linea, aggiorno il prezzo
@@ -688,7 +687,7 @@ class ProductController extends Controller
 											->first();
 						$itemprice->price = number_format($price, 2);
 						// setConnection -required- for BRAND DB
-						$itemprice->prepare();
+						$itemprice->setConnection(\App\X::brandInUseSlug());
 						// save
 						$itemprice->save();
 					}
@@ -760,7 +759,7 @@ class ProductController extends Controller
             $product->setConnection(\App\X::brandInUseSlug());
             $picName = $product->picture;
             $product->picture = 'default.jpg';
-            $product->prepare();
+            $product->setConnection(\App\X::brandInUseSlug());
             $product->save();
 
         } else if ($type == 'variation') {
@@ -769,14 +768,14 @@ class ProductController extends Controller
             $variation->setConnection(\App\X::brandInUseSlug());
             $picName = $variation->picture;
             $variation->picture = 'default.jpg';
-            $variation->prepare();
+            $variation->setConnection(\App\X::brandInUseSlug());
             $variation->save();
 
         } else if ($type == 'variation_picture') {
 
             $pVarPicture = \App\VariationPicture::find($id);
             $picName = $pVarPicture->picture;
-            $pVarPicture->prepare();
+            $pVarPicture->setConnection(\App\X::brandInUseSlug());
             $pVarPicture->delete();
 
         }

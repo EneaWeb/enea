@@ -32,6 +32,12 @@
                             {!!Form::select('types', \App\Type::pluck('name', 'id'), unserialize($size->types), ['class'=>'selectpicker form-control', 'multiple'=>'multiple', 'name'=>'types[]'])!!}
                         </div>
                     </div>
+                    <div class="form-group">
+                        {!!Form::label('active', trans('x.Active').'*', ['class' => 'col-md-3 control-label'])!!}
+                        <div class="col-md-8">
+                            {!!Form::select('active', ['1'=>trans('x.Active'), '0'=>trans('x.Inactive')], $size->active, ['class'=>'form-control'])!!}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     {!!Form::submit(trans('x.Save'), ['class' => 'btn btn-danger'])!!}

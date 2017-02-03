@@ -43,7 +43,7 @@
                             <div class="cbp-caption">
                             <div class="cbp-caption-defaultWrap">
                                 <div style="width: 100%; height: 260px; overflow: hidden; background-color:white; vertical-align:middle">
-                                    <img style="width: auto; height: auto; max-width:100%; max-height:100%; margin: auto;" src="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/300/{!!$product->picture!!}"/>
+                                    <img style="width: auto; height: auto; max-width:100%; max-height:100%; margin: auto;" src="{{\App\X::s3_products($product->featuredPicture())}}"/>
                                 </div>
                             </div>
                             <div class="cbp-caption-activeWrap">
@@ -55,14 +55,11 @@
                                         <a href="/catalogue/products/{!!$product->id!!}" class="btn white uppercase" rel="nofollow"> 
                                         <i class="fa fa-pencil"></i>
                                         </a>
+                                        <?php $i = 0; ?>
                                         @foreach($product->variations as $variation)
-                                        @if ($product->variations->first() == $variation)
-                                            <a href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$variation->picture!!}" class="cbp-lightbox btn white uppercase" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}"><i class="fa fa-picture-o"></i></a>
-                                        @else
-                                            <a href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$variation->picture!!}" class="cbp-lightbox btn white uppercase" style="display:none" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}">.</a>
-                                        @endif
-                                        @foreach($variation->pictures as $picture)
-                                            <a href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$picture->picture!!}" class="cbp-lightbox btn white uppercase" style="display:none" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}">.</a>
+                                        @foreach($variation->getPictures() as $picture)
+                                            <a href="{{\App\X::s3_products($picture)}}" class="cbp-lightbox btn white uppercase" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->renderTerms()!!}" @if($i>0) style="display:none;" @endif ><i class="fa fa-picture-o"></i></a>
+                                            <?php $i++;?>
                                         @endforeach
                                         @endforeach
                                     </div>

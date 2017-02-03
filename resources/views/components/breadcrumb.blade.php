@@ -1,3 +1,5 @@
+<button class="btn" onclick="location.href='{{url()->previous()}}';"> < {!!trans('x.Back')!!}</button>
+
 <!-- START BREADCRUMB -->
 <ol class="breadcrumb">
 	{{-- <li><a href="/">HOME</a></li> --}}

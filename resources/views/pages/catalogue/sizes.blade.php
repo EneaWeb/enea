@@ -35,6 +35,7 @@
                                     <th>{!!trans('x.ID')!!}</th>
                                     <th>{!!trans('x.Name')!!}</th>
                                     <th>{!!trans('x.Types')!!} (default)</th>
+                                    <th>{!!trans('x.Active')!!}</th>
                                     <th>{!!trans('x.Options')!!}</th>
                                 </tr>
                             </thead>
@@ -45,6 +46,7 @@
                                         <td class="id">{!!$size->id!!}</td>
                                         <td>{!!$size->name!!}</td>
                                         <td>{!!$size->renderTypes()!!}</td>
+                                        <td>{!!$size->active == 1 ? trans('x.Active') : trans('x.Inactive')p!!}</td>
                                         <td>
                                             <a href="#" data-toggle="modal" data-target="#modal_edit_size{!!$size->id!!}" class="btn btn-danger btn-rounded btn-condensed btn-sm">
                                                 <i class="fa fa-pencil"></i>

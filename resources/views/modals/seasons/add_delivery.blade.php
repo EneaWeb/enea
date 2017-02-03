@@ -10,8 +10,13 @@
             </div>
             {!!Form::open(array('url' => '/catalogue/seasons/delivery/new', 'method'=>'POST'))!!}
             
-            {!!Form::hidden('season_id', $season->id)!!}
-            <div class="modal-body form-horizontal form-group-separated">                        
+            <div class="modal-body form-horizontal form-group-separated">  
+                <div class="form-group">
+                    {!!Form::label('season_id', trans('x.Season'), ['class' => 'col-md-3 control-label'])!!}
+                    <div class="col-md-8">
+                        {!! Form::select('season_id', \App\Season::pluck('name', 'id'),'', ['class' => 'form-control', 'id'=>'select-season']) !!}
+                    </div>
+                </div>                      
                 <div class="form-group">
                     {!!Form::label('name', trans('x.Name').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
