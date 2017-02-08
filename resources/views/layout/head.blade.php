@@ -39,8 +39,11 @@
     <link href="/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="/assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
 
     <link href="/assets/global/plugins/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/dropzone/basic.min.css" rel="stylesheet" type="text/css" />
@@ -90,8 +93,39 @@
         margin:6px;
     }
 
+    td.td-add-line {
+        max-width: 50px!important;
+        border:none!important;
+        padding:0px!important;
+    }
+
+    td.td-add-line > input {
+        height: 30px; 
+        padding:0px 0px 0px 5px!important;
+        text-align:center!important;
+    }
+
     </style>
 
     <script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script>
 
+
+    /**
+    * Number.prototype.format(n, x, s, c)
+    * 
+    * @param integer n: length of decimal
+    * @param integer x: length of whole part
+    * @param mixed   s: sections delimiter
+    * @param mixed   c: decimal delimiter
+    */
+    Number.prototype.format = function(n=2, x=3, s, c) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+            num = this.toFixed(Math.max(0, ~~n));
+
+        return (c ? num.replace(',', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || '.'))+' €';
+    };
+
+
+    </script>
     </head>

@@ -93,7 +93,7 @@ class Product extends Model
     
     public function variations()
     {
-        return $this->hasMany('\App\Variation');
+        return $this->hasMany('\App\Variation')->where('active', '1');
     }
     
     public static function product_colors($product_id)
@@ -111,32 +111,30 @@ class Product extends Model
         return $msg;
     }
 
-    public static function availColors($product_id)
-    {
-        $str = array();
-        foreach (\App\Variation::where('product_id', $product_id)->get() as $prodVar)
-        {
-            $str[] = $prodVar->color->name;
-        }
-        return implode($str, ', ');
-    }
-
-    public static function availSizes($product_id)
-    {
-        $str = array();
-        foreach (\App\Item::where('product_id', $product_id)->get() as $item)
-        {
-            $str[] = $item->size->name;
-        }
-        return implode(array_unique($str), ', ');
-    }
-
-    public static function renderSizes($product_id) {
+    public function renderSizes() {
         $arr = array();
-        foreach (\App\Item::where('product_id', $product_id)->get() as $item) {
+        foreach (\App\Item::where('product_id', $this->id)->get() as $item) {
             $arr[] = $item->size->name;
         }
         return \App\X::rangeNumbers($arr);
+    }
+
+    public function getSizesNameArray()
+    {
+        $sizes = array();
+        foreach (\App\Item::where('product_id', $this->id)->get() as $item) {
+            $sizes[] = $item->size->name;
+        }
+        return array_unique($sizes);
+    }
+
+    public function getSizesIdArray()
+    {
+        $sizes = array();
+        foreach (\App\Item::where('product_id', $this->id)->get() as $item) {
+            $sizes[] = $item->size_id;
+        }
+        return array_unique($sizes);
     }
 
     // use: $product->terms()->associate($term);
@@ -162,6 +160,20 @@ class Product extends Model
     public function featuredPicture()
     {
         return unserialize($this->pictures)[0];
+    }
+
+    public function renderPrices()
+    {
+        $arr = array();
+        foreach (\App\Item::where('product_id', $this->id)->get() as $item) {
+            $arr[] = $item->priceForOrderList();
+        }
+        return \App\X::rangeNumbers($arr);
+    }
+
+    public static function activeTypes()
+    {
+        return \App\Product::where('active', '1')->groupBy('type_id')->pluck('type_id');
     }
 
 }

@@ -110,3 +110,14 @@ Verificare che tutte le url di delete (es product/delete ecc) siano accessibili 
 #####################################################################################
 #####################################################################################
 
+CART
+
+Instances:
+- Cart::instance('agent')---
+- Cart::instance('customer')--- (future usage)
+
+Session::get('cart_agent_options') => Cart options for agent (shipping, delivery, price list, etc)
+Session::get('customer_agent_options') => (future usage..)
+
+#####################################################################################
+#####################################################################################

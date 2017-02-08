@@ -19,7 +19,7 @@
 						{!!trans('x.Show order details')!!} 
 					</label>
 					<div class="col-xs-4 col-md-4">   
-						<a href="/order/pdf/{!!$order->id!!}" target="_blank" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+						<a href="/orders/pdf/{!!$order->id!!}" target="_blank" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
 							<span class="fa fa-2x fa-search-plus"></span>
 						</a>
 					</div>
@@ -29,7 +29,7 @@
 						{!!trans('x.Download order details')!!} 
 					</label>
 					<div class="col-xs-4 col-md-4">   
-						<a href="/order/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+						<a href="/orders/pdf/download/{!!$order->id!!}" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
 							<span class="fa fa-2x fa-download"></span>
 						</a> 
 					</div>
@@ -39,7 +39,7 @@
 						{!!trans('x.Download Excel')!!} 
 					</label>
 					<div class="col-xs-4 col-md-4">   
-						<a href="/order/excel/{!!$order->id!!}" target="_blank" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
+						<a href="/orders/excel/{!!$order->id!!}" target="_blank" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
 							<span class="fa fa-2x fa-download"></span>
 						</a>
 					</div>
@@ -49,7 +49,7 @@
 						{!!trans('x.Send by email')!!} 
 					</label>
 					<div class="col-xs-4 col-md-4">   
-						<a href="/order/email/{!!$order->id!!}?back=1" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
+						<a href="/orders/email/{!!$order->id!!}?back=1" class="btn btn-info btn-rounded btn-condensed btn-sm order-actions">
 							<span class="fa fa-2x fa-envelope"></span>
 						</a>
 					</div>
@@ -70,7 +70,7 @@
                             {!!trans('x.Edit order')!!} 
                         </label>
                         <div class="col-xs-4 col-md-4">   
-                            <a href="/order/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
+                            <a href="/orders/edit/{!!$order->id!!}" class="btn btn-warning btn-rounded btn-condensed btn-sm order-actions">
                             <span class="fa fa-2x fa-pencil"></span>
                             </a>
                         </div>

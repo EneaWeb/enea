@@ -82,4 +82,14 @@ class Size extends Model
         return implode(', ',$b);
     }
 
+    public static function activeCount()
+    {
+        return \App\Size::where('active', '1')->count();
+    }
+
+    public static function activeSizes()
+    {
+         return \App\Size::where('active', '1')->get();
+    }
+
 }

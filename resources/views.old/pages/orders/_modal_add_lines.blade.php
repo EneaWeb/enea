@@ -76,25 +76,27 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">{!!trans('x.Close')!!}</button>
             </div>
             {!!Form::close()!!}
-                <script>
+            
+            <script>
 
-                        $('form#lines-form-{!!$product->id!!} :input').change(function() {
-                          var tot = 0;
-                          var price = 0;
-                          $("form#lines-form-{!!$product->id!!} :input").each(function() {
-                            if(!isNaN($(this).val())) { 
-                            //Your code 
-                                tot += +this.value;
-                            }
-                            if(!isNaN($(this).data('price'))) { 
-                                price += Number($(this).attr('data-price')*this.value);
-                            }
-                          });
-                          $('#tot-qty-{!!$product->id!!}').text(tot);
-                          $('#tot-price-{!!$product->id!!}').text(price);
-                        }).change();
+                $('form#lines-form-{!!$product->id!!} :input').change(function() {
+                    var tot = 0;
+                    var price = 0;
+                    $("form#lines-form-{!!$product->id!!} :input").each(function() {
+                    if(!isNaN($(this).val())) { 
+                        //Your code 
+                        tot += +this.value;
+                    }
+                    if(!isNaN($(this).data('price'))) { 
+                        price += Number($(this).attr('data-price')*this.value);
+                    }
+                    });
+                    $('#tot-qty-{!!$product->id!!}').text(tot);
+                    $('#tot-price-{!!$product->id!!}').text(price);
+                }).change();
 
-                </script>
+            </script>
+
         </div>
     </div>
 {{--

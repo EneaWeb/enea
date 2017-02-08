@@ -92,13 +92,14 @@ CREATE TABLE 'orders' (
 	'user_id' INTEGER NOT NULL, 
 	'customer_id' INTEGER NOT NULL, 
 	'season_id' INTEGER NOT NULL, 
-	'season_list_id' INTEGER NOT NULL, 
+	'price_list_id' INTEGER NOT NULL, 
 	'season_delivery_id' INTEGER NOT NULL, 
 	'customer_delivery_id' INTEGER NOT NULL, 
 	'products_qty' INTEGER NOT NULL, 
 	'items_qty' INTEGER NOT NULL, 
 	'subtotal' REAL,
 	'payment_id' INTEGER NOT NULL, 
+	'payment_action' TEXT, 
 	'payment_amount' REAL, 
 	'total' REAL NOT NULL,
 	'note' TEXT,
@@ -186,8 +187,8 @@ CREATE TABLE 'sizes' (
 )%%
 
 CREATE TABLE 'term_variation' (
-	'term_id' TEXT NOT NULL, 
-	'variation_id' INTEGER NOT NULL
+	'variation_id' INTEGER NOT NULL,
+	'term_id' TEXT NOT NULL
 )%%
 
 CREATE TABLE 'terms' (
@@ -214,6 +215,7 @@ CREATE TABLE 'variations' (
 	'sku' TEXT, 
 	'description' TEXT, 
 	'pictures' TEXT NOT NULL DEFAULT 'a:1:{i:0;s:11:"default.jpg";}', 
+    'active' INTEGER NOT NULL DEFAULT 1,
 	'created_at' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 	'updated_at' DATETIME
 )%%

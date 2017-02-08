@@ -56,7 +56,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">{!!trans('x.Model')!!}</label>
                                                         <div class="col-md-9">
-                                                            {!!Form::select('prodmodel_id', \App\ProdModel::pluck('name', 'id'), '', ['class'=>'form-control'])!!}
+                                                            {!!Form::select('prodmodel_id', \App\ProdModel::where('active', '1')->pluck('name', 'id'), '', ['class'=>'form-control'])!!}
                                                         </div>
                                                     </div>
 
@@ -121,13 +121,15 @@
 
                                                         <div class="form-group">
 
-                                                            <label for="multiple" class="col-md-3 control-label">{!!trans('x.Attributes')!!}</label>
+                                                            <label for="multiple" class="col-md-3 control-label">
+                                                                {!!trans('x.Attributes selection')!!}
+                                                            </label>
                                                             <div class="col-md-9">
                                                                 <select id="variations" class="form-control select2-multiple" multiple>
                                                                     @foreach(\App\Attribute::where('active', '1')->get() as $attribute)
                                                                         <optgroup label="{!!$attribute->name!!}">
                                                                         @foreach (\App\Term::where('attribute_id', $attribute->id)->where('active', '1')->orderBy('id')->get() as $term)
-                                                                            <option value="{!!$term->id!!}" data-attribute="{!!$term->attribute->id!!}">{!!$term->id!!} {!!$term->name!!}</option>
+                                                                            <option value="{!!$term->id!!}" data-attribute="{!!$term->attribute->id!!}"> {!!$term->name!!}</option>
                                                                         @endforeach
                                                                         </optgroup>
                                                                     @endforeach
@@ -136,11 +138,15 @@
                                                                 <br>
 
                                                                 <button type="button" class="btn btn-info" id="create-variations">
-                                                                    {!!trans('x.Create variations from attributes')!!}
+                                                                    {!!trans('x.Generate from attributes')!!}
                                                                 </button>
                                                                 <a href="#" data-toggle="modal" data-target="#modal_add_term" class="btn btn-danger">
                                                                     {!!trans('x.+ Attr')!!}
                                                                 </a>
+                                                                <br>
+                                                                <button type="button" class="btn btn-info" id="create-empty-variation" style="margin-top:4px">
+                                                                    {!!trans('x.Create empty')!!}
+                                                                </button>
 
                                                             </div>
 
@@ -273,7 +279,7 @@
     });
 
     // on delete variation (created on the fly) click
-    $(document).on('click', '.delete-variation-otf', function(e){
+    $(document).on('click', '.delete-variation-otf, .delete-variation-gen', function(e){
         e.preventDefault();
         // just remove variation portlet
         $(this).parent().parent().parent().parent().remove();
@@ -294,16 +300,32 @@
         $.ajax({
             url : '/catalogue/products/create-variations',
             method : 'GET',
-            data: { _token: '{!!csrf_token()!!}', attributes : attributes }
+            data: { _token : '{!!csrf_token()!!}', attributes : attributes }
         })
         .success(function(msg){
                 $('#variations-container').empty().hide().html(msg).fadeIn();
         })
         .error(function(){
-            alert('ajax error');
-        })
+            toastr.error('ajax error');
+        });
+    });
 
-    })
+    $('#create-empty-variation').on('click', function(){
+
+        priceLists = JSON.parse('{!!\App\PriceList::pluck('id')->toJSON()!!}');
+
+        $.ajax({
+            url : '/catalogue/products/create-empty-variation',
+            method : 'GET',
+            data: { _token : '{!!csrf_token()!!}' }
+        })
+        .success(function(msg){
+            $('#variations-container').append(msg);
+        })
+        .error(function(){
+            toastr.error('ajax error');
+        });
+    });
 
 </script>
 

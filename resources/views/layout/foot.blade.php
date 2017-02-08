@@ -10,24 +10,6 @@
 <!-- MENU coloration for active links -->
 <script>
 
-    var winLocation = window.location.href.replace('it/', '')
-                                        .replace('en/', '')
-                                        .replace('es/', '')
-                                        .replace('fr/', '');
-    links  = $('.menulink');
-    for(ind in links)
-    {
-        link = links[ind];
-        if (link.href !== undefined) {
-            //if (window.location.href.split('/').pop() == link.href.split('/').pop()) {
-            if (winLocation.indexOf(link.href) !== -1) {
-                $(link).parent('li').addClass('active');
-                $('.dropdown-fw.dropdown-fw-disabled').removeClass('active open selected');
-                $(link).parent('li').parent('ul').parent('li').addClass('active open selected');
-            }
-        }
-    }
-
     sidebarLinks = $('.sidebarlink');
     for (ind in sidebarLinks) 
     {
@@ -40,6 +22,8 @@
     }
 </script>
 <!-- end MENU coloration for active links -->
+
+<script src="/assets/js/plugins/jquery-form/jquery-form.min.js" type="text/javascript"></script>
 
 <script src="/assets/js/lodash.js" type="text/javascript"></script>
 
@@ -101,7 +85,7 @@
 <script src="/assets/pages/scripts/table-datatables-rowreorder.js" type="text/javascript"></script>
 
 <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-<script src="/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/components-select2.js" type="text/javascript"></script>
 
 <script src="/assets/global/plugins/dropzone/dropzone.min.js" type="text/javascript"></script>
 

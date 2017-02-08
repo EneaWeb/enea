@@ -11,13 +11,14 @@ use \App\Variation as Variation;
 use \App\Alert as Alert;
 use App\Http\Requests;
 use Storage;
+use X;
 
 class ProductController extends Controller
 {
 	public function index(Request $request)
 	{
 		// get active season value
-		$active_season = \App\Option::where('name', 'active_season')->first()->value;
+		$active_season = X::activeSeason();
 		// query all products for active season
 		$type_id = Auth::user()->options->active_type;
 
@@ -189,7 +190,7 @@ class ProductController extends Controller
 
         /*
         *
-        delete-variation = [
+        delete_variation = [
             0 => {variationId_toDelete},
             1 => {variationId_toDelete}
             ...
@@ -232,6 +233,7 @@ class ProductController extends Controller
         *
         */
 
+
         $product = \App\Product::find($product_id);
         $product->prodmodel_id = $prodmodel_id;
         $product->season_id = $season_id;
@@ -249,6 +251,7 @@ class ProductController extends Controller
 
         // if we have to delete variations
         if ($request->has('delete_variation')) {
+
             foreach ($delete_variation as $k => $variationId) {
                 // if there are no orders with that variation
                 if (\App\OrderDetail::where('variation_id', $variationId)->get()->isEmpty()) {
@@ -257,9 +260,9 @@ class ProductController extends Controller
                     // delete all term_variation associations
                     \App\TermVariation::where('variation_id', $variationId)->delete();
                     // loop through items
-                    foreach (\App\Item::where('variation_id', $variationId)->first() as $varItem) {
+                    foreach (\App\Item::where('variation_id', $variationId)->get() as $varItem) {
                         // delete all item prices
-                        foreach ($varItem->prices() as $varItemPrice) {
+                        foreach ($varItem->prices()->get() as $varItemPrice) {
                             $varItemPrice->setConnection(\App\X::brandInUseSlug());
                             $varItemPrice->delete();
                         }
@@ -270,33 +273,47 @@ class ProductController extends Controller
             }
         }
 
-        foreach ($variations as $k => $v) {
+        // if there are variations..
+        if (isset($variations))
+        {
+            // foreach variation to process
+            foreach ($variations as $k => $v) {
 
-            // if is edited
-            if (isset($v['edit']) && $v['edit'] === 'true') {
-                // get variation object
-                $variation = \App\Variation::find($k);
-                // update SKU
-                $variation->sku = $v['sku'];
-                // get pictures
-                $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
-                
-                // save
-                $variation->setConnection(\App\X::brandInUseSlug());
-                $variation->save();
+                // check if the variation has NO terms.. so throw error
+                if (!isset($v['terms_id'])) {
+                    \App\Alert::error('x.Variation needs to have almost 1 associated Attribute');
+                    return redirect()->back();
+                }
 
-            // if is a new variation
-            } else {
+                // if is edited
+                if (isset($v['edit']) && $v['edit'] === 'true') {
+                    // get variation object
+                    $variation = \App\Variation::find($k);
+                    // update SKU
+                    $variation->sku = $v['sku'];
+                    // get pictures
+                    $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
 
-                // create variation object and store to db
-                $variation = new \App\Variation;
-                $variation->product_id = $product->id;
-                $variation->sku = $v['sku'];
-                // get pictures
-                $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
-                // save
-                $variation->setConnection(\App\X::brandInUseSlug());
-                $variation->save();
+                    // save
+                    $variation->setConnection(\App\X::brandInUseSlug());
+                    $variation->save();
+
+                    // delete previous terms association
+                    \App\TermVariation::where('variation_id', $variation->id)->delete();
+
+                // if is a new variation
+                } else {
+
+                    // create variation object and store to db
+                    $variation = new \App\Variation;
+                    $variation->product_id = $product->id;
+                    $variation->sku = $v['sku'];
+                    // get pictures
+                    $variation->pictures = isset($v['pictures']) ? serialize($v['pictures']) : 'a:1:{i:0;s:11:"default.jpg";}';
+                    // save
+                    $variation->setConnection(\App\X::brandInUseSlug());
+                    $variation->save();
+                }
 
                 // for each variation term
                 foreach ($v['terms_id'] as $termId) {
@@ -307,73 +324,73 @@ class ProductController extends Controller
                     $termVar->setConnection(\App\X::brandInUseSlug());
                     $termVar->save();
                 }
-            }
 
-            // for each variation size
-            foreach ($v['sizes'] as $k => $size) {
+                // for each variation size
+                foreach ($v['sizes'] as $k => $size) {
 
-                // check if the size has already items (so if is not a NEW added size)
-                $noSize = \App\Item::where('variation_id', $variation->id)
-                                    ->where('size_id', $size)->get()->isEmpty();
+                    // check if the size has already items (so if is not a NEW added size)
+                    $noSize = \App\Item::where('variation_id', $variation->id)
+                                        ->where('size_id', $size)->get()->isEmpty();
 
-                // if is a new size, or we are creating a brand new variation
-                if ($noSize || !isset($v['edit']) ) {
-                    // create item object and store to db
-                    $item = new \App\Item;
-                    $item->product_id = $product->id;
-                    $item->variation_id = $variation->id;
-                    $item->size_id = $size;
-                    $item->active = 1;
-                    $item->setConnection(\App\X::brandInUseSlug());
-                    $item->save();
+                    // if is a new size, or we are creating a brand new variation
+                    if ($noSize || !isset($v['edit']) ) {
+                        // create item object and store to db
+                        $item = new \App\Item;
+                        $item->product_id = $product->id;
+                        $item->variation_id = $variation->id;
+                        $item->size_id = $size;
+                        $item->active = 1;
+                        $item->setConnection(\App\X::brandInUseSlug());
+                        $item->save();
 
-                    // for each price list (so for each price to store)
-                    foreach ($v['prices'] as $listId => $price) {
-                        // create itemPrice object and store to db
-                        $itemPrice = new \App\ItemPrice;
-                        $itemPrice->item_id = $item->id;
-                        $itemPrice->price_list_id = $listId;
-                        $itemPrice->price = number_format($price, 2);
-                        $itemPrice->setConnection(\App\X::brandInUseSlug());
-                        $itemPrice->save();
-                    }
-                
-                // if the size is already knowk
-                } else {
-                    // get size object
-                    $item = \App\Item::where('variation_id', $variation->id)
-                                    ->where('size_id', $size)->first();
-                    // update all prices
-                    foreach ($v['prices'] as $listId => $price) {
-                        $itemPrice = \App\ItemPrice::where('price_list_id', $listId)
-                                    ->where('item_id', $item->id)->first();
-                        $itemPrice->price = number_format($price, 2);
-                        $itemPrice->setConnection(\App\X::brandInUseSlug());
-                        $itemPrice->save();
+                        // for each price list (so for each price to store)
+                        foreach ($v['prices'] as $listId => $price) {
+                            // create itemPrice object and store to db
+                            $itemPrice = new \App\ItemPrice;
+                            $itemPrice->item_id = $item->id;
+                            $itemPrice->price_list_id = $listId;
+                            $itemPrice->price = number_format($price, 2);
+                            $itemPrice->setConnection(\App\X::brandInUseSlug());
+                            $itemPrice->save();
+                        }
+
+                    // if the size is already knowk
+                    } else {
+                        // get size object
+                        $item = \App\Item::where('variation_id', $variation->id)
+                                        ->where('size_id', $size)->first();
+                        // update all prices
+                        foreach ($v['prices'] as $listId => $price) {
+                            $itemPrice = \App\ItemPrice::where('price_list_id', $listId)
+                                        ->where('item_id', $item->id)->first();
+                            $itemPrice->price = number_format($price, 2);
+                            $itemPrice->setConnection(\App\X::brandInUseSlug());
+                            $itemPrice->save();
+                        }
                     }
                 }
-            }
 
-            // check if there are LESS sizes then original, so some size is deletable
-            $deletableSizes = array_diff($variation->getSizesArray(), $v['sizes']);
-            if (!empty($deletableSizes)) 
-            {
-                // loop through deletable sizes
-                foreach ($deletableSizes as $sizeId)
+                // check if there are LESS sizes then original, so some size is deletable
+                $deletableSizes = array_diff($variation->getSizesArray(), $v['sizes']);
+                if (!empty($deletableSizes)) 
                 {
-                    // get correspondente item object
-                    $itemToDelete = \App\Item::where('variation_id', $variation->id)
-                                            ->where('size_id', $sizeId)->first();
-                    // if there are not orders with this Item
-                    if (\App\OrderDetail::where('item_id', $itemToDelete->id)->get()->isEmpty()) {
-                        // delete orrespondent prices
-                        foreach ($itemToDelete->prices() as $varItemPrice) {
-                            $varItemPrice->setConnection(\App\X::brandInUseSlug());
-                            $varItemPrice->delete();
+                    // loop through deletable sizes
+                    foreach ($deletableSizes as $sizeId)
+                    {
+                        // get correspondente item object
+                        $itemToDelete = \App\Item::where('variation_id', $variation->id)
+                                                ->where('size_id', $sizeId)->first();
+                        // if there are not orders with this Item
+                        if (\App\OrderDetail::where('item_id', $itemToDelete->id)->get()->isEmpty()) {
+                            // delete orrespondent prices
+                            foreach ($itemToDelete->prices() as $varItemPrice) {
+                                $varItemPrice->setConnection(\App\X::brandInUseSlug());
+                                $varItemPrice->delete();
+                            }
+                            // delete item
+                            $itemToDelete->setConnection(\App\X::brandInUseSlug());
+                            $itemToDelete->delete();
                         }
-                        // delete item
-                        $itemToDelete->setConnection(\App\X::brandInUseSlug());
-                        $itemToDelete->delete();
                     }
                 }
             }
@@ -463,9 +480,9 @@ class ProductController extends Controller
 	{
 		$product = Product::find($id);
 		foreach($product->variations as $variation) {
-			$pictures_count = $variation->pictures->count();
+			$pictures_count = count(unserialize($variation->pictures));
 		}
-		$pictures_count += $product->pictures->count();
+		$pictures_count += count(unserialize($product->pictures));
 		$orders = \App\Order::whereHas('order_details', function($q) use ($id) {
 			$q->where('product_id', $id);
 		})->get();
@@ -526,7 +543,7 @@ class ProductController extends Controller
 		// success message
 		Alert::success(trans('x.Product deleted'));
 		
-		return redirect()->back();
+		return redirect('/catalogue/products');
 	}
 	
 	public function edit()
@@ -637,6 +654,12 @@ class ProductController extends Controller
 		return redirect()->back();
 
 	}
+
+    public function productsByType(Request $request)
+    {
+        $type_id = $request->get('type_id');
+        return \App\Product::where('active', '1')->where('type_id', $type_id)->get()->toJSON();
+    }
 	
 	public function bulk_update_prices()
 	{
@@ -708,6 +731,11 @@ class ProductController extends Controller
         // get file object
         $image = $request->file('file');
 
+        // check if file is an image
+        if(substr($image->getMimeType(), 0, 5) !== 'image') {
+            return 'not an image';
+        }
+
         // get correct path for uploading : /{products}/{brand_slug}/
         $path = '/products/'.\App\X::brandInUseSlug().'/';
 
@@ -717,11 +745,6 @@ class ProductController extends Controller
         // create new unique filename for the storage, composed as:
         // {originalName}-{random5str}.{ext}
         $fileName = str_replace(' ','-',str_replace('.'.$ext,'',$image->getClientOriginalName())).'-'.str_random(5).'.'.$ext;
-        
-        // check if file is an image
-        if(substr($image->getMimeType(), 0, 5) !== 'image') {
-            return 'not an image';
-        }
 
         // create Image instance for 2000 x 2000 picture
         $image_normal = Image::make($image)->resize(null, 2000, function ($constraint) {
@@ -788,7 +811,7 @@ class ProductController extends Controller
 		
 	}
 	
-	public function api_product_id()
+	public function add_lines()
 	{
 		if (!Input::has('product_id'))
 			return 'no product_id found in request';
@@ -796,7 +819,7 @@ class ProductController extends Controller
 		$product_id = Input::get('product_id');
 		$product = \App\Product::find($product_id);
 		
-		return view('pages.orders._modal_add_lines', compact('product'));
+		return view('modals.orders.add_lines', compact('product'));
 		
 	}
 
@@ -818,6 +841,12 @@ class ProductController extends Controller
         $variations = \App\X::arrayCartesianProduct($arr);
 
         return view('pages.catalogue._variations_create', compact('variations'));
+    }
+
+    public function createEmptyVariation()
+    {
+        $k = 'new_'.str_random(12);
+        return view('pages.catalogue._variations_empty', compact('k'));
     }
 	
 }

@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Option as Option;
-use Input;
 use \App\Alert as Alert;
 use Auth;
 use App\Http\Requests;
+use Session;
 
 class OptionController extends Controller
 {
-	public function set_active_season()
+	public function set_active_season(Request $request)
 	{
 		// season id to activate
-		$season_id = Input::get('season_id');
+		$season_id = $request->get('season_id');
 		// get right option
 		$option = Option::where('name', 'active_season')->first();
 		// set the season id to activate

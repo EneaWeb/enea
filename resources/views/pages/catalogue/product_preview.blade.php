@@ -7,21 +7,17 @@
          <ul class="cbp-slider-wrap">
 
             @foreach($product->variations as $variation)
-               <li class="cbp-slider-item">
-                  <a href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$variation->picture!!}" class="cbp-lightbox" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}"> 
-                     <span>{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}</span> 
-                     <img src="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$variation->picture!!}" alt="">
-                  </a>
-               </li>
-               @foreach($variation->pictures as $picture)
-                  <li class="cbp-slider-item">
-                     <a href="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$picture->picture!!}" class="cbp-lightbox" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}"> 
-                        <span>{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->color->name!!}</span> 
-                        <img src="/assets/images/products/{!!\App\X::brandInUseSlug()!!}/{!!$picture->picture!!}" alt="">
-                     </a>
-                  </li>
-               @endforeach
+            @foreach($variation->getPictures() as $picture)
+
+                <li class="cbp-slider-item">
+                    <a href="{{\App\X::s3_products($picture)}}" class="cbp-lightbox" data-title="{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->renderTerms()!!}"> 
+                        <span>{!!$product->prodmodel->name!!} {!!$product->name!!} {!!$variation->renderTerms()!!}</span> 
+                        <img src="{{\App\X::s3_products($picture)}}" alt="">
+                    </a>
+                </li>
             @endforeach
+            @endforeach
+
          </ul>
       </div>
    @endif
@@ -41,17 +37,29 @@
             </div>
             <ul class="cbp-l-project-details-list">
                 <li>
-                    <strong>{!!trans('x.Model')!!}</strong>{!!$product->prodmodel->name!!}</li>
+                    <strong>{!!trans('x.Model')!!}</strong>
+                    {!!$product->prodmodel->name!!}
+                </li>
                 <li>
-                    <strong>{!!trans('x.Name')!!}</strong>{!!$product->name!!}</li>
+                    <strong>{!!trans('x.Name')!!}</strong>
+                    {!!$product->name!!}
+                </li>
                 <li>
-                    <strong>{!!trans('x.Slug')!!}</strong>{!!$product->slug!!}</li>
+                    <strong>SKU</strong>
+                    {!!$product->sku!!}
+                </li>
                 <li>
-                    <strong>{!!trans('x.Type')!!}</strong>{!!$product->type->description!!}</li>
+                    <strong>{!!trans('x.Type')!!}</strong>
+                    {!!$product->type->name!!}
+                </li>
                 <li>
-                    <strong>{!!trans('x.Variations')!!}</strong>{!!\App\Product::availColors($product->id)!!}</li>
+                    <strong style="vertical-align:top">{!!trans('x.Variations')!!}</strong>
+                    <span style="display:inline-block">{!!$product->renderVariations()!!}</span>
+                </li>
                 <li>
-                    <strong>{!!trans('x.Sizes')!!}</strong>{!!\App\Product::availSizes($product->id)!!}</li>
+                    <strong>{!!trans('x.Sizes')!!}</strong>
+                    {!!$product->renderSizes()!!}
+                </li>
             </ul>
         </div>
     </div>

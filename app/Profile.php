@@ -52,4 +52,15 @@ class Profile extends Model
     {
         return ucfirst($this->name).' '.ucfirst($this->surname);
     }
+
+    public function picture()
+    {
+        return 'http://s3.eu-central-1.amazonaws.com/enea-gestionale/users/'.$this->avatar;
+    }
+
+    public function avatar()
+    {
+        return 'http://s3.eu-central-1.amazonaws.com/enea-gestionale/users/'.$this->avatar;
+    }
+
 }

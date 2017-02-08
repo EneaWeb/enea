@@ -104,7 +104,7 @@ class CustomerController extends Controller
 		$test_position = Maps::test_position($address);
 		$mapHelper = new MapHelper;
 		$map = Maps::customer_position_map($address);
-		
+
 		// prepare dropdown with supported Locales
 		$configLocales = Config::get('localization.supported-locales');
 		$supportedLocales = array();

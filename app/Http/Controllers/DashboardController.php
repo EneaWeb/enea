@@ -38,12 +38,12 @@ class DashboardController extends Controller
 
 		$mostReqItem = \App\OrderDetail::whereHas('order', function($q){
 			$q->where('season_id', \App\X::activeSeason());
-		})->groupBy('product_variation_id')
+		})->groupBy('variation_id')
 		->selectRaw('*, sum(qty) as totQty')
 		->first();
 
         if ($mostReqItem !== NULL)
-		    $mostReqItem = [ 'name'=>$mostReqItem->product_variation->fullName(), 'qty' => $mostReqItem->totQty ];
+		    $mostReqItem = [ 'name'=> $mostReqItem->variation->renderTerms(), 'qty' => $mostReqItem->totQty ];
         else
             $mostReqItem = ['name'=>'none', 'qty'=>'0'];
 

@@ -159,7 +159,7 @@
         alertify.confirm( "{!!trans('x.Please Confirm')!!}", "{!!trans('x.Are you sure you want to delete this order?')!!}", 
             function () {
                 // positive
-                window.location.href = "/order/delete-order/"+id;
+                window.location.href = "/orders/delete-order/"+id;
             }, 
             function() {
                 ; // negative// do nothing 

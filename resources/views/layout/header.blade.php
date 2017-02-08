@@ -56,11 +56,11 @@
                     <div class="btn-group-img btn-group">
                         <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span>{!!Auth::user()->profile->companyname!!}</span>
-                            <img src="/assets/images/users/{!!Auth::user()->profile->avatar!!}" alt="{!!Auth::user()->profile->name_surname()!!}"/> 
+                            <img src="{{Auth::user()->profile->avatar()}}" alt="{!!Auth::user()->profile->name_surname()!!}"/> 
                         </button>
                         <ul class="dropdown-menu-v2" role="menu">
                             <li>
-                            <a href="page_user_profile_1.html">
+                            <a href="/users/profile/">
                                 <i class="icon-user"></i> Profile
                             </a>
                             </li>

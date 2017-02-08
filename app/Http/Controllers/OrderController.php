@@ -8,6 +8,7 @@ use \App\OrderDetails as OrderDetails;
 use App\Http\Requests;
 use Input;
 use App;
+use X;
 use Auth;
 use Config;
 use Session;
@@ -22,415 +23,252 @@ use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
 use Ivory\GoogleMap\Places\AutocompleteType;
 use Ivory\GoogleMap\Helper\Places\AutocompleteHelper;
 use App\Gestionale\Stats as Stats;
+use Cart;
 
 class OrderController extends Controller
 {
-	public function create()
+	public function step1_customer()
 	{
-		// CLEAN previous orders
-		if (Session::has('order'))
-			Session::forget('order');
-		
-		// retrieve all customers
-		$customers = Customer::all();
-		$autocomplete = new Autocomplete();
-		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete->setInputId('place_input');
-		$autocomplete->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
-		//$autocomplete->setValue('aaa');
-		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
-		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-		$autocomplete->setBound(45, 9, 45, 9, true, true);
-		$autocomplete->setAsync(false);
-		$autocomplete->setLanguage(Localization::getCurrentLocale());
-		if (!App::environment('local')) 
-				$autocomplete->setApiKey(Config::get('general.google_api_key'));
-		// render
-		$autocompleteHelper = new AutocompleteHelper();
-		
+
 		// prepare dropdown with supported Locales
 		$configLocales = Config::get('localization.supported-locales');
 		$supportedLocales = array();
 		foreach ($configLocales as $key => $locale) {
 			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 		}
-		
-		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'supportedLocales'));
+
+        // retrieve all brand customers
+		$customers = X::brandInUseCustomers();
+        // return view step1
+		return view('pages.orders.step1_customer', compact('autocomplete', 'autocompleteHelper', 'supportedLocales'));
 	}
 	
-	public function edit($order_id)
+	public function step2_options(Request $request)
 	{
-		
-		$order = \App\Order::find($order_id);
-		// if user is not the owner of the order, of is not someone who manage orders
-		if ( (!Auth::user()->can('manage orders')) && ($order->user_id != Auth::user()->id) ) {
-			Alert::error(trans("messages.You don't have the permission to edit this order"));
-			return redirect()->back();
-		}
-		
-		// retrieve all customers
-		$customers = Customer::all();
-		$autocomplete = new Autocomplete();
-		$autocomplete->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete->setInputId('place_input');
-		$autocomplete->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
-		//$autocomplete->setValue('aaa');
-		$autocomplete->setTypes(array(AutocompleteType::GEOCODE));
-		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-		$autocomplete->setBound(45, 9, 45, 9, true, true);
-		$autocomplete->setAsync(false);
-		$autocomplete->setLanguage(Localization::getCurrentLocale());
-		if (!App::environment('local')) 
-				$autocomplete->setApiKey(Config::get('general.google_api_key'));
-		// render
-		$autocompleteHelper = new AutocompleteHelper();
-		
+        // check if customer_id was setted
+        if (!$request->has('customer_id') && !Session::has('cart.options.customer_id'))
+            return redirect('/orders/new/step1');
+        
+        // get customer object
+        if (Session::has('cart.options.customer_id'))
+            $customer = \App\Customer::find(Session::get('cart.options.customer_id'));
+        else
+            $customer = \App\Customer::find($request->get('customer_id'));
+
+        // set option customer_id
+        if ($request->get('customer_id') !== NULL)
+		    Order::setOptions( 'customer_id', $request->get('customer_id') );
+
 		// prepare dropdown with supported Locales
 		$configLocales = Config::get('localization.supported-locales');
 		$supportedLocales = array();
 		foreach ($configLocales as $key => $locale) {
 			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 		}
-		
-		$order_image = unserialize(\App\OrderImage::where('order_id', $order_id)->first()['image']);
-		Session::put('order', $order_image);
-		Session::put('order.edited', $order_id);
-		
-		return view('pages.orders.start', compact('autocomplete', 'autocompleteHelper', 'supportedLocales'));
+
+        // return view step2
+        return view('pages.orders.step2_options', compact('supportedLocales', 'customer'));
 	}
 	
-	public function step2()
+	public function step3_products(Request $request)
 	{
-		
-		// required customer id to go on
-		if (!Input::has('id'))
-			return redirect()->back();
-	
-		$autocomplete2 = new Autocomplete();
-		$autocomplete2->setPrefixJavascriptVariable('place_autocomplete_');
-		$autocomplete2->setInputId('place_input');
-		$autocomplete2->setInputAttributes(['class' => 'form-control', 'name'=>'address']);
-		//$autocomplete->setValue('aaa');
-		$autocomplete2->setTypes(array(AutocompleteType::GEOCODE));
-		//$autocomplete->setComponentRestrictions(array(AutocompleteComponentRestriction::COUNTRY => 'fr'));
-		$autocomplete2->setBound(45, 9, 45, 9, true, true);
-		$autocomplete2->setAsync(false);
-		$autocomplete2->setLanguage(Localization::getCurrentLocale());
-		if (!App::environment('local')) 
-				$autocomplete2->setApiKey(Config::get('general.google_api_key'));
-		// render
-		$autocompleteHelper = new AutocompleteHelper();
-		
-		$customer_id = Input::get('id');
-		$customer = \App\Customer::find($customer_id);
-		
-		$noback = true;
-		return view('pages.orders.step2', compact( 'customer', 
-		                                          'autocomplete2', 
-		                                          'autocompleteHelper', 
-		                                          'noback'
-		                                          ));
-		
-	}
-	
-	public function step3()
-	{
-		
-		$products_array = array();
-		$qty = 0;
-		$subtotal = 0;
-		$items_color_grouped = array();
-		
+		/* In request there should be 4 values : 
+
+            - "customer_delivery_id"
+            - "payment_id"
+            - "price_list_id"
+            - "season_delivery_id"
+
+        */
+
+        // if order has not the 5 values it needs here
+        if ( !(Session::has('cart.options.customer_id') && 
+            Session::has('cart.options.customer_delivery_id') && 
+            Session::has('cart.options.price_list_id') && 
+            Session::has('cart.options.payment_id') &&
+            Session::has('cart.options.season_delivery_id') ) ) {
+
+                // count if $_GET request has 4 values
+                if (count($request->all()) !== 4)
+                    return redirect()->back();
+
+                // check if one of the values is NULL
+                foreach ($request->all() as $k => $v) {
+                    if ($v == "null")
+                        return redirect('/orders/new/step2');
+                }
+            }
+
+        // check if Price List is the same as before
+        if (Order::getOption('price_list_id') !== $request->get('price_list_id')) {
+            // need to update all the prices
+            if ($request->get('price_list_id') !== NULL && $request->get('price_list_id') !== '')
+            X::cartRefreshPrices($request->get('price_list_id'));
+        }
+
+        // set remaining options to session
+		Order::setOptions( $request->all() );
+
 		// get active season value
-		$active_season = \App\Helper::activeSeason();
+		$active_season = X::activeSeason();
 		// query all products for active season
-
 		$type_id = Auth::user()->options->active_type;
-		if ($type_id == 1) {
-			$products = Product::where('season_id', $active_season)->where('active', 1)->orderBy('name', 'asc')->paginate(200);
+
+		if (Input::has('active')) {
+			$products = Product::where('season_id', $active_season)
+								->where('active', Input::get('active'))
+								->orderBy('type_id', 'asc')
+								->orderBy('name', 'asc')
+								->get();
 		} else {
-			$products = Product::where('season_id', $active_season)->where('type_id', $type_id)->where('active', 1)->orderBy('name', 'asc')->paginate(200);
+			$products = Product::where('season_id', $active_season)
+								->where('active', 1)
+								->orderBy('type_id', 'asc')
+								->orderBy('name', 'asc')
+								->get();
 		}
 
-		if (Session::has('order.items')){
-			$items = Session::get('order.items');
-			$season_list_id = Session::get('order.season_list_id');
+        // set List variable
+        $list = FALSE;
+        $fast = FALSE;
 
-			foreach ($items as $k => $v) {
-				$item = \App\Item::find($k);
-				$product_id = $item->product->id;
-				$products_array[$product_id][] = $item->color_id;
-				$products_array[$product_id] = array_map("unserialize", array_unique(array_map("serialize", $products_array[$product_id])));
-				// get quantity
-				$qty += $v;
-				// get prices
-				$price = \App\ItemPrice::where('item_id', $k)->where('season_list_id', $season_list_id)->first()['price'];
-				$subtotal += $price * $v;
-			}
-		
-			// numero di product+color
-			$items_color_grouped = 0;
-			foreach ($products_array as $a) {
-			    $items_color_grouped+= count($a);
-			}
-		}
-		
-		
-		if (Session::has('order')) {
-			// EXHISTING DATA (back button or edited order) ###########	
-			if (Input::has('season_list_id'))
-				Session::put('order.season_list_id', Input::get('season_list_id'));
-			
-			if (Input::has('payment_id'))
-				Session::put('order.payment_id', Input::get('payment_id'));
-				
-			if (Input::has('season_delivery_id'))
-				Session::put('order.season_delivery_id', Input::get('season_delivery_id'));
-			
-			if (Input::has('customer_delivery_id'))
-				Session::put('order.customer_delivery_id', Input::get('customer_delivery_id'));
-		}
+        // if List is requested, set $list var to TRUE
+        if ($request->has('show') && $request->get('show') == 'list')
+            $list = TRUE;
 
-		else {
-			// NEW ORDER ###########
-			
-			// CHECK IF SOMETHING IS MISSING //
-			$message = '';
-			if (!Input::has('season_list_id'))
-				$message .= 'Selezione del listino obbligatoria<br>';
-			if (!Input::has('payment_id'))
-				$message .= 'Metodo di pagamento obbligatorio<br>';
-			if (!Input::has('season_delivery_id'))
-				$message .= 'Data di consegna obbligatoria<br>';
-			if (!Input::has('customer_delivery_id'))
-				$message .= "Indirizzo di consegna obbligatorio<br>";
-			if ((!Input::has('season_list_id')) || (!Input::has('payment_id')) || (!Input::has('season_delivery_id')) || (!Input::has('customer_delivery_id'))) {
-				// throw errors
-				Alert::error($message);
-				return redirect()->back();
-			}
-			// Save NEW ORDER inside SESSION
-			Session::put('order', Input::all());
-		}
-		
+        if ($request->has('show') && $request->get('show') == 'fast')
+            $fast = TRUE;
+
 		// redirect to step 3 => products selection
-		return view('pages.orders.step3', compact('products', 'products_array', 'qty', 'items_color_grouped', 'subtotal'));
+		return view('pages.orders.step3_products', compact('products', 'list', 'fast'));
 	}
-	
-	public function save_line()
-	{
-		$input = Input::all();
-		unset($input['_token']);
-		
-		// from customizer
-		if (Input::has('custom')) {
-			unset($input['custom']);
-			Session::put('order.custom', Input::get('custom'));
-		}
-		
-		$sum = 0;
-		$items = array();
-		if (Session::has('order.items')) {
-			// per ogni input [id_item => quantita]
-			foreach ($input as $key => $val) {
-				// se l'item id è già presente in session ..
-				if (array_key_exists($key, Session::get('order.items'))) {
-					// aggiorno la quantità se non è vuota
-					if ($val != '' && $val != 0)
-						Session::set('order.items.'.$key, ltrim($val, '0'));
-					// la cancello se è vuota
-					else 
-						Session::forget('order.items.'.$key);
-				// se l'item id non è presente in session ..
-				} else {
-					if ($val != '' && $val != 0)
-						$items[$key] = ltrim($val, '0');
-				}
-				if ($val != '' && $val != 0)
-					$items[$key] = ltrim($val, '0');
-				// aggiorno la var full_items
-				$full_items = Session::get('order.items') + $items;
-			}
-		} else {
-			
-			foreach ($input as $key => $val) {
-				if ($val != '' && $val != 0)
-					$items[$key] = ltrim($val, '0');
-			}
-			// get items
-			if (Session::has('order.items')) {
-				$full_items = Session::get('order.items') + $items;
-			} else {
-				$full_items = $items;
-			}
-			
-		}
-		
-		// update order.items
-		Session::put('order.items', $full_items);
-		
-		// custom == redirect to products
-		if(Input::has('custom'))
-			return redirect('/order/new/step3');
-		else
-			return redirect()->back();
-	}
-	
-	public function step4()
-	{
-		// must have order items
-		if (!Session::has('order.items'))
-			return redirect()->back();
-		
-		// retrieve all
-		$items = Session::get('order.items');
-		$fullOrder = Session::get('order');
-		$customer_delivery_id = Session::get('order.customer_delivery_id');
-		$payment_id = Session::get('order.payment_id');
-		$season_delivery_id = Session::get('order.season_delivery_id');
-		$season_list_id = Session::get('order.season_list_id');
-		$customer_id = Session::get('order.customer_id');
-		
-		$qty = 0;
-		$subtotal = 0;
-		$total = 0;
-		
-		$products_array = array();
-		$temp_variations = array();
-		// calcolo: PEZZI TOTALI (qty) E PREZZO SUBTOTALE (subtotal)
-		foreach ($items as $item_id => $quantity) {
-			$item = \App\Item::find($item_id);
-			// get total pieces
-			$qty += $quantity;
-			// get prices
-			$price = \App\ItemPrice::where('item_id', $item_id)->where('season_list_id', $season_list_id)->first()['price'];
-			$subtotal += $price * $quantity;
 
-			// products_arr = PRODUCT_ID=>[ PRODUCT_VARIATION_ID .. PRODUCT_VARIATION_ID .. ]			
-			if (!in_array(\App\Item::find($item_id)->product_variation_id, $temp_variations))
-				$products_array[\App\Item::find($item_id)->product_id][] = \App\Item::find($item_id)->product_variation_id;
-			
-			// array temporaneo 
-			$temp_variations[] = \App\Item::find($item_id)->product_variation_id;
-		}
-				
-		// calcolo: TOTAL sulla base delle variazioni di prezzo
-		// payment variation => discount
-		if (\App\Payment::find($payment_id)->action == '-') {
-			$total = $subtotal * ((100-\App\Payment::find($payment_id)->amount) / 100);
-		// payment variation => increase
-		} else if (\App\Payment::find($payment_id)->action == '+') {
-			$total = $subtotal * ((100+\App\Payment::find($payment_id)->amount) / 100);
-		} else {
-			$total = $subtotal;
-		}
-		
-		Session::put('order.subtotal',$subtotal);
-		Session::put('order.total', $total);
-		Session::put('order.qty', $qty);
-		Session::put('order.products_array', $products_array);
-					
-		return view('pages.orders.step4', compact(
-		         'fullOrder',
-               'subtotal', 
-               'qty', 
-               'total'
-         	));
-	}
+    public function save_line(Request $request)
+    {
+
+        // clean $_POST data
+        unset($request['_token']); 
+        //$items_qty = (array_filter($request->all()));
+        $items_qty = ($request->all());
+        
+        // var $items_qty = [ {itemId} => {itemQty} ]
+        // loop through $items_qty data
+        foreach ($items_qty as $itemId => $qty) {
+            // add to Cart ( id, name, qty, price )
+            X::addToCart( $itemId, $qty);
+        }
+
+        return Order::renderOrderInfos();
+    }
+
+    public function save_fast(Request $request)
+    {
+
+        // clean $_POST data
+        unset($request['_token']); 
+        unset($request['fast-type']); 
+        unset($request['fast-products']); 
+        unset($request['fast-variations']); 
+        
+        //$items_qty = (array_filter($request->all()));
+        $items_qty = ($request->all());
+        
+        // var $items_qty = [ {itemId} => {itemQty} ]
+        // loop through $items_qty data
+        foreach ($items_qty as $itemId => $qty) {
+            // add to Cart ( id, name, qty, price )
+            X::addToCart( $itemId, $qty);
+        }
+
+        return Order::renderOrderInfos();
+    }
 	
-	public function confirm()
+	public function step4_confirm()
 	{
-		
-		$products_count = 0;
-		$edited = FALSE;
-		
-		foreach (Session::get('order.products_array') as $key => $product) {
-		    $products_count += count($product);
+		// prepare dropdown with supported Locales
+		$configLocales = Config::get('localization.supported-locales');
+		$supportedLocales = array();
+		foreach ($configLocales as $key => $locale) {
+			$supportedLocales[$locale] = Config::get('localization.locales.'.$locale.'.native');
 		}
-		
-		// EDITED EXHISTING ORDER ##############
-		if (Session::has('order.edited')) {
-			
-			// store it in a variable
-			$edited = TRUE;
-			// use exhisting order line
-			$order = \App\Order::find(Session::get('order.edited'));
-			// delete all order details lines associated to the specified order_id
-			foreach (\App\OrderDetail::where('order_id', Session::get('order.edited'))->get() as $order_detail) {
-				$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
-				$order_detail->delete();
-			}
-			// delete order image associated to the specified order_id
-			foreach (\App\OrderImage::where('order_id', Session::get('order.edited'))->get() as $order_image) {
-				$order_image->setConnection(Auth::user()->options->brand_in_use->slug);
-				$order_image->delete();
-			}
-			
-		} else {
-		// NEW ORDER ##############
-			$order = new \App\Order;
-			$order->user_id = Auth::user()->id;
-		}
-		
-		$order->customer_id = Session::get('order.customer_id');
-		$order->payment_id = Session::get('order.payment_id');
-		$order->payment_amount = \App\Payment::find(Session::get('order.payment_id'))->variation.
-											\App\Payment::find(Session::get('order.payment_id'))->amount;
-		$order->season_id = \App\Option::where('name', 'active_season')->first()->value;
-		$order->season_list_id = Session::get('order.season_list_id');
-		$order->customer_delivery_id = Session::get('order.customer_delivery_id');
-		$order->products_qty = $products_count;
-		$order->items_qty = Session::get('order.qty');
-		$order->note = Input::get('note');
-		$order->season_delivery_id = Session::get('order.season_delivery_id');
-		$order->products_array = serialize(Session::get('order.products_array'));
-		
-		$count = 0;
-		foreach (Session::get('order.items') as $key => $value) {
-			$count += $value;
-		}
-		$order->subtotal = Session::get('order.subtotal');
-		$order->total = Session::get('order.total');
-		$order->setConnection(Auth::user()->options->brand_in_use->slug);
-		$order->save();
-		
-		$colors_temp = array();
-		
-		foreach (Session::get('order.items') as $key => $val) {
-			$colors_temp[] = \App\Item::find($key)->color_id; // array con colori
-			
-			$order_detail = new \App\OrderDetail;
-			$order_detail->order_id = $order->id;
-			$order_detail->product_id = \App\Item::find($key)->product_id;
-			$order_detail->product_variation_id = \App\Item::find($key)->product_variation_id;
-			$order_detail->item_id = $key;
-			$order_detail->qty = $val;
-			$order_detail->price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'];
-			$order_detail->total_price = \App\ItemPrice::where('item_id', $key)->where('season_list_id', Session::get('order.season_list_id'))->first()['price'] * $val;
-			$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
-			$order_detail->save();
-		}
-		
-		Session::put('order.order_id', $order->id);
-		// salvo la variabile di sessione
-		$order_image = new \App\OrderImage;
-		$order_image->order_id = $order->id;
-		$order_image->image = serialize(Session::get('order'));
-		$order_image->setConnection(Auth::user()->options->brand_in_use->slug);
-		$order_image->save();
-		
-		// pulisco la variabile di sessione
-		Session::forget('order');
-		
-		/*
-		======= DONT SEND MAIL JUST AFTER SAVING ORDER ========
-		if (!App::environment('local'))
-			$email_confirmation = \App\EneaMail::order_confirmation($order->id, $edited);
-		*/
-		
-		Alert::success('Ordine salvato correttamente');
-		return redirect('/');
+
+        $brand = X::brandInUse();
+        $customer = \App\Customer::find(Order::getOption('customer_id'));
+        if (\App\Order::getOption('customer_delivery_id') == '0')
+            $delivery = $customer;
+        else
+            $delivery = \App\CustomerDelivery::find(Order::getOption('customer_delivery_id'));
+        $payment = \App\Payment::find(\App\Order::getOption('payment_id'));
+
+        return view('pages.orders.step4_confirm', compact('supportedLocales', 'brand', 'customer', 'delivery', 'payment'));
+
 	}
+
+    public function confirm_and_save(Request $request)
+    {
+
+        // check if there are almost 1 product in Session
+        if (Cart::instance('agent')->count() < 1) {
+            // throw error alert
+            Alert::error('x.You can\'t confirm an order without products');
+            // return to '/orders/new' page
+            return redirect('/orders/new');
+        }
+
+        // if order is edited ... get original Order object
+        if (Session::has('cart.options.order_id')) {
+            $order = \App\Order::find(Session::get('cart.options.order_id'));
+            $order->log('U');
+        // if is new order, instanciate Order
+        } else {
+            $order = new \App\Order;
+            $order->log('C');
+        }
+
+        $order->note = $request->get('note');   
+        // see saveOptions() method of \App\Order class
+        $order->saveOptions();
+
+        // if order is edited.. 
+        if (Session::has('cart.options.order_id')) {
+            // remove all previous order details
+           \App\OrderDetail::where('order_id', $order->id)->delete();
+        }
+
+        // save new order details
+        foreach (Cart::instance('agent')->content() as $row) {
+            // create orderDetail instance
+            $detail = new \App\OrderDetail;
+            // get Item instance
+            $item = \App\Item::find($row->id);
+            // save data
+            $detail->order_id = $order->id;
+            $detail->product_id = $item->product_id;
+            $detail->variation_id = $item->variation_id;
+            $detail->item_id = $row->id;
+            $detail->qty = $row->qty;
+            $detail->price = $row->price;
+            $detail->total_price = (int)$row->qty * $row->price;
+            $detail->setConnection(Auth::user()->options->brand_in_use->slug);  
+            $detail->save();
+        }
+
+        Session::forget('cart');
+
+        Alert::success(trans('x.Order correctly saved'));
+        return redirect('/');
+    }
+
+    public function edit($id)
+    {
+        // get Order instance
+        $order = \App\Order::find($id);
+        // restore Session
+        Session::put('cart', unserialize($order->products_array));
+        Session::put('cart.options.order_id', $id);
+
+        return redirect('/orders/new');
+    }
 	
 	public function details($id)
 	{
@@ -452,17 +290,14 @@ class OrderController extends Controller
 		$order = \App\Order::find($id);
 
 		// delete all order details
-		foreach (\App\OrderDetail::where('order_id', $order->id)->get() as $order_detail) {
-			$order_detail->setConnection(Auth::user()->options->brand_in_use->slug);
-			$order_detail->delete();
-		}
+		\App\OrderDetail::where('order_id', $order->id)->delete();
 			
 		// delete order
 		$order->setConnection(Auth::user()->options->brand_in_use->slug);
 		$order->delete();
 		
 		Alert::success('Ordine eliminato correttamente');
-		return redirect()->back();
+		return redirect('/');
 
 	}
 	
@@ -478,7 +313,14 @@ class OrderController extends Controller
 	public function modalEdit(Request $request)
 	{
 		$order = \App\Order::find($request->get('order_id'));
-		return view('modals.order.edit', compact('order'));
+		return view('modals.orders.edit', compact('order'));
 	}
+
+    public function clearSessionOrder()
+    {
+        Session::forget('cart');
+        Alert::success(trans('x.Session clear'));
+        return redirect('/');
+    }
 	
 }

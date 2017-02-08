@@ -2,13 +2,21 @@
 <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
 
-        <li class="dropdown dropdown-fw dropdown-fw-disabled">
+        <li id="dashboard-menu" class="dropdown dropdown-fw dropdown-fw-disabled">
             <a href="@if (explode('/', Request::url())[count(explode('/', Request::url()))-1] !== 'dashboard') / @else # @endif" class="text-uppercase">
             <i class="icon-home"></i> Dashboard </a>
             <ul class="dropdown-menu dropdown-menu-fw">
                 <li>
-                <a class="menulink" href="/dashboard">
-                <i class="icon-home"></i> Dashboard </a>
+                    <a class="menulink" href="/dashboard">
+                    <i class="icon-home"></i> Dashboard </a>
+                </li>
+                <li>
+                    <a class="menulink" href="/orders/new">
+                    @if (X::isOrderInProgress())
+                        <i class="fa fa-arrow-right"></i> {{trans('x.Continue order')}} </a>
+                    @else
+                        <i class="fa fa-plus"></i> {{trans('x.New Order')}} </a>
+                    @endif
                 </li>
             </ul>
         </li>
@@ -159,3 +167,28 @@
     </ul>
 </div>
 <!-- END HEADER MENU -->
+
+<script>
+    var winLocation = window.location.href.replace('it/', '')
+                                        .replace('en/', '')
+                                        .replace('es/', '')
+                                        .replace('fr/', '');
+    links  = $('.menulink');
+    activeLink = false;
+    for(ind in links)
+    {
+        link = links[ind];
+        if (link.href !== undefined) {
+            //if (window.location.href.split('/').pop() == link.href.split('/').pop()) {
+            if (winLocation.indexOf(link.href) !== -1) {
+                $(link).parent('li').addClass('active');
+                $('.dropdown-fw.dropdown-fw-disabled').removeClass('active open selected');
+                $(link).parent('li').parent('ul').parent('li').addClass('active open selected');
+                activeLink = true;
+            }
+        }
+    }
+
+    if (!activeLink)
+        $('#dashboard-menu').addClass('active open selected');
+</script>

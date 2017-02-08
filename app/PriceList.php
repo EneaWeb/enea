@@ -41,12 +41,12 @@ class PriceList extends Model
 	public static function validate( $input ) {
 
 		$rules = array(
-		   'id' => 'required',
+		   'list_id' => 'required',
 		   'name' => 'required',
 		);
 
 		$messages = array(
-		   'id.required' => trans('x.required-season_list-id'),
+		   'list_id.required' => trans('x.required-season_list-id'),
 		   'name.required' => trans('x.required-season_list-name'),
 		);
 

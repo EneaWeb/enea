@@ -13,9 +13,59 @@ use Localization;
 use Input;
 use Hash;
 use App\Http\Requests;
+use Image;
+use Storage;
 
 class ManageUsersController extends Controller
 {
+
+    public function profile($id)
+    {
+        $user = \App\User::find($id);
+        $profile = $user->profile;
+        $logs = \App\Log::where('user_id', $id)->get();
+        return view('pages.users.profile', compact('user', 'profile', 'logs'));
+    }
+
+    public function upload_picture(Request $request)
+    {
+        // get file object
+        $image = $request->file('file');
+
+        // check if file is an image
+        if(substr($image->getMimeType(), 0, 5) !== 'image') {
+            return 'not an image';
+        }
+
+        // get correct path for uploading : /{products}/{brand_slug}/
+        $path = '/users/';
+
+        // get file extension
+        $ext = $image->getClientOriginalExtension();
+
+        // create new unique filename for the storage, composed as:
+        // {originalName}-{random5str}.{ext}
+        $fileName = str_replace(' ','-',str_replace('.'.$ext,'',$image->getClientOriginalName())).'-'.str_random(5).'.'.$ext;
+
+        // save picture filename in 'profiles'
+        $profile = Auth::user()->profile;
+        $profile->avatar = $fileName;
+        $profile->save();
+
+        // create Image instance for 600 x 600 picture
+        $image_normal = Image::make($image)->resize(600, 600, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        // save 600 x 600 to Filesystem
+        $image_normal = $image_normal->stream();
+        Storage::disk('s3')->put($path.$fileName, $image_normal->__toString());
+
+        // return filename of uploaded file
+        return $fileName;
+    }
+
 	public function index()
 	{
 		$active_brand = Auth::user()->options->active_brand;

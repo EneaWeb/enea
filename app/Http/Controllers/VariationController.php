@@ -8,6 +8,8 @@ use Auth;
 use \App\Variation as Variation;
 use \App\Alert as Alert;
 use App\Http\Requests;
+use X;
+use DB;
 
 class VariationController extends Controller
 {
@@ -53,9 +55,28 @@ class VariationController extends Controller
 		return redirect()->back();
 	}
 	
-	public function delete()
-	{
-		
-	}
+	public function variationByProduct(Request $request)
+    {
+        $product_id = $request->get('product_id');
+        return \App\Variation::with('terms')->where('product_id', $product_id)->where('active', '1')->get()->toJSON();
+    }
+
+	public function itemByVariation(Request $request)
+    {
+        $variation_id = $request->get('variation_id');
+        $price_list_id = \App\Order::getOption('price_list_id');
+
+        $q = DB::connection(X::brandInUseSlug())
+            ->table('items')
+            ->where('items.variation_id', '=', $variation_id)
+            ->join('item_prices', function($q) use ($price_list_id) {
+                $q->on('items.id', '=', 'item_prices.item_id');
+                $q->where('item_prices.price_list_id', $price_list_id);
+            })
+            ->select('items.*', 'item_prices.price')
+            ->get();
+
+        return json_encode($q);
+    }
 	
 }

@@ -1,40 +1,132 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## ABOUT
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## SDK
 
-## About Laravel
+### The "X" Helper
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Class <code>X</code> is the main Helper. Quite everything can be done with the <b>X</b> class.<br>
+<code>App\X::class</code> is registered as <code>X</code> alias.<br><br>
+Don't forget to import the <b>X</b> class in your Model/Controller with the synthax:
+```PHP
+use X;
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Season
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Season delivery dates for current season:
+```PHP
+X::seasonDeliveryDates()
+```
 
-## Learning Laravel
+### Customers
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+All customers:
+```PHP
+X::customers();
+```
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+All customers registered for Brand in use:
+```PHP
+X::brandInUseCustomers();
+```
 
-## Contributing
+### Users
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+All customers:
+```PHP
+X::users();
+```
 
-## Security Vulnerabilities
+### SHOPPING CART
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+#### Creating / Editing orders
 
-## License
+Add an item to the cart get parameters: <b>ID</b> (string), <b>Name</b> (string), <b>Qty</b> (int), <b>Price</b> (float).
+```PHP
+Cart::instance('agent')->add( '34', 'Product X', 2, 25.99 );
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Get cart content:
+```PHP
+Cart::instance('agent')->content();
+```
+
+Get cart total:
+```PHP
+Cart::instance('agent')->total();
+```
+
+Destroy cart:
+```PHP
+Cart::destroy();
+```
+
+Check if Item ID is in cart
+```PHP
+// returns TRUE or FALSE
+X::cartHasItem($itemId, $instance='agent');
+```
+
+Get Cart content row by Item ID
+```PHP
+// returns Cart content row object or NULL
+X::cartGetItem($itemId, $instance='agent');
+```
+
+Cart options are stored as array in <b>cart.options</b>. You can save to session single option or an array with multiple options:
+```PHP
+\App\Order::setOptions( 'price_list_id', 2 );
+\App\Order::setOptions( [ 'price_list_id' => 2, 'season_delivery_id' => 3 ] );
+```
+
+Apply all session options to an Order instance:
+```PHP
+$order->saveOptions();
+```
+
+## STRINGS
+
+Method <code>formatPrice($float, $position='after')</code> formats prices for ITA with EUR symbol. Example:
+X::prettyPrice(25,366.25, 'before'); // renders "€ 25.366,25"
+
+## PICTURES
+
+This app uses Amazon AWS S3 as storage filesystem for pictures and documents.<br>
+Each product picture is stored inside a <b>brand</b> named folder following this tructure:
+
+```bash
+/___ users/
+|
+|___ brands/
+|
+|___ products/
+    |
+    |___ {brandName}/
+        |
+        |___ 400/
+        |    |
+        |    |_ {400x400_thumb}
+        |    |_ {400x400_thumb}
+        |    |_ {400x400_thumb}
+        |    |_ ....
+        |
+        |_ {2000x2000_picture}
+        |_ {2000x2000_picture}
+        |_ {2000x2000_picture} 
+        |_ ....
+```
+
+Generate HTML <code>\<img\></code> element with S3 url is pretty simple with the <code>X</code> helper and blade synthax:
+
+```blade
+<!-- get full size picture -->
+<img src="{{ X::s3_products( $product->featuredPicture() ) }}" />
+
+<!-- get thumbnail picture -->
+<img src="{{ X::s3_products_thumb( $product->featuredPicture() ) }}" /> 
+```
+
+## LICENSE
+
+...
+

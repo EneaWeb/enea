@@ -17,4 +17,6 @@ return array(
     'Geocoder' => array($vendorDir . '/willdurand/geocoder/src', $vendorDir . '/geocoder-php/geocoder-extra/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
+    'AlgoliaSearch\\Tests' => array($vendorDir . '/algolia/algoliasearch-client-php/tests'),
+    'AlgoliaSearch' => array($vendorDir . '/algolia/algoliasearch-client-php/src'),
 );

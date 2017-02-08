@@ -79,6 +79,11 @@ class Variation extends Model
         return unserialize($this->pictures);
     }
 
+    public function featuredPicture()
+    {
+        return unserialize($this->pictures)[0];
+    }
+
     public function renderTerms()
     {
         return implode(' + ',$this->terms()->pluck('name')->toArray());
@@ -87,6 +92,23 @@ class Variation extends Model
     public function getSizesArray()
     {
         return \App\Item::where('variation_id', $this->id)->pluck('size_id')->toArray();
+    }
+
+    public static function renderSizes($variation_id) {
+        $arr = array();
+        foreach (\App\Item::where('variation_id', $variation_id)->get() as $item) {
+            $arr[] = $item->size->name;
+        }
+        return \App\X::rangeNumbers($arr);
+    }
+
+    public function renderPrices()
+    {
+        $arr = array();
+        foreach (\App\Item::where('variation_id', $this->id)->get() as $item) {
+            $arr[] = $item->priceForOrderList();
+        }
+        return \App\X::rangeNumbers($arr);
     }
 
 }

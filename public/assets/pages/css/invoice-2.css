@@ -8,8 +8,6 @@ Invoice page 2
   .invoice-content-2.bordered {
     border: 1px solid;
     border-color: #e7ecf1; }
-  .invoice-content-2 .invoice-head {
-    margin-bottom: 50px; }
     .invoice-content-2 .invoice-head .invoice-logo {
       text-align: center; }
       .invoice-content-2 .invoice-head .invoice-logo > img {

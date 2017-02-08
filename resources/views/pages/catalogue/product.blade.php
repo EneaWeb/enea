@@ -249,7 +249,9 @@
 
                                                         <div class="form-group">
 
-                                                            <label for="multiple" class="col-md-3 control-label">{!!trans('x.Attributes')!!}</label>
+                                                            <label for="multiple" class="col-md-3 control-label">
+                                                                {!!trans('x.Attributes selection')!!}
+                                                            </label>
                                                             <div class="col-md-9">
                                                                 <select id="variations" class="form-control select2-multiple" multiple>
                                                                     @foreach(\App\Attribute::all() as $attribute)
@@ -264,11 +266,15 @@
                                                                 <br>
 
                                                                 <button type="button" class="btn btn-info" id="create-variations">
-                                                                    {!!trans('x.Create variations from attributes')!!}
+                                                                    {!!trans('x.Generate from attributes')!!}
                                                                 </button>
                                                                 <a href="#" data-toggle="modal" data-target="#modal_add_term" class="btn btn-danger">
                                                                     {!!trans('x.+ Attr')!!}
                                                                 </a>
+                                                                <br>
+                                                                <button type="button" class="btn btn-info" id="create-empty-variation" style="margin-top:4px">
+                                                                    {!!trans('x.Create empty')!!}
+                                                                </button>
 
                                                             </div>
 
@@ -432,7 +438,7 @@
     });
 
     // on delete variation click
-    $(document).on('click', '.delete-variation', function(e){
+    $(document).on('click', '.delete-variation, .delete-variation-gen', function(e){
         e.preventDefault();
         var id = $(e.target).data('variation');
         // just remove variation portlet
@@ -440,7 +446,7 @@
 
         $('<input>').attr({
             type: 'hidden',
-            name: 'delete-variation[]',
+            name: 'delete_variation[]',
             value: id
         }).appendTo('#product-form');
 
@@ -500,11 +506,27 @@
 
         })
         .error(function(){
-            alert('ajax error');
+            toastr.error('ajax error');
+        });
+
+    });
+
+    $('#create-empty-variation').on('click', function(){
+
+        priceLists = JSON.parse('{!!\App\PriceList::pluck('id')->toJSON()!!}');
+
+        $.ajax({
+            url : '/catalogue/products/create-empty-variation',
+            method : 'GET',
+            data: { _token : '{!!csrf_token()!!}' }
         })
-
-    })
-
+        .success(function(msg){
+            $('#variations-container').append(msg);
+        })
+        .error(function(){
+            toastr.error('ajax error');
+        });
+    });
 
     $('#select-type').on('change', function(){
         val = $(this).val();

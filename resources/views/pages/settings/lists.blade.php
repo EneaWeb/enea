@@ -33,6 +33,7 @@
                                 <tr>
                                     <th>{!!trans('x.ID')!!}</th>
                                     <th>{!!trans('x.Name')!!}</th>
+                                    <th>{!!trans('x.Active')!!}</th>
                                     <th>{!!trans('x.Orders')!!}</th>
                                     <th>{!!trans('x.Options')!!}</th>
                                 </tr>
@@ -42,6 +43,7 @@
                                 <tr>
                                     <td>{!!$list->id!!}</td>
                                     <td>{!!$list->name!!}</td>
+                                    <td>{!!$list->active == '1' ? trans('x.Active') : trans('x.Inactive')!!}</td>
                                     <td>
                                         {!!\App\Order::where('list_id', $list->id)->count()!!}
                                     </td>

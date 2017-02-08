@@ -24,7 +24,25 @@ class Brand extends Model
 	}
 
     protected $fillable = [
-        'name', 'description',
+        'slug',
+        'name',
+        'companyname',
+        'website',
+        'description',
+        'logo',
+        'address',
+        'postcode',
+        'city',
+        'province',
+        'country',
+        'vat',
+        'bank_name',
+        'bank_IBAN',
+        'bank_SWIFT',
+        'email',
+        'telephone',
+        'confirmation_email',
+        'active',
     ];
 
     /**
@@ -49,4 +67,16 @@ class Brand extends Model
     {
         return $this->belongsToMany('\App\Customer')->orderBy('companyname');
     }
+
+    public function picture()
+    {
+        return 'http://s3.eu-central-1.amazonaws.com/enea-gestionale/brands/'.$this->logo;
+    }
+
+    public function logo()
+    {
+        return 'http://s3.eu-central-1.amazonaws.com/enea-gestionale/brands/'.$this->logo;
+    }
+
+
 }

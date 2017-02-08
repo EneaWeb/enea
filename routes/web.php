@@ -4,8 +4,18 @@
 *	AUTH // 
 */
 
+Route::get('a', function(){
+    return \App\Order::reorderCart();
+});
+
 
 Route::get('clears3', function(){
+
+    // 
+    // DA FARE:
+    // Pulizia immagini Users
+    //
+
     $brandSlug = \App\X::brandInUseSlug();
 
     $pictures = Storage::disk('s3')->allFiles('products/'.$brandSlug);
@@ -83,8 +93,16 @@ Route::group([
 		return bcrypt('test');
 	});
 
+    Route::get('/users/profile', function(){ return redirect('/users/profile/'.Auth::user()->id); });
+    Route::get('/users/profile/{id}', 'ManageUsersController@profile');
+
 	Route::get('/api/order/modal-edit', 'OrderController@modalEdit');
 	Route::get('/api/settings/modal-edit', 'PaymentController@modalEdit');
+
+	Route::get('/api2/products-by-type', 'ProductController@productsByType');
+	Route::get('/api2/variations-by-product', 'VariationController@variationByProduct');
+	Route::get('/api2/items-by-variation', 'VariationController@itemByVariation');
+    
 
 	// changelog
 	Route::get('/changelog', function(){ return view('pages.changelog');});
@@ -94,7 +112,7 @@ Route::group([
 	Route::get('/', function(){ return redirect('/dashboard'); });
 
 	// Working stuff
-	Route::get('/session/clear', function() {	Session::forget('order'); });
+	Route::get('/session/clear', function() { Session::flush(); return redirect()->back(); });
 	Route::get('/session', function(){ return dd(Session::all()); });
 	
 	// Stats
@@ -140,6 +158,7 @@ Route::group([
 	Route::get('/catalogue/products/', 'ProductController@index');
     Route::get('/catalogue/products/new', 'ProductController@creationMask');
     Route::get('/catalogue/products/create-variations', 'ProductController@createVariations');
+    Route::get('/catalogue/products/create-empty-variation', 'ProductController@createEmptyVariation');
 	Route::get('/catalogue/products/add-color', 'ProductController@add_color');
 	Route::get('/catalogue/products/add-size', 'ProductController@add_size');
 	Route::get('/catalogue/products/bulk-update-prices', 'ProductController@bulk_update_prices');
@@ -182,18 +201,21 @@ Route::group([
     
 
 	// Orders
-	Route::get('/order/new', 'OrderController@create');
-	Route::get('/order/new/step2', 'OrderController@step2');
-	Route::get('/order/new/step3', 'OrderController@step3');
-	Route::get('/order/new/save-order', 'OrderController@step4');
-	Route::get('/order/new/confirm', 'OrderController@confirm');
-	Route::get('/order/details/{id}', 'OrderController@details');
-	Route::get('/order/edit/{id}', 'OrderController@edit');
-	Route::get('/order/delete-order/{id}', 'OrderController@delete');
-	Route::get('/order/email/{id}', 'OrderController@send_mail');
-	Route::get('/order/pdf/{id}', 'PDFController@order_confirmation_view');
-	Route::get('/order/excel/{id}', 'ExcelController@order_confirmation_download');
-	Route::get('/order/attachment/{id}', 'PDFController@order_confirmation_download');
+	Route::get('/orders/new', 'OrderController@step1_customer');
+    Route::get('/orders/clear-session-order', 'OrderController@clearSessionOrder');
+	Route::get('/orders/new/step1', 'OrderController@step1_customer');
+	Route::get('/orders/new/step2', 'OrderController@step2_options');
+	Route::get('/orders/new/step3', 'OrderController@step3_products');
+	Route::get('/orders/new/step4', 'OrderController@step4_confirm');
+	Route::get('/orders/new/confirm', 'OrderController@confirm_and_save');
+	Route::get('/orders/details/{id}', 'OrderController@details');
+	Route::get('/orders/edit/{id}', 'OrderController@edit');
+	Route::get('/orders/delete-order/{id}', 'OrderController@delete');
+	Route::get('/orders/email/{id}', 'OrderController@send_mail');
+	Route::get('/orders/pdf/{id}', 'PDFController@order_confirmation_view');
+	Route::get('/orders/excel/{id}', 'ExcelController@order_confirmation_download');
+	Route::get('/orders/attachment/{id}', 'PDFController@order_confirmation_download');
+    Route::get('/orders/update-order-infos', 'OrderController@updateOrderInfos');
 
 	// Report
 	Route::get('/report/products', 'ReportController@index');
@@ -263,9 +285,11 @@ Route::group([
 	Route::post('/catalogue/products/add-product-picture', 'ProductController@add_product_picture');
     */
     Route::post('/catalogue/upload-picture', 'ProductController@upload_picture');
+    Route::post('/users/upload-picture', 'ManageUsersController@upload_picture');
     
 	Route::post('/catalogue/products/edit-single-prices', 'ProductController@edit_single_prices');
-	Route::post('/order/new/save-line', 'OrderController@save_line');
+	Route::post('/orders/new/save-line', 'OrderController@save_line');
+	Route::post('/orders/new/save-fast', 'OrderController@save_fast');
 	Route::post('/customer/edit-customer', 'CustomerController@edit');
 	Route::post('/registration/confirm-registration', 'ManageUsersController@confirm_registration');
 	Route::post('/profile/change-password', 'ManageUsersController@change_password');
@@ -279,7 +303,14 @@ Route::group([
 	Route::post('/customizer/cinziaaraia/rotate', 'CustomizerController@rotate');
 	
 	Route::get('/customers/api-companyname', function(){
-		return \App\Brand::find(Auth::user()->options->brand_in_use->id)->customers()->pluck('companyname')->toJson();
+        $array = array();
+        foreach (X::brandInUse()->customers as $customer) {
+            $array[] = [
+                'value' => $customer->id,
+                'label' => $customer->companyname
+            ];
+        }
+        return json_encode($array);
 	});
 	Route::get('/customers/api-sign', function(){
 		return \App\Brand::find(Auth::user()->options->brand_in_use->id)->customers()->pluck('sign')->toJson();
@@ -312,11 +343,10 @@ Route::group([
 	});
 
 	Route::get('/customers/api-customer-data', function(){
-		$companyname = Input::get('companyname');
-		return \App\Customer::where('companyname', $companyname)->first()->toJson();
+		return \App\Customer::find(Request::get('customer_id'))->toJson();
 	});
 	
-	Route::post('/add-lines/api-product-id', 'ProductController@api_product_id');
+	Route::post('/orders/new/add-lines', 'ProductController@add_lines');
 	
 	Route::post('/report/select-delivery', 'ReportController@select_delivery');
 	Route::post('/report/select-date', 'ReportController@select_date');

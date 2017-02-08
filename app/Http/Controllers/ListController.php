@@ -78,13 +78,14 @@ class ListController extends Controller
 		if ( $v->passes() ) {
 				
 			// get the delivery from ID
-			$season_list = PriceList::find($request->get('id'));
+			$list = PriceList::find($request->get('list_id'));
 			// edit the informations
-			$season_list->name = $request->get('name');
+			$list->name = $request->get('name');
+			$list->active = $request->get('active');
 			// setConnection -required- for BRAND DB
-			$season_list->setConnection(\App\X::brandInUseSlug());
+			$list->setConnection(\App\X::brandInUseSlug());
 			// save the line(s)
-			$season_list->save();
+			$list->save();
 
 			// success message
 			Alert::success(trans('x.Price List updated'));

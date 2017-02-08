@@ -80,7 +80,7 @@ class Customer extends Model
 	
 	public function deliveries()
 	{
-		return $this->hasMany('\App\CustomerDelivery');
+		return $this->hasMany('\App\CustomerDelivery')->orderBy('id', 'desc');
 	}
 	
 	public function orders()
@@ -96,7 +96,7 @@ class Customer extends Model
     public function log($action)
     {
         $log = new \App\Log;
-        $log->product_id = $this->id;
+        $log->customer_id = $this->id;
         $log->action = $action;
         $log->save();
     }

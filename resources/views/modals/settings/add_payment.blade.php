@@ -26,13 +26,19 @@
                 <div class="form-group">
                     {!!Form::label('slug', trans('x.Action').'*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
-                        {!!Form::select('action', [''=>trans('x.None'), '+'=>trans('x.Increase'), '-'=>trans('x.Discount')], '-', ['class' => 'form-control', 'placeholder' => trans('x.Select')])!!}
+                        {!!Form::select('action', [''=>'-', '+'=>trans('x.Increase'), '-'=>trans('x.Discount')], '-', ['class' => 'form-control'])!!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!!Form::label('amount', trans('x.Amount').' (%)*', ['class' => 'col-md-3 control-label'])!!}
                     <div class="col-md-8">
                         {!!Form::input('number', 'amount', '', ['class' => 'form-control', 'placeholder' => '0 %'])!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!!Form::label('days', trans('x.Days').'*', ['class' => 'col-md-3 control-label'])!!}
+                    <div class="col-md-8">
+                        {!!Form::input('number', 'days', '', ['class' => 'form-control', 'placeholder' => '30'])!!}
                     </div>
                 </div>
             </div>

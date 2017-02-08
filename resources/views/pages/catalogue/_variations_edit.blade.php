@@ -1,4 +1,5 @@
 <div class="mt-element-list list-terms list-existent-terms" data-terms="{{ implode('-',$variation->terms()->pluck('id')->toArray()) }}">
+
     <div class="mt-list-container list-default ext-1 group">
         <a class="list-toggle-container" data-toggle="collapse" href="#var-{!!$variation->id!!}" aria-expanded="false">
             <div class="list-toggle">
@@ -13,9 +14,27 @@
 
                         <input type="hidden" name="variations[{!!$variation->id!!}][edit]" value="true" />
 
-                        @foreach ($variation->terms as $term)
-                            <input type="hidden" name="variations[{!!$variation->id!!}][terms_id][]" value="{!!$term->id!!}" />
-                        @endforeach
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('x.Attributes')}}</label>
+                            <div class="col-md-9">
+
+                                <select class="form-control select2-multiple" name="variations[{!!$variation->id!!}][terms_id][]" multiple>
+                                    @foreach(\App\Attribute::all() as $attribute)
+                                        <optgroup label="{!!$attribute->name!!}">
+                                        @foreach (\App\Term::where('attribute_id', $attribute->id)->orderBy('id')->get() as $term)
+                                            <option value="{!!$term->id!!}" 
+                                                    data-attribute="{!!$term->attribute->id!!}"
+                                                    @if (in_array( $term->id, $variation->terms->pluck('id')->toArray()))
+                                                    selected="selected"
+                                                    @endif >
+                                                   {!!$term->name!!}
+                                            </option>
+                                        @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         
                         <div class="form-group">
                             <label class="col-md-3 control-label">SKU</label>
@@ -63,7 +82,7 @@
                                 <hr>
                             </div>
                             <label class="col-md-3 control-label">{!!trans('x.Pictures')!!}</label>
-                            <div class="deletable-pictures" class="col-md-9" id="deletable-pictures-{!!$variation->id!!}">
+                            <div class="col-md-9 deletable-pictures" id="deletable-pictures-{!!$variation->id!!}">
                                 @foreach (unserialize($variation->pictures) as $picture)
                                     <div class="deletable-picture">
                                         <img src="{{\App\X::s3_products_thumb($picture)}}" style="width:100%; height:auto;">

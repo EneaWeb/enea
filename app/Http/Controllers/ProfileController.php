@@ -28,8 +28,8 @@ class ProfileController extends Controller
     
     public function set_current_brand($brand_id)
     {
-        // flush working orders
-        Session::forget('order');
+       // clean all Cart Session data
+        Session::forget('cart');
         
         $user_options = \App\UserOption::where('user_id', Auth::user()->id)->first();
         $user_options->active_brand = $brand_id;

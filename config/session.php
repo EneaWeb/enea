@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => env('SESSION_DRIVER', 'database'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,12 @@ return [
     |
     */
 
-    'lifetime' => 120,
+    // 1 day = 1440
+    // 1 week = 10080
+    // 1 month = 43800
+    // 1 year = 525600
+
+    'lifetime' => 43800, // 1 month
 
     'expire_on_close' => false,
 
@@ -70,7 +75,7 @@ return [
     |
     */
 
-    'connection' => null,
+    'connection' => 'mysql',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +127,7 @@ return [
     |
     */
 
-    'cookie' => 'laravel_session',
+    'cookie' => 'x_session',
 
     /*
     |--------------------------------------------------------------------------

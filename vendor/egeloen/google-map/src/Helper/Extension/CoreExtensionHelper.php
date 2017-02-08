@@ -97,7 +97,7 @@ class CoreExtensionHelper implements ExtensionHelperInterface
             return;
         }
 
-        $callback = null;
+        $callback = array();
 
         if ($map->isAsync()) {
             $callback = 'load_ivory_google_map';

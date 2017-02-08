@@ -11,6 +11,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Auth;
+use Session;
 
 class Item extends Model
 {
@@ -77,9 +78,14 @@ class Item extends Model
 		return $this->belongsTo('\App\Size');
 	}
 	
-	public function price_for_list($list_id)
+	public function priceForOrderList()
 	{
-		return \App\ItemPrice::where('item_id', $this->id)->where('season_list_id', $list_id)->first()['price'];
+		return \App\ItemPrice::where('item_id', $this->id)->where('price_list_id', Session::get('cart.options.price_list_id'))->value('price');
+	}
+
+	public function priceForList($price_list_id)
+	{
+		return \App\ItemPrice::where('item_id', $this->id)->where('price_list_id', $price_list_id)->value('price');
 	}
 
 }

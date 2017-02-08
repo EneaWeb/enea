@@ -103,6 +103,7 @@
 
 <script>
     $('#modal_add_lines').on('show.bs.modal', function (event) {
+        
         var button = $(event.relatedTarget) // Button that triggered the modal
         var product_id = button.data('product_id') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -112,17 +113,17 @@
         modal.empty();
         
         $.ajax({
-          type: 'POST',
-          url: '/add-lines/api-product-id',
-          data: { '_token' : '{!!csrf_token()!!}', product_id: product_id },
-          success:function(data){
+            type: 'POST',
+            url: '/add-lines/api-product-id',
+            data: { '_token' : '{!!csrf_token()!!}', product_id: product_id },
+            success:function(data){
             // successful request; do something with the data
             modal.append(data);
-          },
-          error:function(){
+            },
+            error:function(){
             // failed request; give feedback to user
             alert('ajax error');
-          }
+            }
         });
 
     })
